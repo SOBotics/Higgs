@@ -58,7 +58,7 @@ namespace Higgs.Server
 				{
 					Type = "oauth2",
 					Flow = "implicit",
-					AuthorizationUrl = "/Authentication/Login",
+					AuthorizationUrl = "http://localhost:/Authentication/Login",
 					Scopes = Scopes.AllScopes
 				});
 				c.OperationFilter<SecurityRequirementsOperationFilter>();

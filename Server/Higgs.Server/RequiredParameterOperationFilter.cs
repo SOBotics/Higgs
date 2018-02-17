@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using System;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Reflection;
 using Microsoft.AspNetCore.Mvc.Controllers;
@@ -7,6 +8,7 @@ using Swashbuckle.AspNetCore.SwaggerGen;
 
 namespace Higgs.Server
 {
+	//public class RequiredAttribute : Attribute { }
     public class RequiredParameterOperationFilter : IOperationFilter
 	{
 	    public void Apply(Operation operation, OperationFilterContext context)

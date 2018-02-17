@@ -1,7 +1,6 @@
 ﻿using System;
 using System.ComponentModel.DataAnnotations;
 using System.IdentityModel.Tokens.Jwt;
-using System.IO;
 using System.Linq;
 using System.Net;
 using System.Security.Claims;
@@ -46,17 +45,11 @@ namespace Higgs.Server.Controllers
 			return System.Text.Encoding.UTF8.GetString(plainTextBytes);
 		}
 
-		/// <summary>
-		/// Login via StackExchange
-		/// </summary>
-		/// <param name="redirectURI">The uri to redirect to for implicit OAuth flow</param>
-		/// <param name="scope">List of scopes required, separated by a space. Scopes requested which are not valid are excluded from the token.</param>
 		/// <returns></returns>
 		[HttpGet("Login")]
-		[RemoveStatus200]
-		[SwaggerResponse((int)HttpStatusCode.Redirect, Description = "Redirect to StackExchange OAuth")]
+		[ApiExplorerSettings(IgnoreApi = true)]
 		public RedirectResult Login(
-			[FromQuery(Name = "redirect_uri")] [Required] string redirectURI,
+			[FromQuery(Name = "redirect_uri")] string redirectURI,
 			[FromQuery(Name = "scope")] string scope
 		)
 		{
