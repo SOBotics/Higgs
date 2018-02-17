@@ -44,6 +44,12 @@ namespace Higgs.Server.Controllers
 			return System.Text.Encoding.UTF8.GetString(plainTextBytes);
 		}
 
+		/// <summary>
+		/// Login via StackExchange
+		/// </summary>
+		/// <param name="redirectURI">The url to return for implicit OAuth flow</param>
+		/// <param name="scope">List of scopes required, separated by a space</param>
+		/// <returns></returns>
 		[HttpGet("Login")]
 		public IActionResult Login(
 			[FromQuery(Name = "redirect_uri")] string redirectURI,
@@ -57,7 +63,11 @@ namespace Higgs.Server.Controllers
 			return Redirect($"https://stackexchange.com/oauth?client_id={clientId}&scope=&redirect_uri={OAUTH_REDIRECT}&state={encodedPayload}");
 		}
 		
+		/// <summary>
+		/// Redirect endpoint for OAuth flow
+		/// </summary>
 		[HttpGet("OAuthRedirect")]
+		[ApiExplorerSettings(IgnoreApi = true)]
 		public async Task<IActionResult> OAuthRedirect(string code, string state)
 		{
 			var decodedState = DecodeBase64(state);
