@@ -10,10 +10,9 @@ namespace Higgs.Server.Controllers
     [Route("api/[controller]")]
     public class ValuesController : Controller
     {
-        // GET api/values
         [HttpGet]
-		[Authorize("admin:registerBot")]
-        public IEnumerable<string> Get()
+		[Authorize(Scopes.ADMIN_REGISTER_BOT)]
+		public IEnumerable<string> Get()
         {
             return new string[] { "value1", "value2" };
         }

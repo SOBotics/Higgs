@@ -1,14 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Logging;
-using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
 using Swashbuckle.AspNetCore.Swagger;
 
@@ -28,32 +24,27 @@ namespace Higgs.Server
         {
             services.AddMvc();
 
-	        var scopes = new Dictionary<string, string>
-	        {
-		        {"admin:registerBot", "Register a new bot with Higgs"},
-		        {"admin:editBot", "Edit a bots configuration"},
-		        {"admin:deleteBot", "Delete a bot from Higgs"}
-	        };
-
-	        services.AddAuthentication(o =>
+	        var symmetricKey = Convert.FromBase64String(Configuration["JwtSigningKey"]);
+			services.AddAuthentication(o =>
 		        {
 			        o.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
 			        o.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
 		        })
 		        .AddJwtBearer(o =>
 		        {
-			        o.Audience = Configuration["Settings:Authentication:ApiName"];
-			        o.Authority = Configuration["Settings:Authentication:Authority"];
 			        o.TokenValidationParameters = new TokenValidationParameters
 			        {
-				        ValidateAudience = true,
-				        ValidateIssuer = true
-			        };
+				        ValidateAudience = false,
+				        ValidateIssuer = false,
+						ValidateIssuerSigningKey = true,
+						
+				        IssuerSigningKey = new SymmetricSecurityKey(symmetricKey)
+					};
 		        });
 
 			services.AddAuthorization(options =>
 	        {
-		        foreach (var scope in scopes)
+		        foreach (var scope in Scopes.AllScopes)
 		        {
 			        options.AddPolicy(scope.Key, a => a.RequireClaim(scope.Key));
 				}
@@ -67,7 +58,7 @@ namespace Higgs.Server
 					Type = "oauth2",
 					Flow = "implicit",
 					AuthorizationUrl = "/Authentication/Login",
-					Scopes = scopes
+					Scopes = Scopes.AllScopes
 				});
 				c.OperationFilter<SecurityRequirementsOperationFilter>();
 	        });
@@ -81,7 +72,8 @@ namespace Higgs.Server
                 app.UseDeveloperExceptionPage();
             }
 
-            app.UseMvc();
+	        app.UseAuthentication();
+			app.UseMvc();
 			app.UseSwagger();
 	        app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "Higgs API V1"));
         }
