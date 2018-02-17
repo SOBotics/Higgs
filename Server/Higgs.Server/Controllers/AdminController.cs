@@ -99,7 +99,7 @@ namespace Higgs.Server.Controllers
 	    /// Add a scope to a user
 	    /// </summary>
 	    [HttpPost("AddUserScope")]
-	    [Authorize(Scopes.ADMIN_ADD_BOT_SCOPE)]
+	    [Authorize(Scopes.ADMIN_ADD_USER_SCOPE)]
 	    [SwaggerResponse((int)HttpStatusCode.OK, Description = "Successfully added scope to user")]
 	    [SwaggerResponse((int)HttpStatusCode.BadRequest, typeof(ErrorResponse))]
 	    public IActionResult AddUserScope([FromBody] AddUserScopeRequest request)
@@ -111,7 +111,7 @@ namespace Higgs.Server.Controllers
 	    /// Remove a scope from a user
 	    /// </summary>
 	    [HttpPost("RemoveUserScope")]
-	    [Authorize(Scopes.ADMIN_REMOVE_BOT_SCOPE)]
+	    [Authorize(Scopes.ADMIN_REMOVE_USER_SCOPE)]
 	    [SwaggerResponse((int)HttpStatusCode.OK, Description = "Successfully removed scope from user")]
 	    [SwaggerResponse((int)HttpStatusCode.BadRequest, typeof(ErrorResponse))]
 	    public IActionResult RemoveUserScope([FromBody] RemoveUserScopeRequest request)

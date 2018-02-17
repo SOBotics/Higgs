@@ -1,8 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
+using Higgs.Server.Data;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.IdentityModel.Tokens;
@@ -58,17 +60,20 @@ namespace Higgs.Server
 				{
 					Type = "oauth2",
 					Flow = "implicit",
-					AuthorizationUrl = "http://localhost:/Authentication/Login",
+					AuthorizationUrl = $"{Configuration["HostName"]}/Authentication/Login",
 					Scopes = Scopes.AllScopes
 				});
 				c.OperationFilter<SecurityRequirementsOperationFilter>();
 				c.OperationFilter<RequiredParameterOperationFilter>();
 				c.OperationFilter<RemoveStatus200OperationFilter>();
 	        });
-        }
 
-        // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IHostingEnvironment env)
+			var connectionString = Configuration.GetConnectionString("HiggsDB");
+			services.AddEntityFrameworkNpgsql().AddDbContext<HiggsDbContext>(options => options.UseNpgsql(connectionString));
+		}
+
+		// This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
+		public void Configure(IApplicationBuilder app, IHostingEnvironment env)
         {
             if (env.IsDevelopment())
             {
@@ -79,6 +84,13 @@ namespace Higgs.Server
 			app.UseMvc();
 			app.UseSwagger();
 	        app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "Higgs API V1"));
-        }
+
+	        using (var serviceScope = app.ApplicationServices.GetRequiredService<IServiceScopeFactory>().CreateScope())
+	        {
+		        var context = serviceScope.ServiceProvider.GetService<HiggsDbContext>();
+				context.Database.Migrate();
+		        context.Seed();
+	        }
+		}
     }
 }

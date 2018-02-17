@@ -6,7 +6,10 @@ using System.Net;
 using System.Security.Claims;
 using System.Threading;
 using System.Threading.Tasks;
+using Higgs.Server.Data;
+using Higgs.Server.Data.Models;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.IdentityModel.Tokens;
 using Newtonsoft.Json;
@@ -19,6 +22,7 @@ namespace Higgs.Server.Controllers
 	public class AuthenticationController : Controller
 	{
 		private readonly IConfiguration _configuration;
+		private readonly HiggsDbContext _dbContext;
 
 		private class LoginState
 		{
@@ -28,9 +32,10 @@ namespace Higgs.Server.Controllers
 
 		private const string OAUTH_REDIRECT = "http://higgs.sobotics.org/Authentication/OAuthRedirect";
 
-		public AuthenticationController(IConfiguration configuration)
+		public AuthenticationController(IConfiguration configuration, HiggsDbContext dbContext)
 		{
 			_configuration = configuration;
+			_dbContext = dbContext;
 		}
 
 		private static string EncodeBase64(string str)
@@ -107,16 +112,38 @@ namespace Higgs.Server.Controllers
 			var tokenHandler = new JwtSecurityTokenHandler();
 			
 			var symmetricKey = Convert.FromBase64String(_configuration["JwtSigningKey"]);
-
-			var allowedScopes = new[] {"admin:registerBot"};
-			var requestedScopes = payload.Scope.Split(' ');
 			
+			var existingUser = _dbContext.Users.Include(u => u.UserScopes).FirstOrDefault(u => u.AccountId == accountId);
+			var newUserScopes = new[] { Scopes.REVIEWER_SEND_FEEDBACK };
+			if (existingUser == null)
+			{
+				existingUser = new DbUser
+				{
+					AccountId = accountId,
+					Name = displayName
+				};
+				_dbContext.Users.Add(existingUser);
+				foreach (var allowedScope in newUserScopes)
+				{
+					_dbContext.UserScopes.Add(new DbUserScope
+					{
+						ScopeName = allowedScope,
+						UserId = accountId
+					});
+				}
+				_dbContext.SaveChanges();
+			}
+			else
+			{
+				newUserScopes = existingUser.UserScopes.Select(us => us.ScopeName).ToArray();
+			}
+
+			var requestedScopes = payload.Scope.Split(' ');
 			var claims = new[]
 			{
 				new Claim(ClaimTypes.Name, displayName),
 				new Claim("accountId", accountId.ToString()),
-				new Claim("userType", userType),
-			}.Concat(allowedScopes.Intersect(requestedScopes).Select(c => new Claim(c, string.Empty)));
+			}.Concat(newUserScopes.Intersect(requestedScopes).Select(c => new Claim(c, string.Empty)));
 
 			var tokenDescriptor = new SecurityTokenDescriptor
 			{

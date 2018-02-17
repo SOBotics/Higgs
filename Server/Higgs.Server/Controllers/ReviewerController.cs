@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 
 namespace Higgs.Server.Controllers
 {
@@ -27,7 +28,8 @@ namespace Higgs.Server.Controllers
 		/// Lists all pending review
 		/// </summary>
 		[HttpPost("SendFeedback")]
-	    public IActionResult SendFeedback()
+		[Authorize(Scopes.REVIEWER_SEND_FEEDBACK)]
+		public IActionResult SendFeedback()
 	    {
 		    return Ok(0);
 	    }
