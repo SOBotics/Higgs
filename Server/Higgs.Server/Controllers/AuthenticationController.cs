@@ -1,4 +1,5 @@
 ﻿using System;
+using System.ComponentModel.DataAnnotations;
 using System.IdentityModel.Tokens.Jwt;
 using System.IO;
 using System.Linq;
@@ -32,31 +33,31 @@ namespace Higgs.Server.Controllers
 			_configuration = configuration;
 		}
 
-		private string EncodeBase64(string str)
+		private static string EncodeBase64(string str)
 		{
 			var plainTextBytes = System.Text.Encoding.UTF8.GetBytes(str);
-			return System.Convert.ToBase64String(plainTextBytes);
+			return Convert.ToBase64String(plainTextBytes);
 		}
 
-		private string DecodeBase64(string str)
+		private static string DecodeBase64(string str)
 		{
-			var plainTextBytes = System.Convert.FromBase64String(str);
+			var plainTextBytes = Convert.FromBase64String(str);
 			return System.Text.Encoding.UTF8.GetString(plainTextBytes);
 		}
 
 		/// <summary>
 		/// Login via StackExchange
 		/// </summary>
-		/// <param name="redirectURI">The url to return for implicit OAuth flow</param>
-		/// <param name="scope">List of scopes required, separated by a space</param>
+		/// <param name="redirectURI">The uri to redirect to for implicit OAuth flow</param>
+		/// <param name="scope">List of scopes required, separated by a space. Scopes requested which are not valid are excluded from the token.</param>
 		/// <returns></returns>
 		[HttpGet("Login")]
 		public IActionResult Login(
-			[FromQuery(Name = "redirect_uri")] string redirectURI,
+			[FromQuery(Name = "redirect_uri")] [Required] string redirectURI,
 			[FromQuery(Name = "scope")] string scope
 		)
 		{
-			var payload = JsonConvert.SerializeObject(new LoginState { RedirectURI = redirectURI, Scope = scope });
+			var payload = JsonConvert.SerializeObject(new LoginState { RedirectURI = redirectURI, Scope = scope ?? string.Empty });
 			var encodedPayload = EncodeBase64(payload);
 
 			var clientId = _configuration["SE.ClientId"];
@@ -68,8 +69,18 @@ namespace Higgs.Server.Controllers
 		/// </summary>
 		[HttpGet("OAuthRedirect")]
 		[ApiExplorerSettings(IgnoreApi = true)]
-		public async Task<IActionResult> OAuthRedirect(string code, string state)
+		public async Task<IActionResult> OAuthRedirect(string code, string state, string error, string error_description)
 		{
+			if (!String.IsNullOrEmpty(error))
+			{
+				//TODO: Show an error page
+				return Json(new
+				{
+					error,
+					error_description
+				});
+			}
+
 			var decodedState = DecodeBase64(state);
 			var payload = JsonConvert.DeserializeObject<LoginState>(decodedState);
 

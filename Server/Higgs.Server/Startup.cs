@@ -62,6 +62,7 @@ namespace Higgs.Server
 					Scopes = Scopes.AllScopes
 				});
 				c.OperationFilter<SecurityRequirementsOperationFilter>();
+				c.OperationFilter<RequiredParameterOperationFilter>();
 	        });
         }
 
