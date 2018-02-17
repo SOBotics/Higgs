@@ -63,6 +63,7 @@ namespace Higgs.Server
 				});
 				c.OperationFilter<SecurityRequirementsOperationFilter>();
 				c.OperationFilter<RequiredParameterOperationFilter>();
+				c.OperationFilter<RemoveStatus200OperationFilter>();
 	        });
         }
 

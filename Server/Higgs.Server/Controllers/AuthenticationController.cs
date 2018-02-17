@@ -12,6 +12,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.IdentityModel.Tokens;
 using Newtonsoft.Json;
 using RestSharp;
+using Swashbuckle.AspNetCore.SwaggerGen;
 
 namespace Higgs.Server.Controllers
 {
@@ -52,7 +53,9 @@ namespace Higgs.Server.Controllers
 		/// <param name="scope">List of scopes required, separated by a space. Scopes requested which are not valid are excluded from the token.</param>
 		/// <returns></returns>
 		[HttpGet("Login")]
-		public IActionResult Login(
+		[RemoveStatus200]
+		[SwaggerResponse((int)HttpStatusCode.Redirect, Description = "Redirect to StackExchange OAuth")]
+		public RedirectResult Login(
 			[FromQuery(Name = "redirect_uri")] [Required] string redirectURI,
 			[FromQuery(Name = "scope")] string scope
 		)
