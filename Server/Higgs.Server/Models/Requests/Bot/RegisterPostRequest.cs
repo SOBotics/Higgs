@@ -16,10 +16,13 @@ namespace Higgs.Server.Models.Requests.Bot
 		[Required]
 		public string PostUrl { get; set; }
 		/// <summary>
-		/// Any details about the report - for example, why the post was reported
+		/// The confidence of the report, between 0 and 100
 		/// </summary>
-		public string Details { get; set; }
-
+		public double Confidence { get; set; }
+		/// <summary>
+		/// A list of reasons the report was detected
+		/// </summary>
+		public List<string> Reasons { get; set; }
 		/// <summary>
 		/// Any custom attributes to be associated with the report
 		/// </summary>
@@ -28,7 +31,9 @@ namespace Higgs.Server.Models.Requests.Bot
 
 	public class RegsiterPostAttribute
 	{
+		[Required]
 		public string Key { get; set; }
+		[Required]
 		public string Value { get; set; }
 	}
 }

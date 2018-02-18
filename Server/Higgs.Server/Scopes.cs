@@ -8,7 +8,7 @@ namespace Higgs.Server
 
 		public const string ADMIN_REGISTER_BOT = "admin:registerBot";
 	    public const string ADMIN_EDIT_BOT = "admin:editBot";
-	    public const string ADMIN_DELETE_BOT = "admin:deleteBot";
+	    public const string ADMIN_DEACTIVATE_BOT = "admin:deactivateBot";
 
 	    public const string ADMIN_ADD_BOT_SCOPE = "admin:addBotScope";
 	    public const string ADMIN_REMOVE_BOT_SCOPE = "admin:removeBotScope";
@@ -28,7 +28,7 @@ namespace Higgs.Server
 
 			{ ADMIN_REGISTER_BOT, "Register a new bot with Higgs"},
 		    { ADMIN_EDIT_BOT, "Edit a bots configuration"},
-		    { ADMIN_DELETE_BOT, "Delete a bot from Higgs"},
+		    { ADMIN_DEACTIVATE_BOT, "Deactivate a bot"},
 		    { ADMIN_ADD_BOT_SCOPE, "Add a scope to a bot" },
 		    { ADMIN_REMOVE_BOT_SCOPE, "Remove a scope from a bot" },
 			

@@ -22,11 +22,5 @@ namespace Higgs.Server.Models.Requests.Bot
 		/// </summary>
 		[Required]
 		public string RequestId { get; set; }
-
-		/// <summary>
-		/// Signature of the RequestId using the private/public key pair this bot was registered with
-		/// </summary>
-		[Required]
-		public string Signature { get; set; }
     }
 }

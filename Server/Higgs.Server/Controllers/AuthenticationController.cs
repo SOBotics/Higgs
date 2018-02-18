@@ -1,8 +1,7 @@
 ﻿using System;
-using System.ComponentModel.DataAnnotations;
+using System.Collections.Generic;
 using System.IdentityModel.Tokens.Jwt;
 using System.Linq;
-using System.Net;
 using System.Security.Claims;
 using System.Threading;
 using System.Threading.Tasks;
@@ -14,7 +13,6 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.IdentityModel.Tokens;
 using Newtonsoft.Json;
 using RestSharp;
-using Swashbuckle.AspNetCore.SwaggerGen;
 
 namespace Higgs.Server.Controllers
 {
@@ -72,19 +70,16 @@ namespace Higgs.Server.Controllers
 		[ApiExplorerSettings(IgnoreApi = true)]
 		public async Task<IActionResult> OAuthRedirect(string code, string state, string error, string error_description)
 		{
-			if (!String.IsNullOrEmpty(error))
+			if (!string.IsNullOrEmpty(error))
 			{
-				//TODO: Show an error page
 				return Json(new
 				{
 					error,
 					error_description
 				});
 			}
-
-			var decodedState = DecodeBase64(state);
-			var payload = JsonConvert.DeserializeObject<LoginState>(decodedState);
-
+			
+			// Get the access token
 			var stackExchangeClient = new RestClient("https://stackexchange.com/");
 			var oauthRequest = new RestRequest("oauth/access_token/json", Method.POST);
 			oauthRequest.AddParameter("client_id", _configuration["SE.ClientId"]);
@@ -95,6 +90,7 @@ namespace Higgs.Server.Controllers
 			var oauthResponse = await stackExchangeClient.ExecuteTaskAsync(oauthRequest, CancellationToken.None);
 			var oauthContent = JsonConvert.DeserializeObject<dynamic>(oauthResponse.Content);
 			
+			// Query the SE.API with their access token, to get their user details.
 			var stackExchangeApiClient = new RestClient("https://api.stackexchange.com/");
 			var apiRequest = new RestRequest("2.2/me", Method.GET);
 			apiRequest.AddParameter("key", _configuration["SE.Key"]);
@@ -106,15 +102,35 @@ namespace Higgs.Server.Controllers
 
 			var userDetails = apiContent.items[0];
 			int accountId = userDetails.account_id;
-			string userType = userDetails.user_type;
 			string displayName = userDetails.display_name;
+			
+			var signingKey = Convert.FromBase64String(_configuration["JwtSigningKey"]);
 
-			var tokenHandler = new JwtSecurityTokenHandler();
+			var defaultNewUserScopes = new[] { Scopes.REVIEWER_SEND_FEEDBACK };
 			
-			var symmetricKey = Convert.FromBase64String(_configuration["JwtSigningKey"]);
-			
+			// Temporary measure for testing
+			defaultNewUserScopes = Scopes.AllScopes.Select(a => a.Key).ToArray();
+
+			var userScopes = GetOrCreateUser(accountId, displayName, defaultNewUserScopes);
+
+			var decodedState = DecodeBase64(state);
+			var loginState = JsonConvert.DeserializeObject<LoginState>(decodedState);
+			var requestedScopes = loginState.Scope.Split(' ');
+			var claims = new[]
+			{
+				new Claim(ClaimTypes.Name, displayName),
+				new Claim("accountId", accountId.ToString()),
+			}.Concat(userScopes.Intersect(requestedScopes).Select(c => new Claim(c, string.Empty)));
+
+			var token = CreateJwtToken(claims, signingKey);
+
+			return Redirect($"{loginState.RedirectURI}?access_token={token}");
+		}
+
+		private IEnumerable<string> GetOrCreateUser(int accountId, string displayName, string[] defaultNewUserScopes)
+		{
 			var existingUser = _dbContext.Users.Include(u => u.UserScopes).FirstOrDefault(u => u.AccountId == accountId);
-			var newUserScopes = new[] { Scopes.REVIEWER_SEND_FEEDBACK };
+			var userScopes = defaultNewUserScopes.ToArray();
 			if (existingUser == null)
 			{
 				existingUser = new DbUser
@@ -123,7 +139,7 @@ namespace Higgs.Server.Controllers
 					Name = displayName
 				};
 				_dbContext.Users.Add(existingUser);
-				foreach (var allowedScope in newUserScopes)
+				foreach (var allowedScope in defaultNewUserScopes)
 				{
 					_dbContext.UserScopes.Add(new DbUserScope
 					{
@@ -131,32 +147,32 @@ namespace Higgs.Server.Controllers
 						UserId = accountId
 					});
 				}
+
 				_dbContext.SaveChanges();
 			}
 			else
 			{
-				newUserScopes = existingUser.UserScopes.Select(us => us.ScopeName).ToArray();
+				userScopes = existingUser.UserScopes.Select(us => us.ScopeName).ToArray();
 			}
 
-			var requestedScopes = payload.Scope.Split(' ');
-			var claims = new[]
-			{
-				new Claim(ClaimTypes.Name, displayName),
-				new Claim("accountId", accountId.ToString()),
-			}.Concat(newUserScopes.Intersect(requestedScopes).Select(c => new Claim(c, string.Empty)));
+			return userScopes;
+		}
 
+		private static string CreateJwtToken(IEnumerable<Claim> claims, byte[] symmetricKey)
+		{
+			var tokenHandler = new JwtSecurityTokenHandler();
 			var tokenDescriptor = new SecurityTokenDescriptor
 			{
 				Subject = new ClaimsIdentity(claims),
 
 				Expires = DateTime.UtcNow.AddMinutes(Convert.ToInt32(60)),
-				SigningCredentials = new SigningCredentials(new SymmetricSecurityKey(symmetricKey), SecurityAlgorithms.HmacSha256Signature)
+				SigningCredentials =
+					new SigningCredentials(new SymmetricSecurityKey(symmetricKey), SecurityAlgorithms.HmacSha256Signature)
 			};
 
 			var stoken = tokenHandler.CreateToken(tokenDescriptor);
 			var token = tokenHandler.WriteToken(stoken);
-
-			return Redirect($"{payload.RedirectURI}?access_token={token}");
+			return token;
 		}
-    }
+	}
 }

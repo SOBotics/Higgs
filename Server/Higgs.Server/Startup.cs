@@ -89,7 +89,7 @@ namespace Higgs.Server
 	        {
 		        var context = serviceScope.ServiceProvider.GetService<HiggsDbContext>();
 				context.Database.Migrate();
-		        context.Seed();
+		        context.Setup();
 	        }
 		}
     }
