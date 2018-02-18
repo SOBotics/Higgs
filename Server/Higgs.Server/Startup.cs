@@ -4,6 +4,8 @@ using Higgs.Server.Data;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Cors.Internal;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -24,7 +26,16 @@ namespace Higgs.Server
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddMvc();
+	        services.AddCors(options =>
+	        {
+		        options.AddPolicy("AllowAnyOrigin",
+			        builder => builder.AllowAnyOrigin()
+				        .AllowAnyMethod()
+				        .AllowAnyHeader()
+				        .AllowCredentials());
+	        });
+
+			services.AddMvc();
 
 	        var symmetricKey = Convert.FromBase64String(Configuration["JwtSigningKey"]);
 			services.AddAuthentication(o =>
@@ -81,10 +92,11 @@ namespace Higgs.Server
             }
 
 	        app.UseAuthentication();
+	        app.UseCors("AllowAnyOrigin");
 			app.UseMvc();
 			app.UseSwagger();
 	        app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "Higgs API V1"));
-
+	        
 	        using (var serviceScope = app.ApplicationServices.GetRequiredService<IServiceScopeFactory>().CreateScope())
 	        {
 		        var context = serviceScope.ServiceProvider.GetService<HiggsDbContext>();

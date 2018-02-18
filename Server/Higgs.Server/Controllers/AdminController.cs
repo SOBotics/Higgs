@@ -84,7 +84,7 @@ namespace Higgs.Server.Controllers
 	    /// Deactivates a bot
 	    /// </summary>
 	    [HttpPost("DeactiveateBot")]
-	    [Authorize(Scopes.ADMIN_DELETE_BOT)]
+	    [Authorize(Scopes.ADMIN_DEACTIVATE_BOT)]
 	    [SwaggerResponse((int)HttpStatusCode.OK, Description = "Successfully deactivated bot")]
 	    [SwaggerResponse((int)HttpStatusCode.BadRequest, typeof(ErrorResponse))]
 		public IActionResult DeactiveateBot([FromBody] DeleteCreateBotRequest request)
