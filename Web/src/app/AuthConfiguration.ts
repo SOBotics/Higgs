@@ -5,7 +5,6 @@ import { Injectable } from '@angular/core';
 export class AuthConfiguration extends Configuration {
     constructor() {
         super();
-        console.log('Created');
         this.accessToken = () => localStorage.getItem('access_token');
     }
 }

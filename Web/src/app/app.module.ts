@@ -10,6 +10,7 @@ import { OAuthComponent } from './oauth/oauth.component';
 import { RouterModule } from '@angular/router';
 import { appRouts } from './app.routes';
 import { HomeComponent } from './home/home.component';
+import { AuthService } from './services/auth.service';
 
 
 @NgModule({
@@ -26,7 +27,8 @@ import { HomeComponent } from './home/home.component';
   providers: [
     AdminApi,
     { provide: BASE_PATH, useValue: environment.apiHost },
-    { provide: Configuration, useClass: AuthConfiguration }
+    { provide: Configuration, useClass: AuthConfiguration },
+    AuthService
   ],
   bootstrap: [AppComponent]
 })
