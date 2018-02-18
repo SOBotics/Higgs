@@ -6,11 +6,12 @@ namespace Higgs.Server.Data.Models
 {
     public class DbUser
     {
-		[Key]
-		[DatabaseGenerated(DatabaseGeneratedOption.None)]
-		public int AccountId { get; set; }
-		public string Name { get; set; }
+        [Key]
+        [DatabaseGenerated(DatabaseGeneratedOption.None)]
+        public int AccountId { get; set; }
 
-		public List<DbUserScope> UserScopes { get; set; }
+        public string Name { get; set; }
+
+        public List<DbUserScope> UserScopes { get; set; }
     }
 }

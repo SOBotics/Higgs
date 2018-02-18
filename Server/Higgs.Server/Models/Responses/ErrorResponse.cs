@@ -2,11 +2,11 @@
 {
     public class ErrorResponse
     {
-	    public string Message { get; }
+        public ErrorResponse(string message)
+        {
+            Message = message;
+        }
 
-		public ErrorResponse(string message)
-	    {
-		    Message = message;
-	    }	
+        public string Message { get; }
     }
 }

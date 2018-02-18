@@ -1,7 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Migrations;
-using System;
-using System.Collections.Generic;
 
 namespace Higgs.Server.Migrations
 {
@@ -10,32 +8,26 @@ namespace Higgs.Server.Migrations
         protected override void Up(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.CreateTable(
-                name: "Scopes",
-                columns: table => new
+                "Scopes",
+                table => new
                 {
                     Name = table.Column<string>(nullable: false),
                     Description = table.Column<string>(nullable: true)
                 },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Scopes", x => x.Name);
-                });
+                constraints: table => { table.PrimaryKey("PK_Scopes", x => x.Name); });
 
             migrationBuilder.CreateTable(
-                name: "Users",
-                columns: table => new
+                "Users",
+                table => new
                 {
                     AccountId = table.Column<int>(nullable: false),
                     Name = table.Column<string>(nullable: true)
                 },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Users", x => x.AccountId);
-                });
+                constraints: table => { table.PrimaryKey("PK_Users", x => x.AccountId); });
 
             migrationBuilder.CreateTable(
-                name: "UserScopes",
-                columns: table => new
+                "UserScopes",
+                table => new
                 {
                     Id = table.Column<int>(nullable: false)
                         .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.SerialColumn),
@@ -46,40 +38,40 @@ namespace Higgs.Server.Migrations
                 {
                     table.PrimaryKey("PK_UserScopes", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_UserScopes_Scopes_ScopeName",
-                        column: x => x.ScopeName,
-                        principalTable: "Scopes",
-                        principalColumn: "Name",
+                        "FK_UserScopes_Scopes_ScopeName",
+                        x => x.ScopeName,
+                        "Scopes",
+                        "Name",
                         onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
-                        name: "FK_UserScopes_Users_UserId",
-                        column: x => x.UserId,
-                        principalTable: "Users",
-                        principalColumn: "AccountId",
+                        "FK_UserScopes_Users_UserId",
+                        x => x.UserId,
+                        "Users",
+                        "AccountId",
                         onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateIndex(
-                name: "IX_UserScopes_ScopeName",
-                table: "UserScopes",
-                column: "ScopeName");
+                "IX_UserScopes_ScopeName",
+                "UserScopes",
+                "ScopeName");
 
             migrationBuilder.CreateIndex(
-                name: "IX_UserScopes_UserId",
-                table: "UserScopes",
-                column: "UserId");
+                "IX_UserScopes_UserId",
+                "UserScopes",
+                "UserId");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
-                name: "UserScopes");
+                "UserScopes");
 
             migrationBuilder.DropTable(
-                name: "Scopes");
+                "Scopes");
 
             migrationBuilder.DropTable(
-                name: "Users");
+                "Users");
         }
     }
 }

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.IdentityModel.Tokens.Jwt;
 using System.Linq;
 using System.Security.Claims;
+using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 using Higgs.Server.Data;
@@ -16,170 +17,170 @@ using RestSharp;
 
 namespace Higgs.Server.Controllers
 {
-	[Route("[controller]")]
-	public class AuthenticationController : Controller
-	{
-		private readonly IConfiguration _configuration;
-		private readonly HiggsDbContext _dbContext;
+    [Route("[controller]")]
+    public class AuthenticationController : Controller
+    {
+        private const string OAUTH_REDIRECT = "http://higgs.sobotics.org/Authentication/OAuthRedirect";
+        private readonly IConfiguration _configuration;
+        private readonly HiggsDbContext _dbContext;
 
-		private class LoginState
-		{
-			public string RedirectURI { get; set; }
-			public string Scope { get; set; }
-		}
+        public AuthenticationController(IConfiguration configuration, HiggsDbContext dbContext)
+        {
+            _configuration = configuration;
+            _dbContext = dbContext;
+        }
 
-		private const string OAUTH_REDIRECT = "http://higgs.sobotics.org/Authentication/OAuthRedirect";
+        private static string EncodeBase64(string str)
+        {
+            var plainTextBytes = Encoding.UTF8.GetBytes(str);
+            return Convert.ToBase64String(plainTextBytes);
+        }
 
-		public AuthenticationController(IConfiguration configuration, HiggsDbContext dbContext)
-		{
-			_configuration = configuration;
-			_dbContext = dbContext;
-		}
+        private static string DecodeBase64(string str)
+        {
+            var plainTextBytes = Convert.FromBase64String(str);
+            return Encoding.UTF8.GetString(plainTextBytes);
+        }
 
-		private static string EncodeBase64(string str)
-		{
-			var plainTextBytes = System.Text.Encoding.UTF8.GetBytes(str);
-			return Convert.ToBase64String(plainTextBytes);
-		}
+        /// <returns></returns>
+        [HttpGet("Login")]
+        [ApiExplorerSettings(IgnoreApi = true)]
+        public RedirectResult Login(
+            [FromQuery(Name = "redirect_uri")] string redirectURI,
+            [FromQuery(Name = "scope")] string scope
+        )
+        {
+            var payload =
+                JsonConvert.SerializeObject(new LoginState {RedirectURI = redirectURI, Scope = scope ?? string.Empty});
+            var encodedPayload = EncodeBase64(payload);
 
-		private static string DecodeBase64(string str)
-		{
-			var plainTextBytes = Convert.FromBase64String(str);
-			return System.Text.Encoding.UTF8.GetString(plainTextBytes);
-		}
+            var clientId = _configuration["SE.ClientId"];
+            return Redirect(
+                $"https://stackexchange.com/oauth?client_id={clientId}&scope=&redirect_uri={OAUTH_REDIRECT}&state={encodedPayload}");
+        }
 
-		/// <returns></returns>
-		[HttpGet("Login")]
-		[ApiExplorerSettings(IgnoreApi = true)]
-		public RedirectResult Login(
-			[FromQuery(Name = "redirect_uri")] string redirectURI,
-			[FromQuery(Name = "scope")] string scope
-		)
-		{
-			var payload = JsonConvert.SerializeObject(new LoginState { RedirectURI = redirectURI, Scope = scope ?? string.Empty });
-			var encodedPayload = EncodeBase64(payload);
+        /// <summary>
+        ///     Redirect endpoint for OAuth flow
+        /// </summary>
+        [HttpGet("OAuthRedirect")]
+        [ApiExplorerSettings(IgnoreApi = true)]
+        public async Task<IActionResult> OAuthRedirect(string code, string state, string error,
+            string error_description, string access_token)
+        {
+            if (!string.IsNullOrEmpty(error))
+                return Json(new
+                {
+                    error,
+                    error_description
+                });
 
-			var clientId = _configuration["SE.ClientId"];
-			return Redirect($"https://stackexchange.com/oauth?client_id={clientId}&scope=&redirect_uri={OAUTH_REDIRECT}&state={encodedPayload}");
-		}
-		
-		/// <summary>
-		/// Redirect endpoint for OAuth flow
-		/// </summary>
-		[HttpGet("OAuthRedirect")]
-		[ApiExplorerSettings(IgnoreApi = true)]
-		public async Task<IActionResult> OAuthRedirect(string code, string state, string error, string error_description, string access_token)
-		{
-			if (!string.IsNullOrEmpty(error))
-			{
-				return Json(new
-				{
-					error,
-					error_description
-				});
-			}
+            if (string.IsNullOrWhiteSpace(access_token))
+            {
+                // Get the access token
+                var stackExchangeClient = new RestClient("https://stackexchange.com/");
+                var oauthRequest = new RestRequest("oauth/access_token/json", Method.POST);
+                oauthRequest.AddParameter("client_id", _configuration["SE.ClientId"]);
+                oauthRequest.AddParameter("client_secret", _configuration["SE.ClientSecret"]);
+                oauthRequest.AddParameter("code", code);
+                oauthRequest.AddParameter("redirect_uri", OAUTH_REDIRECT);
 
-			if (string.IsNullOrWhiteSpace(access_token))
-			{
-				// Get the access token
-				var stackExchangeClient = new RestClient("https://stackexchange.com/");
-				var oauthRequest = new RestRequest("oauth/access_token/json", Method.POST);
-				oauthRequest.AddParameter("client_id", _configuration["SE.ClientId"]);
-				oauthRequest.AddParameter("client_secret", _configuration["SE.ClientSecret"]);
-				oauthRequest.AddParameter("code", code);
-				oauthRequest.AddParameter("redirect_uri", OAUTH_REDIRECT);
+                var oauthResponse = await stackExchangeClient.ExecuteTaskAsync(oauthRequest, CancellationToken.None);
+                var oauthContent = JsonConvert.DeserializeObject<dynamic>(oauthResponse.Content);
+                access_token = oauthContent.access_token;
+            }
 
-				var oauthResponse = await stackExchangeClient.ExecuteTaskAsync(oauthRequest, CancellationToken.None);
-				var oauthContent = JsonConvert.DeserializeObject<dynamic>(oauthResponse.Content);
-				access_token = oauthContent.access_token;
-			}
+            // Query the SE.API with their access token, to get their user details.
+            var stackExchangeApiClient = new RestClient("https://api.stackexchange.com/");
+            var apiRequest = new RestRequest("2.2/me", Method.GET);
+            apiRequest.AddParameter("key", _configuration["SE.Key"]);
+            apiRequest.AddParameter("site", "stackoverflow");
+            apiRequest.AddParameter("access_token", access_token);
+            apiRequest.AddParameter("filter", "!JmXzzBW1uefdN).yXhRDGnC");
+            var apiResponse = await stackExchangeApiClient.ExecuteTaskAsync(apiRequest);
+            var apiContent = JsonConvert.DeserializeObject<dynamic>(apiResponse.Content);
 
-			// Query the SE.API with their access token, to get their user details.
-			var stackExchangeApiClient = new RestClient("https://api.stackexchange.com/");
-			var apiRequest = new RestRequest("2.2/me", Method.GET);
-			apiRequest.AddParameter("key", _configuration["SE.Key"]);
-			apiRequest.AddParameter("site", "stackoverflow");
-			apiRequest.AddParameter("access_token", access_token);
-			apiRequest.AddParameter("filter", "!JmXzzBW1uefdN).yXhRDGnC");
-			var apiResponse = await stackExchangeApiClient.ExecuteTaskAsync(apiRequest);
-			var apiContent = JsonConvert.DeserializeObject<dynamic>(apiResponse.Content);
+            var userDetails = apiContent.items[0];
+            int accountId = userDetails.account_id;
+            string displayName = userDetails.display_name;
 
-			var userDetails = apiContent.items[0];
-			int accountId = userDetails.account_id;
-			string displayName = userDetails.display_name;
-			
-			var signingKey = Convert.FromBase64String(_configuration["JwtSigningKey"]);
+            var signingKey = Convert.FromBase64String(_configuration["JwtSigningKey"]);
 
-			var defaultNewUserScopes = new[] { Scopes.REVIEWER_SEND_FEEDBACK };
-			
-			// Temporary measure for testing
-			defaultNewUserScopes = Scopes.AllScopes.Select(a => a.Key).ToArray();
+            var defaultNewUserScopes = new[] {Scopes.REVIEWER_SEND_FEEDBACK};
 
-			var userScopes = GetOrCreateUser(accountId, displayName, defaultNewUserScopes).ToList();
+            // Temporary measure for testing
+            defaultNewUserScopes = Scopes.AllScopes.Select(a => a.Key).ToArray();
 
-			var decodedState = DecodeBase64(state);
-			var loginState = JsonConvert.DeserializeObject<LoginState>(decodedState);
-			var requestedScopes = loginState.Scope.Split(' ').ToList();
-			if (requestedScopes.Count == 1 && requestedScopes[0] == "all")
-				requestedScopes = userScopes;
+            var userScopes = GetOrCreateUser(accountId, displayName, defaultNewUserScopes).ToList();
 
-			var claims = new[]
-			{
-				new Claim(ClaimTypes.Name, displayName),
-				new Claim("accountId", accountId.ToString()),
-			}.Concat(userScopes.Intersect(requestedScopes).Select(c => new Claim(c, string.Empty)));
+            var decodedState = DecodeBase64(state);
+            var loginState = JsonConvert.DeserializeObject<LoginState>(decodedState);
+            var requestedScopes = loginState.Scope.Split(' ').ToList();
+            if (requestedScopes.Count == 1 && requestedScopes[0] == "all")
+                requestedScopes = userScopes;
 
-			var token = CreateJwtToken(claims, signingKey);
+            var claims = new[]
+            {
+                new Claim(ClaimTypes.Name, displayName),
+                new Claim("accountId", accountId.ToString())
+            }.Concat(userScopes.Intersect(requestedScopes).Select(c => new Claim(c, string.Empty)));
 
-			return Redirect($"{loginState.RedirectURI}?access_token={token}");
-		}
+            var token = CreateJwtToken(claims, signingKey);
 
-		private IEnumerable<string> GetOrCreateUser(int accountId, string displayName, string[] defaultNewUserScopes)
-		{
-			var existingUser = _dbContext.Users.Include(u => u.UserScopes).FirstOrDefault(u => u.AccountId == accountId);
-			var userScopes = defaultNewUserScopes.ToArray();
-			if (existingUser == null)
-			{
-				existingUser = new DbUser
-				{
-					AccountId = accountId,
-					Name = displayName
-				};
-				_dbContext.Users.Add(existingUser);
-				foreach (var allowedScope in defaultNewUserScopes)
-				{
-					_dbContext.UserScopes.Add(new DbUserScope
-					{
-						ScopeName = allowedScope,
-						UserId = accountId
-					});
-				}
+            return Redirect($"{loginState.RedirectURI}?access_token={token}");
+        }
 
-				_dbContext.SaveChanges();
-			}
-			else
-			{
-				userScopes = existingUser.UserScopes.Select(us => us.ScopeName).ToArray();
-			}
+        private IEnumerable<string> GetOrCreateUser(int accountId, string displayName, string[] defaultNewUserScopes)
+        {
+            var existingUser = _dbContext.Users.Include(u => u.UserScopes)
+                .FirstOrDefault(u => u.AccountId == accountId);
+            var userScopes = defaultNewUserScopes.ToArray();
+            if (existingUser == null)
+            {
+                existingUser = new DbUser
+                {
+                    AccountId = accountId,
+                    Name = displayName
+                };
+                _dbContext.Users.Add(existingUser);
+                foreach (var allowedScope in defaultNewUserScopes)
+                    _dbContext.UserScopes.Add(new DbUserScope
+                    {
+                        ScopeName = allowedScope,
+                        UserId = accountId
+                    });
 
-			return userScopes;
-		}
+                _dbContext.SaveChanges();
+            }
+            else
+            {
+                userScopes = existingUser.UserScopes.Select(us => us.ScopeName).ToArray();
+            }
 
-		private static string CreateJwtToken(IEnumerable<Claim> claims, byte[] symmetricKey)
-		{
-			var tokenHandler = new JwtSecurityTokenHandler();
-			var tokenDescriptor = new SecurityTokenDescriptor
-			{
-				Subject = new ClaimsIdentity(claims),
+            return userScopes;
+        }
 
-				Expires = DateTime.UtcNow.AddMinutes(Convert.ToInt32(60)),
-				SigningCredentials =
-					new SigningCredentials(new SymmetricSecurityKey(symmetricKey), SecurityAlgorithms.HmacSha256Signature)
-			};
+        private static string CreateJwtToken(IEnumerable<Claim> claims, byte[] symmetricKey)
+        {
+            var tokenHandler = new JwtSecurityTokenHandler();
+            var tokenDescriptor = new SecurityTokenDescriptor
+            {
+                Subject = new ClaimsIdentity(claims),
 
-			var stoken = tokenHandler.CreateToken(tokenDescriptor);
-			var token = tokenHandler.WriteToken(stoken);
-			return token;
-		}
-	}
+                Expires = DateTime.UtcNow.AddMinutes(Convert.ToInt32(60)),
+                SigningCredentials =
+                    new SigningCredentials(new SymmetricSecurityKey(symmetricKey),
+                        SecurityAlgorithms.HmacSha256Signature)
+            };
+
+            var stoken = tokenHandler.CreateToken(tokenDescriptor);
+            var token = tokenHandler.WriteToken(stoken);
+            return token;
+        }
+
+        private class LoginState
+        {
+            public string RedirectURI { get; set; }
+            public string Scope { get; set; }
+        }
+    }
 }
