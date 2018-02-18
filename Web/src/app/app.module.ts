@@ -6,15 +6,22 @@ import { AppComponent } from './app.component';
 import { AdminApi, BASE_PATH, Configuration } from '../swagger-gen';
 import { environment } from '../environments/environment';
 import { AuthConfiguration } from './AuthConfiguration';
+import { OAuthComponent } from './oauth/oauth.component';
+import { RouterModule } from '@angular/router';
+import { appRouts } from './app.routes';
+import { HomeComponent } from './home/home.component';
 
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
+    OAuthComponent,
+    HomeComponent
   ],
   imports: [
     BrowserModule,
-    HttpModule
+    HttpModule,
+    RouterModule.forRoot(appRouts)
   ],
   providers: [
     AdminApi,

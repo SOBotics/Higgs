@@ -68,7 +68,7 @@ namespace Higgs.Server.Controllers
 		/// </summary>
 		[HttpGet("OAuthRedirect")]
 		[ApiExplorerSettings(IgnoreApi = true)]
-		public async Task<IActionResult> OAuthRedirect(string code, string state, string error, string error_description)
+		public async Task<IActionResult> OAuthRedirect(string code, string state, string error, string error_description, string access_token)
 		{
 			if (!string.IsNullOrEmpty(error))
 			{
@@ -78,24 +78,28 @@ namespace Higgs.Server.Controllers
 					error_description
 				});
 			}
-			
-			// Get the access token
-			var stackExchangeClient = new RestClient("https://stackexchange.com/");
-			var oauthRequest = new RestRequest("oauth/access_token/json", Method.POST);
-			oauthRequest.AddParameter("client_id", _configuration["SE.ClientId"]);
-			oauthRequest.AddParameter("client_secret", _configuration["SE.ClientSecret"]);
-			oauthRequest.AddParameter("code", code);
-			oauthRequest.AddParameter("redirect_uri", OAUTH_REDIRECT);
 
-			var oauthResponse = await stackExchangeClient.ExecuteTaskAsync(oauthRequest, CancellationToken.None);
-			var oauthContent = JsonConvert.DeserializeObject<dynamic>(oauthResponse.Content);
-			
+			if (string.IsNullOrWhiteSpace(access_token))
+			{
+				// Get the access token
+				var stackExchangeClient = new RestClient("https://stackexchange.com/");
+				var oauthRequest = new RestRequest("oauth/access_token/json", Method.POST);
+				oauthRequest.AddParameter("client_id", _configuration["SE.ClientId"]);
+				oauthRequest.AddParameter("client_secret", _configuration["SE.ClientSecret"]);
+				oauthRequest.AddParameter("code", code);
+				oauthRequest.AddParameter("redirect_uri", OAUTH_REDIRECT);
+
+				var oauthResponse = await stackExchangeClient.ExecuteTaskAsync(oauthRequest, CancellationToken.None);
+				var oauthContent = JsonConvert.DeserializeObject<dynamic>(oauthResponse.Content);
+				access_token = oauthContent.access_token;
+			}
+
 			// Query the SE.API with their access token, to get their user details.
 			var stackExchangeApiClient = new RestClient("https://api.stackexchange.com/");
 			var apiRequest = new RestRequest("2.2/me", Method.GET);
 			apiRequest.AddParameter("key", _configuration["SE.Key"]);
 			apiRequest.AddParameter("site", "stackoverflow");
-			apiRequest.AddParameter("access_token", oauthContent.access_token);
+			apiRequest.AddParameter("access_token", access_token);
 			apiRequest.AddParameter("filter", "!JmXzzBW1uefdN).yXhRDGnC");
 			var apiResponse = await stackExchangeApiClient.ExecuteTaskAsync(apiRequest);
 			var apiContent = JsonConvert.DeserializeObject<dynamic>(apiResponse.Content);
@@ -111,11 +115,14 @@ namespace Higgs.Server.Controllers
 			// Temporary measure for testing
 			defaultNewUserScopes = Scopes.AllScopes.Select(a => a.Key).ToArray();
 
-			var userScopes = GetOrCreateUser(accountId, displayName, defaultNewUserScopes);
+			var userScopes = GetOrCreateUser(accountId, displayName, defaultNewUserScopes).ToList();
 
 			var decodedState = DecodeBase64(state);
 			var loginState = JsonConvert.DeserializeObject<LoginState>(decodedState);
-			var requestedScopes = loginState.Scope.Split(' ');
+			var requestedScopes = loginState.Scope.Split(' ').ToList();
+			if (requestedScopes.Count == 1 && requestedScopes[0] == "all")
+				requestedScopes = userScopes;
+
 			var claims = new[]
 			{
 				new Claim(ClaimTypes.Name, displayName),
