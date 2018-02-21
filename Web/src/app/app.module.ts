@@ -12,6 +12,7 @@ import { appRouts } from './app.routes';
 import { HomeComponent } from './home/home.component';
 import { AuthService } from './services/auth.service';
 import { ReportComponent } from './report/report.component';
+import { TimeAgoPipe } from './pipes/MessageTimePipe';
 
 
 @NgModule({
@@ -19,7 +20,8 @@ import { ReportComponent } from './report/report.component';
     AppComponent,
     OAuthComponent,
     HomeComponent,
-    ReportComponent
+    ReportComponent,
+    TimeAgoPipe
   ],
   imports: [
     BrowserModule,

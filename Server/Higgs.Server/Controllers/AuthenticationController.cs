@@ -20,7 +20,7 @@ namespace Higgs.Server.Controllers
     [Route("[controller]")]
     public class AuthenticationController : Controller
     {
-        private const string OAUTH_REDIRECT = "http://higgs.sobotics.org/Authentication/OAuthRedirect";
+        private readonly string _oauthRedirect;
         private readonly IConfiguration _configuration;
         private readonly HiggsDbContext _dbContext;
 
@@ -28,6 +28,7 @@ namespace Higgs.Server.Controllers
         {
             _configuration = configuration;
             _dbContext = dbContext;
+            _oauthRedirect = $"{_configuration["HostName"]}/Authentication/OAuthRedirect";
         }
 
         private static string EncodeBase64(string str)
@@ -41,8 +42,7 @@ namespace Higgs.Server.Controllers
             var plainTextBytes = Convert.FromBase64String(str);
             return Encoding.UTF8.GetString(plainTextBytes);
         }
-
-        /// <returns></returns>
+        
         [HttpGet("Login")]
         [ApiExplorerSettings(IgnoreApi = true)]
         public RedirectResult Login(
@@ -55,8 +55,7 @@ namespace Higgs.Server.Controllers
             var encodedPayload = EncodeBase64(payload);
 
             var clientId = _configuration["SE.ClientId"];
-            return Redirect(
-                $"https://stackexchange.com/oauth?client_id={clientId}&scope=&redirect_uri={OAUTH_REDIRECT}&state={encodedPayload}");
+            return Redirect($"https://stackexchange.com/oauth?client_id={clientId}&scope=&redirect_uri={_oauthRedirect}&state={encodedPayload}");
         }
 
         /// <summary>
@@ -82,7 +81,7 @@ namespace Higgs.Server.Controllers
                 oauthRequest.AddParameter("client_id", _configuration["SE.ClientId"]);
                 oauthRequest.AddParameter("client_secret", _configuration["SE.ClientSecret"]);
                 oauthRequest.AddParameter("code", code);
-                oauthRequest.AddParameter("redirect_uri", OAUTH_REDIRECT);
+                oauthRequest.AddParameter("redirect_uri", _oauthRedirect);
 
                 var oauthResponse = await stackExchangeClient.ExecuteTaskAsync(oauthRequest, CancellationToken.None);
                 var oauthContent = JsonConvert.DeserializeObject<dynamic>(oauthResponse.Content);

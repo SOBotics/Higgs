@@ -11,9 +11,10 @@ using System;
 namespace Higgs.Server.Migrations
 {
     [DbContext(typeof(HiggsDbContext))]
-    partial class HiggsDbContextModelSnapshot : ModelSnapshot
+    [Migration("20180221080006_FeedbackAndReasons")]
+    partial class FeedbackAndReasons
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -49,13 +50,7 @@ namespace Higgs.Server.Migrations
 
                     b.Property<string>("Colour");
 
-                    b.Property<string>("Icon");
-
-                    b.Property<bool?>("IsActionable");
-
                     b.Property<string>("Name");
-
-                    b.Property<int?>("RequiredActions");
 
                     b.HasKey("Id");
 
@@ -230,7 +225,7 @@ namespace Higgs.Server.Migrations
             modelBuilder.Entity("Higgs.Server.Data.Models.DbReportReason", b =>
                 {
                     b.HasOne("Higgs.Server.Data.Models.DbReason", "Reason")
-                        .WithMany("ReportReasons")
+                        .WithMany()
                         .HasForeignKey("ReasonId")
                         .OnDelete(DeleteBehavior.Cascade);
 

@@ -39,10 +39,14 @@ namespace Higgs.Server.Data
 
                 if (existingUser.UserScopes == null)
                     existingUser.UserScopes = new List<DbUserScope>();
+
                 foreach (var scope in Scopes.AllScopes)
-                    if (existingUser.UserScopes.All(s =>
-                        string.Equals(s.ScopeName, scope.Key, StringComparison.OrdinalIgnoreCase)))
-                        context.UserScopes.Add(new DbUserScope {UserId = seedUser.AccountId, ScopeName = scope.Key});
+                {
+                    if (existingUser.UserScopes.All(s => !string.Equals(s.ScopeName, scope.Key, StringComparison.OrdinalIgnoreCase)))
+                    {
+                        context.UserScopes.Add(new DbUserScope { UserId = seedUser.AccountId, ScopeName = scope.Key });
+                    }
+                }
             }
 
             context.SaveChanges();

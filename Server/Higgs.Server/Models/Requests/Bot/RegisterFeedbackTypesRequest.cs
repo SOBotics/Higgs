@@ -6,12 +6,6 @@ namespace Higgs.Server.Models.Requests.Bot
     public class RegisterFeedbackTypesRequest
     {
         /// <summary>
-        ///     Id of the bot to attached the feedback types to
-        /// </summary>
-        [Required]
-        public int BotId { get; set; }
-
-        /// <summary>
         ///     A list of feedback types
         /// </summary>
         [Required]
@@ -24,12 +18,17 @@ namespace Higgs.Server.Models.Requests.Bot
         ///     The name of the feedback type. Will be displayed on the dashboard. Must be unique per bot.
         /// </summary>
         [Required]
-        public string FeedbackName { get; set; }
+        public string Name { get; set; }
+
+        /// <summary>
+        ///     The colour of the button reviewers will see when providing feedback
+        /// </summary>
+        public string Colour { get; set; }
 
         /// <summary>
         ///     A link to a feedback icon.
         /// </summary>
-        public string FeedbackIcon { get; set; }
+        public string Icon { get; set; }
 
         /// <summary>
         ///     Whether or not this feedback is actionable
