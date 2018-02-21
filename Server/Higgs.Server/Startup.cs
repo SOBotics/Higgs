@@ -59,7 +59,7 @@ namespace Higgs.Server
 
             services.AddSwaggerGen(c =>
             {
-                c.IncludeXmlComments(string.Format(@"{0}\Higgs.Server.xml", AppDomain.CurrentDomain.BaseDirectory));
+                c.IncludeXmlComments(string.Format(@"{0}/Higgs.Server.xml", AppDomain.CurrentDomain.BaseDirectory));
                 c.SwaggerDoc("v1", new Info {Title = "Higgs API", Version = "v1"});
                 c.AddSecurityDefinition("oauth2", new OAuth2Scheme
                 {
