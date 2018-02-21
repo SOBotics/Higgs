@@ -11,13 +11,15 @@ import { RouterModule } from '@angular/router';
 import { appRouts } from './app.routes';
 import { HomeComponent } from './home/home.component';
 import { AuthService } from './services/auth.service';
+import { ReportComponent } from './report/report.component';
 
 
 @NgModule({
   declarations: [
     AppComponent,
     OAuthComponent,
-    HomeComponent
+    HomeComponent,
+    ReportComponent
   ],
   imports: [
     BrowserModule,
