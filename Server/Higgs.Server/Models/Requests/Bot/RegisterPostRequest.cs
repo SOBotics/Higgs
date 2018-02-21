@@ -16,6 +16,10 @@ namespace Higgs.Server.Models.Requests.Bot
         /// </summary>
         public string ContentUrl { get; set; }
 
+        public string ContentSite { get; set; }
+        public string ContentType { get; set; }
+        public int? ContentId { get; set; }
+
         /// <summary>
         ///     The score of the report, between 0 and 1
         /// </summary>

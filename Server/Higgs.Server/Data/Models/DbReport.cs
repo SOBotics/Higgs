@@ -16,6 +16,10 @@ namespace Higgs.Server.Data.Models
 
         public string Title { get; set; }
         public string ContentUrl { get; set; }
+        public string ContentSite { get; set; }
+        public string ContentType { get; set; }
+        public int? ContentId { get; set; }
+
         public double? DetectionScore { get; set; }
         public string Content { get; set; }
         public string ObfuscatedContent { get; set; }
