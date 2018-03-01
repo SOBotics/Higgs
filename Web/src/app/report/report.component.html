@@ -13,33 +13,16 @@
   <div class="mt-3" *ngIf="postDetails.detectionScore">
     <b>Detection score: </b> {{postDetails.detectionScore}}
   </div>
-
-  <!-- <ul class="nav nav-tabs" id="myTab" role="tablist">
-    <li class="nav-item">
-      <a class="nav-link active" id="home-tab" data-toggle="tab" href="#home" role="tab" aria-controls="home" aria-selected="true">Home</a>
-    </li>
-    <li class="nav-item">
-      <a class="nav-link" id="profile-tab" data-toggle="tab" href="#profile" role="tab" aria-controls="profile" aria-selected="false">Profile</a>
-    </li>
-    <li class="nav-item">
-      <a class="nav-link" id="contact-tab" data-toggle="tab" href="#contact" role="tab" aria-controls="contact" aria-selected="false">Contact</a>
-    </li>
-  </ul>
-    <div class="tab-content" id="myTabContent">
-      <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">a</div>
-      <div class="tab-pane fade" id="profile" role="tabpanel" aria-labelledby="profile-tab">b</div>
-      <div class="tab-pane fade" id="contact" role="tabpanel" aria-labelledby="contact-tab">c</div>
-    </div> -->
   <ng-container *ngIf="postDetails.contentFragments && postDetails.contentFragments.length > 1">
     <ul class="nav nav-tabs mt-3" role="tablist">
-      <li class="nav-item" *ngFor="let contentFragment of postDetails.contentFragments; let i = index;">
-        <a class="nav-link" [class.active]="i==0" data-toggle="tab" href="#{{contentFragment.name}}" [attr.aria-controls]="contentFragment.name"
+      <li class="nav-item" *ngFor="let contentFragment of postDetails.contentFragments | orderBy: 'order'; let i = index;">
+        <a class="nav-link" [class.active]="i==0" data-toggle="tab" href="#contentFragment{{contentFragment.id}}" [attr.aria-controls]="contentFragment.name"
           [attr.aria-selected]="i==0">{{contentFragment.name}}</a>
       </li>
     </ul>
     <div class="tab-content">
-      <div [class.active]="i==0" [class.show]="i==0" id="{{contentFragment.name}}" role="tabpanel" [attr.aria-labelledby]="contentFragment.name"
-        *ngFor="let contentFragment of postDetails.contentFragments; let i = index" class="tab-pane fade">
+      <div [class.active]="i==0" [class.show]="i==0" id="contentFragment{{contentFragment.id}}" role="tabpanel" [attr.aria-labelledby]="contentFragment.name"
+        *ngFor="let contentFragment of postDetails.contentFragments | orderBy: 'order'; let i = index;" class="tab-pane fade">
         <pre class="mt-3 p-2"><code>{{contentFragment.content}}</code></pre>
       </div>
     </div>

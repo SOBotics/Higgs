@@ -12,6 +12,7 @@
 
 
 export interface ReportContentFragmentResponse {
+    id?: number;
     name?: string;
     content?: string;
     order?: number;

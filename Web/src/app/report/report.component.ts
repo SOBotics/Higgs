@@ -18,10 +18,12 @@ export class ReportComponent implements OnInit {
       this.reviewerService.reviewerGetReportGet(reportId).subscribe(response => {
         this.postDetails = response;
         this.postDetails.contentFragments = [{
+          id: 5,
           name: 'Original',
           content: 'Some content',
           order: 0
         }, {
+          id: 7,
           name: 'Obfuscated',
           content: 'Blah',
           order: 1

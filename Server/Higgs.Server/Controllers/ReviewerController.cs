@@ -40,6 +40,7 @@ namespace Higgs.Server.Controllers
                     DetectionScore = r.DetectionScore,
                     ContentFragments = r.ContentFragments.Select(contentFragment => new ReportContentFragmentResponse
                     {
+                        Id = contentFragment.Id,
                         Name = contentFragment.Name,
                         Content = contentFragment.Content,
                         Order = contentFragment.Order

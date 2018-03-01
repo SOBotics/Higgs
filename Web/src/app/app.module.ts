@@ -15,6 +15,7 @@ import { ReportComponent } from './report/report.component';
 import { TimeAgoPipe } from './pipes/TimeAgoPipe';
 import { HttpClient } from 'selenium-webdriver/http';
 import { HttpClientModule } from '@angular/common/http';
+import { OrderByPipe } from './pipes/OrderByPipe';
 
 
 @NgModule({
@@ -23,7 +24,8 @@ import { HttpClientModule } from '@angular/common/http';
     OAuthComponent,
     HomeComponent,
     ReportComponent,
-    TimeAgoPipe
+    TimeAgoPipe,
+    OrderByPipe
   ],
   imports: [
     BrowserModule,
