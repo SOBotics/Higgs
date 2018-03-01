@@ -11,6 +11,7 @@
  */
 import { ReportAllowedFeedbackResponse } from './reportAllowedFeedbackResponse';
 import { ReportContentFragmentResponse } from './reportContentFragmentResponse';
+import { ReportFeedback } from './reportFeedback';
 import { ReportReasonResponse } from './reportReasonResponse';
 
 
@@ -28,4 +29,5 @@ export interface ReportResponse {
     detectedDate?: Date;
     reasons?: Array<ReportReasonResponse>;
     allowedFeedback?: Array<ReportAllowedFeedbackResponse>;
+    feedback?: Array<ReportFeedback>;
 }

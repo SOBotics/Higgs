@@ -11,9 +11,10 @@ using System;
 namespace Higgs.Server.Migrations
 {
     [DbContext(typeof(HiggsDbContext))]
-    partial class HiggsDbContextModelSnapshot : ModelSnapshot
+    [Migration("20180301110506_AddFeedbackTable")]
+    partial class AddFeedbackTable
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

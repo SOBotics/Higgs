@@ -28,15 +28,18 @@ namespace Higgs.Server.Data.Models
         public DateTime? DetectedDate { get; set; }
 
         [InverseProperty("Report")]
-        public List<DbReportReason> ReportReasons { get; set; }
+        public List<DbReportReason> Reasons { get; set; }
 
         [InverseProperty("Report")]
-        public List<DbReportAllowedFeedback> ReportAllowedFeedback { get; set; }
+        public List<DbReportAllowedFeedback> AllowedFeedback { get; set; }
 
         [InverseProperty("Report")]
         public List<DbContentFragment> ContentFragments { get; set; }
 
         [InverseProperty("Report")]
         public List<DbReportAttribute> Attributes { get; set; }
+
+        [InverseProperty("Report")]
+        public List<DbReportFeedback> Feedbacks { get; set; }
     }
 }

@@ -2,11 +2,8 @@
   <h3>
     <img class="botLogo" src="{{postDetails.botLogo}}" title="{{postDetails.botName}}" />
     <a href="{{link}}">{{postDetails.title}}</a>
-    <span class="feedback" style="color:#05720b;" title="true positive (tp)">
-      ✓
-    </span>
-    <span class="feedback" style="color:#910000;" title="false positive (fp)">
-      ✗
+    <span *ngFor="let feedback of postDetails.feedback" class="feedback" [style.color]="feedback.colour" [title]="feedback.userName">
+      {{feedback.icon}}
     </span>
   </h3>
   <div>{{postDetails.details}}</div>

@@ -49,7 +49,7 @@ namespace Higgs.Server.Controllers
                     AuthorReputation = r.AuthorReputation,
                     ContentCreationDate = r.ContentCreationDate,
                     DetectedDate = r.DetectedDate,
-                    Reasons = r.ReportReasons.Select(reportReason => new ReportReasonResponse
+                    Reasons = r.Reasons.Select(reportReason => new ReportReasonResponse
                     {
                         ReasonId = reportReason.ReasonId,
                         Name = reportReason.Reason.Name,
@@ -57,11 +57,18 @@ namespace Higgs.Server.Controllers
                         Seen = reportReason.Reason.ReportReasons.GroupBy(rr => rr.ReportId).Count()
                     }).ToList(),
 
-                    AllowedFeedback = r.ReportAllowedFeedback.Select(ra => new ReportAllowedFeedbackResponse
+                    AllowedFeedback = r.AllowedFeedback.Select(ra => new ReportAllowedFeedbackResponse
                     {
                         Id = ra.Feedback.Id,
                         Name = ra.Feedback.Name,
                         Colour = ra.Feedback.Colour
+                    }).ToList(),
+
+                    Feedback = r.Feedbacks.Select(feedback => new ReportFeedback
+                    {
+                        Icon = feedback.Feedback.Icon,
+                        Colour = feedback.Feedback.Colour,
+                        UserName = feedback.User.Name
                     }).ToList()
                 });
             return query.FirstOrDefault();

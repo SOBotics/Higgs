@@ -18,6 +18,14 @@ namespace Higgs.Server.Models.Responses.Reviewer
         public DateTime? DetectedDate { get; set; }
         public List<ReportReasonResponse> Reasons { get; set; }
         public List<ReportAllowedFeedbackResponse> AllowedFeedback { get; set; }
+        public List<ReportFeedback> Feedback { get; set; }
+    }
+
+    public class ReportFeedback
+    {
+        public string UserName { get; set; }
+        public string Icon { get; set; }
+        public string Colour { get; set; }
     }
 
     public class ReportContentFragmentResponse

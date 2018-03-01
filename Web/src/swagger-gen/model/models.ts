@@ -14,6 +14,7 @@ export * from './registerPostRequest';
 export * from './removeUserScopeRequest';
 export * from './reportAllowedFeedbackResponse';
 export * from './reportContentFragmentResponse';
+export * from './reportFeedback';
 export * from './reportReasonResponse';
 export * from './reportResponse';
 export * from './scopeInfo';

@@ -17,6 +17,15 @@ export class ReportComponent implements OnInit {
       const reportId = +params['id'];
       this.reviewerService.reviewerGetReportGet(reportId).subscribe(response => {
         this.postDetails = response;
+        this.postDetails.feedback = [{
+          userName: 'Rob',
+          icon: '✓',
+          colour: 'green'
+        }, {
+          userName: 'NotRob',
+          icon: '✗',
+          colour: 'red'
+        }];
         this.postDetails.contentFragments = [{
           id: 5,
           name: 'Original',
