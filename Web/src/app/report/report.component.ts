@@ -26,21 +26,12 @@ export class ReportComponent implements OnInit {
           icon: '✗',
           colour: 'red'
         }];
-        this.postDetails.contentFragments = [{
-          id: 5,
-          name: 'Original',
-          content: 'Some content',
-          order: 0
-        }, {
-          id: 7,
-          name: 'Obfuscated',
-          content: 'Blah',
-          order: 1
-        }];
-
         this.postDetails.allowedFeedback = [{
           name: 'tp',
           colour: 'green'
+        }, {
+          name: 'fp',
+          colour: 'red'
         }];
       });
     });
