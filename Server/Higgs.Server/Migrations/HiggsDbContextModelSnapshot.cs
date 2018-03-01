@@ -91,8 +91,6 @@ namespace Higgs.Server.Migrations
 
                     b.Property<int>("BotId");
 
-                    b.Property<string>("Content");
-
                     b.Property<DateTime?>("ContentCreationDate");
 
                     b.Property<int?>("ContentId");
@@ -106,8 +104,6 @@ namespace Higgs.Server.Migrations
                     b.Property<DateTime?>("DetectedDate");
 
                     b.Property<double?>("DetectionScore");
-
-                    b.Property<string>("ObfuscatedContent");
 
                     b.Property<string>("Title");
 
@@ -134,6 +130,24 @@ namespace Higgs.Server.Migrations
                     b.HasIndex("ReportId");
 
                     b.ToTable("ReportAllowedFeedbacks");
+                });
+
+            modelBuilder.Entity("Higgs.Server.Data.Models.DbReportAttribute", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<string>("Name");
+
+                    b.Property<int>("ReportId");
+
+                    b.Property<string>("Value");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("ReportId");
+
+                    b.ToTable("ReportAttributes");
                 });
 
             modelBuilder.Entity("Higgs.Server.Data.Models.DbReportReason", b =>
@@ -196,6 +210,28 @@ namespace Higgs.Server.Migrations
                     b.ToTable("UserScopes");
                 });
 
+            modelBuilder.Entity("Higgs.Server.Models.Requests.Admin.DbContentFragment", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<string>("Content");
+
+                    b.Property<string>("Name");
+
+                    b.Property<int>("Order");
+
+                    b.Property<int>("ReportId");
+
+                    b.Property<string>("RequiredScope");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("ReportId");
+
+                    b.ToTable("ContentFragments");
+                });
+
             modelBuilder.Entity("Higgs.Server.Data.Models.DbFeedback", b =>
                 {
                     b.HasOne("Higgs.Server.Data.Models.DbBot", "Bot")
@@ -233,6 +269,14 @@ namespace Higgs.Server.Migrations
                         .OnDelete(DeleteBehavior.Cascade);
                 });
 
+            modelBuilder.Entity("Higgs.Server.Data.Models.DbReportAttribute", b =>
+                {
+                    b.HasOne("Higgs.Server.Data.Models.DbReport", "Report")
+                        .WithMany("Attributes")
+                        .HasForeignKey("ReportId")
+                        .OnDelete(DeleteBehavior.Cascade);
+                });
+
             modelBuilder.Entity("Higgs.Server.Data.Models.DbReportReason", b =>
                 {
                     b.HasOne("Higgs.Server.Data.Models.DbReason", "Reason")
@@ -255,6 +299,14 @@ namespace Higgs.Server.Migrations
                     b.HasOne("Higgs.Server.Data.Models.DbUser", "User")
                         .WithMany("UserScopes")
                         .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade);
+                });
+
+            modelBuilder.Entity("Higgs.Server.Models.Requests.Admin.DbContentFragment", b =>
+                {
+                    b.HasOne("Higgs.Server.Data.Models.DbReport", "Report")
+                        .WithMany("ContentFragments")
+                        .HasForeignKey("ReportId")
                         .OnDelete(DeleteBehavior.Cascade);
                 });
 #pragma warning restore 612, 618

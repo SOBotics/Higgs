@@ -9,14 +9,11 @@
  * https://github.com/swagger-api/swagger-codegen.git
  * Do not edit the class manually.
  */
+import { ScopeInfo } from './scopeInfo';
 
-import * as models from './models';
 
 export interface UsersResponse {
     userId?: number;
-
     displayName?: string;
-
-    scopes?: Array<models.ScopeInfo>;
-
+    scopes?: Array<ScopeInfo>;
 }

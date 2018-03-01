@@ -10,12 +10,10 @@
  * Do not edit the class manually.
  */
 
-import * as models from './models';
 
 export interface DeleteCreateBotRequest {
     /**
      * Id of bot to be deleted
      */
     botId: number;
-
 }

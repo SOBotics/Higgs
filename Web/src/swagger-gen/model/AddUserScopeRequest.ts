@@ -10,17 +10,14 @@
  * Do not edit the class manually.
  */
 
-import * as models from './models';
 
 export interface AddUserScopeRequest {
     /**
      * User to add the scope to
      */
     userId: number;
-
     /**
      * Scope to add
      */
     scope: string;
-
 }

@@ -10,11 +10,8 @@
  * Do not edit the class manually.
  */
 
-import * as models from './models';
 
 export interface ScopeInfo {
     name?: string;
-
     description?: string;
-
 }

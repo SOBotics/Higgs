@@ -3,7 +3,7 @@ import { NgModule } from '@angular/core';
 import { HttpModule } from '@angular/http';
 
 import { AppComponent } from './app.component';
-import { AdminApi, BASE_PATH, Configuration } from '../swagger-gen';
+import { AdminService, BASE_PATH, Configuration, ReviewerService } from '../swagger-gen';
 import { environment } from '../environments/environment';
 import { AuthConfiguration } from './AuthConfiguration';
 import { OAuthComponent } from './oauth/oauth.component';
@@ -12,7 +12,9 @@ import { appRouts } from './app.routes';
 import { HomeComponent } from './home/home.component';
 import { AuthService } from './services/auth.service';
 import { ReportComponent } from './report/report.component';
-import { TimeAgoPipe } from './pipes/MessageTimePipe';
+import { TimeAgoPipe } from './pipes/TimeAgoPipe';
+import { HttpClient } from 'selenium-webdriver/http';
+import { HttpClientModule } from '@angular/common/http';
 
 
 @NgModule({
@@ -25,11 +27,12 @@ import { TimeAgoPipe } from './pipes/MessageTimePipe';
   ],
   imports: [
     BrowserModule,
-    HttpModule,
+    HttpClientModule,
     RouterModule.forRoot(appRouts)
   ],
   providers: [
-    AdminApi,
+    AdminService,
+    ReviewerService,
     { provide: BASE_PATH, useValue: environment.apiHost },
     { provide: Configuration, useClass: AuthConfiguration },
     AuthService

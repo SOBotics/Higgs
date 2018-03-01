@@ -1,7 +1,7 @@
-export * from './AdminApi';
-import { AdminApi } from './AdminApi';
-export * from './BotApi';
-import { BotApi } from './BotApi';
-export * from './ReviewerApi';
-import { ReviewerApi } from './ReviewerApi';
-export const APIS = [AdminApi, BotApi, ReviewerApi];
+export * from './admin.service';
+import { AdminService } from './admin.service';
+export * from './bot.service';
+import { BotService } from './bot.service';
+export * from './reviewer.service';
+import { ReviewerService } from './reviewer.service';
+export const APIS = [AdminService, BotService, ReviewerService];

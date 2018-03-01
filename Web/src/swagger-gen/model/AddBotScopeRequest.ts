@@ -10,17 +10,14 @@
  * Do not edit the class manually.
  */
 
-import * as models from './models';
 
 export interface AddBotScopeRequest {
     /**
      * Bot to add the scope to
      */
     botId: number;
-
     /**
      * Scope to add
      */
     scope: string;
-
 }

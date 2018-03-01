@@ -10,27 +10,26 @@
  * Do not edit the class manually.
  */
 
-import * as models from './models';
 
 export interface FeedbackType {
     /**
      * The name of the feedback type. Will be displayed on the dashboard. Must be unique per bot.
      */
-    feedbackName: string;
-
+    name: string;
+    /**
+     * The colour of the button reviewers will see when providing feedback
+     */
+    colour?: string;
     /**
      * A link to a feedback icon.
      */
-    feedbackIcon?: string;
-
+    icon?: string;
     /**
      * Whether or not this feedback is actionable
      */
     isActionable?: boolean;
-
     /**
      * Number of required votes to mark the post as actioned
      */
     requiredActions?: number;
-
 }

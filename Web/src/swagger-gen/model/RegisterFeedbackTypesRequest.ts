@@ -9,18 +9,12 @@
  * https://github.com/swagger-api/swagger-codegen.git
  * Do not edit the class manually.
  */
+import { FeedbackType } from './feedbackType';
 
-import * as models from './models';
 
 export interface RegisterFeedbackTypesRequest {
     /**
-     * Id of the bot to attached the feedback types to
-     */
-    botId: number;
-
-    /**
      * A list of feedback types
      */
-    feedbackTypes: Array<models.FeedbackType>;
-
+    feedbackTypes: Array<FeedbackType>;
 }

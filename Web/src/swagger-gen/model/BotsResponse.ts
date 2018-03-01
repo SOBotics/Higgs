@@ -10,15 +10,10 @@
  * Do not edit the class manually.
  */
 
-import * as models from './models';
 
 export interface BotsResponse {
     botId?: number;
-
     name?: string;
-
     description?: string;
-
     publicKey?: string;
-
 }

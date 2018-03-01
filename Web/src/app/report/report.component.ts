@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { TimeAgoPipe } from '../pipes/MessageTimePipe';
+import { ReviewerService } from '../../swagger-gen';
 
 @Component({
   selector: 'app-report',
@@ -43,11 +44,14 @@ export class ReportComponent implements OnInit {
     ]
   };
 
-  constructor(private route: ActivatedRoute) { }
+  constructor(private route: ActivatedRoute, private reviewerService: ReviewerService) { }
 
   ngOnInit() {
     this.route.params.subscribe(params => {
       const reportId = +params['id'];
+      this.reviewerService.reviewerGetReportGet(reportId).subscribe(response => {
+        this.postDetails = response;
+      });
     });
   }
 }

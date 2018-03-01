@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using Higgs.Server.Models.Requests.Admin;
 
 namespace Higgs.Server.Data.Models
 {
@@ -21,8 +22,6 @@ namespace Higgs.Server.Data.Models
         public int? ContentId { get; set; }
 
         public double? DetectionScore { get; set; }
-        public string Content { get; set; }
-        public string ObfuscatedContent { get; set; }
         public string AuthorName { get; set; }
         public int? AuthorReputation { get; set; }
         public DateTime? ContentCreationDate { get; set; }
@@ -33,5 +32,11 @@ namespace Higgs.Server.Data.Models
 
         [InverseProperty("Report")]
         public List<DbReportAllowedFeedback> ReportAllowedFeedback { get; set; }
+
+        [InverseProperty("Report")]
+        public List<DbContentFragment> ContentFragments { get; set; }
+
+        [InverseProperty("Report")]
+        public List<DbReportAttribute> Attributes { get; set; }
     }
 }

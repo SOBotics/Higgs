@@ -1,5 +1,5 @@
 import { Component, OnInit, Inject } from '@angular/core';
-import { BASE_PATH, AdminApi } from '../../swagger-gen';
+import { BASE_PATH, AdminService } from '../../swagger-gen';
 import { environment } from '../../environments/environment';
 import { AuthService } from '../services/auth.service';
 

@@ -43,22 +43,6 @@ export class BotApi {
 
     /**
      * 
-     * @summary Used by bots to aquire an access token
-     * @param request 
-     */
-    public botAquireTokenPost(request?: models.AquireTokenRequest, extraHttpRequestParams?: any): Observable<{}> {
-        return this.botAquireTokenPostWithHttpInfo(request, extraHttpRequestParams)
-            .map((response: Response) => {
-                if (response.status === 204) {
-                    return undefined;
-                } else {
-                    return response.json() || {};
-                }
-            });
-    }
-
-    /**
-     * 
      * @summary Used by bots to register feedback types
      * @param request 
      */
@@ -89,48 +73,6 @@ export class BotApi {
             });
     }
 
-
-    /**
-     * Used by bots to aquire an access token
-     * 
-     * @param request 
-     */
-    public botAquireTokenPostWithHttpInfo(request?: models.AquireTokenRequest, extraHttpRequestParams?: any): Observable<Response> {
-        const path = this.basePath + '/Bot/AquireToken';
-
-        let queryParameters = new URLSearchParams();
-        let headers = new Headers(this.defaultHeaders.toJSON()); // https://github.com/angular/angular/issues/6845
-        // to determine the Content-Type header
-        let consumes: string[] = [
-            'application/json-patch+json',
-            'application/json',
-            'text/json',
-            'application/_*+json'
-        ];
-
-        // to determine the Accept header
-        let produces: string[] = [
-            'text/plain',
-            'application/json',
-            'text/json'
-        ];
-
-        headers.set('Content-Type', 'application/json');
-
-        let requestOptions: RequestOptionsArgs = new RequestOptions({
-            method: RequestMethod.Post,
-            headers: headers,
-            body: request == null ? '' : JSON.stringify(request), // https://github.com/angular/angular/issues/10612
-            search: queryParameters,
-            withCredentials:this.configuration.withCredentials
-        });
-        // https://github.com/swagger-api/swagger-codegen/issues/4037
-        if (extraHttpRequestParams) {
-            requestOptions = (<any>Object).assign(requestOptions, extraHttpRequestParams);
-        }
-
-        return this.http.request(path, requestOptions);
-    }
 
     /**
      * Used by bots to register feedback types

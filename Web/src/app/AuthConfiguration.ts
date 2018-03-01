@@ -4,7 +4,8 @@ import { Injectable } from '@angular/core';
 @Injectable()
 export class AuthConfiguration extends Configuration {
     constructor() {
-        super();
-        this.accessToken = () => localStorage.getItem('access_token');
+        super({
+            accessToken: () => localStorage.getItem('access_token')
+        });
     }
 }

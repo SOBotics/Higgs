@@ -9,33 +9,66 @@
  * https://github.com/swagger-api/swagger-codegen.git
  * Do not edit the class manually.
  */
+import { RegisterPostAttribute } from './registerPostAttribute';
+import { RegisterPostContentFragment } from './registerPostContentFragment';
+import { RegisterPostReason } from './registerPostReason';
 
-import * as models from './models';
 
 export interface RegisterPostRequest {
     /**
-     * The ID of the bot, returned by the corresponding register call
+     * Title of the report (for example, the question title)
      */
-    botId: number;
-
+    title: string;
     /**
-     * Link to detected post
+     * Link to detected content
      */
-    postUrl: string;
-
+    contentUrl: string;
     /**
-     * The confidence of the report, between 0 and 100
+     * The site on which the content was detected
      */
-    confidence?: number;
-
+    contentSite?: string;
+    /**
+     * The type of content (question, answer, comment, etc)
+     */
+    contentType?: string;
+    /**
+     * The Id of the content
+     */
+    contentId?: number;
+    /**
+     * The score of the report, between 0 and 1
+     */
+    detectionScore?: number;
+    /**
+     * The content of the report
+     */
+    contentFragments?: Array<RegisterPostContentFragment>;
+    /**
+     * The name of the author who created the content
+     */
+    authorName?: string;
+    /**
+     * The author's reputation
+     */
+    authorReputation?: number;
+    /**
+     * The UTC date the content was created
+     */
+    contentCreationDate?: Date;
+    /**
+     * The UTC date the content was detected
+     */
+    detectedDate?: Date;
     /**
      * A list of reasons the report was detected
      */
-    reasons?: Array<string>;
-
+    reasons?: Array<RegisterPostReason>;
+    /**
+     * A list of feedback types
+     */
+    allowedFeedback: Array<string>;
     /**
      * Any custom attributes to be associated with the report
      */
-    attributes?: Array<models.RegsiterPostAttribute>;
-
+    attributes?: Array<RegisterPostAttribute>;
 }

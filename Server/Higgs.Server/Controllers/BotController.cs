@@ -3,6 +3,7 @@ using System.Linq;
 using System.Net;
 using Higgs.Server.Data;
 using Higgs.Server.Data.Models;
+using Higgs.Server.Models.Requests.Admin;
 using Higgs.Server.Models.Requests.Bot;
 using Higgs.Server.Models.Responses;
 using Microsoft.AspNetCore.Authorization;
@@ -101,15 +102,27 @@ namespace Higgs.Server.Controllers
                 AuthorName = request.AuthorName,
                 AuthorReputation = request.AuthorReputation,
                 BotId = botId,
-                Content = request.Content,
                 Title = request.Title,
-                ObfuscatedContent = request.ObfuscatedContent,
-
+                
                 ContentCreationDate = request.ContentCreationDate,
                 ContentUrl = request.ContentUrl,
                 DetectedDate = request.DetectedDate,
                 DetectionScore = request.DetectionScore,
             };
+
+            foreach (var contentFragment in request.ContentFragments ?? Enumerable.Empty<RegisterPostContentFragment>())
+            {
+                var dbContentFragment = new DbContentFragment
+                {
+                    Order = contentFragment.Order,
+                    Name = contentFragment.Name,
+                    Content = contentFragment.Content,
+                    RequiredScope = contentFragment.RequiredScope,
+                    Report = report
+                };
+                
+                _dbContext.ContentFragments.Add(dbContentFragment);
+            }
             _dbContext.Reports.Add(report);
 
             var feedbackTypes = _dbContext.Feedbacks.Where(f => f.BotId == botId && request.AllowedFeedback.Contains(f.Name)).ToDictionary(f => f.Name, f => f.Id);
@@ -125,7 +138,7 @@ namespace Higgs.Server.Controllers
                 }
             }
             var reasons = _dbContext.Reasons.Where(f => f.BotId == botId && request.Reasons.Select(r => r.ReasonName).Contains(f.Name)).ToDictionary(f => f.Name, f => f);
-            foreach (var reason in request.Reasons)
+            foreach (var reason in request.Reasons ?? Enumerable.Empty<RegisterPostReason>())
             {
                 DbReason dbReason;
 
@@ -147,6 +160,16 @@ namespace Higgs.Server.Controllers
                 {
                     Confidence = reason.Confidence,
                     Reason = dbReason,
+                    Report = report
+                });
+            }
+
+            foreach (var attribute in request.Attributes ?? Enumerable.Empty<RegisterPostAttribute>())
+            {
+                _dbContext.ReportAttributes.Add(new DbReportAttribute
+                {
+                    Name = attribute.Key,
+                    Value = attribute.Value,
                     Report = report
                 });
             }

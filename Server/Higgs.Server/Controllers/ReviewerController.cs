@@ -33,9 +33,17 @@ namespace Higgs.Server.Controllers
                 {
                     r.Title,
                     r.ContentUrl,
-                    r.Content,
-
+                    r.ContentSite,
+                    r.ContentType,
+                    r.ContentId,
                     r.DetectionScore,
+
+                    ContentFragments = r.ContentFragments.Select(contentFragment => new
+                    {
+                        contentFragment.Name,
+                        contentFragment.Content,
+                        contentFragment.Order,
+                    }).ToList(),
 
                     r.AuthorName,
                     r.AuthorReputation,

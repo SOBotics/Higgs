@@ -10,17 +10,14 @@
  * Do not edit the class manually.
  */
 
-import * as models from './models';
 
 export interface RemoveUserScopeRequest {
     /**
      * User to remove the scope from
      */
     userId: number;
-
     /**
      * Scope to remove
      */
     scope: string;
-
 }

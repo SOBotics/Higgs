@@ -10,27 +10,22 @@
  * Do not edit the class manually.
  */
 
-import * as models from './models';
 
 export interface EditCreateBotRequest {
     /**
      * Id of bot to be edited
      */
     botId: number;
-
     /**
      * New name of the bot
      */
     name?: string;
-
     /**
      * New description for the bot
      */
     description?: string;
-
     /**
      * New public key for the bot
      */
     publicKey?: string;
-
 }

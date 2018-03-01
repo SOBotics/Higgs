@@ -10,22 +10,18 @@
  * Do not edit the class manually.
  */
 
-import * as models from './models';
 
 export interface CreateBotRequest {
     /**
      * Name of the bot to be registered
      */
     name: string;
-
     /**
      * Description of the bot to be registered
      */
     description: string;
-
     /**
      * Public key of bot used to sign JWT payloads
      */
     publicKey: string;
-
 }
