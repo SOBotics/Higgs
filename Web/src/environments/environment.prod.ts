@@ -1,5 +1,5 @@
 export const environment = {
   production: true,
-  apiHost: 'https://higgsapi.sobotics.org',
-  webHost: 'https://higgs.sobotics.org',
+  apiHost: 'http://45.77.238.226:5555',
+  webHost: 'http:/45.77.238.226',
 };
