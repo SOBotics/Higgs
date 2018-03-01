@@ -1,67 +1,101 @@
-<h3>
-  <img class="botLogo" src="{{postDetails.botLogo}}" title="{{postDetails.botName}}" />
-  <a href="{{link}}">{{postDetails.title}}</a>
-  <span class="feedback" style="color:#05720b;" title="true positive (tp)">
-    ✓
-  </span>
-  <span class="feedback" style="color:#910000;" title="false positive (fp)">
-    ✗
-  </span>
-</h3>
-<div>{{postDetails.details}}</div>
-<div class="mt-3">
-  <b>Detection score: </b> {{postDetails.detectionScore}}
-</div>
-<pre class="mt-3">
-  <code>{{postDetails.reportedText}}</code>
-</pre>
-<div class="row mt-3">
-  <div class="col-md-10">
-    Posted {{postDetails.postedDate | timeAgo}} | reported {{postDetails.reportedDate | timeAgo}}
+<ng-container *ngIf="!!postDetails">
+  <h3>
+    <img class="botLogo" src="{{postDetails.botLogo}}" title="{{postDetails.botName}}" />
+    <a href="{{link}}">{{postDetails.title}}</a>
+    <span class="feedback" style="color:#05720b;" title="true positive (tp)">
+      ✓
+    </span>
+    <span class="feedback" style="color:#910000;" title="false positive (fp)">
+      ✗
+    </span>
+  </h3>
+  <div>{{postDetails.details}}</div>
+  <div class="mt-3" *ngIf="postDetails.detectionScore">
+    <b>Detection score: </b> {{postDetails.detectionScore}}
   </div>
-  <div class="col-md-2 text-sm-right">
-    Posted by
-    <a href="{{postDetails.authorLink}}">{{postDetails.authorName}}</a>
-    ({{postDetails.authorPrevious}})
+
+  <!-- <ul class="nav nav-tabs" id="myTab" role="tablist">
+    <li class="nav-item">
+      <a class="nav-link active" id="home-tab" data-toggle="tab" href="#home" role="tab" aria-controls="home" aria-selected="true">Home</a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link" id="profile-tab" data-toggle="tab" href="#profile" role="tab" aria-controls="profile" aria-selected="false">Profile</a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link" id="contact-tab" data-toggle="tab" href="#contact" role="tab" aria-controls="contact" aria-selected="false">Contact</a>
+    </li>
+  </ul>
+    <div class="tab-content" id="myTabContent">
+      <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">a</div>
+      <div class="tab-pane fade" id="profile" role="tabpanel" aria-labelledby="profile-tab">b</div>
+      <div class="tab-pane fade" id="contact" role="tabpanel" aria-labelledby="contact-tab">c</div>
+    </div> -->
+  <ng-container *ngIf="postDetails.contentFragments && postDetails.contentFragments.length > 1">
+    <ul class="nav nav-tabs mt-3" role="tablist">
+      <li class="nav-item" *ngFor="let contentFragment of postDetails.contentFragments; let i = index;">
+        <a class="nav-link" [class.active]="i==0" data-toggle="tab" href="#{{contentFragment.name}}" [attr.aria-controls]="contentFragment.name"
+          [attr.aria-selected]="i==0">{{contentFragment.name}}</a>
+      </li>
+    </ul>
+    <div class="tab-content">
+      <div [class.active]="i==0" [class.show]="i==0" id="{{contentFragment.name}}" role="tabpanel" [attr.aria-labelledby]="contentFragment.name"
+        *ngFor="let contentFragment of postDetails.contentFragments; let i = index" class="tab-pane fade">
+        <pre class="mt-3 p-2"><code>{{contentFragment.content}}</code></pre>
+      </div>
+    </div>
+  </ng-container>
+  <ng-container *ngIf="postDetails.contentFragments && postDetails.contentFragments.length === 1">
+    <pre class="mt-3 p-2"><code>{{postDetails.contentFragments[0].content}}</code></pre>
+  </ng-container>
+  <div class="row mt-3">
+    <div class="col-md-10">
+      <span *ngIf="postDetails.contentCreationDate">Posted {{postDetails.contentCreationDate | timeAgo}}</span>
+      <span *ngIf="postDetails.contentCreationDate">|</span>
+      <span *ngIf="postDetails.detectedDate">Reported {{postDetails.detectedDate | timeAgo}}</span>
+    </div>
+    <div class="col-md-2 text-sm-right" *ngIf="postDetails.authorName">
+      <span *ngIf="postDetails.authorLink">Posted by
+        <a href="{{postDetails.authorLink}}">{{postDetails.authorName}}</a>
+      </span>
+      <span *ngIf="!postDetails.authorLink">Posted by {{postDetails.authorName}}</span>
+      <span *ngIf="postDetails.authorPrevious">({{postDetails.authorPrevious}})</span>
+    </div>
   </div>
-</div>
-<hr />
-<div class="d-flex flex-row">
-  <button type="button" class="btn btn-success" style="margin-left: 15px">True Positive</button>
-  <button type="button" class="btn btn-warning" style="margin-left: 15px">Needs Editing</button>
-  <button type="button" class="btn btn-warning" style="margin-left: 15px">Another non-committal response</button>
-  <button type="button" class="btn btn-danger" style="margin-left: 15px">False Positive</button>
-</div>
-<hr/>
-<div class="mt-3">
-  <b>Caught by {{postDetails.reasons ? postDetails.reasons.length : 0}} reasons:</b>
-  <table class="table mt-3">
-    <thead>
-      <tr>
-        <th scope="col">
-          Reason
-        </th>
-        <th scope="col">
-          Confidence
-        </th>
-        <th scope="col">
-          Previously seen
-        </th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr *ngFor="let reason of postDetails.reasons">
-        <td>{{reason.name}}</td>
-        <td>{{reason.confidence}}</td>
-        <td>
-          <a href="/reasons/{{reason.reasonId}}">{{reason.seen}}</a>
-        </td>
-      </tr>
-    </tbody>
-  </table>
-  <!-- <ul *ngIf="postDetails.reasons && postDetails.reasons.length">
+  <hr />
+  <div class="d-flex flex-row">
+    <button *ngFor="let feedback of postDetails.allowedFeedback" type="button" class="btn" style="margin-left: 15px; color: #fff" [style.background-color]="feedback.colour" >{{feedback.name}}</button>
+  </div>
+  <hr/>
+  <div class="mt-3" *ngIf="postDetails.reasons">
+    <b>Caught by {{postDetails.reasons.length}} reasons:</b>
+    <table class="table mt-3">
+      <thead>
+        <tr>
+          <th scope="col">
+            Reason
+          </th>
+          <th scope="col">
+            Confidence
+          </th>
+          <th scope="col">
+            Previously seen
+          </th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let reason of postDetails.reasons">
+          <td>{{reason.name}}</td>
+          <td>{{reason.confidence}}</td>
+          <td>
+            <a href="/reasons/{{reason.reasonId}}">{{reason.seen}}</a>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+    <!-- <ul *ngIf="postDetails.reasons && postDetails.reasons.length">
     <li *ngFor="let reason of postDetails.reasons">
       <a href="/reasons/{{reason.reasonId}}">{{reason.name}}</a> - ({{reason.confidence}})
     </li>
   </ul> -->
-</div>
+  </div>
+</ng-container>

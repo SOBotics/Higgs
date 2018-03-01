@@ -9,6 +9,10 @@ export class TimeAgoPipe implements PipeTransform {
     if (!value) {
       return '';
     }
+    // If it comes through as a string, make sure we convert it to a date
+    if (!value.getTime) {
+      value = new Date(value);
+    }
 
     const now = new Date().getTime();
 

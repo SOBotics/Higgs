@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { TimeAgoPipe } from '../pipes/MessageTimePipe';
-import { ReviewerService } from '../../swagger-gen';
+import { TimeAgoPipe } from '../pipes/TimeAgoPipe';
+import { ReviewerService, ReportResponse } from '../../swagger-gen';
 
 @Component({
   selector: 'app-report',
@@ -9,41 +9,7 @@ import { ReviewerService } from '../../swagger-gen';
   styleUrls: ['./report.component.scss']
 })
 export class ReportComponent implements OnInit {
-  private postDetails = {
-    detectionScore: 7.5,
-    botLogo: 'https://i.stack.imgur.com/pYTTv.png',
-    botName: 'Heat Detector',
-    authorPrevious: 1,
-    title: 'Kdmf driver example on windows 8.1',
-    details: 'Some extra details about the report here (think the edit vandalism bot; describing which revision)',
-    link: 'https://www.stackoverflow.com/a/48841057',
-    reportedText: '<p>Did you manage to solve this problem?</p>',
-    postedDate: new Date('2018-01-05T09:00'),
-    reportedDate: new Date('2018-01-05T09:01'),
-    authorName: 'Rob',
-    authorLink: 'https://stackoverflow.com/users/563532/rob',
-    reasons: [
-      {
-        reasonId: 1,
-        name: 'Regex - /so[m]ecr?^azyex[(pres)|(sion)]here',
-        confidence: 8,
-        seen: 76,
-      },
-      {
-        reasonId: 2,
-        name: 'NaiveBayes',
-        confidence: 1,
-        seen: 503,
-      },
-      {
-        reasonId: 3,
-        name: 'OpenLPM',
-        confidence: 2,
-        seen: 354
-      }
-    ]
-  };
-
+  private postDetails: ReportResponse;
   constructor(private route: ActivatedRoute, private reviewerService: ReviewerService) { }
 
   ngOnInit() {
@@ -51,6 +17,20 @@ export class ReportComponent implements OnInit {
       const reportId = +params['id'];
       this.reviewerService.reviewerGetReportGet(reportId).subscribe(response => {
         this.postDetails = response;
+        this.postDetails.contentFragments = [{
+          name: 'Original',
+          content: 'Some content',
+          order: 0
+        }, {
+          name: 'Obfuscated',
+          content: 'Blah',
+          order: 1
+        }];
+
+        this.postDetails.allowedFeedback = [{
+          name: 'tp',
+          colour: 'green'
+        }];
       });
     });
   }

@@ -1,13 +1,14 @@
 ﻿using System.Linq;
 using System.Security.Cryptography;
 using Higgs.Server.Data;
+using Higgs.Server.Models.Responses.Reviewer;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Higgs.Server.Controllers
 {
     [Route("[controller]")]
-    public class ReviewerController : Controller
+    public partial class ReviewerController : Controller
     {
         private readonly HiggsDbContext _dbContext;
 
@@ -26,47 +27,43 @@ namespace Higgs.Server.Controllers
         }
 
         [HttpGet("GetReport")]
-        public IActionResult GetReport(int id)
+        public ReportResponse GetReport(int id)
         {
             var query = _dbContext.Reports.Where(r => r.Id == id)
-                .Select(r => new
+                .Select(r => new ReportResponse
                 {
-                    r.Title,
-                    r.ContentUrl,
-                    r.ContentSite,
-                    r.ContentType,
-                    r.ContentId,
-                    r.DetectionScore,
-
-                    ContentFragments = r.ContentFragments.Select(contentFragment => new
+                    Title = r.Title,
+                    ContentUrl = r.ContentUrl,
+                    ContentSite = r.ContentSite,
+                    ContentType = r.ContentType,
+                    ContentId = r.ContentId,
+                    DetectionScore = r.DetectionScore,
+                    ContentFragments = r.ContentFragments.Select(contentFragment => new ReportContentFragmentResponse
                     {
-                        contentFragment.Name,
-                        contentFragment.Content,
-                        contentFragment.Order,
+                        Name = contentFragment.Name,
+                        Content = contentFragment.Content,
+                        Order = contentFragment.Order
                     }).ToList(),
-
-                    r.AuthorName,
-                    r.AuthorReputation,
-
-                    r.ContentCreationDate,
-                    r.DetectedDate,
-
-                    Reasons = r.ReportReasons.Select(reportReason => new
+                    AuthorName = r.AuthorName,
+                    AuthorReputation = r.AuthorReputation,
+                    ContentCreationDate = r.ContentCreationDate,
+                    DetectedDate = r.DetectedDate,
+                    Reasons = r.ReportReasons.Select(reportReason => new ReportReasonResponse
                     {
-                        reportReason.ReasonId,
-                        reportReason.Confidence,
-                        reportReason.Reason.Name,
+                        ReasonId = reportReason.ReasonId,
+                        Name = reportReason.Reason.Name,
+                        Confidence = reportReason.Confidence,
                         Seen = reportReason.Reason.ReportReasons.GroupBy(rr => rr.ReportId).Count()
                     }).ToList(),
 
-                    AllowedFeedback = r.ReportAllowedFeedback.Select(ra => new
+                    AllowedFeedback = r.ReportAllowedFeedback.Select(ra => new ReportAllowedFeedbackResponse
                     {
-                        ra.Feedback.Id,
-                        ra.Feedback.Name,
-                        ra.Feedback.Colour
+                        Id = ra.Feedback.Id,
+                        Name = ra.Feedback.Name,
+                        Colour = ra.Feedback.Colour
                     }).ToList()
                 });
-            return Json(query.FirstOrDefault());
+            return query.FirstOrDefault();
         }
 
         /// <summary>

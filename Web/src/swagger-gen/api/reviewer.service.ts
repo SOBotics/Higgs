@@ -18,6 +18,7 @@ import { CustomHttpUrlEncodingCodec }                        from '../encoder';
 
 import { Observable }                                        from 'rxjs/Observable';
 
+import { ReportResponse } from '../model/reportResponse';
 
 import { BASE_PATH, COLLECTION_FORMATS }                     from '../variables';
 import { Configuration }                                     from '../configuration';
@@ -97,9 +98,9 @@ export class ReviewerService {
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      */
-    public reviewerGetReportGet(id: number, observe?: 'body', reportProgress?: boolean): Observable<any>;
-    public reviewerGetReportGet(id: number, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<any>>;
-    public reviewerGetReportGet(id: number, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<any>>;
+    public reviewerGetReportGet(id: number, observe?: 'body', reportProgress?: boolean): Observable<ReportResponse>;
+    public reviewerGetReportGet(id: number, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<ReportResponse>>;
+    public reviewerGetReportGet(id: number, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<ReportResponse>>;
     public reviewerGetReportGet(id: number, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
         if (id === null || id === undefined) {
             throw new Error('Required parameter id was null or undefined when calling reviewerGetReportGet.');
@@ -114,6 +115,9 @@ export class ReviewerService {
 
         // to determine the Accept header
         let httpHeaderAccepts: string[] = [
+            'text/plain',
+            'application/json',
+            'text/json'
         ];
         let httpHeaderAcceptSelected: string | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
         if (httpHeaderAcceptSelected != undefined) {
@@ -124,7 +128,7 @@ export class ReviewerService {
         let consumes: string[] = [
         ];
 
-        return this.httpClient.get<any>(`${this.basePath}/Reviewer/GetReport`,
+        return this.httpClient.get<ReportResponse>(`${this.basePath}/Reviewer/GetReport`,
             {
                 params: queryParameters,
                 withCredentials: this.configuration.withCredentials,
