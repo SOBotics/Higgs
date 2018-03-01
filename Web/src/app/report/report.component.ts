@@ -9,7 +9,7 @@ import { ReviewerService, ReportResponse } from '../../swagger-gen';
   styleUrls: ['./report.component.scss']
 })
 export class ReportComponent implements OnInit {
-  private postDetails: ReportResponse;
+  public postDetails: ReportResponse;
   constructor(private route: ActivatedRoute, private reviewerService: ReviewerService) { }
 
   ngOnInit() {

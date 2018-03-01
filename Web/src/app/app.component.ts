@@ -8,7 +8,7 @@ import { environment } from '../environments/environment';
   styleUrls: ['./app.component.scss']
 })
 export class AppComponent implements OnInit {
-  private isLoggedIn: boolean;
+  public isLoggedIn: boolean;
   private userName: string;
 
   private loginUrl: string;
