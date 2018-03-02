@@ -26,7 +26,7 @@ A generic dashboard for viewing and providing feedback to SOBotics bots.
 - The admin registers a bot in Higgs, and sets up what feedback this bot is looking for (true positive, false positive, etc). Note that these reasons are unique *per bot*.
 - Setup is done. From here, there's only one API endpoint important for the bot: `/Bot/RegisterPost`. For example, a request made by Heat Detector may look like this: (based on the report in chat [here](https://chat.stackoverflow.com/transcript/message/41446980#41446980)):
 
-    ```json
+    ```json5
     {
         "title": "new Answer(); Can this be considered as an object? [on hold]",
         "contentUrl": "https://stackoverflow.com/questions/49031290/new-answer-can-this-be-considered-as-an-object/49031322#comment85097884_49031322",
@@ -64,7 +64,7 @@ A generic dashboard for viewing and providing feedback to SOBotics bots.
 
     A request by Natty may look like (report [here](https://chat.stackoverflow.com/transcript/message/41457261#41457261)):
 
-    ```json
+    ```json5
     {
         "title": "Were you able to find a solution?",
         "contentUrl": "https://stackoverflow.com/questions/44743352/how-to-create-a-virtual-serial-port-on-mac/49060496#49060496",
