@@ -18,6 +18,8 @@ import { HttpClient } from 'selenium-webdriver/http';
 import { HttpClientModule } from '@angular/common/http';
 import { OrderByPipe } from './pipes/OrderByPipe';
 import { BotComponent } from './admin/bot/bot.component';
+import { BotsComponent } from './admin/bots/bots.component';
+import { AdminHomeComponent } from './admin/admin-home/admin-home.component';
 
 
 @NgModule({
@@ -28,7 +30,9 @@ import { BotComponent } from './admin/bot/bot.component';
     ReportComponent,
     TimeAgoPipe,
     OrderByPipe,
-    BotComponent
+    BotComponent,
+    BotsComponent,
+    AdminHomeComponent
   ],
   imports: [
     BrowserModule,
