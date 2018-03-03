@@ -46,7 +46,7 @@
     </div>
 </nav>
 <div class="container mt-3">
-    <router-outlet></router-outlet>
+    <router-outlet (activate)="onRouterActivate($event)"></router-outlet>
 </div>
 <footer class="footer">
     <div class="container">

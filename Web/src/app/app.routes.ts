@@ -6,8 +6,6 @@ import { BotsComponent } from './admin/bots/bots.component';
 import { AdminHomeComponent } from './admin/admin-home/admin-home.component';
 import { ReportsComponent } from './reports/reports.component';
 
-export const reservedPaths = /admin|reports/;
-
 export const appRoutes: Routes = [
     { path: '', component: HomeComponent },
 
@@ -19,26 +17,5 @@ export const appRoutes: Routes = [
     { path: 'reports', component: ReportsComponent },
     { path: 'report/:id', component: ReportComponent },
 
-    // Handle things like
-    // /higgs
-    // /higgs/report
-    {
-        matcher: makeMatcher('report'), component: ReportComponent
-    }
+    { path: ':dashboardName/report/:id', component: ReportComponent }
 ];
-
-export function makeMatcher(path: string) {
-    return (url: UrlSegment[]) => {
-        if (url.length < 2) {
-            return null;
-        }
-        // If it's a reserved path, we can't handle it.
-        if (url[0].path.match(reservedPaths)) {
-            return null;
-        }
-        if (url[1].path === path) {
-            return { consumed: url, posParams: { id: url[2] } };
-        }
-    };
-}
-
