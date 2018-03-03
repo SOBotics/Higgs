@@ -9,7 +9,7 @@ import { environment } from '../environments/environment';
 import { AuthConfiguration } from './AuthConfiguration';
 import { OAuthComponent } from './oauth/oauth.component';
 import { RouterModule } from '@angular/router';
-import { appRouts } from './app.routes';
+import { appRoutes } from './app.routes';
 import { HomeComponent } from './home/home.component';
 import { AuthService } from './services/auth.service';
 import { ReportComponent } from './report/report.component';
@@ -20,6 +20,7 @@ import { OrderByPipe } from './pipes/OrderByPipe';
 import { BotComponent } from './admin/bot/bot.component';
 import { BotsComponent } from './admin/bots/bots.component';
 import { AdminHomeComponent } from './admin/admin-home/admin-home.component';
+import { ReportsComponent } from './reports/reports.component';
 
 
 @NgModule({
@@ -32,13 +33,14 @@ import { AdminHomeComponent } from './admin/admin-home/admin-home.component';
     OrderByPipe,
     BotComponent,
     BotsComponent,
-    AdminHomeComponent
+    AdminHomeComponent,
+    ReportsComponent
   ],
   imports: [
     BrowserModule,
     FormsModule,
     HttpClientModule,
-    RouterModule.forRoot(appRouts)
+    RouterModule.forRoot(appRoutes)
   ],
   providers: [
     AdminService,

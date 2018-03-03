@@ -5,9 +5,12 @@ import { ReportComponent } from './report/report.component';
 import { BotComponent } from './admin/bot/bot.component';
 import { BotsComponent } from './admin/bots/bots.component';
 import { AdminHomeComponent } from './admin/admin-home/admin-home.component';
+import { ReportsComponent } from './reports/reports.component';
 
-export const appRouts: Routes = [
+export const appRoutes: Routes = [
     { path: '', component: HomeComponent },
+
+    { path: 'reports', component: ReportsComponent },
     { path: 'report/:id', component: ReportComponent },
 
     { path: 'admin', component: AdminHomeComponent },
