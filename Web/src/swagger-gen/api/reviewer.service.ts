@@ -18,7 +18,8 @@ import { CustomHttpUrlEncodingCodec }                        from '../encoder';
 
 import { Observable }                                        from 'rxjs/Observable';
 
-import { ReportResponse } from '../model/reportResponse';
+import { ReviewerReportResponse } from '../model/reviewerReportResponse';
+import { ReviewerReportsResponse } from '../model/reviewerReportsResponse';
 
 import { BASE_PATH, COLLECTION_FORMATS }                     from '../variables';
 import { Configuration }                                     from '../configuration';
@@ -92,54 +93,6 @@ export class ReviewerService {
     }
 
     /**
-     * 
-     * 
-     * @param id 
-     * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
-     * @param reportProgress flag to report request and response progress.
-     */
-    public reviewerGetReportGet(id: number, observe?: 'body', reportProgress?: boolean): Observable<ReportResponse>;
-    public reviewerGetReportGet(id: number, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<ReportResponse>>;
-    public reviewerGetReportGet(id: number, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<ReportResponse>>;
-    public reviewerGetReportGet(id: number, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
-        if (id === null || id === undefined) {
-            throw new Error('Required parameter id was null or undefined when calling reviewerGetReportGet.');
-        }
-
-        let queryParameters = new HttpParams({encoder: new CustomHttpUrlEncodingCodec()});
-        if (id !== undefined) {
-            queryParameters = queryParameters.set('id', <any>id);
-        }
-
-        let headers = this.defaultHeaders;
-
-        // to determine the Accept header
-        let httpHeaderAccepts: string[] = [
-            'text/plain',
-            'application/json',
-            'text/json'
-        ];
-        let httpHeaderAcceptSelected: string | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
-        if (httpHeaderAcceptSelected != undefined) {
-            headers = headers.set("Accept", httpHeaderAcceptSelected);
-        }
-
-        // to determine the Content-Type header
-        let consumes: string[] = [
-        ];
-
-        return this.httpClient.get<ReportResponse>(`${this.basePath}/Reviewer/GetReport`,
-            {
-                params: queryParameters,
-                withCredentials: this.configuration.withCredentials,
-                headers: headers,
-                observe: observe,
-                reportProgress: reportProgress
-            }
-        );
-    }
-
-    /**
      * Lists all pending reviews
      * 
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
@@ -165,6 +118,92 @@ export class ReviewerService {
         ];
 
         return this.httpClient.get<any>(`${this.basePath}/Reviewer/PendingReviews`,
+            {
+                withCredentials: this.configuration.withCredentials,
+                headers: headers,
+                observe: observe,
+                reportProgress: reportProgress
+            }
+        );
+    }
+
+    /**
+     * 
+     * 
+     * @param id 
+     * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
+     * @param reportProgress flag to report request and response progress.
+     */
+    public reviewerReportGet(id: number, observe?: 'body', reportProgress?: boolean): Observable<ReviewerReportResponse>;
+    public reviewerReportGet(id: number, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<ReviewerReportResponse>>;
+    public reviewerReportGet(id: number, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<ReviewerReportResponse>>;
+    public reviewerReportGet(id: number, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
+        if (id === null || id === undefined) {
+            throw new Error('Required parameter id was null or undefined when calling reviewerReportGet.');
+        }
+
+        let queryParameters = new HttpParams({encoder: new CustomHttpUrlEncodingCodec()});
+        if (id !== undefined) {
+            queryParameters = queryParameters.set('id', <any>id);
+        }
+
+        let headers = this.defaultHeaders;
+
+        // to determine the Accept header
+        let httpHeaderAccepts: string[] = [
+            'text/plain',
+            'application/json',
+            'text/json'
+        ];
+        let httpHeaderAcceptSelected: string | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
+        if (httpHeaderAcceptSelected != undefined) {
+            headers = headers.set("Accept", httpHeaderAcceptSelected);
+        }
+
+        // to determine the Content-Type header
+        let consumes: string[] = [
+        ];
+
+        return this.httpClient.get<ReviewerReportResponse>(`${this.basePath}/Reviewer/Report`,
+            {
+                params: queryParameters,
+                withCredentials: this.configuration.withCredentials,
+                headers: headers,
+                observe: observe,
+                reportProgress: reportProgress
+            }
+        );
+    }
+
+    /**
+     * 
+     * 
+     * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
+     * @param reportProgress flag to report request and response progress.
+     */
+    public reviewerReportsGet(observe?: 'body', reportProgress?: boolean): Observable<Array<ReviewerReportsResponse>>;
+    public reviewerReportsGet(observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<Array<ReviewerReportsResponse>>>;
+    public reviewerReportsGet(observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<Array<ReviewerReportsResponse>>>;
+    public reviewerReportsGet(observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
+
+        let headers = this.defaultHeaders;
+
+        // to determine the Accept header
+        let httpHeaderAccepts: string[] = [
+            'text/plain',
+            'application/json',
+            'text/json'
+        ];
+        let httpHeaderAcceptSelected: string | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
+        if (httpHeaderAcceptSelected != undefined) {
+            headers = headers.set("Accept", httpHeaderAcceptSelected);
+        }
+
+        // to determine the Content-Type header
+        let consumes: string[] = [
+        ];
+
+        return this.httpClient.get<Array<ReviewerReportsResponse>>(`${this.basePath}/Reviewer/Reports`,
             {
                 withCredentials: this.configuration.withCredentials,
                 headers: headers,

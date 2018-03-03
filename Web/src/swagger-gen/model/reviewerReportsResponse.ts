@@ -11,17 +11,7 @@
  */
 
 
-export interface RegisterPostReason {
-    /**
-     * The name of the reason
-     */
-    reasonName: string;
-    /**
-     * Confidence of the reason, between 0 and 1
-     */
-    confidence?: number;
-    /**
-     * Whether or not this reason tripped the report threshold
-     */
-    tripped?: boolean;
+export interface ReviewerReportsResponse {
+    id?: number;
+    title?: string;
 }

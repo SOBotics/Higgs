@@ -159,6 +159,7 @@ namespace Higgs.Server.Controllers
                 _dbContext.ReportReasons.Add(new DbReportReason
                 {
                     Confidence = reason.Confidence,
+                    Tripped = reason.Tripped ?? false,
                     Reason = dbReason,
                     Report = report
                 });

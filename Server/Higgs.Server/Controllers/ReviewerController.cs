@@ -1,4 +1,5 @@
-﻿using System.Linq;
+﻿using System.Collections.Generic;
+using System.Linq;
 using System.Security.Cryptography;
 using Higgs.Server.Data;
 using Higgs.Server.Models.Responses.Reviewer;
@@ -26,19 +27,32 @@ namespace Higgs.Server.Controllers
             return Ok(0);
         }
 
-        [HttpGet("GetReport")]
-        public ReportResponse GetReport(int id)
+        [HttpGet("Reports")]
+        public List<ReviewerReportsResponse> Reports()
+        {
+            var query = _dbContext.Reports
+                .Select(r => new ReviewerReportsResponse
+                {
+                    Id = r.Id,
+                    Title = r.Title,
+                });
+            return query.ToList();
+        }
+
+        [HttpGet("Report")]
+        public ReviewerReportResponse Report(int id)
         {
             var query = _dbContext.Reports.Where(r => r.Id == id)
-                .Select(r => new ReportResponse
+                .Select(r => new ReviewerReportResponse
                 {
                     Title = r.Title,
+                    BotLogo = r.Bot.LogoUrl,
                     ContentUrl = r.ContentUrl,
                     ContentSite = r.ContentSite,
                     ContentType = r.ContentType,
                     ContentId = r.ContentId,
                     DetectionScore = r.DetectionScore,
-                    ContentFragments = r.ContentFragments.Select(contentFragment => new ReportContentFragmentResponse
+                    ContentFragments = r.ContentFragments.Select(contentFragment => new ReviewerReportContentFragmentResponse
                     {
                         Id = contentFragment.Id,
                         Name = contentFragment.Name,
@@ -49,7 +63,7 @@ namespace Higgs.Server.Controllers
                     AuthorReputation = r.AuthorReputation,
                     ContentCreationDate = r.ContentCreationDate,
                     DetectedDate = r.DetectedDate,
-                    Reasons = r.Reasons.Select(reportReason => new ReportReasonResponse
+                    Reasons = r.Reasons.Select(reportReason => new ReviewerReportReasonResponse
                     {
                         ReasonId = reportReason.ReasonId,
                         Name = reportReason.Reason.Name,
@@ -57,14 +71,14 @@ namespace Higgs.Server.Controllers
                         Seen = reportReason.Reason.ReportReasons.GroupBy(rr => rr.ReportId).Count()
                     }).ToList(),
 
-                    AllowedFeedback = r.AllowedFeedback.Select(ra => new ReportAllowedFeedbackResponse
+                    AllowedFeedback = r.AllowedFeedback.Select(ra => new ReviewerReportAllowedFeedbackResponse
                     {
                         Id = ra.Feedback.Id,
                         Name = ra.Feedback.Name,
                         Colour = ra.Feedback.Colour
                     }).ToList(),
 
-                    Feedback = r.Feedbacks.Select(feedback => new ReportFeedback
+                    Feedback = r.Feedbacks.Select(feedback => new ReviewerReportFeedbackResponse
                     {
                         Icon = feedback.Feedback.Icon,
                         Colour = feedback.Feedback.Colour,

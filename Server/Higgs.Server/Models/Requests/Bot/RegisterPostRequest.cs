@@ -110,6 +110,11 @@ namespace Higgs.Server.Models.Requests.Bot
         /// Confidence of the reason, between 0 and 1
         /// </summary>
         public double? Confidence { get; set; }
+
+        /// <summary>
+        /// Whether or not this reason tripped the report threshold
+        /// </summary>
+        public bool? Tripped { get; set; }
     }
 
     public class RegisterPostAttribute

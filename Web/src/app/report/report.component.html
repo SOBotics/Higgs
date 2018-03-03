@@ -1,6 +1,6 @@
 <ng-container *ngIf="!!postDetails">
   <h3>
-    <img class="botLogo" src="{{postDetails.botLogo}}" title="{{postDetails.botName}}" />
+    <img *ngIf="postDetails.botLogo" class="botLogo" src="{{postDetails.botLogo}}" title="{{postDetails.botName}}" />
     <a href="{{link}}">{{postDetails.title}}</a>
     <span *ngFor="let feedback of postDetails.feedback" class="feedback" [style.color]="feedback.colour" [title]="feedback.userName">
       {{feedback.icon}}
@@ -55,6 +55,9 @@
             Reason
           </th>
           <th scope="col">
+            Tripped?
+          </th>
+          <th scope="col">
             Confidence
           </th>
           <th scope="col">
@@ -65,6 +68,7 @@
       <tbody>
         <tr *ngFor="let reason of postDetails.reasons">
           <td>{{reason.name}}</td>
+          <td>{{reason.tripped ? '✓' : '✗'}}</td>
           <td>{{reason.confidence}}</td>
           <td>
             <a href="/reasons/{{reason.reasonId}}">{{reason.seen}}</a>

@@ -1,5 +1,4 @@
-﻿using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
+﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Higgs.Server.Data.Models
@@ -10,6 +9,8 @@ namespace Higgs.Server.Data.Models
         public int Id { get; set; }
 
         public double? Confidence { get; set; }
+
+        public bool Tripped { get; set; }
 
         public int ReportId { get; set; }
         [ForeignKey("ReportId")]
