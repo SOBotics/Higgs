@@ -2,7 +2,7 @@
   <h3>
     <img *ngIf="postDetails.botLogo" class="botLogo" src="{{postDetails.botLogo}}" title="{{postDetails.botName}}" />
     <a href="{{link}}">{{postDetails.title}}</a>
-    <span *ngFor="let feedback of postDetails.feedback" class="feedback" [style.color]="feedback.colour" [title]="feedback.userName">
+    <span *ngFor="let feedback of postDetails.feedback" class="feedback" [style.color]="feedback.colour" [title]="feedback.feedbackName + ' - ' + feedback.userName">
       {{feedback.icon}}
     </span>
   </h3>

@@ -24,6 +24,7 @@ namespace Higgs.Server.Models.Responses.Reviewer
 
     public class ReviewerReportFeedbackResponse
     {
+        public string FeedbackName { get; set; }
         public string UserName { get; set; }
         public string Icon { get; set; }
         public string Colour { get; set; }

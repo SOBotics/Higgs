@@ -82,6 +82,7 @@ namespace Higgs.Server.Controllers
                     {
                         Icon = feedback.Feedback.Icon,
                         Colour = feedback.Feedback.Colour,
+                        FeedbackName = feedback.Feedback.Name,
                         UserName = feedback.User.Name
                     }).ToList()
                 });
