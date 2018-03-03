@@ -12,7 +12,7 @@ using Swashbuckle.AspNetCore.SwaggerGen;
 
 namespace Higgs.Server.Controllers
 {
-    [Route("api/Admin")]
+    [Route("[controller]")]
     public class AdminController : Controller
     {
         private readonly HiggsDbContext _dbContext;
@@ -28,15 +28,15 @@ namespace Higgs.Server.Controllers
         [HttpGet("Bots")]
         [Authorize(Scopes.ADMIN_VIEW_BOT_DETAILS)]
         [SwaggerResponse((int) HttpStatusCode.OK, typeof(List<BotsResponse>), Description = "View bot details")]
-        public IActionResult Bots()
+        public List<BotsResponse> Bots()
         {
-            return Json(_dbContext.Bots.Select(b => new BotsResponse
+            return _dbContext.Bots.Select(b => new BotsResponse
             {
                 BotId = b.Id,
                 Description = b.Description,
                 Name = b.Name,
                 PublicKey = b.PublicKey
-            }).ToList());
+            }).ToList();
         }
 
         /// <summary>
@@ -63,12 +63,35 @@ namespace Higgs.Server.Controllers
             {
                 Name = request.Name,
                 Description = request.Description,
-                PublicKey = request.PublicKey
+                PublicKey = request.PublicKey,
+                FavIcon = request.FavIcon,
+                Homepage = request.Homepage,
+                LogoUrl = request.LogoUrl,
+                TabTitle = request.TabTitle
             };
             _dbContext.Bots.Add(bot);
             _dbContext.SaveChanges();
             return Json(bot.Id);
         }
+
+        [HttpGet("Bot")]
+        [Authorize(Scopes.ADMIN_VIEW_BOT_DETAILS)]
+        public BotResponse Bot(int botId)
+        {
+            return _dbContext.Bots.Where(b => b.Id == botId)
+                .Select(b => new BotResponse
+                {
+                    Id = b.Id,
+                    PublicKey = b.PublicKey,
+                    Name = b.Name,
+                    Description = b.Description,
+                    Homepage = b.Homepage,
+                    LogoUrl = b.LogoUrl,
+                    FavIcon = b.FavIcon,
+                    TabTitle = b.TabTitle
+                }).FirstOrDefault();
+        }
+
 
         /// <summary>
         ///     Update a bots details
@@ -76,10 +99,24 @@ namespace Higgs.Server.Controllers
         [HttpPost("EditBot")]
         [Authorize(Scopes.ADMIN_EDIT_BOT)]
         [SwaggerResponse((int) HttpStatusCode.OK, Description = "Successfully edited bot")]
-        [SwaggerResponse((int) HttpStatusCode.BadRequest, typeof(ErrorResponse))]
+        [SwaggerResponse((int) HttpStatusCode.BadRequest, typeof(ErrorResponse), Description = "Bot not found")]
         public IActionResult EditBot([FromBody] EditCreateBotRequest request)
         {
-            return Ok(0);
+            var existingBot = _dbContext.Bots.FirstOrDefault(b => b.Id == request.BotId);
+            if (existingBot == null)
+                return BadRequest(new ErrorResponse($"Bot with id {request.BotId} not found."));
+
+            existingBot.Name = request.Name;
+            existingBot.Description = request.Description;
+            existingBot.PublicKey = request.PublicKey;
+            existingBot.FavIcon = request.FavIcon;
+            existingBot.Homepage = request.Homepage;
+            existingBot.LogoUrl = request.LogoUrl;
+            existingBot.TabTitle = request.TabTitle;
+
+            _dbContext.SaveChanges();
+
+            return Ok();
         }
 
         /// <summary>

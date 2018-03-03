@@ -1,15 +1,22 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿
+using System.ComponentModel.DataAnnotations;
 
-namespace Higgs.Server.Data.Models
+namespace Higgs.Server.Models.Responses.Admin
 {
-    public class DbBot
+    public class BotResponse
     {
-        [Key]
+        [Required]
         public int Id { get; set; }
+
+        [Required]
         public string PublicKey { get; set; }
 
+        [Required]
         public string Name { get; set; }
+
+        [Required]
         public string Description { get; set; }
+
         public string Homepage { get; set; }
         public string LogoUrl { get; set; }
 

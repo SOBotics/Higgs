@@ -39,6 +39,11 @@ namespace Higgs.Server.Models.Requests.Bot
         /// <summary>
         ///     The content of the report
         /// </summary>
+        public string Content { get; set; }
+
+        /// <summary>
+        ///     Additional content fragments
+        /// </summary>
         public List<RegisterPostContentFragment> ContentFragments { get; set; }
         
         /// <summary>
@@ -69,7 +74,6 @@ namespace Higgs.Server.Models.Requests.Bot
         /// <summary>
         ///     A list of feedback types
         /// </summary>
-        [Required]
         public List<string> AllowedFeedback { get; set; }
 
         /// <summary>

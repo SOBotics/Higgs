@@ -8,7 +8,7 @@ import { ReviewerService, ReviewerReportsResponse } from '../../swagger-gen';
 })
 export class ReportsComponent implements OnInit {
 
-  private reportsResponse: ReviewerReportsResponse[] = [];
+  public reportsResponse: ReviewerReportsResponse[] = [];
   constructor(private reviewerService: ReviewerService) { }
 
   ngOnInit() {

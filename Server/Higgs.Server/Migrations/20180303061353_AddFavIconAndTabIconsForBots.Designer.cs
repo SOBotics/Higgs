@@ -11,9 +11,10 @@ using System;
 namespace Higgs.Server.Migrations
 {
     [DbContext(typeof(HiggsDbContext))]
-    partial class HiggsDbContextModelSnapshot : ModelSnapshot
+    [Migration("20180303061353_AddFavIconAndTabIconsForBots")]
+    partial class AddFavIconAndTabIconsForBots
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

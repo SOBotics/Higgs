@@ -110,7 +110,28 @@ namespace Higgs.Server.Controllers
                 DetectionScore = request.DetectionScore,
             };
 
-            foreach (var contentFragment in request.ContentFragments ?? Enumerable.Empty<RegisterPostContentFragment>())
+            var contentFragments = request.ContentFragments ?? Enumerable.Empty<RegisterPostContentFragment>();
+            var fragments =
+                string.IsNullOrWhiteSpace(request.Content)
+                    ? contentFragments
+                    : new[]
+                    {
+                        new RegisterPostContentFragment
+                        {
+                            Content = request.Content,
+                            Name = "Original",
+                            Order = 0,
+                            RequiredScope = string.Empty
+                        }
+                    }.Concat(contentFragments.Select(cf => new RegisterPostContentFragment
+                    {
+                        Content = cf.Content,
+                        Name = cf.Name,
+                        Order = cf.Order + 1,
+                        RequiredScope = cf.RequiredScope
+                    }));
+
+            foreach (var contentFragment in fragments)
             {
                 var dbContentFragment = new DbContentFragment
                 {
