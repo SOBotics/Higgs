@@ -31,7 +31,7 @@ export class AppComponent implements OnInit {
       return;
     }
     this.metaDataService.setTitle('Higgs');
-    this.metaDataService.setFavIcon('favicon.ico');
+    this.metaDataService.setFavIcon('/assets/favicon.ico');
   }
 
   ngOnInit() {
