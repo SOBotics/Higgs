@@ -7,7 +7,7 @@ import { AdminService, BotsResponse } from '../../../swagger-gen';
   styleUrls: ['./bots.component.scss']
 })
 export class BotsComponent implements OnInit {
-  private botsResponse: BotsResponse[] = [];
+  public botsResponse: BotsResponse[] = [];
   constructor(private adminService: AdminService) { }
 
   ngOnInit() {
