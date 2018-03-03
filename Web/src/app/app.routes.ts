@@ -11,9 +11,6 @@ export const reservedPaths = /admin|reports/;
 export const appRoutes: Routes = [
     { path: '', component: HomeComponent },
 
-
-    // { path: 'report/:id', component: ReportComponent },
-
     { path: 'admin', component: AdminHomeComponent },
     { path: 'admin/bots', component: BotsComponent },
     { path: 'admin/bot', component: BotComponent },
@@ -26,11 +23,11 @@ export const appRoutes: Routes = [
     // /higgs
     // /higgs/report
     {
-        matcher: makeMatcher('report', url => ({ id: url[2] })), component: ReportComponent
+        matcher: makeMatcher('report'), component: ReportComponent
     }
 ];
 
-function makeMatcher(path: string, paramGetter: (url: UrlSegment[]) => any) {
+export function makeMatcher(path: string) {
     return (url: UrlSegment[]) => {
         if (url.length < 2) {
             return null;
@@ -40,7 +37,7 @@ function makeMatcher(path: string, paramGetter: (url: UrlSegment[]) => any) {
             return null;
         }
         if (url[1].path === path) {
-            return { consumed: url, posParams: paramGetter(url) };
+            return { consumed: url, posParams: { id: url[2] } };
         }
     };
 }
