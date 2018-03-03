@@ -7,6 +7,11 @@ namespace Higgs.Server.Models.Responses.Reviewer
     {
         public string Title { get; set; }
         public string BotLogo { get; set; }
+        public string BotName { get; set; }
+        public string DashboardName { get; set; }
+        public string TabTitle { get; set; }
+        public string FavIcon { get; set; }
+        public string BotHomePage { get; set; }
         public string ContentUrl { get; set; }
         public string ContentSite { get; set; }
         public string ContentType { get; set; }

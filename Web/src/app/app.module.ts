@@ -20,6 +20,7 @@ import { BotComponent } from './admin/bot/bot.component';
 import { BotsComponent } from './admin/bots/bots.component';
 import { AdminHomeComponent } from './admin/admin-home/admin-home.component';
 import { ReportsComponent } from './reports/reports.component';
+import { MetaDataService } from './services/meta-data.service';
 
 
 @NgModule({
@@ -41,6 +42,7 @@ import { ReportsComponent } from './reports/reports.component';
     RouterModule.forRoot(appRoutes)
   ],
   providers: [
+    MetaDataService,
     AdminService,
     ReviewerService,
     { provide: BASE_PATH, useValue: environment.apiHost },

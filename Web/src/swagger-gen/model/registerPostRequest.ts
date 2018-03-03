@@ -42,6 +42,10 @@ export interface RegisterPostRequest {
     /**
      * The content of the report
      */
+    content?: string;
+    /**
+     * Additional content fragments
+     */
     contentFragments?: Array<RegisterPostContentFragment>;
     /**
      * The name of the author who created the content
@@ -66,7 +70,7 @@ export interface RegisterPostRequest {
     /**
      * A list of feedback types
      */
-    allowedFeedback: Array<string>;
+    allowedFeedback?: Array<string>;
     /**
      * Any custom attributes to be associated with the report
      */

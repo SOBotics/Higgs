@@ -10,8 +10,16 @@
           </div>
         </div>
         <div class="form-group">
+          <label for="name">Dashboard Name</label>
+          <input type="text" class="form-control" id="name" required [(ngModel)]="botDetails.dashboardName" name="dashboardName" #dashboardName="ngModel">
+          <div [hidden]="dashboardName.valid || dashboardName.pristine" class="alert alert-danger">
+            Required
+          </div>
+        </div>
+        <div class="form-group">
           <label for="name">Description</label>
-          <input type="text" class="form-control" id="description" required [(ngModel)]="botDetails.description" name="description" #description="ngModel">
+          <input type="text" class="form-control" id="description" required [(ngModel)]="botDetails.description" name="description"
+            #description="ngModel">
           <div [hidden]="description.valid || description.pristine" class="alert alert-danger">
             Required
           </div>

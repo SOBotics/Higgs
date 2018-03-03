@@ -15,6 +15,7 @@ export interface BotResponse {
     id: number;
     publicKey: string;
     name: string;
+    dashboardName: string;
     description: string;
     homepage?: string;
     logoUrl?: string;

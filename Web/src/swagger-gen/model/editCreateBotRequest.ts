@@ -25,6 +25,10 @@ export interface EditCreateBotRequest {
      */
     name: string;
     /**
+     * Name of the dashboard
+     */
+    dashboardName: string;
+    /**
      * Description of the bot
      */
     description: string;

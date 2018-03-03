@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { AuthService } from './services/auth.service';
 import { environment } from '../environments/environment';
 import { Params, ActivatedRoute, Router } from '@angular/router';
+import { reservedPaths } from './app.routes';
+import { MetaDataService } from './services/meta-data.service';
 
 @Component({
   selector: 'app-root',
@@ -14,7 +16,8 @@ export class AppComponent implements OnInit {
   constructor(
     private authService: AuthService,
     private router: Router,
-    private activatedRoute: ActivatedRoute
+    private activatedRoute: ActivatedRoute,
+    private metaDataService: MetaDataService
   ) {
 
   }
@@ -24,6 +27,23 @@ export class AppComponent implements OnInit {
   }
 
   ngOnInit() {
+    // this.activatedRoute.url.subscribe(url => {
+    //   if (url[0].path.match(reservedPaths)) {
+    //     this.metaDataService.setTitle('Higgs');
+    //   }
+    // });
+
+    this.router.events.subscribe(event => {
+      if ((event as any).url) {
+        const parts = (event as any).url.split('/');
+        if (parts.length > 1) {
+          if (parts[1].match(reservedPaths)) {
+            this.metaDataService.setTitle('Higgs');
+          }
+        }
+      }
+    });
+
     this.activatedRoute.queryParams.subscribe((params: Params) => {
       const accessToken = params['access_token'];
       if (accessToken) {

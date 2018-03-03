@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { AdminService, BotResponse } from '../../../swagger-gen';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
   selector: 'app-bot',
@@ -10,18 +10,21 @@ import { ActivatedRoute } from '@angular/router';
 export class BotComponent implements OnInit {
   private botId: number | undefined;
   private isNew = false;
-  constructor(private route: ActivatedRoute, private adminService: AdminService) { }
+  constructor(
+    private route: ActivatedRoute,
+    private adminService: AdminService,
+    private router: Router) { }
 
   public botDetails: Partial<BotResponse>;
 
   public onSubmit() {
     if (this.isNew) {
       this.adminService.adminRegisterBotPost(this.botDetails as BotResponse)
-        .subscribe(a => { });
+        .subscribe(a => this.router.navigateByUrl('/admin/bots'));
     } else {
       const updatedDetails = { ...this.botDetails as BotResponse, botId: this.botId as number };
       this.adminService.adminEditBotPost(updatedDetails)
-        .subscribe(a => { });
+        .subscribe(a => this.router.navigateByUrl('/admin/bots'));
     }
   }
 

@@ -15,6 +15,9 @@ namespace Higgs.Server.Models.Responses.Admin
         public string Name { get; set; }
 
         [Required]
+        public string DashboardName { get; set; }
+
+        [Required]
         public string Description { get; set; }
 
         public string Homepage { get; set; }

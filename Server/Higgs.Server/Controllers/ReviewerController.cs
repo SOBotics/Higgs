@@ -47,18 +47,24 @@ namespace Higgs.Server.Controllers
                 {
                     Title = r.Title,
                     BotLogo = r.Bot.LogoUrl,
+                    BotName = r.Bot.Name,
+                    DashboardName = r.Bot.DashboardName,
+                    FavIcon = r.Bot.FavIcon,
+                    TabTitle = r.Bot.TabTitle,
+                    BotHomePage = r.Bot.Homepage,
                     ContentUrl = r.ContentUrl,
                     ContentSite = r.ContentSite,
                     ContentType = r.ContentType,
                     ContentId = r.ContentId,
                     DetectionScore = r.DetectionScore,
-                    ContentFragments = r.ContentFragments.Select(contentFragment => new ReviewerReportContentFragmentResponse
-                    {
-                        Id = contentFragment.Id,
-                        Name = contentFragment.Name,
-                        Content = contentFragment.Content,
-                        Order = contentFragment.Order
-                    }).ToList(),
+                    ContentFragments = r.ContentFragments.Select(contentFragment =>
+                        new ReviewerReportContentFragmentResponse
+                        {
+                            Id = contentFragment.Id,
+                            Name = contentFragment.Name,
+                            Content = contentFragment.Content,
+                            Order = contentFragment.Order
+                        }).ToList(),
                     AuthorName = r.AuthorName,
                     AuthorReputation = r.AuthorReputation,
                     ContentCreationDate = r.ContentCreationDate,

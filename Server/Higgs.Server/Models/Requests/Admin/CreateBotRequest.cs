@@ -17,6 +17,12 @@ namespace Higgs.Server.Models.Requests.Admin
         public string Name { get; set; }
 
         /// <summary>
+        ///     Name of the dashboard
+        /// </summary>
+        [Required]
+        public string DashboardName { get; set; }
+
+        /// <summary>
         ///     Description of the bot
         /// </summary>
         [Required]

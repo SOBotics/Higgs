@@ -62,6 +62,7 @@ namespace Higgs.Server.Controllers
             var bot = new DbBot
             {
                 Name = request.Name,
+                DashboardName = request.DashboardName,
                 Description = request.Description,
                 PublicKey = request.PublicKey,
                 FavIcon = request.FavIcon,
@@ -84,6 +85,7 @@ namespace Higgs.Server.Controllers
                     Id = b.Id,
                     PublicKey = b.PublicKey,
                     Name = b.Name,
+                    DashboardName = b.DashboardName,
                     Description = b.Description,
                     Homepage = b.Homepage,
                     LogoUrl = b.LogoUrl,
@@ -107,6 +109,7 @@ namespace Higgs.Server.Controllers
                 return BadRequest(new ErrorResponse($"Bot with id {request.BotId} not found."));
 
             existingBot.Name = request.Name;
+            existingBot.DashboardName = request.DashboardName;
             existingBot.Description = request.Description;
             existingBot.PublicKey = request.PublicKey;
             existingBot.FavIcon = request.FavIcon;

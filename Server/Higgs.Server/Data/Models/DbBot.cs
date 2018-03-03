@@ -9,6 +9,7 @@ namespace Higgs.Server.Data.Models
         public string PublicKey { get; set; }
 
         public string Name { get; set; }
+        public string DashboardName { get; set; }
         public string Description { get; set; }
         public string Homepage { get; set; }
         public string LogoUrl { get; set; }

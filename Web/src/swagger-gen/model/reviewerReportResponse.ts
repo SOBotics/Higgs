@@ -18,6 +18,11 @@ import { ReviewerReportReasonResponse } from './reviewerReportReasonResponse';
 export interface ReviewerReportResponse {
     title?: string;
     botLogo?: string;
+    botName?: string;
+    dashboardName?: string;
+    tabTitle?: string;
+    favIcon?: string;
+    botHomePage?: string;
     contentUrl?: string;
     contentSite?: string;
     contentType?: string;
