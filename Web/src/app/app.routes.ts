@@ -1,5 +1,4 @@
 import { Routes } from '@angular/router';
-import { OAuthComponent } from './oauth/oauth.component';
 import { HomeComponent } from './home/home.component';
 import { ReportComponent } from './report/report.component';
 import { BotComponent } from './admin/bot/bot.component';
@@ -16,7 +15,6 @@ export const appRoutes: Routes = [
     { path: 'admin', component: AdminHomeComponent },
     { path: 'admin/bots', component: BotsComponent },
     { path: 'admin/bot', component: BotComponent },
-    { path: 'admin/bot/:id', component: BotComponent },
-    { path: 'oauth', component: OAuthComponent }
+    { path: 'admin/bot/:id', component: BotComponent }
 ];
 

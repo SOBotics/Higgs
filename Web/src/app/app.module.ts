@@ -7,7 +7,6 @@ import { AppComponent } from './app.component';
 import { AdminService, BASE_PATH, Configuration, ReviewerService } from '../swagger-gen';
 import { environment } from '../environments/environment';
 import { AuthConfiguration } from './AuthConfiguration';
-import { OAuthComponent } from './oauth/oauth.component';
 import { RouterModule } from '@angular/router';
 import { appRoutes } from './app.routes';
 import { HomeComponent } from './home/home.component';
@@ -26,7 +25,6 @@ import { ReportsComponent } from './reports/reports.component';
 @NgModule({
   declarations: [
     AppComponent,
-    OAuthComponent,
     HomeComponent,
     ReportComponent,
     TimeAgoPipe,

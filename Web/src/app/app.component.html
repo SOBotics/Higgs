@@ -19,7 +19,7 @@
                 <a class="nav-link" routerLink="/admin">Admin</a>
             </li>
         </ul>
-        <a *ngIf="!isLoggedIn" class="btn btn-outline-success my-2 my-sm-0" href="{{loginUrl}}">Log In</a>
+        <a *ngIf="!isLoggedIn" class="btn btn-outline-success my-2 my-sm-0" href="{{getLoginUrl()}}">Log In</a>
         <ul *ngIf="isLoggedIn" class="navbar-nav mt-2 mt-sm-0">
             <div class="dropdown-divider"></div>
             <div class="hidden-lg-up">
@@ -36,11 +36,11 @@
                     {{userName}}
                 </a>
                 <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownMenuLink">
-                    <a href="#" class="dropdown-item button">Profile</a>
+                    <button class="dropdown-item button">Profile</button>
                     <div class="dropdown-divider"></div>
-                    <a href="#" (click)="onLogoutClicked()" class="dropdown-item button">
+                    <button (click)="onLogoutClicked()" class="dropdown-item button">
                         Log out
-                    </a>
+                    </button>
                 </div>
         </ul>
     </div>
