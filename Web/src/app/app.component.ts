@@ -39,6 +39,7 @@ export class AppComponent implements OnInit {
         if (parts.length > 1) {
           if (parts[1].match(reservedPaths)) {
             this.metaDataService.setTitle('Higgs');
+            this.metaDataService.setFavIcon('favicon.ico');
           }
         }
       }

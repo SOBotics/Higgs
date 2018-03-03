@@ -29,10 +29,10 @@ export class ReportComponent implements OnInit {
       const reportId = +params['id'];
       this.reviewerService.reviewerReportGet(reportId).subscribe(response => {
         this.postDetails = response;
-        if (this.postDetails.tabTitle) {
+        if (this.postDetails.tabTitle && this.postDetails.tabTitle !== '') {
           this.metaDataService.setTitle(this.postDetails.tabTitle);
         }
-        if (this.postDetails.favIcon) {
+        if (this.postDetails.favIcon && this.postDetails.favIcon !== '') {
           this.metaDataService.setFavIcon(this.postDetails.favIcon);
         }
 
