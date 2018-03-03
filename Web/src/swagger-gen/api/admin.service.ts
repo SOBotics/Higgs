@@ -20,6 +20,7 @@ import { Observable }                                        from 'rxjs/Observab
 
 import { AddBotScopeRequest } from '../model/addBotScopeRequest';
 import { AddUserScopeRequest } from '../model/addUserScopeRequest';
+import { BotResponse } from '../model/botResponse';
 import { BotsResponse } from '../model/botsResponse';
 import { CreateBotRequest } from '../model/createBotRequest';
 import { DeleteCreateBotRequest } from '../model/deleteCreateBotRequest';
@@ -71,10 +72,10 @@ export class AdminService {
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      */
-    public apiAdminAddBotScopePost(request?: DeleteCreateBotRequest, observe?: 'body', reportProgress?: boolean): Observable<any>;
-    public apiAdminAddBotScopePost(request?: DeleteCreateBotRequest, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<any>>;
-    public apiAdminAddBotScopePost(request?: DeleteCreateBotRequest, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<any>>;
-    public apiAdminAddBotScopePost(request?: DeleteCreateBotRequest, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
+    public adminAddBotScopePost(request?: DeleteCreateBotRequest, observe?: 'body', reportProgress?: boolean): Observable<any>;
+    public adminAddBotScopePost(request?: DeleteCreateBotRequest, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<any>>;
+    public adminAddBotScopePost(request?: DeleteCreateBotRequest, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<any>>;
+    public adminAddBotScopePost(request?: DeleteCreateBotRequest, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
 
         let headers = this.defaultHeaders;
 
@@ -109,7 +110,7 @@ export class AdminService {
             headers = headers.set("Content-Type", httpContentTypeSelected);
         }
 
-        return this.httpClient.post<any>(`${this.basePath}/api/Admin/AddBotScope`,
+        return this.httpClient.post<any>(`${this.basePath}/Admin/AddBotScope`,
             request,
             {
                 withCredentials: this.configuration.withCredentials,
@@ -127,10 +128,10 @@ export class AdminService {
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      */
-    public apiAdminAddUserScopePost(request?: AddUserScopeRequest, observe?: 'body', reportProgress?: boolean): Observable<any>;
-    public apiAdminAddUserScopePost(request?: AddUserScopeRequest, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<any>>;
-    public apiAdminAddUserScopePost(request?: AddUserScopeRequest, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<any>>;
-    public apiAdminAddUserScopePost(request?: AddUserScopeRequest, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
+    public adminAddUserScopePost(request?: AddUserScopeRequest, observe?: 'body', reportProgress?: boolean): Observable<any>;
+    public adminAddUserScopePost(request?: AddUserScopeRequest, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<any>>;
+    public adminAddUserScopePost(request?: AddUserScopeRequest, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<any>>;
+    public adminAddUserScopePost(request?: AddUserScopeRequest, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
 
         let headers = this.defaultHeaders;
 
@@ -165,7 +166,7 @@ export class AdminService {
             headers = headers.set("Content-Type", httpContentTypeSelected);
         }
 
-        return this.httpClient.post<any>(`${this.basePath}/api/Admin/AddUserScope`,
+        return this.httpClient.post<any>(`${this.basePath}/Admin/AddUserScope`,
             request,
             {
                 withCredentials: this.configuration.withCredentials,
@@ -177,15 +178,24 @@ export class AdminService {
     }
 
     /**
-     * Lists all bots
      * 
+     * 
+     * @param botId 
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      */
-    public apiAdminBotsGet(observe?: 'body', reportProgress?: boolean): Observable<Array<BotsResponse>>;
-    public apiAdminBotsGet(observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<Array<BotsResponse>>>;
-    public apiAdminBotsGet(observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<Array<BotsResponse>>>;
-    public apiAdminBotsGet(observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
+    public adminBotGet(botId: number, observe?: 'body', reportProgress?: boolean): Observable<BotResponse>;
+    public adminBotGet(botId: number, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<BotResponse>>;
+    public adminBotGet(botId: number, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<BotResponse>>;
+    public adminBotGet(botId: number, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
+        if (botId === null || botId === undefined) {
+            throw new Error('Required parameter botId was null or undefined when calling adminBotGet.');
+        }
+
+        let queryParameters = new HttpParams({encoder: new CustomHttpUrlEncodingCodec()});
+        if (botId !== undefined) {
+            queryParameters = queryParameters.set('botId', <any>botId);
+        }
 
         let headers = this.defaultHeaders;
 
@@ -212,7 +222,54 @@ export class AdminService {
         let consumes: string[] = [
         ];
 
-        return this.httpClient.get<Array<BotsResponse>>(`${this.basePath}/api/Admin/Bots`,
+        return this.httpClient.get<BotResponse>(`${this.basePath}/Admin/Bot`,
+            {
+                params: queryParameters,
+                withCredentials: this.configuration.withCredentials,
+                headers: headers,
+                observe: observe,
+                reportProgress: reportProgress
+            }
+        );
+    }
+
+    /**
+     * Lists all bots
+     * 
+     * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
+     * @param reportProgress flag to report request and response progress.
+     */
+    public adminBotsGet(observe?: 'body', reportProgress?: boolean): Observable<Array<BotsResponse>>;
+    public adminBotsGet(observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<Array<BotsResponse>>>;
+    public adminBotsGet(observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<Array<BotsResponse>>>;
+    public adminBotsGet(observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
+
+        let headers = this.defaultHeaders;
+
+        // authentication (oauth2) required
+        if (this.configuration.accessToken) {
+            let accessToken = typeof this.configuration.accessToken === 'function'
+                ? this.configuration.accessToken()
+                : this.configuration.accessToken;
+            headers = headers.set('Authorization', 'Bearer ' + accessToken);
+        }
+
+        // to determine the Accept header
+        let httpHeaderAccepts: string[] = [
+            'text/plain',
+            'application/json',
+            'text/json'
+        ];
+        let httpHeaderAcceptSelected: string | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
+        if (httpHeaderAcceptSelected != undefined) {
+            headers = headers.set("Accept", httpHeaderAcceptSelected);
+        }
+
+        // to determine the Content-Type header
+        let consumes: string[] = [
+        ];
+
+        return this.httpClient.get<Array<BotsResponse>>(`${this.basePath}/Admin/Bots`,
             {
                 withCredentials: this.configuration.withCredentials,
                 headers: headers,
@@ -229,10 +286,10 @@ export class AdminService {
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      */
-    public apiAdminDeactiveateBotPost(request?: DeleteCreateBotRequest, observe?: 'body', reportProgress?: boolean): Observable<any>;
-    public apiAdminDeactiveateBotPost(request?: DeleteCreateBotRequest, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<any>>;
-    public apiAdminDeactiveateBotPost(request?: DeleteCreateBotRequest, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<any>>;
-    public apiAdminDeactiveateBotPost(request?: DeleteCreateBotRequest, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
+    public adminDeactiveateBotPost(request?: DeleteCreateBotRequest, observe?: 'body', reportProgress?: boolean): Observable<any>;
+    public adminDeactiveateBotPost(request?: DeleteCreateBotRequest, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<any>>;
+    public adminDeactiveateBotPost(request?: DeleteCreateBotRequest, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<any>>;
+    public adminDeactiveateBotPost(request?: DeleteCreateBotRequest, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
 
         let headers = this.defaultHeaders;
 
@@ -267,7 +324,7 @@ export class AdminService {
             headers = headers.set("Content-Type", httpContentTypeSelected);
         }
 
-        return this.httpClient.post<any>(`${this.basePath}/api/Admin/DeactiveateBot`,
+        return this.httpClient.post<any>(`${this.basePath}/Admin/DeactiveateBot`,
             request,
             {
                 withCredentials: this.configuration.withCredentials,
@@ -285,10 +342,10 @@ export class AdminService {
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      */
-    public apiAdminEditBotPost(request?: EditCreateBotRequest, observe?: 'body', reportProgress?: boolean): Observable<any>;
-    public apiAdminEditBotPost(request?: EditCreateBotRequest, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<any>>;
-    public apiAdminEditBotPost(request?: EditCreateBotRequest, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<any>>;
-    public apiAdminEditBotPost(request?: EditCreateBotRequest, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
+    public adminEditBotPost(request?: EditCreateBotRequest, observe?: 'body', reportProgress?: boolean): Observable<any>;
+    public adminEditBotPost(request?: EditCreateBotRequest, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<any>>;
+    public adminEditBotPost(request?: EditCreateBotRequest, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<any>>;
+    public adminEditBotPost(request?: EditCreateBotRequest, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
 
         let headers = this.defaultHeaders;
 
@@ -323,7 +380,7 @@ export class AdminService {
             headers = headers.set("Content-Type", httpContentTypeSelected);
         }
 
-        return this.httpClient.post<any>(`${this.basePath}/api/Admin/EditBot`,
+        return this.httpClient.post<any>(`${this.basePath}/Admin/EditBot`,
             request,
             {
                 withCredentials: this.configuration.withCredentials,
@@ -341,10 +398,10 @@ export class AdminService {
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      */
-    public apiAdminRegisterBotPost(request?: CreateBotRequest, observe?: 'body', reportProgress?: boolean): Observable<number>;
-    public apiAdminRegisterBotPost(request?: CreateBotRequest, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<number>>;
-    public apiAdminRegisterBotPost(request?: CreateBotRequest, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<number>>;
-    public apiAdminRegisterBotPost(request?: CreateBotRequest, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
+    public adminRegisterBotPost(request?: CreateBotRequest, observe?: 'body', reportProgress?: boolean): Observable<number>;
+    public adminRegisterBotPost(request?: CreateBotRequest, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<number>>;
+    public adminRegisterBotPost(request?: CreateBotRequest, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<number>>;
+    public adminRegisterBotPost(request?: CreateBotRequest, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
 
         let headers = this.defaultHeaders;
 
@@ -379,7 +436,7 @@ export class AdminService {
             headers = headers.set("Content-Type", httpContentTypeSelected);
         }
 
-        return this.httpClient.post<number>(`${this.basePath}/api/Admin/RegisterBot`,
+        return this.httpClient.post<number>(`${this.basePath}/Admin/RegisterBot`,
             request,
             {
                 withCredentials: this.configuration.withCredentials,
@@ -397,10 +454,10 @@ export class AdminService {
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      */
-    public apiAdminRemoveBotScopePost(request?: AddBotScopeRequest, observe?: 'body', reportProgress?: boolean): Observable<any>;
-    public apiAdminRemoveBotScopePost(request?: AddBotScopeRequest, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<any>>;
-    public apiAdminRemoveBotScopePost(request?: AddBotScopeRequest, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<any>>;
-    public apiAdminRemoveBotScopePost(request?: AddBotScopeRequest, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
+    public adminRemoveBotScopePost(request?: AddBotScopeRequest, observe?: 'body', reportProgress?: boolean): Observable<any>;
+    public adminRemoveBotScopePost(request?: AddBotScopeRequest, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<any>>;
+    public adminRemoveBotScopePost(request?: AddBotScopeRequest, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<any>>;
+    public adminRemoveBotScopePost(request?: AddBotScopeRequest, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
 
         let headers = this.defaultHeaders;
 
@@ -435,7 +492,7 @@ export class AdminService {
             headers = headers.set("Content-Type", httpContentTypeSelected);
         }
 
-        return this.httpClient.post<any>(`${this.basePath}/api/Admin/RemoveBotScope`,
+        return this.httpClient.post<any>(`${this.basePath}/Admin/RemoveBotScope`,
             request,
             {
                 withCredentials: this.configuration.withCredentials,
@@ -453,10 +510,10 @@ export class AdminService {
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      */
-    public apiAdminRemoveUserScopePost(request?: RemoveUserScopeRequest, observe?: 'body', reportProgress?: boolean): Observable<any>;
-    public apiAdminRemoveUserScopePost(request?: RemoveUserScopeRequest, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<any>>;
-    public apiAdminRemoveUserScopePost(request?: RemoveUserScopeRequest, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<any>>;
-    public apiAdminRemoveUserScopePost(request?: RemoveUserScopeRequest, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
+    public adminRemoveUserScopePost(request?: RemoveUserScopeRequest, observe?: 'body', reportProgress?: boolean): Observable<any>;
+    public adminRemoveUserScopePost(request?: RemoveUserScopeRequest, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<any>>;
+    public adminRemoveUserScopePost(request?: RemoveUserScopeRequest, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<any>>;
+    public adminRemoveUserScopePost(request?: RemoveUserScopeRequest, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
 
         let headers = this.defaultHeaders;
 
@@ -491,7 +548,7 @@ export class AdminService {
             headers = headers.set("Content-Type", httpContentTypeSelected);
         }
 
-        return this.httpClient.post<any>(`${this.basePath}/api/Admin/RemoveUserScope`,
+        return this.httpClient.post<any>(`${this.basePath}/Admin/RemoveUserScope`,
             request,
             {
                 withCredentials: this.configuration.withCredentials,
@@ -508,10 +565,10 @@ export class AdminService {
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      */
-    public apiAdminUsersGet(observe?: 'body', reportProgress?: boolean): Observable<UsersResponse>;
-    public apiAdminUsersGet(observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<UsersResponse>>;
-    public apiAdminUsersGet(observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<UsersResponse>>;
-    public apiAdminUsersGet(observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
+    public adminUsersGet(observe?: 'body', reportProgress?: boolean): Observable<UsersResponse>;
+    public adminUsersGet(observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<UsersResponse>>;
+    public adminUsersGet(observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<UsersResponse>>;
+    public adminUsersGet(observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
 
         let headers = this.defaultHeaders;
 
@@ -538,7 +595,7 @@ export class AdminService {
         let consumes: string[] = [
         ];
 
-        return this.httpClient.get<UsersResponse>(`${this.basePath}/api/Admin/Users`,
+        return this.httpClient.get<UsersResponse>(`${this.basePath}/Admin/Users`,
             {
                 withCredentials: this.configuration.withCredentials,
                 headers: headers,

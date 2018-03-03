@@ -11,8 +11,13 @@
  */
 
 
-export interface ReportAllowedFeedbackResponse {
-    id?: number;
-    name?: string;
-    colour?: string;
+export interface BotResponse {
+    id: number;
+    publicKey: string;
+    name: string;
+    description: string;
+    homepage?: string;
+    logoUrl?: string;
+    favIcon?: string;
+    tabTitle?: string;
 }

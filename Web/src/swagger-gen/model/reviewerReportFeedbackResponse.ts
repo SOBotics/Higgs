@@ -12,6 +12,7 @@
 
 
 export interface ReviewerReportFeedbackResponse {
+    feedbackName?: string;
     userName?: string;
     icon?: string;
     colour?: string;

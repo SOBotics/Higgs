@@ -13,15 +13,19 @@
 
 export interface CreateBotRequest {
     /**
-     * Name of the bot to be registered
-     */
-    name: string;
-    /**
-     * Description of the bot to be registered
-     */
-    description: string;
-    /**
      * Public key of bot used to sign JWT payloads
      */
     publicKey: string;
+    /**
+     * Name of the bot
+     */
+    name: string;
+    /**
+     * Description of the bot
+     */
+    description: string;
+    homepage?: string;
+    logoUrl?: string;
+    favIcon?: string;
+    tabTitle?: string;
 }

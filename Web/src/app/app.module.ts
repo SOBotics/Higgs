@@ -1,5 +1,6 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
+import { FormsModule } from '@angular/forms';
 import { HttpModule } from '@angular/http';
 
 import { AppComponent } from './app.component';
@@ -16,6 +17,7 @@ import { TimeAgoPipe } from './pipes/TimeAgoPipe';
 import { HttpClient } from 'selenium-webdriver/http';
 import { HttpClientModule } from '@angular/common/http';
 import { OrderByPipe } from './pipes/OrderByPipe';
+import { BotComponent } from './admin/bot/bot.component';
 
 
 @NgModule({
@@ -25,10 +27,12 @@ import { OrderByPipe } from './pipes/OrderByPipe';
     HomeComponent,
     ReportComponent,
     TimeAgoPipe,
-    OrderByPipe
+    OrderByPipe,
+    BotComponent
   ],
   imports: [
     BrowserModule,
+    FormsModule,
     HttpClientModule,
     RouterModule.forRoot(appRouts)
   ],

@@ -1,5 +1,6 @@
 export * from './addBotScopeRequest';
 export * from './addUserScopeRequest';
+export * from './botResponse';
 export * from './botsResponse';
 export * from './createBotRequest';
 export * from './deleteCreateBotRequest';

@@ -17,15 +17,19 @@ export interface EditCreateBotRequest {
      */
     botId: number;
     /**
-     * New name of the bot
+     * Public key of bot used to sign JWT payloads
      */
-    name?: string;
+    publicKey: string;
     /**
-     * New description for the bot
+     * Name of the bot
      */
-    description?: string;
+    name: string;
     /**
-     * New public key for the bot
+     * Description of the bot
      */
-    publicKey?: string;
+    description: string;
+    homepage?: string;
+    logoUrl?: string;
+    favIcon?: string;
+    tabTitle?: string;
 }
