@@ -36,7 +36,7 @@ export class ReportComponent implements OnInit {
         this.currentReportId = reportId;
         this.reviewerService.reviewerReportGet(reportId).subscribe(response => {
           this.postDetails = response;
-          if (!dashboardName && response.dashboardName) {
+          if (response.dashboardName && dashboardName !== response.dashboardName) {
             this.router.navigateByUrl(`/${response.dashboardName}/report/${reportId}`);
           }
 
