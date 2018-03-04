@@ -13,6 +13,8 @@ import { MetaDataService } from '../services/meta-data.service';
 export class ReportComponent implements OnInit {
   public postDetails: ReviewerReportResponse;
   public isLoggedIn: boolean;
+  public reportNotFound: boolean;
+
   private currentReportId?: number;
 
   constructor(
@@ -35,16 +37,21 @@ export class ReportComponent implements OnInit {
       if (reportId !== this.currentReportId) {
         this.currentReportId = reportId;
         this.reviewerService.reviewerReportGet(reportId).subscribe(response => {
-          this.postDetails = response;
-          if (response.dashboardName && dashboardName !== response.dashboardName) {
-            this.router.navigateByUrl(`/${response.dashboardName}/report/${reportId}`);
-          }
+          if (!response) {
+            this.reportNotFound = true;
+          } else {
+            this.reportNotFound = false;
+            this.postDetails = response;
+            if (response.dashboardName && dashboardName !== response.dashboardName) {
+              this.router.navigateByUrl(`/${response.dashboardName}/report/${reportId}`);
+            }
 
-          if (this.postDetails.tabTitle && this.postDetails.tabTitle !== '') {
-            this.metaDataService.setTitle(this.postDetails.tabTitle);
-          }
-          if (this.postDetails.favIcon && this.postDetails.favIcon !== '') {
-            this.metaDataService.setFavIcon(this.postDetails.favIcon);
+            if (this.postDetails.tabTitle && this.postDetails.tabTitle !== '') {
+              this.metaDataService.setTitle(this.postDetails.tabTitle);
+            }
+            if (this.postDetails.favIcon && this.postDetails.favIcon !== '') {
+              this.metaDataService.setFavIcon(this.postDetails.favIcon);
+            }
           }
         });
       }

@@ -21,6 +21,7 @@ import { BotsComponent } from './admin/bots/bots.component';
 import { AdminHomeComponent } from './admin/admin-home/admin-home.component';
 import { ReportsComponent } from './reports/reports.component';
 import { MetaDataService } from './services/meta-data.service';
+import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
 
 
 @NgModule({
@@ -33,7 +34,8 @@ import { MetaDataService } from './services/meta-data.service';
     BotComponent,
     BotsComponent,
     AdminHomeComponent,
-    ReportsComponent
+    ReportsComponent,
+    PageNotFoundComponent
   ],
   imports: [
     BrowserModule,
