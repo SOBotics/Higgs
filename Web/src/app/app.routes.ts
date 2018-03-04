@@ -5,6 +5,7 @@ import { BotComponent } from './admin/bot/bot.component';
 import { BotsComponent } from './admin/bots/bots.component';
 import { AdminHomeComponent } from './admin/admin-home/admin-home.component';
 import { ReportsComponent } from './reports/reports.component';
+import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
 
 export const appRoutes: Routes = [
     { path: '', component: HomeComponent },
@@ -17,5 +18,7 @@ export const appRoutes: Routes = [
     { path: 'reports', component: ReportsComponent },
     { path: 'report/:id', component: ReportComponent },
 
-    { path: ':dashboardName/report/:id', component: ReportComponent }
+    { path: ':dashboardName/report/:id', component: ReportComponent },
+
+    { path: '**', component: PageNotFoundComponent }
 ];
