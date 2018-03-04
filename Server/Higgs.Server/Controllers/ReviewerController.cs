@@ -74,7 +74,7 @@ namespace Higgs.Server.Controllers
                         ReasonId = reportReason.ReasonId,
                         Name = reportReason.Reason.Name,
                         Confidence = reportReason.Confidence,
-                        Seen = reportReason.Reason.ReportReasons.GroupBy(rr => rr.ReportId).Count()
+                        Seen = reportReason.Reason.ReportReasons.Select(rr => rr.ReportId).Distinct().Count()
                     }).ToList(),
 
                     AllowedFeedback = r.AllowedFeedback.Select(ra => new ReviewerReportAllowedFeedbackResponse

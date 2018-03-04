@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { TimeAgoPipe } from '../pipes/TimeAgoPipe';
 import { ReviewerService, ReviewerReportResponse } from '../../swagger-gen';
 import { AuthService } from '../services/auth.service';
@@ -13,8 +13,11 @@ import { MetaDataService } from '../services/meta-data.service';
 export class ReportComponent implements OnInit {
   public postDetails: ReviewerReportResponse;
   public isLoggedIn: boolean;
+  private currentReportId?: number;
+
   constructor(
     private route: ActivatedRoute,
+    private router: Router,
     private authService: AuthService,
     private reviewerService: ReviewerService,
     private metaDataService: MetaDataService
@@ -26,17 +29,25 @@ export class ReportComponent implements OnInit {
     });
 
     this.route.params.subscribe(params => {
+      const dashboardName = params['dashboardName'];
       const reportId = +params['id'];
-      this.reviewerService.reviewerReportGet(reportId).subscribe(response => {
-        this.postDetails = response;
-        if (this.postDetails.tabTitle && this.postDetails.tabTitle !== '') {
-          this.metaDataService.setTitle(this.postDetails.tabTitle);
-        }
-        if (this.postDetails.favIcon && this.postDetails.favIcon !== '') {
-          this.metaDataService.setFavIcon(this.postDetails.favIcon);
-        }
 
-      });
+      if (reportId !== this.currentReportId) {
+        this.currentReportId = reportId;
+        this.reviewerService.reviewerReportGet(reportId).subscribe(response => {
+          this.postDetails = response;
+          if (!dashboardName && response.dashboardName) {
+            this.router.navigateByUrl(`/${response.dashboardName}/report/${reportId}`);
+          }
+
+          if (this.postDetails.tabTitle && this.postDetails.tabTitle !== '') {
+            this.metaDataService.setTitle(this.postDetails.tabTitle);
+          }
+          if (this.postDetails.favIcon && this.postDetails.favIcon !== '') {
+            this.metaDataService.setFavIcon(this.postDetails.favIcon);
+          }
+        });
+      }
     });
   }
 }
