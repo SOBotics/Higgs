@@ -158,7 +158,7 @@ namespace Higgs.Server.Controllers
             return userScopes;
         }
 
-        private static string CreateJwtToken(IEnumerable<Claim> claims, byte[] symmetricKey)
+        public static string CreateJwtToken(IEnumerable<Claim> claims, byte[] symmetricKey)
         {
             var tokenHandler = new JwtSecurityTokenHandler();
             var tokenDescriptor = new SecurityTokenDescriptor

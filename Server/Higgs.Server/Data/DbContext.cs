@@ -21,5 +21,7 @@ namespace Higgs.Server.Data
         public DbSet<DbReason> Reasons { get; set; }
         public DbSet<DbScope> Scopes { get; set; }
         public DbSet<DbUserScope> UserScopes { get; set; }
+        public DbSet<DbBotScope> BotScopes { get; set; }
+        public DbSet<DbReportFeedback> ReportFeedbacks { get; set; }
     }
 }

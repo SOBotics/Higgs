@@ -1,6 +1,11 @@
 ﻿using System;
+using System.IdentityModel.Tokens.Jwt;
+using System.IO;
 using System.Linq;
 using System.Net;
+using System.Security.Claims;
+using System.Security.Cryptography;
+using System.Security.Cryptography.X509Certificates;
 using Higgs.Server.Data;
 using Higgs.Server.Data.Models;
 using Higgs.Server.Models.Requests.Admin;
@@ -8,6 +13,12 @@ using Higgs.Server.Models.Requests.Bot;
 using Higgs.Server.Models.Responses;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Configuration;
+using Microsoft.IdentityModel.Tokens;
+using Org.BouncyCastle.Bcpg;
+using Org.BouncyCastle.Crypto.Parameters;
+using Org.BouncyCastle.OpenSsl;
+using Org.BouncyCastle.Security;
 using Swashbuckle.AspNetCore.SwaggerGen;
 
 namespace Higgs.Server.Controllers
@@ -16,10 +27,12 @@ namespace Higgs.Server.Controllers
     public class BotController : Controller
     {
         private readonly HiggsDbContext _dbContext;
+        private readonly IConfiguration _configuration;
 
-        public BotController(HiggsDbContext dbContext)
+        public BotController(HiggsDbContext dbContext, IConfiguration configuration)
         {
             _dbContext = dbContext;
+            _configuration = configuration;
         }
 
         /// <summary>
@@ -39,12 +52,86 @@ namespace Higgs.Server.Controllers
         /// </param>
         /// <returns>The access token, encryped with the bots public key</returns>
         [HttpPost("AquireToken")]
-        [SwaggerResponse((int) HttpStatusCode.OK)]
+        [SwaggerResponse((int) HttpStatusCode.OK, Description = "The authorization token")]
         [SwaggerResponse((int) HttpStatusCode.BadRequest, typeof(ErrorResponse))]
-        [SwaggerResponse((int) HttpStatusCode.Unauthorized, Description = "Signature failed")]
+        [SwaggerResponse((int) HttpStatusCode.Unauthorized, Description = "Invalid token")]
         public IActionResult AquireToken(int botId, string payload)
         {
-            return Ok(string.Empty);
+            var bot = _dbContext.Bots.Where(b => b.Id == botId)
+                .Select(b => new
+                {
+                    b.Id,
+                    b.PublicKey,
+                    AllowedScopes = b.BotScopes.Select(bs => bs.ScopeName).ToList()
+                })
+                .FirstOrDefault();
+
+            if (bot == null)
+                return BadRequest(new ErrorResponse("Bot with that id does not exist."));
+
+            RSAParameters rsa;
+            using (var stream = new MemoryStream())
+            {
+                var writer = new StreamWriter(stream);
+                writer.Write(bot.PublicKey);
+                writer.Flush();
+                stream.Position = 0;
+
+                var pemReader = new PemReader(new StreamReader(stream));
+                if (!(pemReader.ReadObject() is RsaKeyParameters rsaKeyParameters))
+                    return BadRequest(new ErrorResponse("Invalid public key"));
+
+                rsa = new RSAParameters
+                {
+                    Exponent = rsaKeyParameters.Exponent.ToByteArrayUnsigned(),
+                    Modulus = rsaKeyParameters.Modulus.ToByteArrayUnsigned()
+                };
+            }
+            
+            SecurityToken token;
+            try
+            {
+                var tokenHandler = new BotSecurityTokenHandler();
+                tokenHandler.ValidateToken(payload, new TokenValidationParameters
+                {
+                    RequireExpirationTime = true,
+                    ValidateLifetime = true,
+                    ValidateAudience = false,
+                    ValidateIssuer = false,
+                    IssuerSigningKey = new RsaSecurityKey(rsa)
+                }, out token);
+            }
+            catch (Exception)
+            {
+                return Unauthorized();
+            }
+
+            if (!(token is JwtSecurityToken jwtToken))
+                return BadRequest(new ErrorResponse("Server error."));
+
+            var scopeRequests = jwtToken.Claims.Where(c => c.Type == "scope").Select(c => c.Value)
+                .ToList();
+
+            var claims = scopeRequests.Intersect(bot.AllowedScopes, StringComparer.OrdinalIgnoreCase)
+                .Select(s => new Claim(s, string.Empty))
+                .Concat(new[] {new Claim("botId", botId.ToString())})
+                .ToList();
+
+            var signingKey = Convert.FromBase64String(_configuration["JwtSigningKey"]);
+
+            var newToken = AuthenticationController.CreateJwtToken(claims, signingKey);
+            return Ok(newToken);
+        }
+
+        private class BotSecurityTokenHandler : JwtSecurityTokenHandler
+        {
+            protected override void ValidateLifetime(DateTime? notBefore, DateTime? expires, JwtSecurityToken securityToken,
+                TokenValidationParameters validationParameters)
+            {
+                base.ValidateLifetime(notBefore, expires, securityToken, validationParameters);
+                if ((securityToken.ValidTo - securityToken.ValidFrom).TotalMinutes > 10)
+                    throw new SecurityTokenValidationException();
+            }
         }
 
         /// <summary>

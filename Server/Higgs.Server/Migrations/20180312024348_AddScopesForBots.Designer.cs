@@ -11,9 +11,10 @@ using System;
 namespace Higgs.Server.Migrations
 {
     [DbContext(typeof(HiggsDbContext))]
-    partial class HiggsDbContextModelSnapshot : ModelSnapshot
+    [Migration("20180312024348_AddScopesForBots")]
+    partial class AddScopesForBots
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -61,7 +62,7 @@ namespace Higgs.Server.Migrations
 
                     b.HasIndex("ScopeName");
 
-                    b.ToTable("BotScopes");
+                    b.ToTable("DbBotScope");
                 });
 
             modelBuilder.Entity("Higgs.Server.Data.Models.DbFeedback", b =>
@@ -193,7 +194,7 @@ namespace Higgs.Server.Migrations
 
                     b.HasIndex("UserId");
 
-                    b.ToTable("ReportFeedbacks");
+                    b.ToTable("DbReportFeedback");
                 });
 
             modelBuilder.Entity("Higgs.Server.Data.Models.DbReportReason", b =>

@@ -1,4 +1,6 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Higgs.Server.Data.Models
 {
@@ -16,5 +18,8 @@ namespace Higgs.Server.Data.Models
 
         public string FavIcon { get; set; }
         public string TabTitle { get; set; }
+
+        [InverseProperty("Bot")]
+        public List<DbBotScope> BotScopes { get; set; }
     }
 }

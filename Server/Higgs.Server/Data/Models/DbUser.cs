@@ -12,6 +12,7 @@ namespace Higgs.Server.Data.Models
 
         public string Name { get; set; }
 
+        [InverseProperty("User")]
         public List<DbUserScope> UserScopes { get; set; }
     }
 }

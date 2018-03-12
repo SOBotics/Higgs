@@ -26,7 +26,7 @@
         </div>
         <div class="form-group">
           <label for="name">Public Key</label>
-          <input type="text" class="form-control" id="publicKey" required [(ngModel)]="botDetails.publicKey" name="publicKey" #publicKey="ngModel">
+          <textarea class="form-control" id="publicKey" rows=7 required [(ngModel)]="botDetails.publicKey" name="publicKey" #publicKey="ngModel"></textarea>
           <div [hidden]="publicKey.valid || publicKey.pristine" class="alert alert-danger">
             Required
           </div>
