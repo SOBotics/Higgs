@@ -35,7 +35,6 @@ namespace Higgs.Server.Controllers
                 BotId = b.Id,
                 Description = b.Description,
                 Name = b.Name,
-                PublicKey = b.PublicKey
             }).ToList();
         }
 
@@ -53,18 +52,18 @@ namespace Higgs.Server.Controllers
                 return BadRequest(new ErrorResponse("Name is required"));
             if (string.IsNullOrWhiteSpace(request.Description))
                 return BadRequest(new ErrorResponse("Description is required"));
-            if (string.IsNullOrWhiteSpace(request.PublicKey))
-                return BadRequest(new ErrorResponse("PublicKey is required"));
+            if (string.IsNullOrWhiteSpace(request.Secret))
+                return BadRequest(new ErrorResponse("Secret is required"));
 
             if (_dbContext.Bots.Any(b => b.Name == request.Name))
                 return BadRequest(new ErrorResponse($"Bot with name '{request.Name}' already exists"));
-
+            
             var bot = new DbBot
             {
                 Name = request.Name,
                 DashboardName = request.DashboardName,
                 Description = request.Description,
-                PublicKey = request.PublicKey,
+                Secret = BCrypt.Net.BCrypt.HashPassword(request.Secret),
                 FavIcon = request.FavIcon,
                 Homepage = request.Homepage,
                 LogoUrl = request.LogoUrl,
@@ -83,7 +82,6 @@ namespace Higgs.Server.Controllers
                 .Select(b => new BotResponse
                 {
                     Id = b.Id,
-                    PublicKey = b.PublicKey,
                     Name = b.Name,
                     DashboardName = b.DashboardName,
                     Description = b.Description,
@@ -111,7 +109,7 @@ namespace Higgs.Server.Controllers
             existingBot.Name = request.Name;
             existingBot.DashboardName = request.DashboardName;
             existingBot.Description = request.Description;
-            existingBot.PublicKey = request.PublicKey;
+            existingBot.Secret = BCrypt.Net.BCrypt.HashPassword(request.Secret);
             existingBot.FavIcon = request.FavIcon;
             existingBot.Homepage = request.Homepage;
             existingBot.LogoUrl = request.LogoUrl;

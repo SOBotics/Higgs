@@ -7,10 +7,7 @@ namespace Higgs.Server.Models.Responses.Admin
     {
         [Required]
         public int Id { get; set; }
-
-        [Required]
-        public string PublicKey { get; set; }
-
+        
         [Required]
         public string Name { get; set; }
 

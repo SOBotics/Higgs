@@ -25,6 +25,12 @@ export class ReportComponent implements OnInit {
     private metaDataService: MetaDataService
   ) { }
 
+  public feedbackClicked(id: number) {
+    this.reviewerService.reviewerFeedbackSendFeedbackPost(this.currentReportId, id)
+      .subscribe(r => {
+      });
+  }
+
   ngOnInit() {
     this.authService.GetAuthDetails().subscribe(details => {
       this.isLoggedIn = details.IsAuthenticated;

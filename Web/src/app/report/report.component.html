@@ -45,6 +45,7 @@
     <hr />
     <div class="d-flex flex-row">
       <button *ngFor="let feedback of postDetails.allowedFeedback" type="button" class="btn" style="margin-left: 15px; color: #fff"
+        (click)="feedbackClicked(feedback.id)"
         [style.background-color]="feedback.colour">{{feedback.name}}</button>
     </div>
   </ng-container>

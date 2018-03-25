@@ -23,6 +23,7 @@ namespace Higgs.Server.Controllers
         private readonly string _oauthRedirect;
         private readonly IConfiguration _configuration;
         private readonly HiggsDbContext _dbContext;
+        public const string ACCOUNT_ID_CLAIM = "accountId";
 
         public AuthenticationController(IConfiguration configuration, HiggsDbContext dbContext)
         {
@@ -50,8 +51,7 @@ namespace Higgs.Server.Controllers
             [FromQuery(Name = "scope")] string scope
         )
         {
-            var payload =
-                JsonConvert.SerializeObject(new LoginState {RedirectURI = redirectURI, Scope = scope ?? string.Empty});
+            var payload = JsonConvert.SerializeObject(new LoginState {RedirectURI = redirectURI, Scope = scope ?? string.Empty});
             var encodedPayload = EncodeBase64(payload);
 
             var clientId = _configuration["SE.ClientId"];
@@ -109,7 +109,7 @@ namespace Higgs.Server.Controllers
             // Temporary measure for testing
             defaultNewUserScopes = Scopes.AllScopes.Select(a => a.Key).ToArray();
 
-            var userScopes = GetOrCreateUser(accountId, displayName, defaultNewUserScopes).ToList();
+            var userScopes = GetOrCreateUser(accountId, displayName, defaultNewUserScopes).UserScopes.Select(s => s.ScopeName).ToList();
 
             var decodedState = DecodeBase64(state);
             var loginState = JsonConvert.DeserializeObject<LoginState>(decodedState);
@@ -120,7 +120,7 @@ namespace Higgs.Server.Controllers
             var claims = new[]
             {
                 new Claim(ClaimTypes.Name, displayName),
-                new Claim("accountId", accountId.ToString())
+                new Claim(ACCOUNT_ID_CLAIM, accountId.ToString())
             }.Concat(userScopes.Intersect(requestedScopes).Select(c => new Claim(c, string.Empty)));
 
             var token = CreateJwtToken(claims, signingKey);
@@ -128,11 +128,10 @@ namespace Higgs.Server.Controllers
             return Redirect($"{loginState.RedirectURI}?access_token={token}");
         }
 
-        private IEnumerable<string> GetOrCreateUser(int accountId, string displayName, string[] defaultNewUserScopes)
+        private DbUser GetOrCreateUser(int accountId, string displayName, IEnumerable<string> defaultNewUserScopes)
         {
-            var existingUser = _dbContext.Users.Include(u => u.UserScopes)
-                .FirstOrDefault(u => u.AccountId == accountId);
-            var userScopes = defaultNewUserScopes.ToArray();
+            var existingUser = _dbContext.Users.Include(u => u.UserScopes).FirstOrDefault(u => u.AccountId == accountId);
+
             if (existingUser == null)
             {
                 existingUser = new DbUser
@@ -150,12 +149,7 @@ namespace Higgs.Server.Controllers
 
                 _dbContext.SaveChanges();
             }
-            else
-            {
-                userScopes = existingUser.UserScopes.Select(us => us.ScopeName).ToArray();
-            }
-
-            return userScopes;
+            return existingUser;
         }
 
         public static string CreateJwtToken(IEnumerable<Claim> claims, byte[] symmetricKey)
@@ -165,7 +159,7 @@ namespace Higgs.Server.Controllers
             {
                 Subject = new ClaimsIdentity(claims),
 
-                Expires = DateTime.UtcNow.AddMinutes(Convert.ToInt32(60)),
+                Expires = DateTime.UtcNow.AddDays(7),
                 SigningCredentials =
                     new SigningCredentials(new SymmetricSecurityKey(symmetricKey),
                         SecurityAlgorithms.HmacSha256Signature)

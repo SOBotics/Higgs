@@ -93,6 +93,67 @@ export class ReviewerService {
     }
 
     /**
+     * Lists all pending review
+     * 
+     * @param reportId 
+     * @param id 
+     * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
+     * @param reportProgress flag to report request and response progress.
+     */
+    public reviewerFeedbackSendFeedbackPost(reportId: number, id: number, observe?: 'body', reportProgress?: boolean): Observable<any>;
+    public reviewerFeedbackSendFeedbackPost(reportId: number, id: number, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<any>>;
+    public reviewerFeedbackSendFeedbackPost(reportId: number, id: number, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<any>>;
+    public reviewerFeedbackSendFeedbackPost(reportId: number, id: number, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
+        if (reportId === null || reportId === undefined) {
+            throw new Error('Required parameter reportId was null or undefined when calling reviewerFeedbackSendFeedbackPost.');
+        }
+        if (id === null || id === undefined) {
+            throw new Error('Required parameter id was null or undefined when calling reviewerFeedbackSendFeedbackPost.');
+        }
+
+        let queryParameters = new HttpParams({encoder: new CustomHttpUrlEncodingCodec()});
+        if (reportId !== undefined) {
+            queryParameters = queryParameters.set('reportId', <any>reportId);
+        }
+        if (id !== undefined) {
+            queryParameters = queryParameters.set('id', <any>id);
+        }
+
+        let headers = this.defaultHeaders;
+
+        // authentication (oauth2) required
+        if (this.configuration.accessToken) {
+            let accessToken = typeof this.configuration.accessToken === 'function'
+                ? this.configuration.accessToken()
+                : this.configuration.accessToken;
+            headers = headers.set('Authorization', 'Bearer ' + accessToken);
+        }
+
+        // to determine the Accept header
+        let httpHeaderAccepts: string[] = [
+        ];
+        let httpHeaderAcceptSelected: string | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
+        if (httpHeaderAcceptSelected != undefined) {
+            headers = headers.set("Accept", httpHeaderAcceptSelected);
+        }
+
+        // to determine the Content-Type header
+        let consumes: string[] = [
+        ];
+
+        return this.httpClient.post<any>(`${this.basePath}/Reviewer/feedback/sendFeedback`,
+            null,
+            {
+                params: queryParameters,
+                withCredentials: this.configuration.withCredentials,
+                headers: headers,
+                observe: observe,
+                reportProgress: reportProgress
+            }
+        );
+    }
+
+    /**
      * Lists all pending reviews
      * 
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
@@ -204,50 +265,6 @@ export class ReviewerService {
         ];
 
         return this.httpClient.get<Array<ReviewerReportsResponse>>(`${this.basePath}/Reviewer/Reports`,
-            {
-                withCredentials: this.configuration.withCredentials,
-                headers: headers,
-                observe: observe,
-                reportProgress: reportProgress
-            }
-        );
-    }
-
-    /**
-     * Lists all pending review
-     * 
-     * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
-     * @param reportProgress flag to report request and response progress.
-     */
-    public reviewerSendFeedbackPost(observe?: 'body', reportProgress?: boolean): Observable<any>;
-    public reviewerSendFeedbackPost(observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<any>>;
-    public reviewerSendFeedbackPost(observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<any>>;
-    public reviewerSendFeedbackPost(observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
-
-        let headers = this.defaultHeaders;
-
-        // authentication (oauth2) required
-        if (this.configuration.accessToken) {
-            let accessToken = typeof this.configuration.accessToken === 'function'
-                ? this.configuration.accessToken()
-                : this.configuration.accessToken;
-            headers = headers.set('Authorization', 'Bearer ' + accessToken);
-        }
-
-        // to determine the Accept header
-        let httpHeaderAccepts: string[] = [
-        ];
-        let httpHeaderAcceptSelected: string | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
-        if (httpHeaderAcceptSelected != undefined) {
-            headers = headers.set("Accept", httpHeaderAcceptSelected);
-        }
-
-        // to determine the Content-Type header
-        let consumes: string[] = [
-        ];
-
-        return this.httpClient.post<any>(`${this.basePath}/Reviewer/SendFeedback`,
-            null,
             {
                 withCredentials: this.configuration.withCredentials,
                 headers: headers,

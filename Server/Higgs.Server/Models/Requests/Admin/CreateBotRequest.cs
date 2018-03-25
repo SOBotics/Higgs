@@ -8,7 +8,7 @@ namespace Higgs.Server.Models.Requests.Admin
         ///     Public key of bot used to sign JWT payloads
         /// </summary>
         [Required]
-        public string PublicKey { get; set; }
+        public string Secret { get; set; }
 
         /// <summary>
         ///     Name of the bot

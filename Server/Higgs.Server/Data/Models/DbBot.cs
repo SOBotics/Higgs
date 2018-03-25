@@ -8,7 +8,7 @@ namespace Higgs.Server.Data.Models
     {
         [Key]
         public int Id { get; set; }
-        public string PublicKey { get; set; }
+        public string Secret { get; set; }
 
         public string Name { get; set; }
         public string DashboardName { get; set; }

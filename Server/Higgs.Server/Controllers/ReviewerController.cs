@@ -2,6 +2,8 @@
 using System.Linq;
 using System.Security.Cryptography;
 using Higgs.Server.Data;
+using Higgs.Server.Data.Models;
+using Higgs.Server.Models.Responses;
 using Higgs.Server.Models.Responses.Reviewer;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -107,11 +109,38 @@ namespace Higgs.Server.Controllers
         /// <summary>
         ///     Lists all pending review
         /// </summary>
-        [HttpPost("SendFeedback")]
+        [HttpPost("feedback/sendFeedback")]
         [Authorize(Scopes.REVIEWER_SEND_FEEDBACK)]
-        public IActionResult SendFeedback()
+        public IActionResult SendFeedback(int reportId, int id)
         {
-            return Ok(0);
+            var allowedFeedbacks = _dbContext.ReportAllowedFeedbacks.Where(r => r.ReportId == reportId).Select(f => f.Id).ToList();
+
+            var userIdStr = User.Claims.Where(c => c.Type == AuthenticationController.ACCOUNT_ID_CLAIM).Select(c => c.Value).FirstOrDefault();
+            if (!string.IsNullOrWhiteSpace(userIdStr) && int.TryParse(userIdStr, out var userId))
+            {
+                if (allowedFeedbacks.Contains(id))
+                {
+                    var existingFeedback = _dbContext.ReportFeedbacks.FirstOrDefault(rf => rf.UserId == userId && rf.ReportId == reportId);
+                    if (existingFeedback == null)
+                    {
+                        _dbContext.ReportFeedbacks.Add(new DbReportFeedback
+                        {
+                            FeedbackId = id,
+                            ReportId = reportId,
+                            UserId = userId
+                        });
+                    }
+                    else
+                    {
+                        existingFeedback.FeedbackId = id;
+                    }
+
+                    _dbContext.SaveChanges();
+                    return Ok(0);
+                }
+            }
+
+            return BadRequest(new ErrorResponse("Invalid feedback id"));
         }
     }
 }
