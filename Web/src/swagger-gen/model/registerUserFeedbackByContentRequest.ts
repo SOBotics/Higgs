@@ -11,8 +11,8 @@
  */
 
 
-export interface BotsResponse {
-    botId?: number;
-    name?: string;
-    description?: string;
+export interface RegisterUserFeedbackByContentRequest {
+    contentUrl: string;
+    userId: number;
+    feedback: string;
 }

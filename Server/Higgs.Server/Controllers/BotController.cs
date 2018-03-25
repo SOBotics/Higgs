@@ -7,9 +7,11 @@ using Higgs.Server.Data.Models;
 using Higgs.Server.Models.Requests.Admin;
 using Higgs.Server.Models.Requests.Bot;
 using Higgs.Server.Models.Responses;
+using Higgs.Server.Models.Responses.Bot;
 using Higgs.Server.Utilities;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Swashbuckle.AspNetCore.SwaggerGen;
 
@@ -29,7 +31,7 @@ namespace Higgs.Server.Controllers
         }
         
         [HttpPost("AquireToken")]
-        [SwaggerResponse((int) HttpStatusCode.OK, Description = "The authorization token")]
+        [SwaggerResponse((int) HttpStatusCode.OK, typeof(AquireTokenResponse), Description = "The authorization token")]
         [SwaggerResponse((int) HttpStatusCode.BadRequest, typeof(ErrorResponse))]
         public IActionResult AquireToken(AquireTokenRequest request)
         {
@@ -49,14 +51,14 @@ namespace Higgs.Server.Controllers
             if (!BCrypt.Net.BCrypt.Verify(request.Secret, bot.Secret))
                 return BadRequest(new ErrorResponse("Invalid secret provided."));
 
-            var claims = request.RequestedScopes.Intersect(bot.AllowedScopes, StringComparer.OrdinalIgnoreCase)
+            var claims = (request.RequestedScopes?.Intersect(bot.AllowedScopes, StringComparer.OrdinalIgnoreCase) ?? bot.AllowedScopes)
                 .Select(s => new Claim(s, string.Empty))
                 .Concat(new[] {new Claim(BOT_ID_CLAIM, request.BotId.ToString())})
                 .ToList();
 
             var signingKey = Convert.FromBase64String(_configuration["JwtSigningKey"]);
             var newToken = AuthenticationController.CreateJwtToken(claims, signingKey);
-            return Ok(newToken);
+            return Json(new AquireTokenResponse { Token = newToken });
         }
         
         /// <summary>
@@ -130,18 +132,30 @@ namespace Higgs.Server.Controllers
             if (string.IsNullOrWhiteSpace(request.Feedback))
                 return BadRequest("Feedback type must be provided");
 
-            var allowedFeedback = _dbContext.ReportAllowedFeedbacks.FirstOrDefault(raf => request.Feedback.Equals(raf.Feedback.Name, StringComparison.OrdinalIgnoreCase));
+            var allowedFeedback = _dbContext.ReportAllowedFeedbacks
+                .Include(raf => raf.Feedback)
+                .FirstOrDefault(raf => request.Feedback.Equals(raf.Feedback.Name, StringComparison.OrdinalIgnoreCase));
+
             if (allowedFeedback == null)
                 return BadRequest("Feedback not allowed for report");
 
             var user = _dbContext.GetOrCreateUser(request.UserId);
             
-            _dbContext.ReportFeedbacks.Add(new DbReportFeedback
+            var existingFeedback = _dbContext.ReportFeedbacks.FirstOrDefault(rf => rf.UserId == request.UserId && rf.ReportId == request.ReportId);
+            if (existingFeedback == null)
             {
-                ReportId = request.ReportId,
-                User = user,
-                Feedback = allowedFeedback.Feedback
-            });
+                _dbContext.ReportFeedbacks.Add(new DbReportFeedback
+                {
+                    FeedbackId = allowedFeedback.FeedbackId,
+                    ReportId = request.ReportId,
+                    User = user
+                });
+            }
+            else
+            {
+                existingFeedback.FeedbackId = allowedFeedback.FeedbackId;
+            }
+
             _dbContext.SaveChanges();
 
             return Ok();

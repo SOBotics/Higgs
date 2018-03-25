@@ -11,8 +11,8 @@
  */
 
 
-export interface BotsResponse {
-    botId?: number;
-    name?: string;
-    description?: string;
+export interface RegisterUserFeedbackRequest {
+    reportId: number;
+    userId: number;
+    feedback: string;
 }

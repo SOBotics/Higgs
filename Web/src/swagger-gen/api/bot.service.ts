@@ -18,9 +18,12 @@ import { CustomHttpUrlEncodingCodec }                        from '../encoder';
 
 import { Observable }                                        from 'rxjs/Observable';
 
+import { AquireTokenResponse } from '../model/aquireTokenResponse';
 import { ErrorResponse } from '../model/errorResponse';
 import { RegisterFeedbackTypesRequest } from '../model/registerFeedbackTypesRequest';
 import { RegisterPostRequest } from '../model/registerPostRequest';
+import { RegisterUserFeedbackByContentRequest } from '../model/registerUserFeedbackByContentRequest';
+import { RegisterUserFeedbackRequest } from '../model/registerUserFeedbackRequest';
 
 import { BASE_PATH, COLLECTION_FORMATS }                     from '../variables';
 import { Configuration }                                     from '../configuration';
@@ -59,27 +62,36 @@ export class BotService {
 
 
     /**
-     * Used by bots to aquire an access token.
      * 
-     * @param botId The ID of the bot
-     * @param payload A JWT token signed with the related key registered when creating a bot.  Expiration time must be no more than 5 minutes after issueing time.  Only scopes requested (which the bot is authorized for) will be included in the response token.  To request scopes, a claim named &#39;scopes&#39; must be added, whose value is an array of scope names  For example  {      ... (iat, exp, etc)      \&quot;scopes\&quot;: [ \&quot;bot:setFeedbackTypes\&quot;, \&quot;bot:registerPost\&quot; ]  }
+     * 
+     * @param botId 
+     * @param secret 
+     * @param requestedScopes 
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      */
-    public botAquireTokenPost(botId: number, payload?: string, observe?: 'body', reportProgress?: boolean): Observable<any>;
-    public botAquireTokenPost(botId: number, payload?: string, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<any>>;
-    public botAquireTokenPost(botId: number, payload?: string, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<any>>;
-    public botAquireTokenPost(botId: number, payload?: string, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
+    public botAquireTokenPost(botId: number, secret: string, requestedScopes?: Array<string>, observe?: 'body', reportProgress?: boolean): Observable<AquireTokenResponse>;
+    public botAquireTokenPost(botId: number, secret: string, requestedScopes?: Array<string>, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<AquireTokenResponse>>;
+    public botAquireTokenPost(botId: number, secret: string, requestedScopes?: Array<string>, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<AquireTokenResponse>>;
+    public botAquireTokenPost(botId: number, secret: string, requestedScopes?: Array<string>, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
         if (botId === null || botId === undefined) {
             throw new Error('Required parameter botId was null or undefined when calling botAquireTokenPost.');
+        }
+        if (secret === null || secret === undefined) {
+            throw new Error('Required parameter secret was null or undefined when calling botAquireTokenPost.');
         }
 
         let queryParameters = new HttpParams({encoder: new CustomHttpUrlEncodingCodec()});
         if (botId !== undefined) {
-            queryParameters = queryParameters.set('botId', <any>botId);
+            queryParameters = queryParameters.set('BotId', <any>botId);
         }
-        if (payload !== undefined) {
-            queryParameters = queryParameters.set('payload', <any>payload);
+        if (secret !== undefined) {
+            queryParameters = queryParameters.set('Secret', <any>secret);
+        }
+        if (requestedScopes) {
+            requestedScopes.forEach((element) => {
+                queryParameters = queryParameters.append('RequestedScopes', <any>element);
+            })
         }
 
         let headers = this.defaultHeaders;
@@ -99,7 +111,7 @@ export class BotService {
         let consumes: string[] = [
         ];
 
-        return this.httpClient.post<any>(`${this.basePath}/Bot/AquireToken`,
+        return this.httpClient.post<AquireTokenResponse>(`${this.basePath}/Bot/AquireToken`,
             null,
             {
                 params: queryParameters,
@@ -213,6 +225,112 @@ export class BotService {
         }
 
         return this.httpClient.post<any>(`${this.basePath}/Bot/RegisterPost`,
+            request,
+            {
+                withCredentials: this.configuration.withCredentials,
+                headers: headers,
+                observe: observe,
+                reportProgress: reportProgress
+            }
+        );
+    }
+
+    /**
+     * 
+     * 
+     * @param request 
+     * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
+     * @param reportProgress flag to report request and response progress.
+     */
+    public botRegisterUserFeedbackByContentPost(request?: RegisterUserFeedbackByContentRequest, observe?: 'body', reportProgress?: boolean): Observable<any>;
+    public botRegisterUserFeedbackByContentPost(request?: RegisterUserFeedbackByContentRequest, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<any>>;
+    public botRegisterUserFeedbackByContentPost(request?: RegisterUserFeedbackByContentRequest, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<any>>;
+    public botRegisterUserFeedbackByContentPost(request?: RegisterUserFeedbackByContentRequest, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
+
+        let headers = this.defaultHeaders;
+
+        // authentication (oauth2) required
+        if (this.configuration.accessToken) {
+            let accessToken = typeof this.configuration.accessToken === 'function'
+                ? this.configuration.accessToken()
+                : this.configuration.accessToken;
+            headers = headers.set('Authorization', 'Bearer ' + accessToken);
+        }
+
+        // to determine the Accept header
+        let httpHeaderAccepts: string[] = [
+        ];
+        let httpHeaderAcceptSelected: string | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
+        if (httpHeaderAcceptSelected != undefined) {
+            headers = headers.set("Accept", httpHeaderAcceptSelected);
+        }
+
+        // to determine the Content-Type header
+        let consumes: string[] = [
+            'application/json-patch+json',
+            'application/json',
+            'text/json',
+            'application/_*+json'
+        ];
+        let httpContentTypeSelected:string | undefined = this.configuration.selectHeaderContentType(consumes);
+        if (httpContentTypeSelected != undefined) {
+            headers = headers.set("Content-Type", httpContentTypeSelected);
+        }
+
+        return this.httpClient.post<any>(`${this.basePath}/Bot/RegisterUserFeedbackByContent`,
+            request,
+            {
+                withCredentials: this.configuration.withCredentials,
+                headers: headers,
+                observe: observe,
+                reportProgress: reportProgress
+            }
+        );
+    }
+
+    /**
+     * 
+     * 
+     * @param request 
+     * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
+     * @param reportProgress flag to report request and response progress.
+     */
+    public botRegisterUserFeedbackPost(request?: RegisterUserFeedbackRequest, observe?: 'body', reportProgress?: boolean): Observable<any>;
+    public botRegisterUserFeedbackPost(request?: RegisterUserFeedbackRequest, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<any>>;
+    public botRegisterUserFeedbackPost(request?: RegisterUserFeedbackRequest, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<any>>;
+    public botRegisterUserFeedbackPost(request?: RegisterUserFeedbackRequest, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
+
+        let headers = this.defaultHeaders;
+
+        // authentication (oauth2) required
+        if (this.configuration.accessToken) {
+            let accessToken = typeof this.configuration.accessToken === 'function'
+                ? this.configuration.accessToken()
+                : this.configuration.accessToken;
+            headers = headers.set('Authorization', 'Bearer ' + accessToken);
+        }
+
+        // to determine the Accept header
+        let httpHeaderAccepts: string[] = [
+        ];
+        let httpHeaderAcceptSelected: string | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
+        if (httpHeaderAcceptSelected != undefined) {
+            headers = headers.set("Accept", httpHeaderAcceptSelected);
+        }
+
+        // to determine the Content-Type header
+        let consumes: string[] = [
+            'application/json-patch+json',
+            'application/json',
+            'text/json',
+            'application/_*+json'
+        ];
+        let httpContentTypeSelected:string | undefined = this.configuration.selectHeaderContentType(consumes);
+        if (httpContentTypeSelected != undefined) {
+            headers = headers.set("Content-Type", httpContentTypeSelected);
+        }
+
+        return this.httpClient.post<any>(`${this.basePath}/Bot/RegisterUserFeedback`,
             request,
             {
                 withCredentials: this.configuration.withCredentials,

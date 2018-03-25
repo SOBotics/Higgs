@@ -15,7 +15,7 @@ export interface CreateBotRequest {
     /**
      * Public key of bot used to sign JWT payloads
      */
-    publicKey: string;
+    secret: string;
     /**
      * Name of the bot
      */

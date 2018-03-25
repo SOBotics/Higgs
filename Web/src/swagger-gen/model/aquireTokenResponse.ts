@@ -11,8 +11,6 @@
  */
 
 
-export interface BotsResponse {
-    botId?: number;
-    name?: string;
-    description?: string;
+export interface AquireTokenResponse {
+    token?: string;
 }

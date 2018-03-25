@@ -1,5 +1,6 @@
 export * from './addBotScopeRequest';
 export * from './addUserScopeRequest';
+export * from './aquireTokenResponse';
 export * from './botResponse';
 export * from './botsResponse';
 export * from './createBotRequest';
@@ -12,6 +13,8 @@ export * from './registerPostAttribute';
 export * from './registerPostContentFragment';
 export * from './registerPostReason';
 export * from './registerPostRequest';
+export * from './registerUserFeedbackByContentRequest';
+export * from './registerUserFeedbackRequest';
 export * from './removeUserScopeRequest';
 export * from './reviewerReportAllowedFeedbackResponse';
 export * from './reviewerReportContentFragmentResponse';
