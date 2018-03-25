@@ -37,7 +37,9 @@ namespace Higgs.Server.Controllers
                 {
                     Id = r.Id,
                     Title = r.Title,
-                });
+                })
+                .OrderByDescending(r => r.Id)
+                .Take(100);
             return query.ToList();
         }
 
