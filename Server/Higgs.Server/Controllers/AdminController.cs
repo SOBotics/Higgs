@@ -82,7 +82,14 @@ namespace Higgs.Server.Controllers
         [SwaggerResponse((int)HttpStatusCode.BadRequest, typeof(ErrorResponse))]
         public IActionResult RegisterFeedbackTypesForBot([FromBody] RegisterFeedbackTypesForBotRequest request)
         {
-            var existingFeedbacks = _dbContext.Feedbacks.Where(f => f.Id == 1 && request.FeedbackTypes.Select(ft => ft.Name).Contains(f.Name)).ToDictionary(f => f.Name, f => f);
+            var existingFeedbacks = _dbContext.Feedbacks.Where(f => f.BotId == request.BotId).ToDictionary(f => f.Name, f => f);
+            var requestFeedback = new HashSet<string>(request.FeedbackTypes.Select(ft => ft.Name));
+            foreach (var feedback in existingFeedbacks.Values)
+            {
+                if (!requestFeedback.Contains(feedback.Name))
+                    _dbContext.Feedbacks.Remove(feedback);
+            }
+
             foreach (var feedbackType in request.FeedbackTypes)
             {
                 DbFeedback dbFeedback;
