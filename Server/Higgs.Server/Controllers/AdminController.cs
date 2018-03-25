@@ -76,6 +76,38 @@ namespace Higgs.Server.Controllers
             return Json(bot.Id);
         }
 
+        [HttpPost("RegisterFeedbackTypesForBot")]
+        [Authorize(Scopes.BOT_SET_FEEDBACK_TYPES)]
+        [SwaggerResponse((int)HttpStatusCode.OK)]
+        [SwaggerResponse((int)HttpStatusCode.BadRequest, typeof(ErrorResponse))]
+        public IActionResult RegisterFeedbackTypesForBot([FromBody] RegisterFeedbackTypesForBotRequest request)
+        {
+            var existingFeedbacks = _dbContext.Feedbacks.Where(f => f.Id == 1 && request.FeedbackTypes.Select(ft => ft.Name).Contains(f.Name)).ToDictionary(f => f.Name, f => f);
+            foreach (var feedbackType in request.FeedbackTypes)
+            {
+                DbFeedback dbFeedback;
+                if (existingFeedbacks.ContainsKey(feedbackType.Name))
+                    dbFeedback = existingFeedbacks[feedbackType.Name];
+                else
+                {
+                    dbFeedback = new DbFeedback
+                    {
+                        BotId = request.BotId,
+                        Name = feedbackType.Name
+                    };
+                    _dbContext.Feedbacks.Add(dbFeedback);
+                }
+
+                dbFeedback.Colour = feedbackType.Colour;
+                dbFeedback.Icon = feedbackType.Icon;
+                dbFeedback.IsActionable = feedbackType.IsActionable;
+                dbFeedback.RequiredActions = feedbackType.RequiredActions;
+            }
+
+            _dbContext.SaveChanges();
+            return Ok();
+        }
+
         [HttpGet("Bot")]
         [Authorize(Scopes.ADMIN_VIEW_BOT_DETAILS)]
         public BotResponse Bot(int botId)

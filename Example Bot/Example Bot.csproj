@@ -74,6 +74,7 @@
     <Compile Include="swagger-gen\src\IO.Swagger\Model\BotResponse.cs" />
     <Compile Include="swagger-gen\src\IO.Swagger\Model\BotsResponse.cs" />
     <Compile Include="swagger-gen\src\IO.Swagger\Model\CreateBotRequest.cs" />
+    <Compile Include="swagger-gen\src\IO.Swagger\Model\DeleteBotRequest.cs" />
     <Compile Include="swagger-gen\src\IO.Swagger\Model\DeleteCreateBotRequest.cs" />
     <Compile Include="swagger-gen\src\IO.Swagger\Model\EditCreateBotRequest.cs" />
     <Compile Include="swagger-gen\src\IO.Swagger\Model\ErrorResponse.cs" />
@@ -93,6 +94,7 @@
     <Compile Include="swagger-gen\src\IO.Swagger\Model\ReviewerReportResponse.cs" />
     <Compile Include="swagger-gen\src\IO.Swagger\Model\ReviewerReportsResponse.cs" />
     <Compile Include="swagger-gen\src\IO.Swagger\Model\ScopeInfo.cs" />
+    <Compile Include="swagger-gen\src\IO.Swagger\Model\SetBotScopesRequest.cs" />
     <Compile Include="swagger-gen\src\IO.Swagger\Model\UsersResponse.cs" />
   </ItemGroup>
   <ItemGroup>
