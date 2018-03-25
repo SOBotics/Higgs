@@ -8,6 +8,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using Higgs.Server.Data;
 using Higgs.Server.Data.Models;
+using Higgs.Server.Utilities;
 using Microsoft.ApplicationInsights.AspNetCore.Extensions;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -86,16 +87,17 @@ namespace Higgs.Server.Controllers
         [HttpGet("OAuthRedirect")]
         [ApiExplorerSettings(IgnoreApi = true)]
         public async Task<IActionResult> OAuthRedirect(string code, string state, string error,
-            string error_description, string access_token)
+            [FromQuery(Name = "error_description")] string errorDescription, 
+            [FromQuery(Name = "access_token")] string accessToken)
         {
             if (!string.IsNullOrEmpty(error))
                 return Json(new
                 {
                     error,
-                    error_description
+                    error_description = errorDescription
                 });
 
-            if (string.IsNullOrWhiteSpace(access_token))
+            if (string.IsNullOrWhiteSpace(accessToken))
             {
                 // Get the access token
                 var stackExchangeClient = new RestClient("https://stackexchange.com/");
@@ -107,7 +109,7 @@ namespace Higgs.Server.Controllers
 
                 var oauthResponse = await stackExchangeClient.ExecuteTaskAsync(oauthRequest, CancellationToken.None);
                 var oauthContent = JsonConvert.DeserializeObject<dynamic>(oauthResponse.Content);
-                access_token = oauthContent.access_token;
+                accessToken = oauthContent.access_token;
             }
 
             // Query the SE.API with their access token, to get their user details.
@@ -115,7 +117,7 @@ namespace Higgs.Server.Controllers
             var apiRequest = new RestRequest("2.2/me", Method.GET);
             apiRequest.AddParameter("key", _configuration["SE.Key"]);
             apiRequest.AddParameter("site", "stackoverflow");
-            apiRequest.AddParameter("access_token", access_token);
+            apiRequest.AddParameter("access_token", accessToken);
             apiRequest.AddParameter("filter", "!JmXzzBW1uefdN).yXhRDGnC");
             var apiResponse = await stackExchangeApiClient.ExecuteTaskAsync(apiRequest);
             var apiContent = JsonConvert.DeserializeObject<dynamic>(apiResponse.Content);
@@ -125,13 +127,15 @@ namespace Higgs.Server.Controllers
             string displayName = userDetails.display_name;
 
             var signingKey = Convert.FromBase64String(_configuration["JwtSigningKey"]);
-
-            var defaultNewUserScopes = new[] {Scopes.REVIEWER_SEND_FEEDBACK};
-
+            
             // Temporary measure for testing
-            defaultNewUserScopes = Scopes.AllScopes.Select(a => a.Key).ToArray();
+            var defaultNewUserScopes = Scopes.AllScopes.Select(a => a.Key).ToArray();
+            var user = _dbContext.GetOrCreateUser(accountId, defaultNewUserScopes);
+            user.Name = displayName;
 
-            var userScopes = GetOrCreateUser(accountId, displayName, defaultNewUserScopes).UserScopes.Select(s => s.ScopeName).ToList();
+            _dbContext.SaveChanges();
+
+            var userScopes = user.UserScopes.Select(s => s.ScopeName).ToList();
 
             var decodedState = DecodeBase64(state);
             var loginState = JsonConvert.DeserializeObject<LoginState>(decodedState);
@@ -149,31 +153,7 @@ namespace Higgs.Server.Controllers
 
             return Redirect($"{loginState.RedirectURI}?access_token={token}");
         }
-
-        private DbUser GetOrCreateUser(int accountId, string displayName, IEnumerable<string> defaultNewUserScopes)
-        {
-            var existingUser = _dbContext.Users.Include(u => u.UserScopes).FirstOrDefault(u => u.AccountId == accountId);
-
-            if (existingUser == null)
-            {
-                existingUser = new DbUser
-                {
-                    AccountId = accountId,
-                    Name = displayName
-                };
-                _dbContext.Users.Add(existingUser);
-                foreach (var allowedScope in defaultNewUserScopes)
-                    _dbContext.UserScopes.Add(new DbUserScope
-                    {
-                        ScopeName = allowedScope,
-                        UserId = accountId
-                    });
-
-                _dbContext.SaveChanges();
-            }
-            return existingUser;
-        }
-
+        
         public static string CreateJwtToken(IEnumerable<Claim> claims, byte[] symmetricKey)
         {
             var tokenHandler = new JwtSecurityTokenHandler();

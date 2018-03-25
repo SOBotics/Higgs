@@ -109,7 +109,11 @@ namespace Higgs.Server.Controllers
             existingBot.Name = request.Name;
             existingBot.DashboardName = request.DashboardName;
             existingBot.Description = request.Description;
-            existingBot.Secret = BCrypt.Net.BCrypt.HashPassword(request.Secret);
+
+            // Deliberately not using IsNullOrWhitespace here, as an admin may want to revoke credentials from the bot entirely
+            if (!string.IsNullOrEmpty(request.Secret))
+                existingBot.Secret = BCrypt.Net.BCrypt.HashPassword(request.Secret);
+
             existingBot.FavIcon = request.FavIcon;
             existingBot.Homepage = request.Homepage;
             existingBot.LogoUrl = request.LogoUrl;

@@ -22,6 +22,8 @@ namespace Higgs.Server
         public const string BOT_SET_FEEDBACK_TYPES = "bot:setFeedbackTypes";
         public const string BOT_REGISTER_POST = "bot:registerPost";
 
+        public const string BOT_SEND_FEEDBACK = "bot:sendFeedback";
+
         public static Dictionary<string, string> AllScopes = new Dictionary<string, string>
         {
             {ADMIN_VIEW_BOT_DETAILS, "View details about registered bots"},
@@ -39,7 +41,9 @@ namespace Higgs.Server
             {REVIEWER_SEND_FEEDBACK, "Send feedback to a reported post"},
 
             {BOT_SET_FEEDBACK_TYPES, "Add or update feedback types"},
-            {BOT_REGISTER_POST, "Register a detected post"}
+            {BOT_REGISTER_POST, "Register a detected post"},
+
+            {BOT_SEND_FEEDBACK, "Send feedback to a reported post on behalf of a user"},
         };
     }
 }

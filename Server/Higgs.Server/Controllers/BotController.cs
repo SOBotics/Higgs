@@ -7,6 +7,7 @@ using Higgs.Server.Data.Models;
 using Higgs.Server.Models.Requests.Admin;
 using Higgs.Server.Models.Requests.Bot;
 using Higgs.Server.Models.Responses;
+using Higgs.Server.Utilities;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
@@ -68,8 +69,8 @@ namespace Higgs.Server.Controllers
         [SwaggerResponse((int) HttpStatusCode.BadRequest, typeof(ErrorResponse))]
         public IActionResult RegisterFeedbackTypes([FromBody] RegisterFeedbackTypesRequest request)
         {
-            var botIdClaim = User.Claims.Where(f => f.Type == BOT_ID_CLAIM).Select(f => f.Value).FirstOrDefault();
-            if (string.IsNullOrWhiteSpace(botIdClaim) || !int.TryParse(botIdClaim, out var botId))
+            var botId = GetBotId();
+            if (!botId.HasValue)
                 return BadRequest("Invalid or missing botId in claim");
             
             var existingFeedbacks = _dbContext.Feedbacks.Where(f => f.Id == 1 && request.FeedbackTypes.Select(ft => ft.Name).Contains(f.Name)).ToDictionary(f => f.Name, f => f);
@@ -82,7 +83,7 @@ namespace Higgs.Server.Controllers
                 {
                     dbFeedback = new DbFeedback
                     {
-                        BotId = botId,
+                        BotId = botId.Value,
                         Name = feedbackType.Name
                     };
                     _dbContext.Feedbacks.Add(dbFeedback);
@@ -98,6 +99,38 @@ namespace Higgs.Server.Controllers
             return Ok();
         }
 
+        [HttpPost("RegisterUserFeedback")]
+        [Authorize(Scopes.BOT_SEND_FEEDBACK)]
+        public IActionResult RegisterUserFeedback([FromBody] RegisterUserFeedbackRequest request)
+        {
+            var botId = GetBotId();
+            if (!botId.HasValue)
+                return BadRequest("Invalid or missing botId in claim");
+
+            var report = _dbContext.Reports.FirstOrDefault(r => r.Id == request.ReportId);
+            if (report?.BotId != botId)
+                return BadRequest("Bot is not authorized to submit feedback to this report");
+
+            if (string.IsNullOrWhiteSpace(request.Feedback))
+                return BadRequest("Feedback type must be provided");
+
+            var allowedFeedback = _dbContext.ReportAllowedFeedbacks.FirstOrDefault(raf => request.Feedback.Equals(raf.Feedback.Name, StringComparison.OrdinalIgnoreCase));
+            if (allowedFeedback == null)
+                return BadRequest("Feedback not allowed for report");
+
+            var user = _dbContext.GetOrCreateUser(request.UserId);
+            
+            _dbContext.ReportFeedbacks.Add(new DbReportFeedback
+            {
+                ReportId = request.ReportId,
+                User = user,
+                Feedback = allowedFeedback.Feedback
+            });
+            _dbContext.SaveChanges();
+
+            return Ok();
+        }
+
         /// <summary>
         ///     Used by bots to register a detected post
         /// </summary>
@@ -110,15 +143,15 @@ namespace Higgs.Server.Controllers
         [SwaggerResponse((int) HttpStatusCode.BadRequest, typeof(ErrorResponse))]
         public IActionResult RegisterPost([FromBody] RegisterPostRequest request)
         {
-            var botIdClaim = User.Claims.Where(f => f.Type == BOT_ID_CLAIM).Select(f => f.Value).FirstOrDefault();
-            if (string.IsNullOrWhiteSpace(botIdClaim) || !int.TryParse(botIdClaim, out var botId))
+            var botId = GetBotId();
+            if (!botId.HasValue)
                 return BadRequest("Invalid or missing botId in claim");
 
             var report = new DbReport
             {
                 AuthorName = request.AuthorName,
                 AuthorReputation = request.AuthorReputation,
-                BotId = botId,
+                BotId = botId.Value,
                 Title = request.Title,
                 
                 ContentCreationDate = request.ContentCreationDate,
@@ -189,7 +222,7 @@ namespace Higgs.Server.Controllers
                     dbReason = new DbReason
                     {
                         Name = reason.ReasonName,
-                        BotId = botId
+                        BotId = botId.Value
                     };
                     _dbContext.Reasons.Add(dbReason);
                 }
@@ -216,6 +249,14 @@ namespace Higgs.Server.Controllers
             _dbContext.SaveChanges();
 
             return Json(report.Id);
+        }
+
+        private int? GetBotId()
+        {
+            var botIdClaim = User.Claims.Where(f => f.Type == BOT_ID_CLAIM).Select(f => f.Value).FirstOrDefault();
+            if (string.IsNullOrWhiteSpace(botIdClaim) || !int.TryParse(botIdClaim, out var botId))
+                return null;
+            return botId;
         }
     }
 }
