@@ -99,6 +99,22 @@ namespace Higgs.Server.Controllers
             return Ok();
         }
 
+        [HttpPost("RegisterUserFeedbackByContent")]
+        [Authorize(Scopes.BOT_SEND_FEEDBACK)]
+        public IActionResult RegisterUserFeedbackByContent([FromBody] RegisterUserFeedbackByContentRequest request)
+        {
+            var matchedReport = _dbContext.Reports.FirstOrDefault(r => r.ContentUrl == request.ContentUrl);
+            if (matchedReport == null)
+                return BadRequest("No report exists with that content URL");
+
+            return RegisterUserFeedback(new RegisterUserFeedbackRequest
+            {
+                Feedback = request.Feedback,
+                ReportId = matchedReport.Id,
+                UserId = request.UserId
+            });
+        }
+
         [HttpPost("RegisterUserFeedback")]
         [Authorize(Scopes.BOT_SEND_FEEDBACK)]
         public IActionResult RegisterUserFeedback([FromBody] RegisterUserFeedbackRequest request)
