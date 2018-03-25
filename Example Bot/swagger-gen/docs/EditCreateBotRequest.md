@@ -3,8 +3,8 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**BotId** | **int?** | Id of bot to be edited | 
-**Secret** | **string** | Public key of bot used to sign JWT payloads | 
+**BotId** | **int?** |  | 
+**Secret** | **string** |  | [optional] 
 **Name** | **string** | Name of the bot | 
 **DashboardName** | **string** | Name of the dashboard | 
 **Description** | **string** | Description of the bot | 

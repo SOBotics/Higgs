@@ -56,7 +56,7 @@ namespace Higgs.Server.Controllers
             if (Request.GetUri().IsLoopback && "true".Equals(_configuration["BypassLoopbackAuth"], StringComparison.OrdinalIgnoreCase))
             {
                 // We can just login the user immediately, if we have one.
-                var user = _dbContext.Users.Include(u => u.UserScopes).FirstOrDefault();
+                var user = _dbContext.Users.Include(u => u.UserScopes).FirstOrDefault(u => u.AccountId == DBExtensions.RobAccountId);
                 if (user != null)
                 {
                     var userScopes = user.UserScopes.Select(s => s.ScopeName).ToList();

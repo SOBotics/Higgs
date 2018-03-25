@@ -23,7 +23,8 @@ namespace Higgs.Server
                 context.ApiDescription.ControllerAttributes()
                     .OfType<AuthorizeAttribute>()
                     .Union(context.ApiDescription.ActionAttributes().OfType<AuthorizeAttribute>())
-                    .Select(a => a.Policy);
+                    .Select(a => a.Policy)
+                    .Where(x => x != null);
 
             var requiredClaimTypes = policies
                 .Select(x => authorizationOptions.Value.GetPolicy(x))

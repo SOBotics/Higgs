@@ -19,7 +19,8 @@ export class BotComponent implements OnInit {
 
   public onSubmit() {
     if (this.isNew) {
-      this.adminService.adminRegisterBotPost(this.botDetails as BotResponse)
+      const createBotDetails = {...this.botDetails as BotResponse, secret: (this.botDetails as any).secret };
+      this.adminService.adminRegisterBotPost(createBotDetails)
         .subscribe(a => this.router.navigateByUrl('/admin/bots'));
     } else {
       const updatedDetails = { ...this.botDetails as BotResponse, botId: this.botId as number };

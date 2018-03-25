@@ -10,6 +10,8 @@ namespace Higgs.Server.Data
 {
     public static class DBExtensions
     {
+        public static int RobAccountId = 272446;
+
         public static void Setup(this HiggsDbContext context)
         {
             SeedData(context);
@@ -20,7 +22,7 @@ namespace Higgs.Server.Data
             if (!context.AllMigrationsApplied())
                 return;
 
-            var seedUsers = new[] {new SeedUser {AccountId = 272446, UserName = "Rob"}};
+            var seedUsers = new[] {new SeedUser {AccountId = RobAccountId, UserName = "Rob"}};
             var dbScopes = context.Scopes.ToList().ToLookup(p => p.Name, StringComparer.OrdinalIgnoreCase);
 
             foreach (var scope in Scopes.AllScopes)

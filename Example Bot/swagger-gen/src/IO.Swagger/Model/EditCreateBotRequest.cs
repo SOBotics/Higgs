@@ -38,8 +38,8 @@ namespace IO.Swagger.Model
         /// <summary>
         /// Initializes a new instance of the <see cref="EditCreateBotRequest" /> class.
         /// </summary>
-        /// <param name="BotId">Id of bot to be edited (required).</param>
-        /// <param name="Secret">Public key of bot used to sign JWT payloads (required).</param>
+        /// <param name="BotId">BotId (required).</param>
+        /// <param name="Secret">Secret.</param>
         /// <param name="Name">Name of the bot (required).</param>
         /// <param name="DashboardName">Name of the dashboard (required).</param>
         /// <param name="Description">Description of the bot (required).</param>
@@ -57,15 +57,6 @@ namespace IO.Swagger.Model
             else
             {
                 this.BotId = BotId;
-            }
-            // to ensure "Secret" is required (not null)
-            if (Secret == null)
-            {
-                throw new InvalidDataException("Secret is a required property for EditCreateBotRequest and cannot be null");
-            }
-            else
-            {
-                this.Secret = Secret;
             }
             // to ensure "Name" is required (not null)
             if (Name == null)
@@ -94,6 +85,7 @@ namespace IO.Swagger.Model
             {
                 this.Description = Description;
             }
+            this.Secret = Secret;
             this.Homepage = Homepage;
             this.LogoUrl = LogoUrl;
             this.FavIcon = FavIcon;
@@ -101,16 +93,14 @@ namespace IO.Swagger.Model
         }
         
         /// <summary>
-        /// Id of bot to be edited
+        /// Gets or Sets BotId
         /// </summary>
-        /// <value>Id of bot to be edited</value>
         [DataMember(Name="botId", EmitDefaultValue=false)]
         public int? BotId { get; set; }
 
         /// <summary>
-        /// Public key of bot used to sign JWT payloads
+        /// Gets or Sets Secret
         /// </summary>
-        /// <value>Public key of bot used to sign JWT payloads</value>
         [DataMember(Name="secret", EmitDefaultValue=false)]
         public string Secret { get; set; }
 

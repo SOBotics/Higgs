@@ -11,23 +11,7 @@
  */
 
 
-export interface EditCreateBotRequest {
+export interface SetBotScopesRequest {
     botId: number;
-    secret?: string;
-    /**
-     * Name of the bot
-     */
-    name: string;
-    /**
-     * Name of the dashboard
-     */
-    dashboardName: string;
-    /**
-     * Description of the bot
-     */
-    description: string;
-    homepage?: string;
-    logoUrl?: string;
-    favIcon?: string;
-    tabTitle?: string;
+    scopes: Array<string>;
 }

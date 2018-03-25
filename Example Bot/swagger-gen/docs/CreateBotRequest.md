@@ -3,7 +3,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Secret** | **string** | Public key of bot used to sign JWT payloads | 
+**Secret** | **string** |  | 
 **Name** | **string** | Name of the bot | 
 **DashboardName** | **string** | Name of the dashboard | 
 **Description** | **string** | Description of the bot | 

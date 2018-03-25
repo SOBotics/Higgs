@@ -4,10 +4,12 @@ using System.Net;
 using Higgs.Server.Data;
 using Higgs.Server.Data.Models;
 using Higgs.Server.Models.Requests.Admin;
+using Higgs.Server.Models.Requests.Bot;
 using Higgs.Server.Models.Responses;
 using Higgs.Server.Models.Responses.Admin;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using Swashbuckle.AspNetCore.SwaggerGen;
 
 namespace Higgs.Server.Controllers
@@ -92,7 +94,25 @@ namespace Higgs.Server.Controllers
                 }).FirstOrDefault();
         }
 
+        [HttpGet("Scopes")]
+        [SwaggerResponse((int)HttpStatusCode.OK, typeof(List<string>))]
+        [Authorize(Scopes.ADMIN_VIEW_SCOPES)]
+        public List<string> AllScopes()
+        {
+            return Scopes.AllScopes.Select(s => s.Key).ToList();
+        }
 
+        [HttpGet("BotScopes")]
+        [Authorize(Scopes.ADMIN_VIEW_BOT_DETAILS)]
+        public List<string> BotScopes(int botId)
+        {
+            var botScopes = _dbContext.Bots.Where(b => b.Id == botId)
+                .SelectMany(b => b.BotScopes.Select(bs => bs.ScopeName))
+                .ToList();
+
+            return botScopes;
+        }
+       
         /// <summary>
         ///     Update a bots details
         /// </summary>
@@ -131,35 +151,44 @@ namespace Higgs.Server.Controllers
         [Authorize(Scopes.ADMIN_DEACTIVATE_BOT)]
         [SwaggerResponse((int) HttpStatusCode.OK, Description = "Successfully deactivated bot")]
         [SwaggerResponse((int) HttpStatusCode.BadRequest, typeof(ErrorResponse))]
-        public IActionResult DeactiveateBot([FromBody] DeleteCreateBotRequest request)
+        public IActionResult DeactiveateBot([FromBody] DeleteBotRequest request)
         {
             return Ok(0);
         }
 
         /// <summary>
-        ///     Add a scope to a bot
+        ///     Set bot scopes
         /// </summary>
-        [HttpPost("AddBotScope")]
-        [Authorize(Scopes.ADMIN_ADD_BOT_SCOPE)]
-        [SwaggerResponse((int) HttpStatusCode.OK, Description = "Successfully added scope to bot")]
+        [HttpPost("SetBotScopes")]
+        [Authorize(Scopes.ADMIN_EDIT_BOT_SCOPE)]
+        [SwaggerResponse((int) HttpStatusCode.OK, Description = "Successfully updated bots scopes")]
         [SwaggerResponse((int) HttpStatusCode.BadRequest, typeof(ErrorResponse))]
-        public IActionResult AddBotScope([FromBody] DeleteCreateBotRequest request)
+        public IActionResult SetBotScopes([FromBody] SetBotScopesRequest request)
         {
+            var bot = _dbContext.Bots.FirstOrDefault(b => b.Id == request.BotId);
+            if (bot == null)
+                return BadRequest(new ErrorResponse("Bot does not exist with that id"));
+
+            var requestScopesLookup = new HashSet<string>(request.Scopes);
+            var existingBotScopes = _dbContext.BotScopes.Where(bs => bs.BotId == request.BotId).ToList();
+            var existingScopesLookup = existingBotScopes.ToDictionary(s => s.ScopeName, s => s);
+
+            foreach (var existingBotScope in existingBotScopes)
+            {
+                if (!requestScopesLookup.Contains(existingBotScope.ScopeName))
+                    _dbContext.BotScopes.Remove(existingBotScope);
+            }
+
+            foreach (var newBotScope in request.Scopes)
+            {
+                if (!existingScopesLookup.ContainsKey(newBotScope))
+                    _dbContext.BotScopes.Add(new DbBotScope {BotId = request.BotId, ScopeName = newBotScope});
+            }
+
+            _dbContext.SaveChanges();
             return Ok(0);
         }
-
-        /// <summary>
-        ///     Remove a scope from a bot
-        /// </summary>
-        [HttpPost("RemoveBotScope")]
-        [Authorize(Scopes.ADMIN_REMOVE_BOT_SCOPE)]
-        [SwaggerResponse((int) HttpStatusCode.OK, Description = "Successfully removed scope from bot")]
-        [SwaggerResponse((int) HttpStatusCode.BadRequest, typeof(ErrorResponse))]
-        public IActionResult RemoveBotScope([FromBody] AddBotScopeRequest request)
-        {
-            return Ok(0);
-        }
-
+        
         /// <summary>
         ///     Lists all users
         /// </summary>
@@ -174,23 +203,11 @@ namespace Higgs.Server.Controllers
         /// <summary>
         ///     Add a scope to a user
         /// </summary>
-        [HttpPost("AddUserScope")]
-        [Authorize(Scopes.ADMIN_ADD_USER_SCOPE)]
+        [HttpPost("SetUserScopes")]
+        [Authorize(Scopes.ADMIN_EDIT_USER_SCOPE)]
         [SwaggerResponse((int) HttpStatusCode.OK, Description = "Successfully added scope to user")]
         [SwaggerResponse((int) HttpStatusCode.BadRequest, typeof(ErrorResponse))]
-        public IActionResult AddUserScope([FromBody] AddUserScopeRequest request)
-        {
-            return Ok(0);
-        }
-
-        /// <summary>
-        ///     Remove a scope from a user
-        /// </summary>
-        [HttpPost("RemoveUserScope")]
-        [Authorize(Scopes.ADMIN_REMOVE_USER_SCOPE)]
-        [SwaggerResponse((int) HttpStatusCode.OK, Description = "Successfully removed scope from user")]
-        [SwaggerResponse((int) HttpStatusCode.BadRequest, typeof(ErrorResponse))]
-        public IActionResult RemoveUserScope([FromBody] RemoveUserScopeRequest request)
+        public IActionResult SetUserScopes([FromBody] AddUserScopeRequest request)
         {
             return Ok(0);
         }

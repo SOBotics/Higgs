@@ -4,9 +4,6 @@ namespace Higgs.Server.Models.Requests.Admin
 {
     public class CreateBotRequest
     {
-        /// <summary>
-        ///     Public key of bot used to sign JWT payloads
-        /// </summary>
         [Required]
         public string Secret { get; set; }
 

@@ -38,7 +38,7 @@ namespace IO.Swagger.Model
         /// <summary>
         /// Initializes a new instance of the <see cref="CreateBotRequest" /> class.
         /// </summary>
-        /// <param name="Secret">Public key of bot used to sign JWT payloads (required).</param>
+        /// <param name="Secret">Secret (required).</param>
         /// <param name="Name">Name of the bot (required).</param>
         /// <param name="DashboardName">Name of the dashboard (required).</param>
         /// <param name="Description">Description of the bot (required).</param>
@@ -91,9 +91,8 @@ namespace IO.Swagger.Model
         }
         
         /// <summary>
-        /// Public key of bot used to sign JWT payloads
+        /// Gets or Sets Secret
         /// </summary>
-        /// <value>Public key of bot used to sign JWT payloads</value>
         [DataMember(Name="secret", EmitDefaultValue=false)]
         public string Secret { get; set; }
 

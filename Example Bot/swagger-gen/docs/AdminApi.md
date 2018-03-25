@@ -4,139 +4,17 @@ All URIs are relative to *https://localhost*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**AdminAddBotScopePost**](AdminApi.md#adminaddbotscopepost) | **POST** /Admin/AddBotScope | Add a scope to a bot
-[**AdminAddUserScopePost**](AdminApi.md#adminadduserscopepost) | **POST** /Admin/AddUserScope | Add a scope to a user
 [**AdminBotGet**](AdminApi.md#adminbotget) | **GET** /Admin/Bot | 
+[**AdminBotScopesGet**](AdminApi.md#adminbotscopesget) | **GET** /Admin/BotScopes | 
 [**AdminBotsGet**](AdminApi.md#adminbotsget) | **GET** /Admin/Bots | Lists all bots
 [**AdminDeactiveateBotPost**](AdminApi.md#admindeactiveatebotpost) | **POST** /Admin/DeactiveateBot | Deactivates a bot
 [**AdminEditBotPost**](AdminApi.md#admineditbotpost) | **POST** /Admin/EditBot | Update a bots details
 [**AdminRegisterBotPost**](AdminApi.md#adminregisterbotpost) | **POST** /Admin/RegisterBot | Register a bot
-[**AdminRemoveBotScopePost**](AdminApi.md#adminremovebotscopepost) | **POST** /Admin/RemoveBotScope | Remove a scope from a bot
-[**AdminRemoveUserScopePost**](AdminApi.md#adminremoveuserscopepost) | **POST** /Admin/RemoveUserScope | Remove a scope from a user
+[**AdminScopesGet**](AdminApi.md#adminscopesget) | **GET** /Admin/Scopes | 
+[**AdminSetBotScopesPost**](AdminApi.md#adminsetbotscopespost) | **POST** /Admin/SetBotScopes | Set bot scopes
+[**AdminSetUserScopesPost**](AdminApi.md#adminsetuserscopespost) | **POST** /Admin/SetUserScopes | Add a scope to a user
 [**AdminUsersGet**](AdminApi.md#adminusersget) | **GET** /Admin/Users | Lists all users
 
-
-<a name="adminaddbotscopepost"></a>
-# **AdminAddBotScopePost**
-> void AdminAddBotScopePost (DeleteCreateBotRequest request = null)
-
-Add a scope to a bot
-
-### Example
-```csharp
-using System;
-using System.Diagnostics;
-using IO.Swagger.Api;
-using IO.Swagger.Client;
-using IO.Swagger.Model;
-
-namespace Example
-{
-    public class AdminAddBotScopePostExample
-    {
-        public void main()
-        {
-            // Configure OAuth2 access token for authorization: oauth2
-            Configuration.Default.AccessToken = "YOUR_ACCESS_TOKEN";
-
-            var apiInstance = new AdminApi();
-            var request = new DeleteCreateBotRequest(); // DeleteCreateBotRequest |  (optional) 
-
-            try
-            {
-                // Add a scope to a bot
-                apiInstance.AdminAddBotScopePost(request);
-            }
-            catch (Exception e)
-            {
-                Debug.Print("Exception when calling AdminApi.AdminAddBotScopePost: " + e.Message );
-            }
-        }
-    }
-}
-```
-
-### Parameters
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **request** | [**DeleteCreateBotRequest**](DeleteCreateBotRequest.md)|  | [optional] 
-
-### Return type
-
-void (empty response body)
-
-### Authorization
-
-[oauth2](../README.md#oauth2)
-
-### HTTP request headers
-
- - **Content-Type**: application/json-patch+json, application/json, text/json, application/_*+json
- - **Accept**: text/plain, application/json, text/json
-
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
-
-<a name="adminadduserscopepost"></a>
-# **AdminAddUserScopePost**
-> void AdminAddUserScopePost (AddUserScopeRequest request = null)
-
-Add a scope to a user
-
-### Example
-```csharp
-using System;
-using System.Diagnostics;
-using IO.Swagger.Api;
-using IO.Swagger.Client;
-using IO.Swagger.Model;
-
-namespace Example
-{
-    public class AdminAddUserScopePostExample
-    {
-        public void main()
-        {
-            // Configure OAuth2 access token for authorization: oauth2
-            Configuration.Default.AccessToken = "YOUR_ACCESS_TOKEN";
-
-            var apiInstance = new AdminApi();
-            var request = new AddUserScopeRequest(); // AddUserScopeRequest |  (optional) 
-
-            try
-            {
-                // Add a scope to a user
-                apiInstance.AdminAddUserScopePost(request);
-            }
-            catch (Exception e)
-            {
-                Debug.Print("Exception when calling AdminApi.AdminAddUserScopePost: " + e.Message );
-            }
-        }
-    }
-}
-```
-
-### Parameters
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **request** | [**AddUserScopeRequest**](AddUserScopeRequest.md)|  | [optional] 
-
-### Return type
-
-void (empty response body)
-
-### Authorization
-
-[oauth2](../README.md#oauth2)
-
-### HTTP request headers
-
- - **Content-Type**: application/json-patch+json, application/json, text/json, application/_*+json
- - **Accept**: text/plain, application/json, text/json
-
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 <a name="adminbotget"></a>
 # **AdminBotGet**
@@ -187,6 +65,67 @@ Name | Type | Description  | Notes
 ### Return type
 
 [**BotResponse**](BotResponse.md)
+
+### Authorization
+
+[oauth2](../README.md#oauth2)
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: text/plain, application/json, text/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+<a name="adminbotscopesget"></a>
+# **AdminBotScopesGet**
+> List<string> AdminBotScopesGet (int? botId)
+
+
+
+### Example
+```csharp
+using System;
+using System.Diagnostics;
+using IO.Swagger.Api;
+using IO.Swagger.Client;
+using IO.Swagger.Model;
+
+namespace Example
+{
+    public class AdminBotScopesGetExample
+    {
+        public void main()
+        {
+            // Configure OAuth2 access token for authorization: oauth2
+            Configuration.Default.AccessToken = "YOUR_ACCESS_TOKEN";
+
+            var apiInstance = new AdminApi();
+            var botId = 56;  // int? | 
+
+            try
+            {
+                List&lt;string&gt; result = apiInstance.AdminBotScopesGet(botId);
+                Debug.WriteLine(result);
+            }
+            catch (Exception e)
+            {
+                Debug.Print("Exception when calling AdminApi.AdminBotScopesGet: " + e.Message );
+            }
+        }
+    }
+}
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **botId** | **int?**|  | 
+
+### Return type
+
+**List<string>**
 
 ### Authorization
 
@@ -259,7 +198,7 @@ This endpoint does not need any parameter.
 
 <a name="admindeactiveatebotpost"></a>
 # **AdminDeactiveateBotPost**
-> void AdminDeactiveateBotPost (DeleteCreateBotRequest request = null)
+> void AdminDeactiveateBotPost (DeleteBotRequest request = null)
 
 Deactivates a bot
 
@@ -281,7 +220,7 @@ namespace Example
             Configuration.Default.AccessToken = "YOUR_ACCESS_TOKEN";
 
             var apiInstance = new AdminApi();
-            var request = new DeleteCreateBotRequest(); // DeleteCreateBotRequest |  (optional) 
+            var request = new DeleteBotRequest(); // DeleteBotRequest |  (optional) 
 
             try
             {
@@ -301,7 +240,7 @@ namespace Example
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **request** | [**DeleteCreateBotRequest**](DeleteCreateBotRequest.md)|  | [optional] 
+ **request** | [**DeleteBotRequest**](DeleteBotRequest.md)|  | [optional] 
 
 ### Return type
 
@@ -441,11 +380,11 @@ Name | Type | Description  | Notes
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
-<a name="adminremovebotscopepost"></a>
-# **AdminRemoveBotScopePost**
-> void AdminRemoveBotScopePost (AddBotScopeRequest request = null)
+<a name="adminscopesget"></a>
+# **AdminScopesGet**
+> List<string> AdminScopesGet ()
 
-Remove a scope from a bot
+
 
 ### Example
 ```csharp
@@ -457,7 +396,7 @@ using IO.Swagger.Model;
 
 namespace Example
 {
-    public class AdminRemoveBotScopePostExample
+    public class AdminScopesGetExample
     {
         public void main()
         {
@@ -465,16 +404,73 @@ namespace Example
             Configuration.Default.AccessToken = "YOUR_ACCESS_TOKEN";
 
             var apiInstance = new AdminApi();
-            var request = new AddBotScopeRequest(); // AddBotScopeRequest |  (optional) 
 
             try
             {
-                // Remove a scope from a bot
-                apiInstance.AdminRemoveBotScopePost(request);
+                List&lt;string&gt; result = apiInstance.AdminScopesGet();
+                Debug.WriteLine(result);
             }
             catch (Exception e)
             {
-                Debug.Print("Exception when calling AdminApi.AdminRemoveBotScopePost: " + e.Message );
+                Debug.Print("Exception when calling AdminApi.AdminScopesGet: " + e.Message );
+            }
+        }
+    }
+}
+```
+
+### Parameters
+This endpoint does not need any parameter.
+
+### Return type
+
+**List<string>**
+
+### Authorization
+
+[oauth2](../README.md#oauth2)
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: text/plain, application/json, text/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+<a name="adminsetbotscopespost"></a>
+# **AdminSetBotScopesPost**
+> void AdminSetBotScopesPost (SetBotScopesRequest request = null)
+
+Set bot scopes
+
+### Example
+```csharp
+using System;
+using System.Diagnostics;
+using IO.Swagger.Api;
+using IO.Swagger.Client;
+using IO.Swagger.Model;
+
+namespace Example
+{
+    public class AdminSetBotScopesPostExample
+    {
+        public void main()
+        {
+            // Configure OAuth2 access token for authorization: oauth2
+            Configuration.Default.AccessToken = "YOUR_ACCESS_TOKEN";
+
+            var apiInstance = new AdminApi();
+            var request = new SetBotScopesRequest(); // SetBotScopesRequest |  (optional) 
+
+            try
+            {
+                // Set bot scopes
+                apiInstance.AdminSetBotScopesPost(request);
+            }
+            catch (Exception e)
+            {
+                Debug.Print("Exception when calling AdminApi.AdminSetBotScopesPost: " + e.Message );
             }
         }
     }
@@ -485,7 +481,7 @@ namespace Example
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **request** | [**AddBotScopeRequest**](AddBotScopeRequest.md)|  | [optional] 
+ **request** | [**SetBotScopesRequest**](SetBotScopesRequest.md)|  | [optional] 
 
 ### Return type
 
@@ -502,11 +498,11 @@ void (empty response body)
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
-<a name="adminremoveuserscopepost"></a>
-# **AdminRemoveUserScopePost**
-> void AdminRemoveUserScopePost (RemoveUserScopeRequest request = null)
+<a name="adminsetuserscopespost"></a>
+# **AdminSetUserScopesPost**
+> void AdminSetUserScopesPost (AddUserScopeRequest request = null)
 
-Remove a scope from a user
+Add a scope to a user
 
 ### Example
 ```csharp
@@ -518,7 +514,7 @@ using IO.Swagger.Model;
 
 namespace Example
 {
-    public class AdminRemoveUserScopePostExample
+    public class AdminSetUserScopesPostExample
     {
         public void main()
         {
@@ -526,16 +522,16 @@ namespace Example
             Configuration.Default.AccessToken = "YOUR_ACCESS_TOKEN";
 
             var apiInstance = new AdminApi();
-            var request = new RemoveUserScopeRequest(); // RemoveUserScopeRequest |  (optional) 
+            var request = new AddUserScopeRequest(); // AddUserScopeRequest |  (optional) 
 
             try
             {
-                // Remove a scope from a user
-                apiInstance.AdminRemoveUserScopePost(request);
+                // Add a scope to a user
+                apiInstance.AdminSetUserScopesPost(request);
             }
             catch (Exception e)
             {
-                Debug.Print("Exception when calling AdminApi.AdminRemoveUserScopePost: " + e.Message );
+                Debug.Print("Exception when calling AdminApi.AdminSetUserScopesPost: " + e.Message );
             }
         }
     }
@@ -546,7 +542,7 @@ namespace Example
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **request** | [**RemoveUserScopeRequest**](RemoveUserScopeRequest.md)|  | [optional] 
+ **request** | [**AddUserScopeRequest**](AddUserScopeRequest.md)|  | [optional] 
 
 ### Return type
 

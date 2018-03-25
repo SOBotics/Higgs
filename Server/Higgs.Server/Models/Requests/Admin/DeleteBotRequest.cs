@@ -2,7 +2,7 @@
 
 namespace Higgs.Server.Models.Requests.Admin
 {
-    public class DeleteCreateBotRequest
+    public class DeleteBotRequest
     {
         /// <summary>
         ///     Id of bot to be deleted

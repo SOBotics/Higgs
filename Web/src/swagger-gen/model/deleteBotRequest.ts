@@ -11,22 +11,9 @@
  */
 
 
-export interface CreateBotRequest {
-    secret: string;
+export interface DeleteBotRequest {
     /**
-     * Name of the bot
+     * Id of bot to be deleted
      */
-    name: string;
-    /**
-     * Name of the dashboard
-     */
-    dashboardName: string;
-    /**
-     * Description of the bot
-     */
-    description: string;
-    homepage?: string;
-    logoUrl?: string;
-    favIcon?: string;
-    tabTitle?: string;
+    botId: number;
 }

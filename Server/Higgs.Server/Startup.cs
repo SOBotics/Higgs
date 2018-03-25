@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 using Higgs.Server.Data;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
@@ -56,7 +57,7 @@ namespace Higgs.Server
             {
                 foreach (var scope in Scopes.AllScopes) options.AddPolicy(scope.Key, a => a.RequireClaim(scope.Key));
             });
-
+            
             services.AddSwaggerGen(c =>
             {
                 c.IncludeXmlComments(string.Format(@"{0}/Higgs.Server.xml", AppDomain.CurrentDomain.BaseDirectory));

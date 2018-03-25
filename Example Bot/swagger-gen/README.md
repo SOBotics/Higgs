@@ -74,16 +74,16 @@ namespace Example
             Configuration.Default.AccessToken = "YOUR_ACCESS_TOKEN";
 
             var apiInstance = new AdminApi();
-            var request = new DeleteCreateBotRequest(); // DeleteCreateBotRequest |  (optional) 
+            var botId = 56;  // int? | 
 
             try
             {
-                // Add a scope to a bot
-                apiInstance.AdminAddBotScopePost(request);
+                BotResponse result = apiInstance.AdminBotGet(botId);
+                Debug.WriteLine(result);
             }
             catch (Exception e)
             {
-                Debug.Print("Exception when calling AdminApi.AdminAddBotScopePost: " + e.Message );
+                Debug.Print("Exception when calling AdminApi.AdminBotGet: " + e.Message );
             }
 
         }
@@ -98,15 +98,15 @@ All URIs are relative to *https://localhost*
 
 Class | Method | HTTP request | Description
 ------------ | ------------- | ------------- | -------------
-*AdminApi* | [**AdminAddBotScopePost**](docs/AdminApi.md#adminaddbotscopepost) | **POST** /Admin/AddBotScope | Add a scope to a bot
-*AdminApi* | [**AdminAddUserScopePost**](docs/AdminApi.md#adminadduserscopepost) | **POST** /Admin/AddUserScope | Add a scope to a user
 *AdminApi* | [**AdminBotGet**](docs/AdminApi.md#adminbotget) | **GET** /Admin/Bot | 
+*AdminApi* | [**AdminBotScopesGet**](docs/AdminApi.md#adminbotscopesget) | **GET** /Admin/BotScopes | 
 *AdminApi* | [**AdminBotsGet**](docs/AdminApi.md#adminbotsget) | **GET** /Admin/Bots | Lists all bots
 *AdminApi* | [**AdminDeactiveateBotPost**](docs/AdminApi.md#admindeactiveatebotpost) | **POST** /Admin/DeactiveateBot | Deactivates a bot
 *AdminApi* | [**AdminEditBotPost**](docs/AdminApi.md#admineditbotpost) | **POST** /Admin/EditBot | Update a bots details
 *AdminApi* | [**AdminRegisterBotPost**](docs/AdminApi.md#adminregisterbotpost) | **POST** /Admin/RegisterBot | Register a bot
-*AdminApi* | [**AdminRemoveBotScopePost**](docs/AdminApi.md#adminremovebotscopepost) | **POST** /Admin/RemoveBotScope | Remove a scope from a bot
-*AdminApi* | [**AdminRemoveUserScopePost**](docs/AdminApi.md#adminremoveuserscopepost) | **POST** /Admin/RemoveUserScope | Remove a scope from a user
+*AdminApi* | [**AdminScopesGet**](docs/AdminApi.md#adminscopesget) | **GET** /Admin/Scopes | 
+*AdminApi* | [**AdminSetBotScopesPost**](docs/AdminApi.md#adminsetbotscopespost) | **POST** /Admin/SetBotScopes | Set bot scopes
+*AdminApi* | [**AdminSetUserScopesPost**](docs/AdminApi.md#adminsetuserscopespost) | **POST** /Admin/SetUserScopes | Add a scope to a user
 *AdminApi* | [**AdminUsersGet**](docs/AdminApi.md#adminusersget) | **GET** /Admin/Users | Lists all users
 *BotApi* | [**BotAquireTokenPost**](docs/BotApi.md#botaquiretokenpost) | **POST** /Bot/AquireToken | 
 *BotApi* | [**BotRegisterFeedbackTypesPost**](docs/BotApi.md#botregisterfeedbacktypespost) | **POST** /Bot/RegisterFeedbackTypes | Used by bots to register feedback types
@@ -123,13 +123,12 @@ Class | Method | HTTP request | Description
 <a name="documentation-for-models"></a>
 ## Documentation for Models
 
- - [Model.AddBotScopeRequest](docs/AddBotScopeRequest.md)
  - [Model.AddUserScopeRequest](docs/AddUserScopeRequest.md)
  - [Model.AquireTokenResponse](docs/AquireTokenResponse.md)
  - [Model.BotResponse](docs/BotResponse.md)
  - [Model.BotsResponse](docs/BotsResponse.md)
  - [Model.CreateBotRequest](docs/CreateBotRequest.md)
- - [Model.DeleteCreateBotRequest](docs/DeleteCreateBotRequest.md)
+ - [Model.DeleteBotRequest](docs/DeleteBotRequest.md)
  - [Model.EditCreateBotRequest](docs/EditCreateBotRequest.md)
  - [Model.ErrorResponse](docs/ErrorResponse.md)
  - [Model.FeedbackType](docs/FeedbackType.md)
@@ -140,7 +139,6 @@ Class | Method | HTTP request | Description
  - [Model.RegisterPostRequest](docs/RegisterPostRequest.md)
  - [Model.RegisterUserFeedbackByContentRequest](docs/RegisterUserFeedbackByContentRequest.md)
  - [Model.RegisterUserFeedbackRequest](docs/RegisterUserFeedbackRequest.md)
- - [Model.RemoveUserScopeRequest](docs/RemoveUserScopeRequest.md)
  - [Model.ReviewerReportAllowedFeedbackResponse](docs/ReviewerReportAllowedFeedbackResponse.md)
  - [Model.ReviewerReportContentFragmentResponse](docs/ReviewerReportContentFragmentResponse.md)
  - [Model.ReviewerReportFeedbackResponse](docs/ReviewerReportFeedbackResponse.md)
@@ -148,6 +146,7 @@ Class | Method | HTTP request | Description
  - [Model.ReviewerReportResponse](docs/ReviewerReportResponse.md)
  - [Model.ReviewerReportsResponse](docs/ReviewerReportsResponse.md)
  - [Model.ScopeInfo](docs/ScopeInfo.md)
+ - [Model.SetBotScopesRequest](docs/SetBotScopesRequest.md)
  - [Model.UsersResponse](docs/UsersResponse.md)
 
 
@@ -161,15 +160,14 @@ Class | Method | HTTP request | Description
 - **Flow**: implicit
 - **Authorization URL**: http://45.77.238.226/Authentication/Login
 - **Scopes**: 
-  - admin:viewBotDetails: View details about registered bots
+  - admin:viewBotDetails: View all available scopes in the system
+  - admin:viewScopes: View details about registered bots
   - admin:registerBot: Register a new bot with Higgs
   - admin:editBot: Edit a bots configuration
   - admin:deactivateBot: Deactivate a bot
-  - admin:addBotScope: Add a scope to a bot
-  - admin:removeBotScope: Remove a scope from a bot
+  - admin:editBotScope: Edit a bots scopes
   - admin:viewUserDetails: View all user details
-  - admin:addUserScope: Add a scope to a user
-  - admin:removeUserScope: Remove a scope from a user
+  - admin:editUserScope: Edit a users scopes
   - reviewer:sendFeedback: Send feedback to a reported post
   - bot:setFeedbackTypes: Add or update feedback types
   - bot:registerPost: Register a detected post
