@@ -33,7 +33,7 @@ namespace Higgs.Server.Controllers
         [HttpPost("AquireToken")]
         [SwaggerResponse((int) HttpStatusCode.OK, typeof(AquireTokenResponse), Description = "The authorization token")]
         [SwaggerResponse((int) HttpStatusCode.BadRequest, typeof(ErrorResponse))]
-        public IActionResult AquireToken(AquireTokenRequest request)
+        public IActionResult AquireToken([FromBody] AquireTokenRequest request)
         {
             var bot = _dbContext.Bots.Where(b => b.Id == request.BotId)
                 .Select(b => new
