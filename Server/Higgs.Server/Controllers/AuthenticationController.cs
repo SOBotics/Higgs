@@ -8,6 +8,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using Higgs.Server.Data;
 using Higgs.Server.Data.Models;
+using Microsoft.ApplicationInsights.AspNetCore.Extensions;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
@@ -51,10 +52,31 @@ namespace Higgs.Server.Controllers
             [FromQuery(Name = "scope")] string scope
         )
         {
-            var payload = JsonConvert.SerializeObject(new LoginState {RedirectURI = redirectURI, Scope = scope ?? string.Empty});
-            var encodedPayload = EncodeBase64(payload);
+            if (Request.GetUri().IsLoopback && "true".Equals(_configuration["BypassLoopbackAuth"], StringComparison.OrdinalIgnoreCase))
+            {
+                // We can just login the user immediately, if we have one.
+                var user = _dbContext.Users.Include(u => u.UserScopes).FirstOrDefault();
+                if (user != null)
+                {
+                    var userScopes = user.UserScopes.Select(s => s.ScopeName).ToList();
+
+                    var claims = new[]
+                    {
+                        new Claim(ClaimTypes.Name, user.Name),
+                        new Claim(ACCOUNT_ID_CLAIM, user.AccountId.ToString())
+                    }.Concat(userScopes.Select(c => new Claim(c, string.Empty)));
+
+                    var signingKey = Convert.FromBase64String(_configuration["JwtSigningKey"]);
+                    var token = CreateJwtToken(claims, signingKey);
+
+                    return Redirect($"{redirectURI}?access_token={token}");
+                }
+            }
 
             var clientId = _configuration["SE.ClientId"];
+            var payload = JsonConvert.SerializeObject(new LoginState { RedirectURI = redirectURI, Scope = scope ?? string.Empty });
+            var encodedPayload = EncodeBase64(payload);
+
             return Redirect($"https://stackexchange.com/oauth?client_id={clientId}&scope=&redirect_uri={_oauthRedirect}&state={encodedPayload}");
         }
 
