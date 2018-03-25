@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Net;
 using Higgs.Server.Data;
@@ -82,8 +83,13 @@ namespace Higgs.Server.Controllers
         [SwaggerResponse((int)HttpStatusCode.BadRequest, typeof(ErrorResponse))]
         public IActionResult RegisterFeedbackTypesForBot([FromBody] RegisterFeedbackTypesForBotRequest request)
         {
-            var existingFeedbacks = _dbContext.Feedbacks.Where(f => f.BotId == request.BotId).ToDictionary(f => f.Name, f => f);
-            var requestFeedback = new HashSet<string>(request.FeedbackTypes.Select(ft => ft.Name));
+            var existingFeedbacks = _dbContext.Feedbacks.Where(f => f.BotId == request.BotId)
+                .ToList()
+                .GroupBy(f => f.Name) // In case there are duplicates, just handle the first one
+                .Select(g => g.First())
+                .ToDictionary(f => f.Name, f => f, StringComparer.OrdinalIgnoreCase);
+
+            var requestFeedback = new HashSet<string>(request.FeedbackTypes.Select(ft => ft.Name), StringComparer.OrdinalIgnoreCase);
             foreach (var feedback in existingFeedbacks.Values)
             {
                 if (!requestFeedback.Contains(feedback.Name))
