@@ -115,7 +115,7 @@ namespace Higgs.Server.Controllers
         [Authorize(Scopes.REVIEWER_SEND_FEEDBACK)]
         public IActionResult SendFeedback(int reportId, int id)
         {
-            var allowedFeedbacks = _dbContext.ReportAllowedFeedbacks.Where(r => r.ReportId == reportId).Select(f => f.Id).ToList();
+            var allowedFeedbacks = _dbContext.ReportAllowedFeedbacks.Where(r => r.ReportId == reportId).Select(f => f.FeedbackId).ToList();
 
             var userIdStr = User.Claims.Where(c => c.Type == AuthenticationController.ACCOUNT_ID_CLAIM).Select(c => c.Value).FirstOrDefault();
             if (!string.IsNullOrWhiteSpace(userIdStr) && int.TryParse(userIdStr, out var userId))
