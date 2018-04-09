@@ -227,7 +227,7 @@ namespace Higgs.Server.Controllers
             _dbContext.Reports.Add(report);
 
             var feedbackTypes = _dbContext.Feedbacks.Where(f => f.BotId == botId && request.AllowedFeedback.Contains(f.Name)).ToDictionary(f => f.Name, f => f.Id);
-            foreach (var allowedFeedback in request.AllowedFeedback)
+            foreach (var allowedFeedback in request.AllowedFeedback ?? Enumerable.Empty<string>())
             {
                 if (feedbackTypes.ContainsKey(allowedFeedback))
                 {
