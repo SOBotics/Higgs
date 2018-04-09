@@ -46,8 +46,9 @@ namespace Higgs.Server.Models.Responses.Reviewer
     public class ReviewerReportReasonResponse
     {
         public int ReasonId { get; set; }
-        public double? Confidence { get; set; }
         public string Name { get; set; }
+        public double? Confidence { get; set; }
+        public bool Tripped { get; set; }
         public int Seen { get; set; }
     }
 

@@ -78,6 +78,7 @@ namespace Higgs.Server.Controllers
                         ReasonId = reportReason.ReasonId,
                         Name = reportReason.Reason.Name,
                         Confidence = reportReason.Confidence,
+                        Tripped = reportReason.Tripped,
                         Seen = reportReason.Reason.ReportReasons.Select(rr => rr.ReportId).Distinct().Count()
                     }).ToList(),
 
