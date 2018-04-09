@@ -169,7 +169,7 @@ namespace Higgs.Server.Controllers
         /// </returns>
         [HttpPost("RegisterPost")]
         [Authorize(Scopes.BOT_REGISTER_POST)]
-        [SwaggerResponse((int) HttpStatusCode.OK)]
+        [SwaggerResponse((int) HttpStatusCode.OK, typeof(int))]
         [SwaggerResponse((int) HttpStatusCode.BadRequest, typeof(ErrorResponse))]
         public IActionResult RegisterPost([FromBody] RegisterPostRequest request)
         {
@@ -227,7 +227,7 @@ namespace Higgs.Server.Controllers
             _dbContext.Reports.Add(report);
 
             var feedbackTypes = _dbContext.Feedbacks.Where(f => f.BotId == botId && request.AllowedFeedback.Contains(f.Name)).ToDictionary(f => f.Name, f => f.Id);
-            foreach (var allowedFeedback in request.AllowedFeedback ?? Enumerable.Empty<string>())
+            foreach (var allowedFeedback in request.AllowedFeedback)
             {
                 if (feedbackTypes.ContainsKey(allowedFeedback))
                 {
