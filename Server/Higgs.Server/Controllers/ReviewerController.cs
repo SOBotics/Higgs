@@ -37,6 +37,7 @@ namespace Higgs.Server.Controllers
                 {
                     Id = r.Id,
                     Title = r.Title,
+                    DashboardName = r.Bot.DashboardName
                 })
                 .OrderByDescending(r => r.Id)
                 .Take(100);
