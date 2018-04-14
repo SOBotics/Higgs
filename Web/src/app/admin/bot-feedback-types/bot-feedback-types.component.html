@@ -21,10 +21,10 @@
           <input type="text" class="form-control" [(ngModel)]="feedback.icon" [ngModelOptions]="{standalone: true}">
         </td>
         <td>
-          <input type="checkbox" name="actionable" [(ngModel)]="feedback.IsActionable" [ngModelOptions]="{standalone: true}" [checked]="feedback.IsActionable">
+          <input type="checkbox" [(ngModel)]="feedback.IsActionable" [ngModelOptions]="{standalone: true}" [checked]="feedback.IsActionable">
         </td>
         <td>
-          <input type="checkbox" name="enabled" [(ngModel)]="feedback.IsEnabled" [ngModelOptions]="{standalone: true}" [checked]="feedback.IsEnabled">
+          <input type="checkbox" [(ngModel)]="feedback.IsEnabled" [ngModelOptions]="{standalone: true}" [checked]="feedback.IsEnabled">
         </td>
       </tr>
     </tbody>
