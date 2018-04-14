@@ -9,9 +9,11 @@ import { ActivatedRoute, Router } from '@angular/router';
 })
 export class BotFeedbackTypesComponent implements OnInit {
 
+  public feedbacks: ViewBotFeedbackTypesResponse[];
+
   private botId: number;
-  private feedbacks: ViewBotFeedbackTypesResponse[];
   private submitted = false;
+
   constructor(private adminService: AdminService, private route: ActivatedRoute, private router: Router) { }
 
   ngOnInit() {
