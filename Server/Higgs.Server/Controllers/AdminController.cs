@@ -179,12 +179,6 @@ namespace Higgs.Server.Controllers
             if (existingBot == null)
                 return BadRequest(new ErrorResponse($"Bot with id {request.BotId} not found."));
 
-            if (request.FeedbackTypes.GroupBy(f => f.Name, StringComparer.OrdinalIgnoreCase).Any(g => g.Count() > 1))
-            {
-                // We have duplicates
-                return BadRequest(new ErrorResponse($"Feedback names must be unique"));
-            }
-
             var feedbackTypes = existingBot.Feedbacks.ToDictionary(f => f.Id, f => f);
 
             foreach (var feedbackType in request.FeedbackTypes)
@@ -217,6 +211,12 @@ namespace Higgs.Server.Controllers
                         _dbContext.Feedbacks.Add(dbFeedbackType);
                     }
                 }
+            }
+            
+            if (existingBot.Feedbacks.GroupBy(f => f.Name, StringComparer.OrdinalIgnoreCase).Any(g => g.Count() > 1))
+            {
+                // We have duplicates
+                return BadRequest(new ErrorResponse($"Feedback names must be unique"));
             }
             
             _dbContext.SaveChanges();
