@@ -49,9 +49,10 @@ export class ReportComponent implements OnInit {
             this.reportNotFound = false;
             this.postDetails = response;
             if (response.dashboardName && dashboardName !== response.dashboardName) {
-              this.router.navigateByUrl(`/${response.dashboardName}/report/${reportId}`, {
-                skipLocationChange: true
-              });
+              // Wait a short time so people can hit 'back' in their browsers quickly
+              setTimeout(() => {
+                this.router.navigateByUrl(`/${response.dashboardName}/report/${reportId}`);
+              }, 500);
             }
 
             if (this.postDetails.tabTitle && this.postDetails.tabTitle !== '') {
