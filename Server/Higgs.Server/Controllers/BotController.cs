@@ -144,10 +144,10 @@ namespace Higgs.Server.Controllers
                 BotId = botId.Value,
                 Title = request.Title,
                 
-                ContentCreationDate = request.ContentCreationDate,
+                ContentCreationDate = request.ContentCreationDate?.ToUniversalTime(),
                 ContentUrl = request.ContentUrl,
-                DetectedDate = request.DetectedDate,
-                DetectionScore = request.DetectionScore,
+                DetectedDate = request.DetectedDate?.ToUniversalTime(),
+                DetectionScore = request.DetectionScore
             };
 
             var contentFragments = request.ContentFragments ?? Enumerable.Empty<RegisterPostContentFragment>();

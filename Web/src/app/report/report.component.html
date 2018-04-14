@@ -29,9 +29,9 @@
   </ng-container>
   <div class="row mt-3">
     <div class="col-md-10">
-      <span *ngIf="postDetails.contentCreationDate">Posted {{postDetails.contentCreationDate | timeAgo}}</span>
+      <span *ngIf="postDetails.contentCreationDate" title="{{postDetails.contentCreationDate}}">Posted {{postDetails.contentCreationDate | timeAgo}}</span>
       <span *ngIf="postDetails.contentCreationDate">|</span>
-      <span *ngIf="postDetails.detectedDate">Reported {{postDetails.detectedDate | timeAgo}}</span>
+      <span *ngIf="postDetails.detectedDate" title="{{postDetails.detectedDate}}">Reported {{postDetails.detectedDate | timeAgo}}</span>
     </div>
     <div class="col-md-2 text-sm-right" *ngIf="postDetails.authorName">
       <span *ngIf="postDetails.authorLink">Posted by
