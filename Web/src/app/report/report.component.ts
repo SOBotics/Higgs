@@ -50,8 +50,12 @@ export class ReportComponent implements OnInit {
             this.postDetails = response;
             if (response.dashboardName && dashboardName !== response.dashboardName) {
               // Wait a short time so people can hit 'back' in their browsers quickly
+              const previousLocation = window.location.toString();
               setTimeout(() => {
-                this.router.navigateByUrl(`/${response.dashboardName}/report/${reportId}`);
+                if (window.location.toString() === previousLocation) {
+                  // Don't redirect if they've changed the page already
+                  this.router.navigateByUrl(`/${response.dashboardName}/report/${reportId}`);
+                }
               }, 500);
             }
 
