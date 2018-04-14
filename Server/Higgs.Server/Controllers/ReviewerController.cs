@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Security.Cryptography;
 using Higgs.Server.Data;
@@ -47,7 +48,7 @@ namespace Higgs.Server.Controllers
         [HttpGet("Report")]
         public ReviewerReportResponse Report(int id)
         {
-            var query = _dbContext.Reports.Where(r => r.Id == id)
+            var report = _dbContext.Reports.Where(r => r.Id == id)
                 .Select(r => new ReviewerReportResponse
                 {
                     Title = r.Title,
@@ -97,8 +98,17 @@ namespace Higgs.Server.Controllers
                         FeedbackName = feedback.Feedback.Name,
                         UserName = feedback.User.Name
                     }).ToList()
-                });
-            return query.FirstOrDefault();
+                }).FirstOrDefault();
+            if (report == null)
+                return null;
+
+            if (report.DetectedDate.HasValue)
+                report.DetectedDate = DateTime.SpecifyKind(report.DetectedDate.Value, DateTimeKind.Utc);
+
+            if (report.ContentCreationDate.HasValue)
+                report.ContentCreationDate = DateTime.SpecifyKind(report.ContentCreationDate.Value, DateTimeKind.Utc);
+
+            return report;
         }
 
         /// <summary>
