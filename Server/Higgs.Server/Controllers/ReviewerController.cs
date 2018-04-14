@@ -82,11 +82,11 @@ namespace Higgs.Server.Controllers
                         Seen = reportReason.Reason.ReportReasons.Select(rr => rr.ReportId).Distinct().Count()
                     }).ToList(),
 
-                    AllowedFeedback = r.AllowedFeedback.Select(ra => new ReviewerReportAllowedFeedbackResponse
+                    AllowedFeedback = r.AllowedFeedback.Where(af => af.Feedback.IsEnabled).Select(af => new ReviewerReportAllowedFeedbackResponse
                     {
-                        Id = ra.Feedback.Id,
-                        Name = ra.Feedback.Name,
-                        Colour = ra.Feedback.Colour
+                        Id = af.Feedback.Id,
+                        Name = af.Feedback.Name,
+                        Colour = af.Feedback.Colour
                     }).ToList(),
 
                     Feedback = r.Feedbacks.Select(feedback => new ReviewerReportFeedbackResponse
@@ -116,7 +116,7 @@ namespace Higgs.Server.Controllers
         [Authorize(Scopes.REVIEWER_SEND_FEEDBACK)]
         public IActionResult SendFeedback(int reportId, int id)
         {
-            var allowedFeedbacks = _dbContext.ReportAllowedFeedbacks.Where(r => r.ReportId == reportId).Select(f => f.FeedbackId).ToList();
+            var allowedFeedbacks = _dbContext.ReportAllowedFeedbacks.Where(r => r.ReportId == reportId && r.Feedback.IsEnabled).Select(f => f.FeedbackId).ToList();
 
             var userIdStr = User.Claims.Where(c => c.Type == AuthenticationController.ACCOUNT_ID_CLAIM).Select(c => c.Value).FirstOrDefault();
             if (!string.IsNullOrWhiteSpace(userIdStr) && int.TryParse(userIdStr, out var userId))
