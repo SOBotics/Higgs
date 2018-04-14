@@ -60,47 +60,7 @@ namespace Higgs.Server.Controllers
             var newToken = AuthenticationController.CreateJwtToken(claims, signingKey);
             return Json(new AquireTokenResponse { Token = newToken });
         }
-        
-        /// <summary>
-        ///     Used by bots to register feedback types
-        /// </summary>
-        /// <returns>The access token</returns>
-        [HttpPost("RegisterFeedbackTypes")]
-        [Authorize(Scopes.BOT_SET_FEEDBACK_TYPES)]
-        [SwaggerResponse((int) HttpStatusCode.OK)]
-        [SwaggerResponse((int) HttpStatusCode.BadRequest, typeof(ErrorResponse))]
-        public IActionResult RegisterFeedbackTypes([FromBody] RegisterFeedbackTypesRequest request)
-        {
-            var botId = GetBotId();
-            if (!botId.HasValue)
-                return BadRequest("Invalid or missing botId in claim");
-            
-            var existingFeedbacks = _dbContext.Feedbacks.Where(f => f.Id == 1 && request.FeedbackTypes.Select(ft => ft.Name).Contains(f.Name)).ToDictionary(f => f.Name, f => f);
-            foreach (var feedbackType in request.FeedbackTypes)
-            {
-                DbFeedback dbFeedback;
-                if (existingFeedbacks.ContainsKey(feedbackType.Name))
-                    dbFeedback = existingFeedbacks[feedbackType.Name];
-                else
-                {
-                    dbFeedback = new DbFeedback
-                    {
-                        BotId = botId.Value,
-                        Name = feedbackType.Name
-                    };
-                    _dbContext.Feedbacks.Add(dbFeedback);
-                }
-
-                dbFeedback.Colour = feedbackType.Colour;
-                dbFeedback.Icon = feedbackType.Icon;
-                dbFeedback.IsActionable = feedbackType.IsActionable;
-                dbFeedback.RequiredActions = feedbackType.RequiredActions;
-            }
-
-            _dbContext.SaveChanges();
-            return Ok();
-        }
-
+    
         [HttpPost("RegisterUserFeedbackByContent")]
         [Authorize(Scopes.BOT_SEND_FEEDBACK)]
         public IActionResult RegisterUserFeedbackByContent([FromBody] RegisterUserFeedbackByContentRequest request)

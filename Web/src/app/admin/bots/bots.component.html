@@ -1,3 +1,18 @@
-<div *ngFor="let bot of botsResponse | orderBy: 'botId'">
-  <a routerLink="/admin/bot/{{bot.botId}}">{{bot.name}}</a>
-</div>
+<table class="table">
+  <thead>
+    <tr>
+      <th>
+        Name
+      </th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let bot of botsResponse | orderBy: 'botId'">
+      <td>{{bot.name}}</td>
+      <td><a routerLink="/admin/bot/{{bot.botId}}">Edit</a></td>
+      <td><a routerLink="/admin/bot/feedbackTypes/{{bot.botId}}">Feedback types</a></td>
+    </tr>
+  </tbody>
+</table>

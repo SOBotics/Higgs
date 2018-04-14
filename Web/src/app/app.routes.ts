@@ -8,12 +8,14 @@ import { ReportsComponent } from './reports/reports.component';
 import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
 import { BotScopesComponent } from './admin/bot-scopes/bot-scopes.component';
 import { BotScopeComponent } from './admin/bot-scope/bot-scope.component';
+import { BotFeedbackTypesComponent } from './admin/bot-feedback-types/bot-feedback-types.component';
 
 export const appRoutes: Routes = [
     { path: '', component: HomeComponent },
 
     { path: 'admin', component: AdminHomeComponent },
     { path: 'admin/bots', component: BotsComponent },
+    { path: 'admin/bot/feedbackTypes/:id', component: BotFeedbackTypesComponent },
     { path: 'admin/botScopes', component: BotScopesComponent },
     { path: 'admin/botScope/:id', component: BotScopeComponent },
     { path: 'admin/bot', component: BotComponent },

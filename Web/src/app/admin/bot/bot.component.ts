@@ -10,6 +10,8 @@ import { ActivatedRoute, Router } from '@angular/router';
 export class BotComponent implements OnInit {
   private botId: number | undefined;
   private isNew = false;
+  private submitted = false;
+
   constructor(
     private route: ActivatedRoute,
     private adminService: AdminService,
@@ -18,8 +20,9 @@ export class BotComponent implements OnInit {
   public botDetails: Partial<BotResponse>;
 
   public onSubmit() {
+    this.submitted = true;
     if (this.isNew) {
-      const createBotDetails = {...this.botDetails as BotResponse, secret: (this.botDetails as any).secret };
+      const createBotDetails = { ...this.botDetails as BotResponse, secret: (this.botDetails as any).secret };
       this.adminService.adminRegisterBotPost(createBotDetails)
         .subscribe(a => this.router.navigateByUrl('/admin/bots'));
     } else {

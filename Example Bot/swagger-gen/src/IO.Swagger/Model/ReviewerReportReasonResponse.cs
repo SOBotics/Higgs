@@ -34,14 +34,16 @@ namespace IO.Swagger.Model
         /// Initializes a new instance of the <see cref="ReviewerReportReasonResponse" /> class.
         /// </summary>
         /// <param name="ReasonId">ReasonId.</param>
-        /// <param name="Confidence">Confidence.</param>
         /// <param name="Name">Name.</param>
+        /// <param name="Confidence">Confidence.</param>
+        /// <param name="Tripped">Tripped.</param>
         /// <param name="Seen">Seen.</param>
-        public ReviewerReportReasonResponse(int? ReasonId = default(int?), double? Confidence = default(double?), string Name = default(string), int? Seen = default(int?))
+        public ReviewerReportReasonResponse(int? ReasonId = default(int?), string Name = default(string), double? Confidence = default(double?), bool? Tripped = default(bool?), int? Seen = default(int?))
         {
             this.ReasonId = ReasonId;
-            this.Confidence = Confidence;
             this.Name = Name;
+            this.Confidence = Confidence;
+            this.Tripped = Tripped;
             this.Seen = Seen;
         }
         
@@ -52,16 +54,22 @@ namespace IO.Swagger.Model
         public int? ReasonId { get; set; }
 
         /// <summary>
+        /// Gets or Sets Name
+        /// </summary>
+        [DataMember(Name="name", EmitDefaultValue=false)]
+        public string Name { get; set; }
+
+        /// <summary>
         /// Gets or Sets Confidence
         /// </summary>
         [DataMember(Name="confidence", EmitDefaultValue=false)]
         public double? Confidence { get; set; }
 
         /// <summary>
-        /// Gets or Sets Name
+        /// Gets or Sets Tripped
         /// </summary>
-        [DataMember(Name="name", EmitDefaultValue=false)]
-        public string Name { get; set; }
+        [DataMember(Name="tripped", EmitDefaultValue=false)]
+        public bool? Tripped { get; set; }
 
         /// <summary>
         /// Gets or Sets Seen
@@ -78,8 +86,9 @@ namespace IO.Swagger.Model
             var sb = new StringBuilder();
             sb.Append("class ReviewerReportReasonResponse {\n");
             sb.Append("  ReasonId: ").Append(ReasonId).Append("\n");
-            sb.Append("  Confidence: ").Append(Confidence).Append("\n");
             sb.Append("  Name: ").Append(Name).Append("\n");
+            sb.Append("  Confidence: ").Append(Confidence).Append("\n");
+            sb.Append("  Tripped: ").Append(Tripped).Append("\n");
             sb.Append("  Seen: ").Append(Seen).Append("\n");
             sb.Append("}\n");
             return sb.ToString();
@@ -121,14 +130,19 @@ namespace IO.Swagger.Model
                     this.ReasonId.Equals(input.ReasonId))
                 ) && 
                 (
+                    this.Name == input.Name ||
+                    (this.Name != null &&
+                    this.Name.Equals(input.Name))
+                ) && 
+                (
                     this.Confidence == input.Confidence ||
                     (this.Confidence != null &&
                     this.Confidence.Equals(input.Confidence))
                 ) && 
                 (
-                    this.Name == input.Name ||
-                    (this.Name != null &&
-                    this.Name.Equals(input.Name))
+                    this.Tripped == input.Tripped ||
+                    (this.Tripped != null &&
+                    this.Tripped.Equals(input.Tripped))
                 ) && 
                 (
                     this.Seen == input.Seen ||
@@ -148,10 +162,12 @@ namespace IO.Swagger.Model
                 int hashCode = 41;
                 if (this.ReasonId != null)
                     hashCode = hashCode * 59 + this.ReasonId.GetHashCode();
-                if (this.Confidence != null)
-                    hashCode = hashCode * 59 + this.Confidence.GetHashCode();
                 if (this.Name != null)
                     hashCode = hashCode * 59 + this.Name.GetHashCode();
+                if (this.Confidence != null)
+                    hashCode = hashCode * 59 + this.Confidence.GetHashCode();
+                if (this.Tripped != null)
+                    hashCode = hashCode * 59 + this.Tripped.GetHashCode();
                 if (this.Seen != null)
                     hashCode = hashCode * 59 + this.Seen.GetHashCode();
                 return hashCode;

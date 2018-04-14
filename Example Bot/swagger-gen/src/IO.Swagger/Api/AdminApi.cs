@@ -107,6 +107,27 @@ namespace IO.Swagger.Api
         /// <returns>ApiResponse of Object(void)</returns>
         ApiResponse<Object> AdminDeactiveateBotPostWithHttpInfo (DeleteBotRequest request = null);
         /// <summary>
+        /// 
+        /// </summary>
+        /// <remarks>
+        /// 
+        /// </remarks>
+        /// <exception cref="IO.Swagger.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="request"> (optional)</param>
+        /// <returns></returns>
+        void AdminEditBotFeedbackTypesPost (EditBotFeedbackTypesRequest request = null);
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <remarks>
+        /// 
+        /// </remarks>
+        /// <exception cref="IO.Swagger.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="request"> (optional)</param>
+        /// <returns>ApiResponse of Object(void)</returns>
+        ApiResponse<Object> AdminEditBotFeedbackTypesPostWithHttpInfo (EditBotFeedbackTypesRequest request = null);
+        /// <summary>
         /// Update a bots details
         /// </summary>
         /// <remarks>
@@ -228,6 +249,27 @@ namespace IO.Swagger.Api
         /// <exception cref="IO.Swagger.Client.ApiException">Thrown when fails to make API call</exception>
         /// <returns>ApiResponse of UsersResponse</returns>
         ApiResponse<UsersResponse> AdminUsersGetWithHttpInfo ();
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <remarks>
+        /// 
+        /// </remarks>
+        /// <exception cref="IO.Swagger.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="botId"></param>
+        /// <returns>List&lt;ViewBotFeedbackTypesResponse&gt;</returns>
+        List<ViewBotFeedbackTypesResponse> AdminViewBotFeedbackTypesGet (int? botId);
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <remarks>
+        /// 
+        /// </remarks>
+        /// <exception cref="IO.Swagger.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="botId"></param>
+        /// <returns>ApiResponse of List&lt;ViewBotFeedbackTypesResponse&gt;</returns>
+        ApiResponse<List<ViewBotFeedbackTypesResponse>> AdminViewBotFeedbackTypesGetWithHttpInfo (int? botId);
         #endregion Synchronous Operations
         #region Asynchronous Operations
         /// <summary>
@@ -312,6 +354,27 @@ namespace IO.Swagger.Api
         /// <param name="request"> (optional)</param>
         /// <returns>Task of ApiResponse</returns>
         System.Threading.Tasks.Task<ApiResponse<Object>> AdminDeactiveateBotPostAsyncWithHttpInfo (DeleteBotRequest request = null);
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <remarks>
+        /// 
+        /// </remarks>
+        /// <exception cref="IO.Swagger.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="request"> (optional)</param>
+        /// <returns>Task of void</returns>
+        System.Threading.Tasks.Task AdminEditBotFeedbackTypesPostAsync (EditBotFeedbackTypesRequest request = null);
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <remarks>
+        /// 
+        /// </remarks>
+        /// <exception cref="IO.Swagger.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="request"> (optional)</param>
+        /// <returns>Task of ApiResponse</returns>
+        System.Threading.Tasks.Task<ApiResponse<Object>> AdminEditBotFeedbackTypesPostAsyncWithHttpInfo (EditBotFeedbackTypesRequest request = null);
         /// <summary>
         /// Update a bots details
         /// </summary>
@@ -434,6 +497,27 @@ namespace IO.Swagger.Api
         /// <exception cref="IO.Swagger.Client.ApiException">Thrown when fails to make API call</exception>
         /// <returns>Task of ApiResponse (UsersResponse)</returns>
         System.Threading.Tasks.Task<ApiResponse<UsersResponse>> AdminUsersGetAsyncWithHttpInfo ();
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <remarks>
+        /// 
+        /// </remarks>
+        /// <exception cref="IO.Swagger.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="botId"></param>
+        /// <returns>Task of List&lt;ViewBotFeedbackTypesResponse&gt;</returns>
+        System.Threading.Tasks.Task<List<ViewBotFeedbackTypesResponse>> AdminViewBotFeedbackTypesGetAsync (int? botId);
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <remarks>
+        /// 
+        /// </remarks>
+        /// <exception cref="IO.Swagger.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="botId"></param>
+        /// <returns>Task of ApiResponse (List&lt;ViewBotFeedbackTypesResponse&gt;)</returns>
+        System.Threading.Tasks.Task<ApiResponse<List<ViewBotFeedbackTypesResponse>>> AdminViewBotFeedbackTypesGetAsyncWithHttpInfo (int? botId);
         #endregion Asynchronous Operations
     }
 
@@ -1124,6 +1208,169 @@ namespace IO.Swagger.Api
             if (ExceptionFactory != null)
             {
                 Exception exception = ExceptionFactory("AdminDeactiveateBotPost", localVarResponse);
+                if (exception != null) throw exception;
+            }
+
+            return new ApiResponse<Object>(localVarStatusCode,
+                localVarResponse.Headers.ToDictionary(x => x.Name, x => x.Value.ToString()),
+                null);
+        }
+
+        /// <summary>
+        ///  
+        /// </summary>
+        /// <exception cref="IO.Swagger.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="request"> (optional)</param>
+        /// <returns></returns>
+        public void AdminEditBotFeedbackTypesPost (EditBotFeedbackTypesRequest request = null)
+        {
+             AdminEditBotFeedbackTypesPostWithHttpInfo(request);
+        }
+
+        /// <summary>
+        ///  
+        /// </summary>
+        /// <exception cref="IO.Swagger.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="request"> (optional)</param>
+        /// <returns>ApiResponse of Object(void)</returns>
+        public ApiResponse<Object> AdminEditBotFeedbackTypesPostWithHttpInfo (EditBotFeedbackTypesRequest request = null)
+        {
+
+            var localVarPath = "/Admin/EditBotFeedbackTypes";
+            var localVarPathParams = new Dictionary<String, String>();
+            var localVarQueryParams = new List<KeyValuePair<String, String>>();
+            var localVarHeaderParams = new Dictionary<String, String>(Configuration.DefaultHeader);
+            var localVarFormParams = new Dictionary<String, String>();
+            var localVarFileParams = new Dictionary<String, FileParameter>();
+            Object localVarPostBody = null;
+
+            // to determine the Content-Type header
+            String[] localVarHttpContentTypes = new String[] {
+                "application/json-patch+json", 
+                "application/json", 
+                "text/json", 
+                "application/_*+json"
+            };
+            String localVarHttpContentType = Configuration.ApiClient.SelectHeaderContentType(localVarHttpContentTypes);
+
+            // to determine the Accept header
+            String[] localVarHttpHeaderAccepts = new String[] {
+                "text/plain",
+                "application/json",
+                "text/json"
+            };
+            String localVarHttpHeaderAccept = Configuration.ApiClient.SelectHeaderAccept(localVarHttpHeaderAccepts);
+            if (localVarHttpHeaderAccept != null)
+                localVarHeaderParams.Add("Accept", localVarHttpHeaderAccept);
+
+            if (request != null && request.GetType() != typeof(byte[]))
+            {
+                localVarPostBody = Configuration.ApiClient.Serialize(request); // http body (model) parameter
+            }
+            else
+            {
+                localVarPostBody = request; // byte array
+            }
+
+            // authentication (oauth2) required
+            // oauth required
+            if (!String.IsNullOrEmpty(Configuration.AccessToken))
+            {
+                localVarHeaderParams["Authorization"] = "Bearer " + Configuration.AccessToken;
+            }
+
+            // make the HTTP request
+            IRestResponse localVarResponse = (IRestResponse) Configuration.ApiClient.CallApi(localVarPath,
+                Method.POST, localVarQueryParams, localVarPostBody, localVarHeaderParams, localVarFormParams, localVarFileParams,
+                localVarPathParams, localVarHttpContentType);
+
+            int localVarStatusCode = (int) localVarResponse.StatusCode;
+
+            if (ExceptionFactory != null)
+            {
+                Exception exception = ExceptionFactory("AdminEditBotFeedbackTypesPost", localVarResponse);
+                if (exception != null) throw exception;
+            }
+
+            return new ApiResponse<Object>(localVarStatusCode,
+                localVarResponse.Headers.ToDictionary(x => x.Name, x => x.Value.ToString()),
+                null);
+        }
+
+        /// <summary>
+        ///  
+        /// </summary>
+        /// <exception cref="IO.Swagger.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="request"> (optional)</param>
+        /// <returns>Task of void</returns>
+        public async System.Threading.Tasks.Task AdminEditBotFeedbackTypesPostAsync (EditBotFeedbackTypesRequest request = null)
+        {
+             await AdminEditBotFeedbackTypesPostAsyncWithHttpInfo(request);
+
+        }
+
+        /// <summary>
+        ///  
+        /// </summary>
+        /// <exception cref="IO.Swagger.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="request"> (optional)</param>
+        /// <returns>Task of ApiResponse</returns>
+        public async System.Threading.Tasks.Task<ApiResponse<Object>> AdminEditBotFeedbackTypesPostAsyncWithHttpInfo (EditBotFeedbackTypesRequest request = null)
+        {
+
+            var localVarPath = "/Admin/EditBotFeedbackTypes";
+            var localVarPathParams = new Dictionary<String, String>();
+            var localVarQueryParams = new List<KeyValuePair<String, String>>();
+            var localVarHeaderParams = new Dictionary<String, String>(Configuration.DefaultHeader);
+            var localVarFormParams = new Dictionary<String, String>();
+            var localVarFileParams = new Dictionary<String, FileParameter>();
+            Object localVarPostBody = null;
+
+            // to determine the Content-Type header
+            String[] localVarHttpContentTypes = new String[] {
+                "application/json-patch+json", 
+                "application/json", 
+                "text/json", 
+                "application/_*+json"
+            };
+            String localVarHttpContentType = Configuration.ApiClient.SelectHeaderContentType(localVarHttpContentTypes);
+
+            // to determine the Accept header
+            String[] localVarHttpHeaderAccepts = new String[] {
+                "text/plain",
+                "application/json",
+                "text/json"
+            };
+            String localVarHttpHeaderAccept = Configuration.ApiClient.SelectHeaderAccept(localVarHttpHeaderAccepts);
+            if (localVarHttpHeaderAccept != null)
+                localVarHeaderParams.Add("Accept", localVarHttpHeaderAccept);
+
+            if (request != null && request.GetType() != typeof(byte[]))
+            {
+                localVarPostBody = Configuration.ApiClient.Serialize(request); // http body (model) parameter
+            }
+            else
+            {
+                localVarPostBody = request; // byte array
+            }
+
+            // authentication (oauth2) required
+            // oauth required
+            if (!String.IsNullOrEmpty(Configuration.AccessToken))
+            {
+                localVarHeaderParams["Authorization"] = "Bearer " + Configuration.AccessToken;
+            }
+
+            // make the HTTP request
+            IRestResponse localVarResponse = (IRestResponse) await Configuration.ApiClient.CallApiAsync(localVarPath,
+                Method.POST, localVarQueryParams, localVarPostBody, localVarHeaderParams, localVarFormParams, localVarFileParams,
+                localVarPathParams, localVarHttpContentType);
+
+            int localVarStatusCode = (int) localVarResponse.StatusCode;
+
+            if (ExceptionFactory != null)
+            {
+                Exception exception = ExceptionFactory("AdminEditBotFeedbackTypesPost", localVarResponse);
                 if (exception != null) throw exception;
             }
 
@@ -2058,6 +2305,155 @@ namespace IO.Swagger.Api
             return new ApiResponse<UsersResponse>(localVarStatusCode,
                 localVarResponse.Headers.ToDictionary(x => x.Name, x => x.Value.ToString()),
                 (UsersResponse) Configuration.ApiClient.Deserialize(localVarResponse, typeof(UsersResponse)));
+        }
+
+        /// <summary>
+        ///  
+        /// </summary>
+        /// <exception cref="IO.Swagger.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="botId"></param>
+        /// <returns>List&lt;ViewBotFeedbackTypesResponse&gt;</returns>
+        public List<ViewBotFeedbackTypesResponse> AdminViewBotFeedbackTypesGet (int? botId)
+        {
+             ApiResponse<List<ViewBotFeedbackTypesResponse>> localVarResponse = AdminViewBotFeedbackTypesGetWithHttpInfo(botId);
+             return localVarResponse.Data;
+        }
+
+        /// <summary>
+        ///  
+        /// </summary>
+        /// <exception cref="IO.Swagger.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="botId"></param>
+        /// <returns>ApiResponse of List&lt;ViewBotFeedbackTypesResponse&gt;</returns>
+        public ApiResponse< List<ViewBotFeedbackTypesResponse> > AdminViewBotFeedbackTypesGetWithHttpInfo (int? botId)
+        {
+            // verify the required parameter 'botId' is set
+            if (botId == null)
+                throw new ApiException(400, "Missing required parameter 'botId' when calling AdminApi->AdminViewBotFeedbackTypesGet");
+
+            var localVarPath = "/Admin/ViewBotFeedbackTypes";
+            var localVarPathParams = new Dictionary<String, String>();
+            var localVarQueryParams = new List<KeyValuePair<String, String>>();
+            var localVarHeaderParams = new Dictionary<String, String>(Configuration.DefaultHeader);
+            var localVarFormParams = new Dictionary<String, String>();
+            var localVarFileParams = new Dictionary<String, FileParameter>();
+            Object localVarPostBody = null;
+
+            // to determine the Content-Type header
+            String[] localVarHttpContentTypes = new String[] {
+            };
+            String localVarHttpContentType = Configuration.ApiClient.SelectHeaderContentType(localVarHttpContentTypes);
+
+            // to determine the Accept header
+            String[] localVarHttpHeaderAccepts = new String[] {
+                "text/plain",
+                "application/json",
+                "text/json"
+            };
+            String localVarHttpHeaderAccept = Configuration.ApiClient.SelectHeaderAccept(localVarHttpHeaderAccepts);
+            if (localVarHttpHeaderAccept != null)
+                localVarHeaderParams.Add("Accept", localVarHttpHeaderAccept);
+
+            if (botId != null) localVarQueryParams.AddRange(Configuration.ApiClient.ParameterToKeyValuePairs("", "botId", botId)); // query parameter
+
+            // authentication (oauth2) required
+            // oauth required
+            if (!String.IsNullOrEmpty(Configuration.AccessToken))
+            {
+                localVarHeaderParams["Authorization"] = "Bearer " + Configuration.AccessToken;
+            }
+
+            // make the HTTP request
+            IRestResponse localVarResponse = (IRestResponse) Configuration.ApiClient.CallApi(localVarPath,
+                Method.GET, localVarQueryParams, localVarPostBody, localVarHeaderParams, localVarFormParams, localVarFileParams,
+                localVarPathParams, localVarHttpContentType);
+
+            int localVarStatusCode = (int) localVarResponse.StatusCode;
+
+            if (ExceptionFactory != null)
+            {
+                Exception exception = ExceptionFactory("AdminViewBotFeedbackTypesGet", localVarResponse);
+                if (exception != null) throw exception;
+            }
+
+            return new ApiResponse<List<ViewBotFeedbackTypesResponse>>(localVarStatusCode,
+                localVarResponse.Headers.ToDictionary(x => x.Name, x => x.Value.ToString()),
+                (List<ViewBotFeedbackTypesResponse>) Configuration.ApiClient.Deserialize(localVarResponse, typeof(List<ViewBotFeedbackTypesResponse>)));
+        }
+
+        /// <summary>
+        ///  
+        /// </summary>
+        /// <exception cref="IO.Swagger.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="botId"></param>
+        /// <returns>Task of List&lt;ViewBotFeedbackTypesResponse&gt;</returns>
+        public async System.Threading.Tasks.Task<List<ViewBotFeedbackTypesResponse>> AdminViewBotFeedbackTypesGetAsync (int? botId)
+        {
+             ApiResponse<List<ViewBotFeedbackTypesResponse>> localVarResponse = await AdminViewBotFeedbackTypesGetAsyncWithHttpInfo(botId);
+             return localVarResponse.Data;
+
+        }
+
+        /// <summary>
+        ///  
+        /// </summary>
+        /// <exception cref="IO.Swagger.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="botId"></param>
+        /// <returns>Task of ApiResponse (List&lt;ViewBotFeedbackTypesResponse&gt;)</returns>
+        public async System.Threading.Tasks.Task<ApiResponse<List<ViewBotFeedbackTypesResponse>>> AdminViewBotFeedbackTypesGetAsyncWithHttpInfo (int? botId)
+        {
+            // verify the required parameter 'botId' is set
+            if (botId == null)
+                throw new ApiException(400, "Missing required parameter 'botId' when calling AdminApi->AdminViewBotFeedbackTypesGet");
+
+            var localVarPath = "/Admin/ViewBotFeedbackTypes";
+            var localVarPathParams = new Dictionary<String, String>();
+            var localVarQueryParams = new List<KeyValuePair<String, String>>();
+            var localVarHeaderParams = new Dictionary<String, String>(Configuration.DefaultHeader);
+            var localVarFormParams = new Dictionary<String, String>();
+            var localVarFileParams = new Dictionary<String, FileParameter>();
+            Object localVarPostBody = null;
+
+            // to determine the Content-Type header
+            String[] localVarHttpContentTypes = new String[] {
+            };
+            String localVarHttpContentType = Configuration.ApiClient.SelectHeaderContentType(localVarHttpContentTypes);
+
+            // to determine the Accept header
+            String[] localVarHttpHeaderAccepts = new String[] {
+                "text/plain",
+                "application/json",
+                "text/json"
+            };
+            String localVarHttpHeaderAccept = Configuration.ApiClient.SelectHeaderAccept(localVarHttpHeaderAccepts);
+            if (localVarHttpHeaderAccept != null)
+                localVarHeaderParams.Add("Accept", localVarHttpHeaderAccept);
+
+            if (botId != null) localVarQueryParams.AddRange(Configuration.ApiClient.ParameterToKeyValuePairs("", "botId", botId)); // query parameter
+
+            // authentication (oauth2) required
+            // oauth required
+            if (!String.IsNullOrEmpty(Configuration.AccessToken))
+            {
+                localVarHeaderParams["Authorization"] = "Bearer " + Configuration.AccessToken;
+            }
+
+            // make the HTTP request
+            IRestResponse localVarResponse = (IRestResponse) await Configuration.ApiClient.CallApiAsync(localVarPath,
+                Method.GET, localVarQueryParams, localVarPostBody, localVarHeaderParams, localVarFormParams, localVarFileParams,
+                localVarPathParams, localVarHttpContentType);
+
+            int localVarStatusCode = (int) localVarResponse.StatusCode;
+
+            if (ExceptionFactory != null)
+            {
+                Exception exception = ExceptionFactory("AdminViewBotFeedbackTypesGet", localVarResponse);
+                if (exception != null) throw exception;
+            }
+
+            return new ApiResponse<List<ViewBotFeedbackTypesResponse>>(localVarStatusCode,
+                localVarResponse.Headers.ToDictionary(x => x.Name, x => x.Value.ToString()),
+                (List<ViewBotFeedbackTypesResponse>) Configuration.ApiClient.Deserialize(localVarResponse, typeof(List<ViewBotFeedbackTypesResponse>)));
         }
 
     }

@@ -5,7 +5,6 @@ All URIs are relative to *https://localhost*
 Method | HTTP request | Description
 ------------- | ------------- | -------------
 [**BotAquireTokenPost**](BotApi.md#botaquiretokenpost) | **POST** /Bot/AquireToken | 
-[**BotRegisterFeedbackTypesPost**](BotApi.md#botregisterfeedbacktypespost) | **POST** /Bot/RegisterFeedbackTypes | Used by bots to register feedback types
 [**BotRegisterPostPost**](BotApi.md#botregisterpostpost) | **POST** /Bot/RegisterPost | Used by bots to register a detected post
 [**BotRegisterUserFeedbackByContentPost**](BotApi.md#botregisteruserfeedbackbycontentpost) | **POST** /Bot/RegisterUserFeedbackByContent | 
 [**BotRegisterUserFeedbackPost**](BotApi.md#botregisteruserfeedbackpost) | **POST** /Bot/RegisterUserFeedback | 
@@ -13,7 +12,7 @@ Method | HTTP request | Description
 
 <a name="botaquiretokenpost"></a>
 # **BotAquireTokenPost**
-> AquireTokenResponse BotAquireTokenPost (int? botId, string secret, List<string> requestedScopes = null)
+> AquireTokenResponse BotAquireTokenPost (AquireTokenRequest request = null)
 
 
 
@@ -32,13 +31,11 @@ namespace Example
         public void main()
         {
             var apiInstance = new BotApi();
-            var botId = 56;  // int? | 
-            var secret = secret_example;  // string | 
-            var requestedScopes = new List<string>(); // List<string> |  (optional) 
+            var request = new AquireTokenRequest(); // AquireTokenRequest |  (optional) 
 
             try
             {
-                AquireTokenResponse result = apiInstance.BotAquireTokenPost(botId, secret, requestedScopes);
+                AquireTokenResponse result = apiInstance.BotAquireTokenPost(request);
                 Debug.WriteLine(result);
             }
             catch (Exception e)
@@ -54,9 +51,7 @@ namespace Example
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **botId** | **int?**|  | 
- **secret** | **string**|  | 
- **requestedScopes** | [**List&lt;string&gt;**](string.md)|  | [optional] 
+ **request** | [**AquireTokenRequest**](AquireTokenRequest.md)|  | [optional] 
 
 ### Return type
 
@@ -68,67 +63,6 @@ No authorization required
 
 ### HTTP request headers
 
- - **Content-Type**: Not defined
- - **Accept**: text/plain, application/json, text/json
-
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
-
-<a name="botregisterfeedbacktypespost"></a>
-# **BotRegisterFeedbackTypesPost**
-> void BotRegisterFeedbackTypesPost (RegisterFeedbackTypesRequest request = null)
-
-Used by bots to register feedback types
-
-### Example
-```csharp
-using System;
-using System.Diagnostics;
-using IO.Swagger.Api;
-using IO.Swagger.Client;
-using IO.Swagger.Model;
-
-namespace Example
-{
-    public class BotRegisterFeedbackTypesPostExample
-    {
-        public void main()
-        {
-            // Configure OAuth2 access token for authorization: oauth2
-            Configuration.Default.AccessToken = "YOUR_ACCESS_TOKEN";
-
-            var apiInstance = new BotApi();
-            var request = new RegisterFeedbackTypesRequest(); // RegisterFeedbackTypesRequest |  (optional) 
-
-            try
-            {
-                // Used by bots to register feedback types
-                apiInstance.BotRegisterFeedbackTypesPost(request);
-            }
-            catch (Exception e)
-            {
-                Debug.Print("Exception when calling BotApi.BotRegisterFeedbackTypesPost: " + e.Message );
-            }
-        }
-    }
-}
-```
-
-### Parameters
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **request** | [**RegisterFeedbackTypesRequest**](RegisterFeedbackTypesRequest.md)|  | [optional] 
-
-### Return type
-
-void (empty response body)
-
-### Authorization
-
-[oauth2](../README.md#oauth2)
-
-### HTTP request headers
-
  - **Content-Type**: application/json-patch+json, application/json, text/json, application/_*+json
  - **Accept**: text/plain, application/json, text/json
 
@@ -136,7 +70,7 @@ void (empty response body)
 
 <a name="botregisterpostpost"></a>
 # **BotRegisterPostPost**
-> void BotRegisterPostPost (RegisterPostRequest request = null)
+> int? BotRegisterPostPost (RegisterPostRequest request = null)
 
 Used by bots to register a detected post
 
@@ -163,7 +97,8 @@ namespace Example
             try
             {
                 // Used by bots to register a detected post
-                apiInstance.BotRegisterPostPost(request);
+                int? result = apiInstance.BotRegisterPostPost(request);
+                Debug.WriteLine(result);
             }
             catch (Exception e)
             {
@@ -182,7 +117,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-void (empty response body)
+**int?**
 
 ### Authorization
 

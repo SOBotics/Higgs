@@ -31,11 +31,9 @@ namespace IO.Swagger.Api
         /// 
         /// </remarks>
         /// <exception cref="IO.Swagger.Client.ApiException">Thrown when fails to make API call</exception>
-        /// <param name="botId"></param>
-        /// <param name="secret"></param>
-        /// <param name="requestedScopes"> (optional)</param>
+        /// <param name="request"> (optional)</param>
         /// <returns>AquireTokenResponse</returns>
-        AquireTokenResponse BotAquireTokenPost (int? botId, string secret, List<string> requestedScopes = null);
+        AquireTokenResponse BotAquireTokenPost (AquireTokenRequest request = null);
 
         /// <summary>
         /// 
@@ -44,32 +42,9 @@ namespace IO.Swagger.Api
         /// 
         /// </remarks>
         /// <exception cref="IO.Swagger.Client.ApiException">Thrown when fails to make API call</exception>
-        /// <param name="botId"></param>
-        /// <param name="secret"></param>
-        /// <param name="requestedScopes"> (optional)</param>
+        /// <param name="request"> (optional)</param>
         /// <returns>ApiResponse of AquireTokenResponse</returns>
-        ApiResponse<AquireTokenResponse> BotAquireTokenPostWithHttpInfo (int? botId, string secret, List<string> requestedScopes = null);
-        /// <summary>
-        /// Used by bots to register feedback types
-        /// </summary>
-        /// <remarks>
-        /// 
-        /// </remarks>
-        /// <exception cref="IO.Swagger.Client.ApiException">Thrown when fails to make API call</exception>
-        /// <param name="request"> (optional)</param>
-        /// <returns></returns>
-        void BotRegisterFeedbackTypesPost (RegisterFeedbackTypesRequest request = null);
-
-        /// <summary>
-        /// Used by bots to register feedback types
-        /// </summary>
-        /// <remarks>
-        /// 
-        /// </remarks>
-        /// <exception cref="IO.Swagger.Client.ApiException">Thrown when fails to make API call</exception>
-        /// <param name="request"> (optional)</param>
-        /// <returns>ApiResponse of Object(void)</returns>
-        ApiResponse<Object> BotRegisterFeedbackTypesPostWithHttpInfo (RegisterFeedbackTypesRequest request = null);
+        ApiResponse<AquireTokenResponse> BotAquireTokenPostWithHttpInfo (AquireTokenRequest request = null);
         /// <summary>
         /// Used by bots to register a detected post
         /// </summary>
@@ -78,8 +53,8 @@ namespace IO.Swagger.Api
         /// </remarks>
         /// <exception cref="IO.Swagger.Client.ApiException">Thrown when fails to make API call</exception>
         /// <param name="request"> (optional)</param>
-        /// <returns></returns>
-        void BotRegisterPostPost (RegisterPostRequest request = null);
+        /// <returns>int?</returns>
+        int? BotRegisterPostPost (RegisterPostRequest request = null);
 
         /// <summary>
         /// Used by bots to register a detected post
@@ -89,8 +64,8 @@ namespace IO.Swagger.Api
         /// </remarks>
         /// <exception cref="IO.Swagger.Client.ApiException">Thrown when fails to make API call</exception>
         /// <param name="request"> (optional)</param>
-        /// <returns>ApiResponse of Object(void)</returns>
-        ApiResponse<Object> BotRegisterPostPostWithHttpInfo (RegisterPostRequest request = null);
+        /// <returns>ApiResponse of int?</returns>
+        ApiResponse<int?> BotRegisterPostPostWithHttpInfo (RegisterPostRequest request = null);
         /// <summary>
         /// 
         /// </summary>
@@ -142,11 +117,9 @@ namespace IO.Swagger.Api
         /// 
         /// </remarks>
         /// <exception cref="IO.Swagger.Client.ApiException">Thrown when fails to make API call</exception>
-        /// <param name="botId"></param>
-        /// <param name="secret"></param>
-        /// <param name="requestedScopes"> (optional)</param>
+        /// <param name="request"> (optional)</param>
         /// <returns>Task of AquireTokenResponse</returns>
-        System.Threading.Tasks.Task<AquireTokenResponse> BotAquireTokenPostAsync (int? botId, string secret, List<string> requestedScopes = null);
+        System.Threading.Tasks.Task<AquireTokenResponse> BotAquireTokenPostAsync (AquireTokenRequest request = null);
 
         /// <summary>
         /// 
@@ -155,32 +128,9 @@ namespace IO.Swagger.Api
         /// 
         /// </remarks>
         /// <exception cref="IO.Swagger.Client.ApiException">Thrown when fails to make API call</exception>
-        /// <param name="botId"></param>
-        /// <param name="secret"></param>
-        /// <param name="requestedScopes"> (optional)</param>
+        /// <param name="request"> (optional)</param>
         /// <returns>Task of ApiResponse (AquireTokenResponse)</returns>
-        System.Threading.Tasks.Task<ApiResponse<AquireTokenResponse>> BotAquireTokenPostAsyncWithHttpInfo (int? botId, string secret, List<string> requestedScopes = null);
-        /// <summary>
-        /// Used by bots to register feedback types
-        /// </summary>
-        /// <remarks>
-        /// 
-        /// </remarks>
-        /// <exception cref="IO.Swagger.Client.ApiException">Thrown when fails to make API call</exception>
-        /// <param name="request"> (optional)</param>
-        /// <returns>Task of void</returns>
-        System.Threading.Tasks.Task BotRegisterFeedbackTypesPostAsync (RegisterFeedbackTypesRequest request = null);
-
-        /// <summary>
-        /// Used by bots to register feedback types
-        /// </summary>
-        /// <remarks>
-        /// 
-        /// </remarks>
-        /// <exception cref="IO.Swagger.Client.ApiException">Thrown when fails to make API call</exception>
-        /// <param name="request"> (optional)</param>
-        /// <returns>Task of ApiResponse</returns>
-        System.Threading.Tasks.Task<ApiResponse<Object>> BotRegisterFeedbackTypesPostAsyncWithHttpInfo (RegisterFeedbackTypesRequest request = null);
+        System.Threading.Tasks.Task<ApiResponse<AquireTokenResponse>> BotAquireTokenPostAsyncWithHttpInfo (AquireTokenRequest request = null);
         /// <summary>
         /// Used by bots to register a detected post
         /// </summary>
@@ -189,8 +139,8 @@ namespace IO.Swagger.Api
         /// </remarks>
         /// <exception cref="IO.Swagger.Client.ApiException">Thrown when fails to make API call</exception>
         /// <param name="request"> (optional)</param>
-        /// <returns>Task of void</returns>
-        System.Threading.Tasks.Task BotRegisterPostPostAsync (RegisterPostRequest request = null);
+        /// <returns>Task of int?</returns>
+        System.Threading.Tasks.Task<int?> BotRegisterPostPostAsync (RegisterPostRequest request = null);
 
         /// <summary>
         /// Used by bots to register a detected post
@@ -200,8 +150,8 @@ namespace IO.Swagger.Api
         /// </remarks>
         /// <exception cref="IO.Swagger.Client.ApiException">Thrown when fails to make API call</exception>
         /// <param name="request"> (optional)</param>
-        /// <returns>Task of ApiResponse</returns>
-        System.Threading.Tasks.Task<ApiResponse<Object>> BotRegisterPostPostAsyncWithHttpInfo (RegisterPostRequest request = null);
+        /// <returns>Task of ApiResponse (int?)</returns>
+        System.Threading.Tasks.Task<ApiResponse<int?>> BotRegisterPostPostAsyncWithHttpInfo (RegisterPostRequest request = null);
         /// <summary>
         /// 
         /// </summary>
@@ -348,13 +298,11 @@ namespace IO.Swagger.Api
         ///  
         /// </summary>
         /// <exception cref="IO.Swagger.Client.ApiException">Thrown when fails to make API call</exception>
-        /// <param name="botId"></param>
-        /// <param name="secret"></param>
-        /// <param name="requestedScopes"> (optional)</param>
+        /// <param name="request"> (optional)</param>
         /// <returns>AquireTokenResponse</returns>
-        public AquireTokenResponse BotAquireTokenPost (int? botId, string secret, List<string> requestedScopes = null)
+        public AquireTokenResponse BotAquireTokenPost (AquireTokenRequest request = null)
         {
-             ApiResponse<AquireTokenResponse> localVarResponse = BotAquireTokenPostWithHttpInfo(botId, secret, requestedScopes);
+             ApiResponse<AquireTokenResponse> localVarResponse = BotAquireTokenPostWithHttpInfo(request);
              return localVarResponse.Data;
         }
 
@@ -362,18 +310,10 @@ namespace IO.Swagger.Api
         ///  
         /// </summary>
         /// <exception cref="IO.Swagger.Client.ApiException">Thrown when fails to make API call</exception>
-        /// <param name="botId"></param>
-        /// <param name="secret"></param>
-        /// <param name="requestedScopes"> (optional)</param>
+        /// <param name="request"> (optional)</param>
         /// <returns>ApiResponse of AquireTokenResponse</returns>
-        public ApiResponse< AquireTokenResponse > BotAquireTokenPostWithHttpInfo (int? botId, string secret, List<string> requestedScopes = null)
+        public ApiResponse< AquireTokenResponse > BotAquireTokenPostWithHttpInfo (AquireTokenRequest request = null)
         {
-            // verify the required parameter 'botId' is set
-            if (botId == null)
-                throw new ApiException(400, "Missing required parameter 'botId' when calling BotApi->BotAquireTokenPost");
-            // verify the required parameter 'secret' is set
-            if (secret == null)
-                throw new ApiException(400, "Missing required parameter 'secret' when calling BotApi->BotAquireTokenPost");
 
             var localVarPath = "/Bot/AquireToken";
             var localVarPathParams = new Dictionary<String, String>();
@@ -385,6 +325,10 @@ namespace IO.Swagger.Api
 
             // to determine the Content-Type header
             String[] localVarHttpContentTypes = new String[] {
+                "application/json-patch+json", 
+                "application/json", 
+                "text/json", 
+                "application/_*+json"
             };
             String localVarHttpContentType = Configuration.ApiClient.SelectHeaderContentType(localVarHttpContentTypes);
 
@@ -398,9 +342,14 @@ namespace IO.Swagger.Api
             if (localVarHttpHeaderAccept != null)
                 localVarHeaderParams.Add("Accept", localVarHttpHeaderAccept);
 
-            if (botId != null) localVarQueryParams.AddRange(Configuration.ApiClient.ParameterToKeyValuePairs("", "BotId", botId)); // query parameter
-            if (secret != null) localVarQueryParams.AddRange(Configuration.ApiClient.ParameterToKeyValuePairs("", "Secret", secret)); // query parameter
-            if (requestedScopes != null) localVarQueryParams.AddRange(Configuration.ApiClient.ParameterToKeyValuePairs("multi", "RequestedScopes", requestedScopes)); // query parameter
+            if (request != null && request.GetType() != typeof(byte[]))
+            {
+                localVarPostBody = Configuration.ApiClient.Serialize(request); // http body (model) parameter
+            }
+            else
+            {
+                localVarPostBody = request; // byte array
+            }
 
 
             // make the HTTP request
@@ -425,13 +374,11 @@ namespace IO.Swagger.Api
         ///  
         /// </summary>
         /// <exception cref="IO.Swagger.Client.ApiException">Thrown when fails to make API call</exception>
-        /// <param name="botId"></param>
-        /// <param name="secret"></param>
-        /// <param name="requestedScopes"> (optional)</param>
+        /// <param name="request"> (optional)</param>
         /// <returns>Task of AquireTokenResponse</returns>
-        public async System.Threading.Tasks.Task<AquireTokenResponse> BotAquireTokenPostAsync (int? botId, string secret, List<string> requestedScopes = null)
+        public async System.Threading.Tasks.Task<AquireTokenResponse> BotAquireTokenPostAsync (AquireTokenRequest request = null)
         {
-             ApiResponse<AquireTokenResponse> localVarResponse = await BotAquireTokenPostAsyncWithHttpInfo(botId, secret, requestedScopes);
+             ApiResponse<AquireTokenResponse> localVarResponse = await BotAquireTokenPostAsyncWithHttpInfo(request);
              return localVarResponse.Data;
 
         }
@@ -440,18 +387,10 @@ namespace IO.Swagger.Api
         ///  
         /// </summary>
         /// <exception cref="IO.Swagger.Client.ApiException">Thrown when fails to make API call</exception>
-        /// <param name="botId"></param>
-        /// <param name="secret"></param>
-        /// <param name="requestedScopes"> (optional)</param>
+        /// <param name="request"> (optional)</param>
         /// <returns>Task of ApiResponse (AquireTokenResponse)</returns>
-        public async System.Threading.Tasks.Task<ApiResponse<AquireTokenResponse>> BotAquireTokenPostAsyncWithHttpInfo (int? botId, string secret, List<string> requestedScopes = null)
+        public async System.Threading.Tasks.Task<ApiResponse<AquireTokenResponse>> BotAquireTokenPostAsyncWithHttpInfo (AquireTokenRequest request = null)
         {
-            // verify the required parameter 'botId' is set
-            if (botId == null)
-                throw new ApiException(400, "Missing required parameter 'botId' when calling BotApi->BotAquireTokenPost");
-            // verify the required parameter 'secret' is set
-            if (secret == null)
-                throw new ApiException(400, "Missing required parameter 'secret' when calling BotApi->BotAquireTokenPost");
 
             var localVarPath = "/Bot/AquireToken";
             var localVarPathParams = new Dictionary<String, String>();
@@ -463,6 +402,10 @@ namespace IO.Swagger.Api
 
             // to determine the Content-Type header
             String[] localVarHttpContentTypes = new String[] {
+                "application/json-patch+json", 
+                "application/json", 
+                "text/json", 
+                "application/_*+json"
             };
             String localVarHttpContentType = Configuration.ApiClient.SelectHeaderContentType(localVarHttpContentTypes);
 
@@ -476,9 +419,14 @@ namespace IO.Swagger.Api
             if (localVarHttpHeaderAccept != null)
                 localVarHeaderParams.Add("Accept", localVarHttpHeaderAccept);
 
-            if (botId != null) localVarQueryParams.AddRange(Configuration.ApiClient.ParameterToKeyValuePairs("", "BotId", botId)); // query parameter
-            if (secret != null) localVarQueryParams.AddRange(Configuration.ApiClient.ParameterToKeyValuePairs("", "Secret", secret)); // query parameter
-            if (requestedScopes != null) localVarQueryParams.AddRange(Configuration.ApiClient.ParameterToKeyValuePairs("multi", "RequestedScopes", requestedScopes)); // query parameter
+            if (request != null && request.GetType() != typeof(byte[]))
+            {
+                localVarPostBody = Configuration.ApiClient.Serialize(request); // http body (model) parameter
+            }
+            else
+            {
+                localVarPostBody = request; // byte array
+            }
 
 
             // make the HTTP request
@@ -500,166 +448,15 @@ namespace IO.Swagger.Api
         }
 
         /// <summary>
-        /// Used by bots to register feedback types 
+        /// Used by bots to register a detected post 
         /// </summary>
         /// <exception cref="IO.Swagger.Client.ApiException">Thrown when fails to make API call</exception>
         /// <param name="request"> (optional)</param>
-        /// <returns></returns>
-        public void BotRegisterFeedbackTypesPost (RegisterFeedbackTypesRequest request = null)
+        /// <returns>int?</returns>
+        public int? BotRegisterPostPost (RegisterPostRequest request = null)
         {
-             BotRegisterFeedbackTypesPostWithHttpInfo(request);
-        }
-
-        /// <summary>
-        /// Used by bots to register feedback types 
-        /// </summary>
-        /// <exception cref="IO.Swagger.Client.ApiException">Thrown when fails to make API call</exception>
-        /// <param name="request"> (optional)</param>
-        /// <returns>ApiResponse of Object(void)</returns>
-        public ApiResponse<Object> BotRegisterFeedbackTypesPostWithHttpInfo (RegisterFeedbackTypesRequest request = null)
-        {
-
-            var localVarPath = "/Bot/RegisterFeedbackTypes";
-            var localVarPathParams = new Dictionary<String, String>();
-            var localVarQueryParams = new List<KeyValuePair<String, String>>();
-            var localVarHeaderParams = new Dictionary<String, String>(Configuration.DefaultHeader);
-            var localVarFormParams = new Dictionary<String, String>();
-            var localVarFileParams = new Dictionary<String, FileParameter>();
-            Object localVarPostBody = null;
-
-            // to determine the Content-Type header
-            String[] localVarHttpContentTypes = new String[] {
-                "application/json-patch+json", 
-                "application/json", 
-                "text/json", 
-                "application/_*+json"
-            };
-            String localVarHttpContentType = Configuration.ApiClient.SelectHeaderContentType(localVarHttpContentTypes);
-
-            // to determine the Accept header
-            String[] localVarHttpHeaderAccepts = new String[] {
-                "text/plain",
-                "application/json",
-                "text/json"
-            };
-            String localVarHttpHeaderAccept = Configuration.ApiClient.SelectHeaderAccept(localVarHttpHeaderAccepts);
-            if (localVarHttpHeaderAccept != null)
-                localVarHeaderParams.Add("Accept", localVarHttpHeaderAccept);
-
-            if (request != null && request.GetType() != typeof(byte[]))
-            {
-                localVarPostBody = Configuration.ApiClient.Serialize(request); // http body (model) parameter
-            }
-            else
-            {
-                localVarPostBody = request; // byte array
-            }
-
-            // authentication (oauth2) required
-            // oauth required
-            if (!String.IsNullOrEmpty(Configuration.AccessToken))
-            {
-                localVarHeaderParams["Authorization"] = "Bearer " + Configuration.AccessToken;
-            }
-
-            // make the HTTP request
-            IRestResponse localVarResponse = (IRestResponse) Configuration.ApiClient.CallApi(localVarPath,
-                Method.POST, localVarQueryParams, localVarPostBody, localVarHeaderParams, localVarFormParams, localVarFileParams,
-                localVarPathParams, localVarHttpContentType);
-
-            int localVarStatusCode = (int) localVarResponse.StatusCode;
-
-            if (ExceptionFactory != null)
-            {
-                Exception exception = ExceptionFactory("BotRegisterFeedbackTypesPost", localVarResponse);
-                if (exception != null) throw exception;
-            }
-
-            return new ApiResponse<Object>(localVarStatusCode,
-                localVarResponse.Headers.ToDictionary(x => x.Name, x => x.Value.ToString()),
-                null);
-        }
-
-        /// <summary>
-        /// Used by bots to register feedback types 
-        /// </summary>
-        /// <exception cref="IO.Swagger.Client.ApiException">Thrown when fails to make API call</exception>
-        /// <param name="request"> (optional)</param>
-        /// <returns>Task of void</returns>
-        public async System.Threading.Tasks.Task BotRegisterFeedbackTypesPostAsync (RegisterFeedbackTypesRequest request = null)
-        {
-             await BotRegisterFeedbackTypesPostAsyncWithHttpInfo(request);
-
-        }
-
-        /// <summary>
-        /// Used by bots to register feedback types 
-        /// </summary>
-        /// <exception cref="IO.Swagger.Client.ApiException">Thrown when fails to make API call</exception>
-        /// <param name="request"> (optional)</param>
-        /// <returns>Task of ApiResponse</returns>
-        public async System.Threading.Tasks.Task<ApiResponse<Object>> BotRegisterFeedbackTypesPostAsyncWithHttpInfo (RegisterFeedbackTypesRequest request = null)
-        {
-
-            var localVarPath = "/Bot/RegisterFeedbackTypes";
-            var localVarPathParams = new Dictionary<String, String>();
-            var localVarQueryParams = new List<KeyValuePair<String, String>>();
-            var localVarHeaderParams = new Dictionary<String, String>(Configuration.DefaultHeader);
-            var localVarFormParams = new Dictionary<String, String>();
-            var localVarFileParams = new Dictionary<String, FileParameter>();
-            Object localVarPostBody = null;
-
-            // to determine the Content-Type header
-            String[] localVarHttpContentTypes = new String[] {
-                "application/json-patch+json", 
-                "application/json", 
-                "text/json", 
-                "application/_*+json"
-            };
-            String localVarHttpContentType = Configuration.ApiClient.SelectHeaderContentType(localVarHttpContentTypes);
-
-            // to determine the Accept header
-            String[] localVarHttpHeaderAccepts = new String[] {
-                "text/plain",
-                "application/json",
-                "text/json"
-            };
-            String localVarHttpHeaderAccept = Configuration.ApiClient.SelectHeaderAccept(localVarHttpHeaderAccepts);
-            if (localVarHttpHeaderAccept != null)
-                localVarHeaderParams.Add("Accept", localVarHttpHeaderAccept);
-
-            if (request != null && request.GetType() != typeof(byte[]))
-            {
-                localVarPostBody = Configuration.ApiClient.Serialize(request); // http body (model) parameter
-            }
-            else
-            {
-                localVarPostBody = request; // byte array
-            }
-
-            // authentication (oauth2) required
-            // oauth required
-            if (!String.IsNullOrEmpty(Configuration.AccessToken))
-            {
-                localVarHeaderParams["Authorization"] = "Bearer " + Configuration.AccessToken;
-            }
-
-            // make the HTTP request
-            IRestResponse localVarResponse = (IRestResponse) await Configuration.ApiClient.CallApiAsync(localVarPath,
-                Method.POST, localVarQueryParams, localVarPostBody, localVarHeaderParams, localVarFormParams, localVarFileParams,
-                localVarPathParams, localVarHttpContentType);
-
-            int localVarStatusCode = (int) localVarResponse.StatusCode;
-
-            if (ExceptionFactory != null)
-            {
-                Exception exception = ExceptionFactory("BotRegisterFeedbackTypesPost", localVarResponse);
-                if (exception != null) throw exception;
-            }
-
-            return new ApiResponse<Object>(localVarStatusCode,
-                localVarResponse.Headers.ToDictionary(x => x.Name, x => x.Value.ToString()),
-                null);
+             ApiResponse<int?> localVarResponse = BotRegisterPostPostWithHttpInfo(request);
+             return localVarResponse.Data;
         }
 
         /// <summary>
@@ -667,19 +464,8 @@ namespace IO.Swagger.Api
         /// </summary>
         /// <exception cref="IO.Swagger.Client.ApiException">Thrown when fails to make API call</exception>
         /// <param name="request"> (optional)</param>
-        /// <returns></returns>
-        public void BotRegisterPostPost (RegisterPostRequest request = null)
-        {
-             BotRegisterPostPostWithHttpInfo(request);
-        }
-
-        /// <summary>
-        /// Used by bots to register a detected post 
-        /// </summary>
-        /// <exception cref="IO.Swagger.Client.ApiException">Thrown when fails to make API call</exception>
-        /// <param name="request"> (optional)</param>
-        /// <returns>ApiResponse of Object(void)</returns>
-        public ApiResponse<Object> BotRegisterPostPostWithHttpInfo (RegisterPostRequest request = null)
+        /// <returns>ApiResponse of int?</returns>
+        public ApiResponse< int? > BotRegisterPostPostWithHttpInfo (RegisterPostRequest request = null)
         {
 
             var localVarPath = "/Bot/RegisterPost";
@@ -738,9 +524,9 @@ namespace IO.Swagger.Api
                 if (exception != null) throw exception;
             }
 
-            return new ApiResponse<Object>(localVarStatusCode,
+            return new ApiResponse<int?>(localVarStatusCode,
                 localVarResponse.Headers.ToDictionary(x => x.Name, x => x.Value.ToString()),
-                null);
+                (int?) Configuration.ApiClient.Deserialize(localVarResponse, typeof(int?)));
         }
 
         /// <summary>
@@ -748,10 +534,11 @@ namespace IO.Swagger.Api
         /// </summary>
         /// <exception cref="IO.Swagger.Client.ApiException">Thrown when fails to make API call</exception>
         /// <param name="request"> (optional)</param>
-        /// <returns>Task of void</returns>
-        public async System.Threading.Tasks.Task BotRegisterPostPostAsync (RegisterPostRequest request = null)
+        /// <returns>Task of int?</returns>
+        public async System.Threading.Tasks.Task<int?> BotRegisterPostPostAsync (RegisterPostRequest request = null)
         {
-             await BotRegisterPostPostAsyncWithHttpInfo(request);
+             ApiResponse<int?> localVarResponse = await BotRegisterPostPostAsyncWithHttpInfo(request);
+             return localVarResponse.Data;
 
         }
 
@@ -760,8 +547,8 @@ namespace IO.Swagger.Api
         /// </summary>
         /// <exception cref="IO.Swagger.Client.ApiException">Thrown when fails to make API call</exception>
         /// <param name="request"> (optional)</param>
-        /// <returns>Task of ApiResponse</returns>
-        public async System.Threading.Tasks.Task<ApiResponse<Object>> BotRegisterPostPostAsyncWithHttpInfo (RegisterPostRequest request = null)
+        /// <returns>Task of ApiResponse (int?)</returns>
+        public async System.Threading.Tasks.Task<ApiResponse<int?>> BotRegisterPostPostAsyncWithHttpInfo (RegisterPostRequest request = null)
         {
 
             var localVarPath = "/Bot/RegisterPost";
@@ -820,9 +607,9 @@ namespace IO.Swagger.Api
                 if (exception != null) throw exception;
             }
 
-            return new ApiResponse<Object>(localVarStatusCode,
+            return new ApiResponse<int?>(localVarStatusCode,
                 localVarResponse.Headers.ToDictionary(x => x.Name, x => x.Value.ToString()),
-                null);
+                (int?) Configuration.ApiClient.Deserialize(localVarResponse, typeof(int?)));
         }
 
         /// <summary>

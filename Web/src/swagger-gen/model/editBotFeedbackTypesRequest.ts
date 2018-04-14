@@ -9,12 +9,10 @@
  * https://github.com/swagger-api/swagger-codegen.git
  * Do not edit the class manually.
  */
+import { ViewBotFeedbackTypesResponse } from './viewBotFeedbackTypesResponse';
 
 
-export interface ReviewerReportReasonResponse {
-    reasonId?: number;
-    name?: string;
-    confidence?: number;
-    tripped?: boolean;
-    seen?: number;
+export interface EditBotFeedbackTypesRequest {
+    botId?: number;
+    feedbackTypes?: Array<ViewBotFeedbackTypesResponse>;
 }

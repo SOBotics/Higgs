@@ -76,51 +76,7 @@ namespace Higgs.Server.Controllers
             _dbContext.SaveChanges();
             return Json(bot.Id);
         }
-
-        [HttpPost("RegisterFeedbackTypesForBot")]
-        [Authorize(Scopes.BOT_SET_FEEDBACK_TYPES)]
-        [SwaggerResponse((int)HttpStatusCode.OK)]
-        [SwaggerResponse((int)HttpStatusCode.BadRequest, typeof(ErrorResponse))]
-        public IActionResult RegisterFeedbackTypesForBot([FromBody] RegisterFeedbackTypesForBotRequest request)
-        {
-            var existingFeedbacks = _dbContext.Feedbacks.Where(f => f.BotId == request.BotId)
-                .ToList()
-                .GroupBy(f => f.Name) // In case there are duplicates, just handle the first one
-                .Select(g => g.First())
-                .ToDictionary(f => f.Name, f => f, StringComparer.OrdinalIgnoreCase);
-
-            var requestFeedback = new HashSet<string>(request.FeedbackTypes.Select(ft => ft.Name), StringComparer.OrdinalIgnoreCase);
-            foreach (var feedback in existingFeedbacks.Values)
-            {
-                if (!requestFeedback.Contains(feedback.Name))
-                    _dbContext.Feedbacks.Remove(feedback);
-            }
-
-            foreach (var feedbackType in request.FeedbackTypes)
-            {
-                DbFeedback dbFeedback;
-                if (existingFeedbacks.ContainsKey(feedbackType.Name))
-                    dbFeedback = existingFeedbacks[feedbackType.Name];
-                else
-                {
-                    dbFeedback = new DbFeedback
-                    {
-                        BotId = request.BotId,
-                        Name = feedbackType.Name
-                    };
-                    _dbContext.Feedbacks.Add(dbFeedback);
-                }
-
-                dbFeedback.Colour = feedbackType.Colour;
-                dbFeedback.Icon = feedbackType.Icon;
-                dbFeedback.IsActionable = feedbackType.IsActionable;
-                dbFeedback.RequiredActions = feedbackType.RequiredActions;
-            }
-
-            _dbContext.SaveChanges();
-            return Ok();
-        }
-
+        
         [HttpGet("Bot")]
         [Authorize(Scopes.ADMIN_VIEW_BOT_DETAILS)]
         public BotResponse Bot(int botId)
@@ -189,6 +145,78 @@ namespace Higgs.Server.Controllers
             return Ok();
         }
 
+        [HttpGet("ViewBotFeedbackTypes")]
+        [Authorize(Scopes.ADMIN_EDIT_BOT)]
+        [SwaggerResponse((int)HttpStatusCode.OK, typeof(IList<ViewBotFeedbackTypesResponse>))]
+        [SwaggerResponse((int)HttpStatusCode.BadRequest, typeof(ErrorResponse), Description = "Bot not found")]
+        public IActionResult ViewBotFeedbackTypes(int botId)
+        {
+            var existingBot = _dbContext.Bots.FirstOrDefault(b => b.Id == botId);
+            if (existingBot == null)
+                return BadRequest(new ErrorResponse($"Bot with id {botId} not found."));
+
+            var feedback = _dbContext.Feedbacks.Where(f => f.BotId == botId)
+                .Select(f => new ViewBotFeedbackTypesResponse
+                {
+                    Id = f.Id,
+                    Name = f.Name,
+                    Colour = f.Colour,
+                    Icon = f.Icon,
+                    IsActionable = f.IsActionable,
+                    IsEnabled = f.IsEnabled
+                }).ToList();
+
+            return Json(feedback);
+        }
+
+        [HttpPost("EditBotFeedbackTypes")]
+        [Authorize(Scopes.ADMIN_EDIT_BOT)]
+        [SwaggerResponse((int) HttpStatusCode.OK, Description = "Successfully edited bot feedback types")]
+        [SwaggerResponse((int) HttpStatusCode.BadRequest, typeof(ErrorResponse), Description = "Bot not found")]
+        public IActionResult EditBotFeedbackTypes([FromBody] EditBotFeedbackTypesRequest request)
+        {
+            var existingBot = _dbContext.Bots.Include(b => b.Feedbacks).FirstOrDefault(b => b.Id == request.BotId);
+            if (existingBot == null)
+                return BadRequest(new ErrorResponse($"Bot with id {request.BotId} not found."));
+
+            var feedbackTypes = existingBot.Feedbacks.ToDictionary(f => f.Id, f => f);
+
+            foreach (var feedbackType in request.FeedbackTypes)
+            {
+                if (feedbackTypes.ContainsKey(feedbackType.Id))
+                {
+                    // Edit it
+                    var dbFeedbackType = feedbackTypes[feedbackType.Id];
+                    dbFeedbackType.Name = feedbackType.Name;
+                    dbFeedbackType.Colour = feedbackType.Colour;
+                    dbFeedbackType.Icon = feedbackType.Icon;
+                    dbFeedbackType.IsActionable = feedbackType.IsActionable;
+                    dbFeedbackType.IsEnabled = feedbackType.IsEnabled;
+                }
+                else
+                {
+                    if (feedbackType.Id == 0) // It's a new one
+                    {
+                        var dbFeedbackType = new DbFeedback
+                        {
+                            BotId = request.BotId,
+                            Name = feedbackType.Name,
+                            Colour = feedbackType.Colour,
+                            Icon = feedbackType.Icon,
+                            IsActionable = feedbackType.IsActionable,
+                            IsEnabled = feedbackType.IsEnabled
+                        };
+
+                        _dbContext.Feedbacks.Add(dbFeedbackType);
+                    }
+                }
+            }
+
+            _dbContext.SaveChanges();
+
+            return Ok();
+        }
+
         /// <summary>
         ///     Deactivates a bot
         /// </summary>
@@ -198,7 +226,7 @@ namespace Higgs.Server.Controllers
         [SwaggerResponse((int) HttpStatusCode.BadRequest, typeof(ErrorResponse))]
         public IActionResult DeactiveateBot([FromBody] DeleteBotRequest request)
         {
-            return Ok(0);
+            return Ok();
         }
 
         /// <summary>
@@ -231,7 +259,7 @@ namespace Higgs.Server.Controllers
             }
 
             _dbContext.SaveChanges();
-            return Ok(0);
+            return Ok();
         }
         
         /// <summary>
@@ -242,7 +270,7 @@ namespace Higgs.Server.Controllers
         [SwaggerResponse((int) HttpStatusCode.OK, typeof(UsersResponse), Description = "View user details")]
         public IActionResult Users()
         {
-            return Ok(0);
+            return Ok();
         }
 
         /// <summary>
@@ -254,7 +282,7 @@ namespace Higgs.Server.Controllers
         [SwaggerResponse((int) HttpStatusCode.BadRequest, typeof(ErrorResponse))]
         public IActionResult SetUserScopes([FromBody] AddUserScopeRequest request)
         {
-            return Ok(0);
+            return Ok();
         }
     }
 }

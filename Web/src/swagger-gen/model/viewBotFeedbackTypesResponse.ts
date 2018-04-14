@@ -11,10 +11,11 @@
  */
 
 
-export interface ReviewerReportReasonResponse {
-    reasonId?: number;
+export interface ViewBotFeedbackTypesResponse {
+    id?: number;
     name?: string;
-    confidence?: number;
-    tripped?: boolean;
-    seen?: number;
+    colour?: string;
+    icon?: string;
+    isActionable?: boolean;
+    isEnabled?: boolean;
 }

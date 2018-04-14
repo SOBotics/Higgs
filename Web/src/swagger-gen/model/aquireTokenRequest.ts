@@ -11,10 +11,8 @@
  */
 
 
-export interface ReviewerReportReasonResponse {
-    reasonId?: number;
-    name?: string;
-    confidence?: number;
-    tripped?: boolean;
-    seen?: number;
+export interface AquireTokenRequest {
+    botId: number;
+    secret: string;
+    requestedScopes?: Array<string>;
 }

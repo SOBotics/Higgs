@@ -102,14 +102,15 @@ Class | Method | HTTP request | Description
 *AdminApi* | [**AdminBotScopesGet**](docs/AdminApi.md#adminbotscopesget) | **GET** /Admin/BotScopes | 
 *AdminApi* | [**AdminBotsGet**](docs/AdminApi.md#adminbotsget) | **GET** /Admin/Bots | Lists all bots
 *AdminApi* | [**AdminDeactiveateBotPost**](docs/AdminApi.md#admindeactiveatebotpost) | **POST** /Admin/DeactiveateBot | Deactivates a bot
+*AdminApi* | [**AdminEditBotFeedbackTypesPost**](docs/AdminApi.md#admineditbotfeedbacktypespost) | **POST** /Admin/EditBotFeedbackTypes | 
 *AdminApi* | [**AdminEditBotPost**](docs/AdminApi.md#admineditbotpost) | **POST** /Admin/EditBot | Update a bots details
 *AdminApi* | [**AdminRegisterBotPost**](docs/AdminApi.md#adminregisterbotpost) | **POST** /Admin/RegisterBot | Register a bot
 *AdminApi* | [**AdminScopesGet**](docs/AdminApi.md#adminscopesget) | **GET** /Admin/Scopes | 
 *AdminApi* | [**AdminSetBotScopesPost**](docs/AdminApi.md#adminsetbotscopespost) | **POST** /Admin/SetBotScopes | Set bot scopes
 *AdminApi* | [**AdminSetUserScopesPost**](docs/AdminApi.md#adminsetuserscopespost) | **POST** /Admin/SetUserScopes | Add a scope to a user
 *AdminApi* | [**AdminUsersGet**](docs/AdminApi.md#adminusersget) | **GET** /Admin/Users | Lists all users
+*AdminApi* | [**AdminViewBotFeedbackTypesGet**](docs/AdminApi.md#adminviewbotfeedbacktypesget) | **GET** /Admin/ViewBotFeedbackTypes | 
 *BotApi* | [**BotAquireTokenPost**](docs/BotApi.md#botaquiretokenpost) | **POST** /Bot/AquireToken | 
-*BotApi* | [**BotRegisterFeedbackTypesPost**](docs/BotApi.md#botregisterfeedbacktypespost) | **POST** /Bot/RegisterFeedbackTypes | Used by bots to register feedback types
 *BotApi* | [**BotRegisterPostPost**](docs/BotApi.md#botregisterpostpost) | **POST** /Bot/RegisterPost | Used by bots to register a detected post
 *BotApi* | [**BotRegisterUserFeedbackByContentPost**](docs/BotApi.md#botregisteruserfeedbackbycontentpost) | **POST** /Bot/RegisterUserFeedbackByContent | 
 *BotApi* | [**BotRegisterUserFeedbackPost**](docs/BotApi.md#botregisteruserfeedbackpost) | **POST** /Bot/RegisterUserFeedback | 
@@ -124,15 +125,15 @@ Class | Method | HTTP request | Description
 ## Documentation for Models
 
  - [Model.AddUserScopeRequest](docs/AddUserScopeRequest.md)
+ - [Model.AquireTokenRequest](docs/AquireTokenRequest.md)
  - [Model.AquireTokenResponse](docs/AquireTokenResponse.md)
  - [Model.BotResponse](docs/BotResponse.md)
  - [Model.BotsResponse](docs/BotsResponse.md)
  - [Model.CreateBotRequest](docs/CreateBotRequest.md)
  - [Model.DeleteBotRequest](docs/DeleteBotRequest.md)
+ - [Model.EditBotFeedbackTypesRequest](docs/EditBotFeedbackTypesRequest.md)
  - [Model.EditCreateBotRequest](docs/EditCreateBotRequest.md)
  - [Model.ErrorResponse](docs/ErrorResponse.md)
- - [Model.FeedbackType](docs/FeedbackType.md)
- - [Model.RegisterFeedbackTypesRequest](docs/RegisterFeedbackTypesRequest.md)
  - [Model.RegisterPostAttribute](docs/RegisterPostAttribute.md)
  - [Model.RegisterPostContentFragment](docs/RegisterPostContentFragment.md)
  - [Model.RegisterPostReason](docs/RegisterPostReason.md)
@@ -148,6 +149,7 @@ Class | Method | HTTP request | Description
  - [Model.ScopeInfo](docs/ScopeInfo.md)
  - [Model.SetBotScopesRequest](docs/SetBotScopesRequest.md)
  - [Model.UsersResponse](docs/UsersResponse.md)
+ - [Model.ViewBotFeedbackTypesResponse](docs/ViewBotFeedbackTypesResponse.md)
 
 
 <a name="documentation-for-authorization"></a>

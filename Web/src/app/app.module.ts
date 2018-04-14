@@ -24,6 +24,7 @@ import { MetaDataService } from './services/meta-data.service';
 import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
 import { BotScopesComponent } from './admin/bot-scopes/bot-scopes.component';
 import { BotScopeComponent } from './admin//bot-scope/bot-scope.component';
+import { BotFeedbackTypesComponent } from './admin/bot-feedback-types/bot-feedback-types.component';
 
 
 @NgModule({
@@ -39,7 +40,8 @@ import { BotScopeComponent } from './admin//bot-scope/bot-scope.component';
     ReportsComponent,
     PageNotFoundComponent,
     BotScopesComponent,
-    BotScopeComponent
+    BotScopeComponent,
+    BotFeedbackTypesComponent
   ],
   imports: [
     BrowserModule,

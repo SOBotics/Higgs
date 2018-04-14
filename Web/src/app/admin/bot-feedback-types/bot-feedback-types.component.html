@@ -1,0 +1,35 @@
+<form (ngSubmit)="onSubmit()" #feedbackForm="ngForm" >
+  <table class="table" *ngIf="feedbacks">
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Colour</th>
+        <th>Icon</th>
+        <th>Actionable</th>
+        <th>Enabled</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let feedback of feedbacks">
+        <td>
+          <input type="text" class="form-control" [(ngModel)]="feedback.name" [ngModelOptions]="{standalone: true}">
+        </td>
+        <td>
+          <input type="text" class="form-control" [(ngModel)]="feedback.colour" [ngModelOptions]="{standalone: true}">
+        </td>
+        <td>
+          <input type="text" class="form-control" [(ngModel)]="feedback.icon" [ngModelOptions]="{standalone: true}">
+        </td>
+        <td>
+          <input type="checkbox" name="actionable" [(ngModel)]="feedback.IsActionable" [ngModelOptions]="{standalone: true}">
+        </td>
+        <td>
+          <input type="checkbox" name="enabled" [(ngModel)]="feedback.IsEnabled" [ngModelOptions]="{standalone: true}">
+        </td>
+      </tr>
+    </tbody>
+  </table>
+
+  <a href="javascript:void(0)" class="btn btn-success" (click)="addNew()">New</a>
+  <button type="submit" class="btn btn-success float-right" [disabled]="!feedbackForm.form.valid">Submit</button>
+</form>

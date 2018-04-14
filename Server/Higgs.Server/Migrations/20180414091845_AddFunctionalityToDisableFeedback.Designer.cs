@@ -11,9 +11,10 @@ using System;
 namespace Higgs.Server.Migrations
 {
     [DbContext(typeof(HiggsDbContext))]
-    partial class HiggsDbContextModelSnapshot : ModelSnapshot
+    [Migration("20180414091845_AddFunctionalityToDisableFeedback")]
+    partial class AddFunctionalityToDisableFeedback
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

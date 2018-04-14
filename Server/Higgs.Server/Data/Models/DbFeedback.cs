@@ -14,9 +14,9 @@ namespace Higgs.Server.Data.Models
 
         public string Icon { get; set; }
 
-        public bool? IsActionable { get; set; }
+        public bool IsActionable { get; set; }
 
-        public int? RequiredActions { get; set; }
+        public bool IsEnabled { get; set; }
 
         public int BotId { get; set; }
         [ForeignKey("BotId")]
