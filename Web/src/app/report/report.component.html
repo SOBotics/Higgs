@@ -28,12 +28,12 @@
     <pre class="mt-3 p-2"><code>{{postDetails.contentFragments[0].content}}</code></pre>
   </ng-container>
   <div class="row mt-3">
-    <div class="col-md-10">
+    <div class="col-md-6">
       <span *ngIf="postDetails.contentCreationDate" title="{{postDetails.contentCreationDate}}">Posted {{postDetails.contentCreationDate | timeAgo}}</span>
       <span *ngIf="postDetails.contentCreationDate">|</span>
       <span *ngIf="postDetails.detectedDate" title="{{postDetails.detectedDate}}">Reported {{postDetails.detectedDate | timeAgo}}</span>
     </div>
-    <div class="col-md-2 text-sm-right" *ngIf="postDetails.authorName">
+    <div class="col-md-6 text-sm-right" *ngIf="postDetails.authorName">
       <span *ngIf="postDetails.authorLink">Posted by
         <a href="{{postDetails.authorLink}}">{{postDetails.authorName}}</a>
       </span>
