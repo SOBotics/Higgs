@@ -118,12 +118,12 @@ namespace Higgs.Server.Controllers
             apiRequest.AddParameter("key", _configuration["SE.Key"]);
             apiRequest.AddParameter("site", "stackoverflow");
             apiRequest.AddParameter("access_token", accessToken);
-            apiRequest.AddParameter("filter", "!JmXzzBW1uefdN).yXhRDGnC");
+            apiRequest.AddParameter("filter", "!)iua4.KHF.lCb61RIH7hp");
             var apiResponse = await stackExchangeApiClient.ExecuteTaskAsync(apiRequest);
             var apiContent = JsonConvert.DeserializeObject<dynamic>(apiResponse.Content);
 
             var userDetails = apiContent.items[0];
-            int accountId = userDetails.account_id;
+            int accountId = userDetails.user_id;
             string displayName = userDetails.display_name;
 
             var signingKey = Convert.FromBase64String(_configuration["JwtSigningKey"]);
