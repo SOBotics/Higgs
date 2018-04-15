@@ -17,7 +17,7 @@ header {
   background-color: #f7f7f7;
 }
 
-@media(max-width: 767px) {
+@media(max-width: 991px) {
   .footer {
     font-size: 9px;
   }
@@ -36,7 +36,7 @@ header {
 }
 
 main.container {
-  
+  padding-bottom: 60px;
 }
 
 button {
