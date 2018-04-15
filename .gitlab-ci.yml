@@ -1,10 +1,9 @@
 stages:
-  - test
   - build
   - deploy
 
 test server:
-  stage: test
+  stage: build
   image: microsoft/dotnet:latest
   script: 
     - cd Server
