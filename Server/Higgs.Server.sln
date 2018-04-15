@@ -5,6 +5,8 @@ VisualStudioVersion = 15.0.27130.2010
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Higgs.Server", "Higgs.Server\Higgs.Server.csproj", "{399B50BC-BB3C-427E-9EDD-9A12B6395EFB}"
 EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Higgs.Server.Test", "Higgs.Server.Test\Higgs.Server.Test.csproj", "{289B1890-597E-46C6-A687-193C2FF081AF}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -15,6 +17,10 @@ Global
 		{399B50BC-BB3C-427E-9EDD-9A12B6395EFB}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{399B50BC-BB3C-427E-9EDD-9A12B6395EFB}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{399B50BC-BB3C-427E-9EDD-9A12B6395EFB}.Release|Any CPU.Build.0 = Release|Any CPU
+		{289B1890-597E-46C6-A687-193C2FF081AF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{289B1890-597E-46C6-A687-193C2FF081AF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{289B1890-597E-46C6-A687-193C2FF081AF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{289B1890-597E-46C6-A687-193C2FF081AF}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

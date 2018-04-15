@@ -1,6 +1,14 @@
 stages:
+  - test
   - build
   - deploy
+
+test server:
+  stage: test
+  image: microsoft/dotnet:latest
+  script: 
+    - cd Server
+    - dotnet test Higgs.Server.Test
 
 build server:
   stage: build
