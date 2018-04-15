@@ -10,7 +10,7 @@ build server:
     - dotnet publish -c Release
   artifacts:
     paths:
-      - Higgs.Server/bin/Release/netcoreapp2.0/publish/*.*
+      - Server/Higgs.Server/bin/Release/netcoreapp2.0/publish/*.*
 
 build web:
   stage: build
@@ -22,4 +22,4 @@ build web:
     - ng build -prod
   artifacts:
     paths:
-      - dist
+      - Web/dist
