@@ -1,0 +1,25 @@
+stages:
+  - build
+  - deploy
+
+build server:
+  stage: build
+  image: microsoft/dotnet:latest
+  script: 
+    - cd Server
+    - dotnet publish -c Release
+  artifacts:
+    paths:
+      - Higgs.Server/bin/Release/netcoreapp2.0/publish/*.*
+
+build web:
+  stage: build
+  image: node:latest
+  script: 
+    - cd Web
+    - npm install --unsafe-perm -g --silent @angular/cli
+    - npm install --unsafe-perm --silent
+    - ng build -prod
+  artifacts:
+    paths:
+      - dist
