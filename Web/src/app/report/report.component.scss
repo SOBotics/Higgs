@@ -30,3 +30,12 @@ pre code {
 button {
     cursor: pointer;
 }
+
+.reasons-table {
+    font-size:2vw;
+}
+@media(min-width: 800px) {
+    .reasons-table {
+        font-size: 16px;
+    }
+}
