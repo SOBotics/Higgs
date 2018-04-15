@@ -198,7 +198,7 @@ namespace Higgs.Server.Controllers
                     });
                 }
             }
-            var reasons = _dbContext.Reasons.Where(f => f.BotId == botId && request.Reasons.Select(r => r.ReasonName).Contains(f.Name)).ToDictionary(f => f.Name, f => f);
+            var reasons = _dbContext.Reasons.Where(f => f.BotId == botId).ToDictionary(f => f.Name, f => f);
             foreach (var reason in request.Reasons ?? Enumerable.Empty<RegisterPostReason>())
             {
                 DbReason dbReason;
