@@ -1,53 +1,48 @@
-<nav class="navbar navbar-toggleable-md navbar-light bg-faded">
-    <img class="navbar-brand logo" routerLink="/" src="/assets/logo.webp" />
-    <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navBarToggler" aria-controls="navBarToggler"
-        aria-expanded="false" aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
-    </button>
-    <div class="collapse navbar-collapse" id="navBarToggler">
-        <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
-            <li class="nav-item">
-                <a class="nav-link" routerLink="/reports">Reports</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" routerLink="/Posts">Search</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" routerLink="/Posts">Review</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" routerLink="/admin">Admin</a>
-            </li>
-        </ul>
-        <a *ngIf="!isLoggedIn" class="btn btn-outline-success my-2 my-sm-0" href="{{getLoginUrl()}}">Log In</a>
-        <ul *ngIf="isLoggedIn" class="navbar-nav mt-2 mt-sm-0">
-            <div class="dropdown-divider"></div>
-            <div class="hidden-lg-up">
+<header>
+    <nav class="navbar navbar-expand-md navbar-light bg-faded fixed-top">
+        <a class="navbar-brand" href="#">Fixed navbar</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarCollapse" aria-controls="navbarCollapse"
+            aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarCollapse">
+            <ul class="navbar-nav mr-auto">
                 <li class="nav-item">
-                    <a href="#" class="nav-link">Profile</a>
+                    <a class="nav-link" routerLink="/reports">Reports</a>
                 </li>
                 <li class="nav-item">
-                    <a href="#" class="nav-link">Log out</a>
+                    <a class="nav-link" routerLink="/Posts">Search</a>
                 </li>
-            </div>
+                <li class="nav-item">
+                    <a class="nav-link" routerLink="/Posts">Review</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" routerLink="/admin">Admin</a>
+                </li>
+            </ul>
 
-            <li class="nav-item dropdown hidden-md-down">
-                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                    {{userName}}
-                </a>
-                <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownMenuLink">
-                    <button class="dropdown-item button">Profile</button>
-                    <div class="dropdown-divider"></div>
-                    <button (click)="onLogoutClicked()" class="dropdown-item button">
-                        Log out
-                    </button>
-                </div>
-        </ul>
-    </div>
-</nav>
-<div class="container mt-3">
+            <a *ngIf="!isLoggedIn" class="btn btn-outline-success my-2 my-sm-0" href="{{getLoginUrl()}}">Log In</a>
+            <ul *ngIf="isLoggedIn" class="navbar-nav mt-2 mt-sm-0">
+                <li class="nav-item dropdown hidden-md-down">
+                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        {{userName}}
+                    </a>
+                    <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownMenuLink">
+                        <button class="dropdown-item button">Profile</button>
+                        <div class="dropdown-divider"></div>
+                        <button (click)="onLogoutClicked()" class="dropdown-item button">
+                            Log out
+                        </button>
+                    </div>
+            </ul>
+        </div>
+    </nav>
+</header>
+
+<main role="main" class="container">
     <router-outlet (activate)="onRouterActivate($event)"></router-outlet>
-</div>
+</main>
+
 <footer class="footer">
     <div class="container">
         <span class="text-muted">

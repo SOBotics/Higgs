@@ -1,15 +1,46 @@
-body {
-    margin-bottom: 60px; /* Margin bottom by footer height */
+html {
+  position: relative;
+  min-height: 100%;
+}
+body {  
+  margin-bottom: 60px;
 }
 .footer {
-  position: relative;
+  position: absolute;
   bottom: 0;
   width: 100%;
-  line-height: 30px;
-  padding-top: 5px;
-  padding-bottom: 5px;
+  height: 60px;
+  line-height: 60px;
+  font-size: 13px;
   background-color: #f7f7f7;
 }
+
+.bg-faded {
+  background-color: #f7f7f7;
+}
+
+@media(max-width: 767px) {
+  .footer {
+    font-size: 9px;
+  }
+}
+
+@media(max-width: 526px) {
+  .footer {
+    line-height: 30px;
+  }
+}
+
+@media(max-width: 280px) {
+  .footer {
+    line-height: 20px;
+  }
+}
+
+main.container {
+  margin-top: 80px;
+}
+
 button {
   cursor: pointer;
 }
