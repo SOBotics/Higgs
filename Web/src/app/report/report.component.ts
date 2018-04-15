@@ -60,7 +60,7 @@ export class ReportComponent implements OnInit {
             }
 
             if (this.postDetails.tabTitle && this.postDetails.tabTitle !== '') {
-              this.metaDataService.setTitle(this.postDetails.tabTitle);
+              this.metaDataService.setTitle(`${this.postDetails.tabTitle} - ${this.postDetails.title}`);
             }
             if (this.postDetails.favIcon && this.postDetails.favIcon !== '') {
               this.metaDataService.setFavIcon(this.postDetails.favIcon);
