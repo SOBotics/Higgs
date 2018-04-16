@@ -1,13 +1,16 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net;
 using System.Security.Cryptography;
 using Higgs.Server.Data;
 using Higgs.Server.Data.Models;
 using Higgs.Server.Models.Responses;
+using Higgs.Server.Models.Responses.Bot;
 using Higgs.Server.Models.Responses.Reviewer;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Swashbuckle.AspNetCore.SwaggerGen;
 
 namespace Higgs.Server.Controllers
 {
@@ -111,6 +114,20 @@ namespace Higgs.Server.Controllers
             return report;
         }
 
+        [HttpGet("Check")]
+        [SwaggerResponse((int)HttpStatusCode.OK, typeof(List<ReviewerCheckResponse>))]
+        public List<ReviewerCheckResponse> Check(string contentUrl)
+        {
+            var results = _dbContext.Reports.Where(r => r.ContentUrl == contentUrl)
+                .Select(r => new ReviewerCheckResponse
+                {
+                    Dashboard = r.Bot.DashboardName,
+                    Bot = r.Bot.Name,
+                    ReportId = r.Id
+                }).ToList();
+            return results;
+        }
+
         /// <summary>
         ///     Lists all reviews
         /// </summary>
@@ -124,6 +141,16 @@ namespace Higgs.Server.Controllers
         ///     Lists all pending review
         /// </summary>
         [HttpPost("feedback/sendFeedback")]
+        [Authorize(Scopes.REVIEWER_SEND_FEEDBACK)]
+        public IActionResult SendFeedbackObsolete(int reportId, int id)
+        {
+            return SendFeedback(reportId, id);
+        }
+
+        /// <summary>
+        ///     Lists all pending review
+        /// </summary>
+        [HttpPost("SendFeedback")]
         [Authorize(Scopes.REVIEWER_SEND_FEEDBACK)]
         public IActionResult SendFeedback(int reportId, int id)
         {
