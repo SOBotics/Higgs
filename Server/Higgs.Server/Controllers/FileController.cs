@@ -1,4 +1,5 @@
-﻿using System.Linq;
+﻿using System;
+using System.Linq;
 using System.Text;
 using Higgs.Server.Data;
 using Higgs.Server.Data.Models;
@@ -25,7 +26,7 @@ namespace Higgs.Server.Controllers
             {
                 ContentType = request.ContentType,
                 FileName = request.FileName,
-                Contents = Encoding.UTF8.GetBytes(request.Contents)
+                Contents = Convert.FromBase64String(request.Contents)
             };
             _dbContext.Files.Add(dbFile);
             _dbContext.SaveChanges();
