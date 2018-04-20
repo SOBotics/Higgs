@@ -19,7 +19,7 @@ namespace Higgs.Server.Controllers
         }
 
         [HttpPost]
-        public IActionResult AddFile(AddFileRequest request)
+        public IActionResult AddFile([FromBody] AddFileRequest request)
         {
             var dbFile = new DbFile
             {
