@@ -44,7 +44,7 @@ namespace Higgs.Server.Controllers
                     DashboardName = r.Bot.DashboardName
                 })
                 .OrderByDescending(r => r.Id)
-                .Take(100);
+                .Take(50);
             return query.ToList();
         }
 
