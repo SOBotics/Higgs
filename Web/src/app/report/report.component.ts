@@ -50,6 +50,16 @@ export class ReportComponent implements OnInit {
           } else {
             this.reportNotFound = false;
             this.postDetails = response;
+            if (this.postDetails.reasons) {
+              this.postDetails.reasons.sort((left, right) => {
+                if (left.tripped && !right.tripped) {
+                  return -1;
+                } else if (!left.tripped && right.tripped) {
+                  return 1;
+                }
+                return left.confidence - right.confidence;
+              });
+            }
             if (response.dashboardName && dashboardName !== response.dashboardName) {
               // Wait a short time so people can hit 'back' in their browsers quickly
               const previousLocation = window.location.toString();
