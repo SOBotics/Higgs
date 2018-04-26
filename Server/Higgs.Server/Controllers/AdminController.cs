@@ -275,22 +275,33 @@ namespace Higgs.Server.Controllers
         /// </summary>
         [HttpGet("Users")]
         [Authorize(Scopes.ADMIN_VIEW_USER_DETAILS)]
-        [SwaggerResponse((int) HttpStatusCode.OK, typeof(UsersResponse), Description = "View user details")]
+        [SwaggerResponse((int) HttpStatusCode.OK, typeof(List<UsersResponse>), Description = "View all users")]
         public IActionResult Users()
         {
-            return Ok();
+            return Json(_dbContext.Users.Select(u => new UsersResponse
+            {
+                UserId = u.AccountId,
+                DisplayName = u.Name,
+                Scopes = u.UserScopes.Select(us => us.ScopeName).ToList()
+            }).ToList());
         }
 
         /// <summary>
-        ///     Add a scope to a user
+        ///     Lists all users
         /// </summary>
-        [HttpPost("SetUserScopes")]
-        [Authorize(Scopes.ADMIN_EDIT_USER_SCOPE)]
-        [SwaggerResponse((int) HttpStatusCode.OK, Description = "Successfully added scope to user")]
-        [SwaggerResponse((int) HttpStatusCode.BadRequest, typeof(ErrorResponse))]
-        public IActionResult SetUserScopes([FromBody] AddUserScopeRequest request)
+        [HttpGet("User")]
+        [Authorize(Scopes.ADMIN_VIEW_USER_DETAILS)]
+        [SwaggerResponse((int)HttpStatusCode.OK, typeof(UsersResponse), Description = "View user details")]
+        public IActionResult GetUser(int userId)
         {
-            return Ok();
+            return Json(_dbContext.Users
+                .Where(u => u.AccountId == userId)
+                .Select(u => new UsersResponse
+                {
+                    UserId = u.AccountId,
+                    DisplayName = u.Name,
+                    Scopes = u.UserScopes.Select(us => us.ScopeName).ToList()
+                }).FirstOrDefault());
         }
     }
 }

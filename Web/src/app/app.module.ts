@@ -28,6 +28,8 @@ import { BotFeedbackTypesComponent } from './admin/bot-feedback-types/bot-feedba
 import { MiniProfilerUiResultComponent } from './mini-profiler/mini-profiler-ui-result/mini-profiler-ui-result.component';
 import { MiniProfilerUiComponent } from './mini-profiler/mini-profiler-ui/mini-profiler-ui.component';
 import { HttpRequestInterceptorService } from './mini-profiler/http-request-interceptor.service';
+import { UsersComponent } from './admin/users/users.component';
+import { UserComponent } from './admin/user/user.component';
 
 
 @NgModule({
@@ -46,7 +48,9 @@ import { HttpRequestInterceptorService } from './mini-profiler/http-request-inte
     BotScopeComponent,
     BotFeedbackTypesComponent,
     MiniProfilerUiComponent,
-    MiniProfilerUiResultComponent
+    MiniProfilerUiResultComponent,
+    UsersComponent,
+    UserComponent
   ],
   imports: [
     BrowserModule,

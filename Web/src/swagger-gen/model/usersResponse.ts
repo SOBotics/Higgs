@@ -9,11 +9,10 @@
  * https://github.com/swagger-api/swagger-codegen.git
  * Do not edit the class manually.
  */
-import { ScopeInfo } from './scopeInfo';
 
 
 export interface UsersResponse {
     userId?: number;
     displayName?: string;
-    scopes?: Array<ScopeInfo>;
+    scopes?: Array<string>;
 }

@@ -13,7 +13,7 @@ Method | HTTP request | Description
 [**AdminRegisterBotPost**](AdminApi.md#adminregisterbotpost) | **POST** /Admin/RegisterBot | Register a bot
 [**AdminScopesGet**](AdminApi.md#adminscopesget) | **GET** /Admin/Scopes | 
 [**AdminSetBotScopesPost**](AdminApi.md#adminsetbotscopespost) | **POST** /Admin/SetBotScopes | Set bot scopes
-[**AdminSetUserScopesPost**](AdminApi.md#adminsetuserscopespost) | **POST** /Admin/SetUserScopes | Add a scope to a user
+[**AdminUserGet**](AdminApi.md#adminuserget) | **GET** /Admin/User | Lists all users
 [**AdminUsersGet**](AdminApi.md#adminusersget) | **GET** /Admin/Users | Lists all users
 [**AdminViewBotFeedbackTypesGet**](AdminApi.md#adminviewbotfeedbacktypesget) | **GET** /Admin/ViewBotFeedbackTypes | 
 
@@ -560,11 +560,11 @@ void (empty response body)
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
-<a name="adminsetuserscopespost"></a>
-# **AdminSetUserScopesPost**
-> void AdminSetUserScopesPost (AddUserScopeRequest request = null)
+<a name="adminuserget"></a>
+# **AdminUserGet**
+> UsersResponse AdminUserGet (int? userId)
 
-Add a scope to a user
+Lists all users
 
 ### Example
 ```csharp
@@ -576,7 +576,7 @@ using IO.Swagger.Model;
 
 namespace Example
 {
-    public class AdminSetUserScopesPostExample
+    public class AdminUserGetExample
     {
         public void main()
         {
@@ -584,16 +584,17 @@ namespace Example
             Configuration.Default.AccessToken = "YOUR_ACCESS_TOKEN";
 
             var apiInstance = new AdminApi();
-            var request = new AddUserScopeRequest(); // AddUserScopeRequest |  (optional) 
+            var userId = 56;  // int? | 
 
             try
             {
-                // Add a scope to a user
-                apiInstance.AdminSetUserScopesPost(request);
+                // Lists all users
+                UsersResponse result = apiInstance.AdminUserGet(userId);
+                Debug.WriteLine(result);
             }
             catch (Exception e)
             {
-                Debug.Print("Exception when calling AdminApi.AdminSetUserScopesPost: " + e.Message );
+                Debug.Print("Exception when calling AdminApi.AdminUserGet: " + e.Message );
             }
         }
     }
@@ -604,11 +605,11 @@ namespace Example
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **request** | [**AddUserScopeRequest**](AddUserScopeRequest.md)|  | [optional] 
+ **userId** | **int?**|  | 
 
 ### Return type
 
-void (empty response body)
+[**UsersResponse**](UsersResponse.md)
 
 ### Authorization
 
@@ -616,14 +617,14 @@ void (empty response body)
 
 ### HTTP request headers
 
- - **Content-Type**: application/json-patch+json, application/json, text/json, application/_*+json
+ - **Content-Type**: Not defined
  - **Accept**: text/plain, application/json, text/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 <a name="adminusersget"></a>
 # **AdminUsersGet**
-> UsersResponse AdminUsersGet ()
+> List<UsersResponse> AdminUsersGet ()
 
 Lists all users
 
@@ -649,7 +650,7 @@ namespace Example
             try
             {
                 // Lists all users
-                UsersResponse result = apiInstance.AdminUsersGet();
+                List&lt;UsersResponse&gt; result = apiInstance.AdminUsersGet();
                 Debug.WriteLine(result);
             }
             catch (Exception e)
@@ -666,7 +667,7 @@ This endpoint does not need any parameter.
 
 ### Return type
 
-[**UsersResponse**](UsersResponse.md)
+[**List<UsersResponse>**](UsersResponse.md)
 
 ### Authorization
 

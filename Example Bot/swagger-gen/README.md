@@ -107,24 +107,29 @@ Class | Method | HTTP request | Description
 *AdminApi* | [**AdminRegisterBotPost**](docs/AdminApi.md#adminregisterbotpost) | **POST** /Admin/RegisterBot | Register a bot
 *AdminApi* | [**AdminScopesGet**](docs/AdminApi.md#adminscopesget) | **GET** /Admin/Scopes | 
 *AdminApi* | [**AdminSetBotScopesPost**](docs/AdminApi.md#adminsetbotscopespost) | **POST** /Admin/SetBotScopes | Set bot scopes
-*AdminApi* | [**AdminSetUserScopesPost**](docs/AdminApi.md#adminsetuserscopespost) | **POST** /Admin/SetUserScopes | Add a scope to a user
+*AdminApi* | [**AdminUserGet**](docs/AdminApi.md#adminuserget) | **GET** /Admin/User | Lists all users
 *AdminApi* | [**AdminUsersGet**](docs/AdminApi.md#adminusersget) | **GET** /Admin/Users | Lists all users
 *AdminApi* | [**AdminViewBotFeedbackTypesGet**](docs/AdminApi.md#adminviewbotfeedbacktypesget) | **GET** /Admin/ViewBotFeedbackTypes | 
 *BotApi* | [**BotAquireTokenPost**](docs/BotApi.md#botaquiretokenpost) | **POST** /Bot/AquireToken | 
 *BotApi* | [**BotRegisterPostPost**](docs/BotApi.md#botregisterpostpost) | **POST** /Bot/RegisterPost | Used by bots to register a detected post
 *BotApi* | [**BotRegisterUserFeedbackByContentPost**](docs/BotApi.md#botregisteruserfeedbackbycontentpost) | **POST** /Bot/RegisterUserFeedbackByContent | 
 *BotApi* | [**BotRegisterUserFeedbackPost**](docs/BotApi.md#botregisteruserfeedbackpost) | **POST** /Bot/RegisterUserFeedback | 
+*FileApi* | [**FileByIdGet**](docs/FileApi.md#filebyidget) | **GET** /File/{id} | 
+*FileApi* | [**FileGet**](docs/FileApi.md#fileget) | **GET** /File | 
+*FileApi* | [**FilePost**](docs/FileApi.md#filepost) | **POST** /File | 
 *ReviewerApi* | [**ReviewerAllReviewsGet**](docs/ReviewerApi.md#reviewerallreviewsget) | **GET** /Reviewer/AllReviews | Lists all reviews
+*ReviewerApi* | [**ReviewerCheckGet**](docs/ReviewerApi.md#reviewercheckget) | **GET** /Reviewer/Check | 
 *ReviewerApi* | [**ReviewerFeedbackSendFeedbackPost**](docs/ReviewerApi.md#reviewerfeedbacksendfeedbackpost) | **POST** /Reviewer/feedback/sendFeedback | Lists all pending review
 *ReviewerApi* | [**ReviewerPendingReviewsGet**](docs/ReviewerApi.md#reviewerpendingreviewsget) | **GET** /Reviewer/PendingReviews | Lists all pending reviews
 *ReviewerApi* | [**ReviewerReportGet**](docs/ReviewerApi.md#reviewerreportget) | **GET** /Reviewer/Report | 
 *ReviewerApi* | [**ReviewerReportsGet**](docs/ReviewerApi.md#reviewerreportsget) | **GET** /Reviewer/Reports | 
+*ReviewerApi* | [**ReviewerSendFeedbackPost**](docs/ReviewerApi.md#reviewersendfeedbackpost) | **POST** /Reviewer/SendFeedback | Lists all pending review
 
 
 <a name="documentation-for-models"></a>
 ## Documentation for Models
 
- - [Model.AddUserScopeRequest](docs/AddUserScopeRequest.md)
+ - [Model.AddFileRequest](docs/AddFileRequest.md)
  - [Model.AquireTokenRequest](docs/AquireTokenRequest.md)
  - [Model.AquireTokenResponse](docs/AquireTokenResponse.md)
  - [Model.BotResponse](docs/BotResponse.md)
@@ -140,13 +145,13 @@ Class | Method | HTTP request | Description
  - [Model.RegisterPostRequest](docs/RegisterPostRequest.md)
  - [Model.RegisterUserFeedbackByContentRequest](docs/RegisterUserFeedbackByContentRequest.md)
  - [Model.RegisterUserFeedbackRequest](docs/RegisterUserFeedbackRequest.md)
+ - [Model.ReviewerCheckResponse](docs/ReviewerCheckResponse.md)
  - [Model.ReviewerReportAllowedFeedbackResponse](docs/ReviewerReportAllowedFeedbackResponse.md)
  - [Model.ReviewerReportContentFragmentResponse](docs/ReviewerReportContentFragmentResponse.md)
  - [Model.ReviewerReportFeedbackResponse](docs/ReviewerReportFeedbackResponse.md)
  - [Model.ReviewerReportReasonResponse](docs/ReviewerReportReasonResponse.md)
  - [Model.ReviewerReportResponse](docs/ReviewerReportResponse.md)
  - [Model.ReviewerReportsResponse](docs/ReviewerReportsResponse.md)
- - [Model.ScopeInfo](docs/ScopeInfo.md)
  - [Model.SetBotScopesRequest](docs/SetBotScopesRequest.md)
  - [Model.UsersResponse](docs/UsersResponse.md)
  - [Model.ViewBotFeedbackTypesResponse](docs/ViewBotFeedbackTypesResponse.md)
@@ -160,7 +165,7 @@ Class | Method | HTTP request | Description
 
 - **Type**: OAuth
 - **Flow**: implicit
-- **Authorization URL**: http://45.77.238.226/Authentication/Login
+- **Authorization URL**: http://api.higgs.sobotics.org/Authentication/Login
 - **Scopes**: 
   - admin:viewBotDetails: View all available scopes in the system
   - admin:viewScopes: View details about registered bots

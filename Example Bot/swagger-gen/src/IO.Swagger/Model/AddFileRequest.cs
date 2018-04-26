@@ -25,41 +25,41 @@ using SwaggerDateConverter = IO.Swagger.Client.SwaggerDateConverter;
 namespace IO.Swagger.Model
 {
     /// <summary>
-    /// UsersResponse
+    /// AddFileRequest
     /// </summary>
     [DataContract]
-    public partial class UsersResponse :  IEquatable<UsersResponse>, IValidatableObject
+    public partial class AddFileRequest :  IEquatable<AddFileRequest>, IValidatableObject
     {
         /// <summary>
-        /// Initializes a new instance of the <see cref="UsersResponse" /> class.
+        /// Initializes a new instance of the <see cref="AddFileRequest" /> class.
         /// </summary>
-        /// <param name="UserId">UserId.</param>
-        /// <param name="DisplayName">DisplayName.</param>
-        /// <param name="Scopes">Scopes.</param>
-        public UsersResponse(int? UserId = default(int?), string DisplayName = default(string), List<string> Scopes = default(List<string>))
+        /// <param name="FileName">FileName.</param>
+        /// <param name="ContentType">ContentType.</param>
+        /// <param name="Contents">Contents.</param>
+        public AddFileRequest(string FileName = default(string), string ContentType = default(string), string Contents = default(string))
         {
-            this.UserId = UserId;
-            this.DisplayName = DisplayName;
-            this.Scopes = Scopes;
+            this.FileName = FileName;
+            this.ContentType = ContentType;
+            this.Contents = Contents;
         }
         
         /// <summary>
-        /// Gets or Sets UserId
+        /// Gets or Sets FileName
         /// </summary>
-        [DataMember(Name="userId", EmitDefaultValue=false)]
-        public int? UserId { get; set; }
+        [DataMember(Name="fileName", EmitDefaultValue=false)]
+        public string FileName { get; set; }
 
         /// <summary>
-        /// Gets or Sets DisplayName
+        /// Gets or Sets ContentType
         /// </summary>
-        [DataMember(Name="displayName", EmitDefaultValue=false)]
-        public string DisplayName { get; set; }
+        [DataMember(Name="contentType", EmitDefaultValue=false)]
+        public string ContentType { get; set; }
 
         /// <summary>
-        /// Gets or Sets Scopes
+        /// Gets or Sets Contents
         /// </summary>
-        [DataMember(Name="scopes", EmitDefaultValue=false)]
-        public List<string> Scopes { get; set; }
+        [DataMember(Name="contents", EmitDefaultValue=false)]
+        public string Contents { get; set; }
 
         /// <summary>
         /// Returns the string presentation of the object
@@ -68,10 +68,10 @@ namespace IO.Swagger.Model
         public override string ToString()
         {
             var sb = new StringBuilder();
-            sb.Append("class UsersResponse {\n");
-            sb.Append("  UserId: ").Append(UserId).Append("\n");
-            sb.Append("  DisplayName: ").Append(DisplayName).Append("\n");
-            sb.Append("  Scopes: ").Append(Scopes).Append("\n");
+            sb.Append("class AddFileRequest {\n");
+            sb.Append("  FileName: ").Append(FileName).Append("\n");
+            sb.Append("  ContentType: ").Append(ContentType).Append("\n");
+            sb.Append("  Contents: ").Append(Contents).Append("\n");
             sb.Append("}\n");
             return sb.ToString();
         }
@@ -92,34 +92,34 @@ namespace IO.Swagger.Model
         /// <returns>Boolean</returns>
         public override bool Equals(object input)
         {
-            return this.Equals(input as UsersResponse);
+            return this.Equals(input as AddFileRequest);
         }
 
         /// <summary>
-        /// Returns true if UsersResponse instances are equal
+        /// Returns true if AddFileRequest instances are equal
         /// </summary>
-        /// <param name="input">Instance of UsersResponse to be compared</param>
+        /// <param name="input">Instance of AddFileRequest to be compared</param>
         /// <returns>Boolean</returns>
-        public bool Equals(UsersResponse input)
+        public bool Equals(AddFileRequest input)
         {
             if (input == null)
                 return false;
 
             return 
                 (
-                    this.UserId == input.UserId ||
-                    (this.UserId != null &&
-                    this.UserId.Equals(input.UserId))
+                    this.FileName == input.FileName ||
+                    (this.FileName != null &&
+                    this.FileName.Equals(input.FileName))
                 ) && 
                 (
-                    this.DisplayName == input.DisplayName ||
-                    (this.DisplayName != null &&
-                    this.DisplayName.Equals(input.DisplayName))
+                    this.ContentType == input.ContentType ||
+                    (this.ContentType != null &&
+                    this.ContentType.Equals(input.ContentType))
                 ) && 
                 (
-                    this.Scopes == input.Scopes ||
-                    this.Scopes != null &&
-                    this.Scopes.SequenceEqual(input.Scopes)
+                    this.Contents == input.Contents ||
+                    (this.Contents != null &&
+                    this.Contents.Equals(input.Contents))
                 );
         }
 
@@ -132,12 +132,12 @@ namespace IO.Swagger.Model
             unchecked // Overflow is fine, just wrap
             {
                 int hashCode = 41;
-                if (this.UserId != null)
-                    hashCode = hashCode * 59 + this.UserId.GetHashCode();
-                if (this.DisplayName != null)
-                    hashCode = hashCode * 59 + this.DisplayName.GetHashCode();
-                if (this.Scopes != null)
-                    hashCode = hashCode * 59 + this.Scopes.GetHashCode();
+                if (this.FileName != null)
+                    hashCode = hashCode * 59 + this.FileName.GetHashCode();
+                if (this.ContentType != null)
+                    hashCode = hashCode * 59 + this.ContentType.GetHashCode();
+                if (this.Contents != null)
+                    hashCode = hashCode * 59 + this.Contents.GetHashCode();
                 return hashCode;
             }
         }

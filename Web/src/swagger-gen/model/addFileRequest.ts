@@ -11,8 +11,8 @@
  */
 
 
-export interface ReviewerReportsResponse {
-    id?: number;
-    title?: string;
-    dashboardName?: string;
+export interface AddFileRequest {
+    fileName?: string;
+    contentType?: string;
+    contents?: string;
 }

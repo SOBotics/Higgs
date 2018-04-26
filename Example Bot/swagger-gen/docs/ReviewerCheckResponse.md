@@ -1,11 +1,11 @@
-# IO.Swagger.Model.ReviewerReportsResponse
+# IO.Swagger.Model.ReviewerCheckResponse
 ## Properties
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Id** | **int?** |  | [optional] 
-**Title** | **string** |  | [optional] 
-**DashboardName** | **string** |  | [optional] 
+**Dashboard** | **string** |  | [optional] 
+**Bot** | **string** |  | [optional] 
+**ReportId** | **int?** |  | [optional] 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 

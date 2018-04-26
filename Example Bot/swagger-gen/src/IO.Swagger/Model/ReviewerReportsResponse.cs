@@ -35,10 +35,12 @@ namespace IO.Swagger.Model
         /// </summary>
         /// <param name="Id">Id.</param>
         /// <param name="Title">Title.</param>
-        public ReviewerReportsResponse(int? Id = default(int?), string Title = default(string))
+        /// <param name="DashboardName">DashboardName.</param>
+        public ReviewerReportsResponse(int? Id = default(int?), string Title = default(string), string DashboardName = default(string))
         {
             this.Id = Id;
             this.Title = Title;
+            this.DashboardName = DashboardName;
         }
         
         /// <summary>
@@ -54,6 +56,12 @@ namespace IO.Swagger.Model
         public string Title { get; set; }
 
         /// <summary>
+        /// Gets or Sets DashboardName
+        /// </summary>
+        [DataMember(Name="dashboardName", EmitDefaultValue=false)]
+        public string DashboardName { get; set; }
+
+        /// <summary>
         /// Returns the string presentation of the object
         /// </summary>
         /// <returns>String presentation of the object</returns>
@@ -63,6 +71,7 @@ namespace IO.Swagger.Model
             sb.Append("class ReviewerReportsResponse {\n");
             sb.Append("  Id: ").Append(Id).Append("\n");
             sb.Append("  Title: ").Append(Title).Append("\n");
+            sb.Append("  DashboardName: ").Append(DashboardName).Append("\n");
             sb.Append("}\n");
             return sb.ToString();
         }
@@ -106,6 +115,11 @@ namespace IO.Swagger.Model
                     this.Title == input.Title ||
                     (this.Title != null &&
                     this.Title.Equals(input.Title))
+                ) && 
+                (
+                    this.DashboardName == input.DashboardName ||
+                    (this.DashboardName != null &&
+                    this.DashboardName.Equals(input.DashboardName))
                 );
         }
 
@@ -122,6 +136,8 @@ namespace IO.Swagger.Model
                     hashCode = hashCode * 59 + this.Id.GetHashCode();
                 if (this.Title != null)
                     hashCode = hashCode * 59 + this.Title.GetHashCode();
+                if (this.DashboardName != null)
+                    hashCode = hashCode * 59 + this.DashboardName.GetHashCode();
                 return hashCode;
             }
         }

@@ -1,0 +1,24 @@
+<table>
+  <thead class="table">
+    <tr>
+      <th>Id</th>
+      <th>Name</th>
+      <th>Scopes</th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let user of users">
+      <td>
+        {{user.userId}}
+      </td>
+      <td>
+        {{user.displayName}}
+      </td>
+      <td>
+        {{user.scopes}}
+      </td>
+      <td><a routerLink="/admin/user/{{user.userId}}">Edit</a></td>
+    </tr>
+  </tbody>
+</table>

@@ -5,6 +5,7 @@ import { Configuration } from './configuration';
 
 import { AdminService } from './api/admin.service';
 import { BotService } from './api/bot.service';
+import { FileService } from './api/file.service';
 import { ReviewerService } from './api/reviewer.service';
 
 @NgModule({
@@ -14,6 +15,7 @@ import { ReviewerService } from './api/reviewer.service';
   providers: [
     AdminService,
     BotService,
+    FileService,
     ReviewerService ]
 })
 export class ApiModule {

@@ -1,0 +1,18 @@
+<ng-container *ngIf="user">
+  <h2>User</h2>
+  <div class="form-group">
+    <label for="id">Id</label>
+    <input type="text" class="form-control" id="id" required [(ngModel)]="user.Id" name="id" #id="ngModel" disabled>
+  </div>
+  <div class="form-group">
+    <label for="name">Name</label>
+    <input type="text" class="form-control" id="name" required [(ngModel)]="user.Name" name="name" #name="ngModel" disabled>
+  </div>
+  <h2>Scopes</h2>
+  <div *ngFor="let scope of user.Scopes">
+    <input type="checkbox" [checked]="scope.Assigned" [attr.name]="scope.Name" [(ngModel)]="scope.Assigned">
+    <label [attr.for]="scope.Name">{{scope.Name}}</label>
+  </div>
+
+  <button type="submit" class="btn btn-success" (click)="updateScopes()">Submit</button>
+</ng-container>

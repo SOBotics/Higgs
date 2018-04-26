@@ -210,35 +210,15 @@ namespace IO.Swagger.Api
         /// <returns>ApiResponse of Object(void)</returns>
         ApiResponse<Object> AdminSetBotScopesPostWithHttpInfo (SetBotScopesRequest request = null);
         /// <summary>
-        /// Add a scope to a user
-        /// </summary>
-        /// <remarks>
-        /// 
-        /// </remarks>
-        /// <exception cref="IO.Swagger.Client.ApiException">Thrown when fails to make API call</exception>
-        /// <param name="request"> (optional)</param>
-        /// <returns></returns>
-        void AdminSetUserScopesPost (AddUserScopeRequest request = null);
-
-        /// <summary>
-        /// Add a scope to a user
-        /// </summary>
-        /// <remarks>
-        /// 
-        /// </remarks>
-        /// <exception cref="IO.Swagger.Client.ApiException">Thrown when fails to make API call</exception>
-        /// <param name="request"> (optional)</param>
-        /// <returns>ApiResponse of Object(void)</returns>
-        ApiResponse<Object> AdminSetUserScopesPostWithHttpInfo (AddUserScopeRequest request = null);
-        /// <summary>
         /// Lists all users
         /// </summary>
         /// <remarks>
         /// 
         /// </remarks>
         /// <exception cref="IO.Swagger.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="userId"></param>
         /// <returns>UsersResponse</returns>
-        UsersResponse AdminUsersGet ();
+        UsersResponse AdminUserGet (int? userId);
 
         /// <summary>
         /// Lists all users
@@ -247,8 +227,28 @@ namespace IO.Swagger.Api
         /// 
         /// </remarks>
         /// <exception cref="IO.Swagger.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="userId"></param>
         /// <returns>ApiResponse of UsersResponse</returns>
-        ApiResponse<UsersResponse> AdminUsersGetWithHttpInfo ();
+        ApiResponse<UsersResponse> AdminUserGetWithHttpInfo (int? userId);
+        /// <summary>
+        /// Lists all users
+        /// </summary>
+        /// <remarks>
+        /// 
+        /// </remarks>
+        /// <exception cref="IO.Swagger.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <returns>List&lt;UsersResponse&gt;</returns>
+        List<UsersResponse> AdminUsersGet ();
+
+        /// <summary>
+        /// Lists all users
+        /// </summary>
+        /// <remarks>
+        /// 
+        /// </remarks>
+        /// <exception cref="IO.Swagger.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <returns>ApiResponse of List&lt;UsersResponse&gt;</returns>
+        ApiResponse<List<UsersResponse>> AdminUsersGetWithHttpInfo ();
         /// <summary>
         /// 
         /// </summary>
@@ -458,35 +458,15 @@ namespace IO.Swagger.Api
         /// <returns>Task of ApiResponse</returns>
         System.Threading.Tasks.Task<ApiResponse<Object>> AdminSetBotScopesPostAsyncWithHttpInfo (SetBotScopesRequest request = null);
         /// <summary>
-        /// Add a scope to a user
-        /// </summary>
-        /// <remarks>
-        /// 
-        /// </remarks>
-        /// <exception cref="IO.Swagger.Client.ApiException">Thrown when fails to make API call</exception>
-        /// <param name="request"> (optional)</param>
-        /// <returns>Task of void</returns>
-        System.Threading.Tasks.Task AdminSetUserScopesPostAsync (AddUserScopeRequest request = null);
-
-        /// <summary>
-        /// Add a scope to a user
-        /// </summary>
-        /// <remarks>
-        /// 
-        /// </remarks>
-        /// <exception cref="IO.Swagger.Client.ApiException">Thrown when fails to make API call</exception>
-        /// <param name="request"> (optional)</param>
-        /// <returns>Task of ApiResponse</returns>
-        System.Threading.Tasks.Task<ApiResponse<Object>> AdminSetUserScopesPostAsyncWithHttpInfo (AddUserScopeRequest request = null);
-        /// <summary>
         /// Lists all users
         /// </summary>
         /// <remarks>
         /// 
         /// </remarks>
         /// <exception cref="IO.Swagger.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="userId"></param>
         /// <returns>Task of UsersResponse</returns>
-        System.Threading.Tasks.Task<UsersResponse> AdminUsersGetAsync ();
+        System.Threading.Tasks.Task<UsersResponse> AdminUserGetAsync (int? userId);
 
         /// <summary>
         /// Lists all users
@@ -495,8 +475,28 @@ namespace IO.Swagger.Api
         /// 
         /// </remarks>
         /// <exception cref="IO.Swagger.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="userId"></param>
         /// <returns>Task of ApiResponse (UsersResponse)</returns>
-        System.Threading.Tasks.Task<ApiResponse<UsersResponse>> AdminUsersGetAsyncWithHttpInfo ();
+        System.Threading.Tasks.Task<ApiResponse<UsersResponse>> AdminUserGetAsyncWithHttpInfo (int? userId);
+        /// <summary>
+        /// Lists all users
+        /// </summary>
+        /// <remarks>
+        /// 
+        /// </remarks>
+        /// <exception cref="IO.Swagger.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <returns>Task of List&lt;UsersResponse&gt;</returns>
+        System.Threading.Tasks.Task<List<UsersResponse>> AdminUsersGetAsync ();
+
+        /// <summary>
+        /// Lists all users
+        /// </summary>
+        /// <remarks>
+        /// 
+        /// </remarks>
+        /// <exception cref="IO.Swagger.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <returns>Task of ApiResponse (List&lt;UsersResponse&gt;)</returns>
+        System.Threading.Tasks.Task<ApiResponse<List<UsersResponse>>> AdminUsersGetAsyncWithHttpInfo ();
         /// <summary>
         /// 
         /// </summary>
@@ -2008,176 +2008,14 @@ namespace IO.Swagger.Api
         }
 
         /// <summary>
-        /// Add a scope to a user 
-        /// </summary>
-        /// <exception cref="IO.Swagger.Client.ApiException">Thrown when fails to make API call</exception>
-        /// <param name="request"> (optional)</param>
-        /// <returns></returns>
-        public void AdminSetUserScopesPost (AddUserScopeRequest request = null)
-        {
-             AdminSetUserScopesPostWithHttpInfo(request);
-        }
-
-        /// <summary>
-        /// Add a scope to a user 
-        /// </summary>
-        /// <exception cref="IO.Swagger.Client.ApiException">Thrown when fails to make API call</exception>
-        /// <param name="request"> (optional)</param>
-        /// <returns>ApiResponse of Object(void)</returns>
-        public ApiResponse<Object> AdminSetUserScopesPostWithHttpInfo (AddUserScopeRequest request = null)
-        {
-
-            var localVarPath = "/Admin/SetUserScopes";
-            var localVarPathParams = new Dictionary<String, String>();
-            var localVarQueryParams = new List<KeyValuePair<String, String>>();
-            var localVarHeaderParams = new Dictionary<String, String>(Configuration.DefaultHeader);
-            var localVarFormParams = new Dictionary<String, String>();
-            var localVarFileParams = new Dictionary<String, FileParameter>();
-            Object localVarPostBody = null;
-
-            // to determine the Content-Type header
-            String[] localVarHttpContentTypes = new String[] {
-                "application/json-patch+json", 
-                "application/json", 
-                "text/json", 
-                "application/_*+json"
-            };
-            String localVarHttpContentType = Configuration.ApiClient.SelectHeaderContentType(localVarHttpContentTypes);
-
-            // to determine the Accept header
-            String[] localVarHttpHeaderAccepts = new String[] {
-                "text/plain",
-                "application/json",
-                "text/json"
-            };
-            String localVarHttpHeaderAccept = Configuration.ApiClient.SelectHeaderAccept(localVarHttpHeaderAccepts);
-            if (localVarHttpHeaderAccept != null)
-                localVarHeaderParams.Add("Accept", localVarHttpHeaderAccept);
-
-            if (request != null && request.GetType() != typeof(byte[]))
-            {
-                localVarPostBody = Configuration.ApiClient.Serialize(request); // http body (model) parameter
-            }
-            else
-            {
-                localVarPostBody = request; // byte array
-            }
-
-            // authentication (oauth2) required
-            // oauth required
-            if (!String.IsNullOrEmpty(Configuration.AccessToken))
-            {
-                localVarHeaderParams["Authorization"] = "Bearer " + Configuration.AccessToken;
-            }
-
-            // make the HTTP request
-            IRestResponse localVarResponse = (IRestResponse) Configuration.ApiClient.CallApi(localVarPath,
-                Method.POST, localVarQueryParams, localVarPostBody, localVarHeaderParams, localVarFormParams, localVarFileParams,
-                localVarPathParams, localVarHttpContentType);
-
-            int localVarStatusCode = (int) localVarResponse.StatusCode;
-
-            if (ExceptionFactory != null)
-            {
-                Exception exception = ExceptionFactory("AdminSetUserScopesPost", localVarResponse);
-                if (exception != null) throw exception;
-            }
-
-            return new ApiResponse<Object>(localVarStatusCode,
-                localVarResponse.Headers.ToDictionary(x => x.Name, x => x.Value.ToString()),
-                null);
-        }
-
-        /// <summary>
-        /// Add a scope to a user 
-        /// </summary>
-        /// <exception cref="IO.Swagger.Client.ApiException">Thrown when fails to make API call</exception>
-        /// <param name="request"> (optional)</param>
-        /// <returns>Task of void</returns>
-        public async System.Threading.Tasks.Task AdminSetUserScopesPostAsync (AddUserScopeRequest request = null)
-        {
-             await AdminSetUserScopesPostAsyncWithHttpInfo(request);
-
-        }
-
-        /// <summary>
-        /// Add a scope to a user 
-        /// </summary>
-        /// <exception cref="IO.Swagger.Client.ApiException">Thrown when fails to make API call</exception>
-        /// <param name="request"> (optional)</param>
-        /// <returns>Task of ApiResponse</returns>
-        public async System.Threading.Tasks.Task<ApiResponse<Object>> AdminSetUserScopesPostAsyncWithHttpInfo (AddUserScopeRequest request = null)
-        {
-
-            var localVarPath = "/Admin/SetUserScopes";
-            var localVarPathParams = new Dictionary<String, String>();
-            var localVarQueryParams = new List<KeyValuePair<String, String>>();
-            var localVarHeaderParams = new Dictionary<String, String>(Configuration.DefaultHeader);
-            var localVarFormParams = new Dictionary<String, String>();
-            var localVarFileParams = new Dictionary<String, FileParameter>();
-            Object localVarPostBody = null;
-
-            // to determine the Content-Type header
-            String[] localVarHttpContentTypes = new String[] {
-                "application/json-patch+json", 
-                "application/json", 
-                "text/json", 
-                "application/_*+json"
-            };
-            String localVarHttpContentType = Configuration.ApiClient.SelectHeaderContentType(localVarHttpContentTypes);
-
-            // to determine the Accept header
-            String[] localVarHttpHeaderAccepts = new String[] {
-                "text/plain",
-                "application/json",
-                "text/json"
-            };
-            String localVarHttpHeaderAccept = Configuration.ApiClient.SelectHeaderAccept(localVarHttpHeaderAccepts);
-            if (localVarHttpHeaderAccept != null)
-                localVarHeaderParams.Add("Accept", localVarHttpHeaderAccept);
-
-            if (request != null && request.GetType() != typeof(byte[]))
-            {
-                localVarPostBody = Configuration.ApiClient.Serialize(request); // http body (model) parameter
-            }
-            else
-            {
-                localVarPostBody = request; // byte array
-            }
-
-            // authentication (oauth2) required
-            // oauth required
-            if (!String.IsNullOrEmpty(Configuration.AccessToken))
-            {
-                localVarHeaderParams["Authorization"] = "Bearer " + Configuration.AccessToken;
-            }
-
-            // make the HTTP request
-            IRestResponse localVarResponse = (IRestResponse) await Configuration.ApiClient.CallApiAsync(localVarPath,
-                Method.POST, localVarQueryParams, localVarPostBody, localVarHeaderParams, localVarFormParams, localVarFileParams,
-                localVarPathParams, localVarHttpContentType);
-
-            int localVarStatusCode = (int) localVarResponse.StatusCode;
-
-            if (ExceptionFactory != null)
-            {
-                Exception exception = ExceptionFactory("AdminSetUserScopesPost", localVarResponse);
-                if (exception != null) throw exception;
-            }
-
-            return new ApiResponse<Object>(localVarStatusCode,
-                localVarResponse.Headers.ToDictionary(x => x.Name, x => x.Value.ToString()),
-                null);
-        }
-
-        /// <summary>
         /// Lists all users 
         /// </summary>
         /// <exception cref="IO.Swagger.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="userId"></param>
         /// <returns>UsersResponse</returns>
-        public UsersResponse AdminUsersGet ()
+        public UsersResponse AdminUserGet (int? userId)
         {
-             ApiResponse<UsersResponse> localVarResponse = AdminUsersGetWithHttpInfo();
+             ApiResponse<UsersResponse> localVarResponse = AdminUserGetWithHttpInfo(userId);
              return localVarResponse.Data;
         }
 
@@ -2185,8 +2023,156 @@ namespace IO.Swagger.Api
         /// Lists all users 
         /// </summary>
         /// <exception cref="IO.Swagger.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="userId"></param>
         /// <returns>ApiResponse of UsersResponse</returns>
-        public ApiResponse< UsersResponse > AdminUsersGetWithHttpInfo ()
+        public ApiResponse< UsersResponse > AdminUserGetWithHttpInfo (int? userId)
+        {
+            // verify the required parameter 'userId' is set
+            if (userId == null)
+                throw new ApiException(400, "Missing required parameter 'userId' when calling AdminApi->AdminUserGet");
+
+            var localVarPath = "/Admin/User";
+            var localVarPathParams = new Dictionary<String, String>();
+            var localVarQueryParams = new List<KeyValuePair<String, String>>();
+            var localVarHeaderParams = new Dictionary<String, String>(Configuration.DefaultHeader);
+            var localVarFormParams = new Dictionary<String, String>();
+            var localVarFileParams = new Dictionary<String, FileParameter>();
+            Object localVarPostBody = null;
+
+            // to determine the Content-Type header
+            String[] localVarHttpContentTypes = new String[] {
+            };
+            String localVarHttpContentType = Configuration.ApiClient.SelectHeaderContentType(localVarHttpContentTypes);
+
+            // to determine the Accept header
+            String[] localVarHttpHeaderAccepts = new String[] {
+                "text/plain",
+                "application/json",
+                "text/json"
+            };
+            String localVarHttpHeaderAccept = Configuration.ApiClient.SelectHeaderAccept(localVarHttpHeaderAccepts);
+            if (localVarHttpHeaderAccept != null)
+                localVarHeaderParams.Add("Accept", localVarHttpHeaderAccept);
+
+            if (userId != null) localVarQueryParams.AddRange(Configuration.ApiClient.ParameterToKeyValuePairs("", "userId", userId)); // query parameter
+
+            // authentication (oauth2) required
+            // oauth required
+            if (!String.IsNullOrEmpty(Configuration.AccessToken))
+            {
+                localVarHeaderParams["Authorization"] = "Bearer " + Configuration.AccessToken;
+            }
+
+            // make the HTTP request
+            IRestResponse localVarResponse = (IRestResponse) Configuration.ApiClient.CallApi(localVarPath,
+                Method.GET, localVarQueryParams, localVarPostBody, localVarHeaderParams, localVarFormParams, localVarFileParams,
+                localVarPathParams, localVarHttpContentType);
+
+            int localVarStatusCode = (int) localVarResponse.StatusCode;
+
+            if (ExceptionFactory != null)
+            {
+                Exception exception = ExceptionFactory("AdminUserGet", localVarResponse);
+                if (exception != null) throw exception;
+            }
+
+            return new ApiResponse<UsersResponse>(localVarStatusCode,
+                localVarResponse.Headers.ToDictionary(x => x.Name, x => x.Value.ToString()),
+                (UsersResponse) Configuration.ApiClient.Deserialize(localVarResponse, typeof(UsersResponse)));
+        }
+
+        /// <summary>
+        /// Lists all users 
+        /// </summary>
+        /// <exception cref="IO.Swagger.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="userId"></param>
+        /// <returns>Task of UsersResponse</returns>
+        public async System.Threading.Tasks.Task<UsersResponse> AdminUserGetAsync (int? userId)
+        {
+             ApiResponse<UsersResponse> localVarResponse = await AdminUserGetAsyncWithHttpInfo(userId);
+             return localVarResponse.Data;
+
+        }
+
+        /// <summary>
+        /// Lists all users 
+        /// </summary>
+        /// <exception cref="IO.Swagger.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="userId"></param>
+        /// <returns>Task of ApiResponse (UsersResponse)</returns>
+        public async System.Threading.Tasks.Task<ApiResponse<UsersResponse>> AdminUserGetAsyncWithHttpInfo (int? userId)
+        {
+            // verify the required parameter 'userId' is set
+            if (userId == null)
+                throw new ApiException(400, "Missing required parameter 'userId' when calling AdminApi->AdminUserGet");
+
+            var localVarPath = "/Admin/User";
+            var localVarPathParams = new Dictionary<String, String>();
+            var localVarQueryParams = new List<KeyValuePair<String, String>>();
+            var localVarHeaderParams = new Dictionary<String, String>(Configuration.DefaultHeader);
+            var localVarFormParams = new Dictionary<String, String>();
+            var localVarFileParams = new Dictionary<String, FileParameter>();
+            Object localVarPostBody = null;
+
+            // to determine the Content-Type header
+            String[] localVarHttpContentTypes = new String[] {
+            };
+            String localVarHttpContentType = Configuration.ApiClient.SelectHeaderContentType(localVarHttpContentTypes);
+
+            // to determine the Accept header
+            String[] localVarHttpHeaderAccepts = new String[] {
+                "text/plain",
+                "application/json",
+                "text/json"
+            };
+            String localVarHttpHeaderAccept = Configuration.ApiClient.SelectHeaderAccept(localVarHttpHeaderAccepts);
+            if (localVarHttpHeaderAccept != null)
+                localVarHeaderParams.Add("Accept", localVarHttpHeaderAccept);
+
+            if (userId != null) localVarQueryParams.AddRange(Configuration.ApiClient.ParameterToKeyValuePairs("", "userId", userId)); // query parameter
+
+            // authentication (oauth2) required
+            // oauth required
+            if (!String.IsNullOrEmpty(Configuration.AccessToken))
+            {
+                localVarHeaderParams["Authorization"] = "Bearer " + Configuration.AccessToken;
+            }
+
+            // make the HTTP request
+            IRestResponse localVarResponse = (IRestResponse) await Configuration.ApiClient.CallApiAsync(localVarPath,
+                Method.GET, localVarQueryParams, localVarPostBody, localVarHeaderParams, localVarFormParams, localVarFileParams,
+                localVarPathParams, localVarHttpContentType);
+
+            int localVarStatusCode = (int) localVarResponse.StatusCode;
+
+            if (ExceptionFactory != null)
+            {
+                Exception exception = ExceptionFactory("AdminUserGet", localVarResponse);
+                if (exception != null) throw exception;
+            }
+
+            return new ApiResponse<UsersResponse>(localVarStatusCode,
+                localVarResponse.Headers.ToDictionary(x => x.Name, x => x.Value.ToString()),
+                (UsersResponse) Configuration.ApiClient.Deserialize(localVarResponse, typeof(UsersResponse)));
+        }
+
+        /// <summary>
+        /// Lists all users 
+        /// </summary>
+        /// <exception cref="IO.Swagger.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <returns>List&lt;UsersResponse&gt;</returns>
+        public List<UsersResponse> AdminUsersGet ()
+        {
+             ApiResponse<List<UsersResponse>> localVarResponse = AdminUsersGetWithHttpInfo();
+             return localVarResponse.Data;
+        }
+
+        /// <summary>
+        /// Lists all users 
+        /// </summary>
+        /// <exception cref="IO.Swagger.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <returns>ApiResponse of List&lt;UsersResponse&gt;</returns>
+        public ApiResponse< List<UsersResponse> > AdminUsersGetWithHttpInfo ()
         {
 
             var localVarPath = "/Admin/Users";
@@ -2233,19 +2219,19 @@ namespace IO.Swagger.Api
                 if (exception != null) throw exception;
             }
 
-            return new ApiResponse<UsersResponse>(localVarStatusCode,
+            return new ApiResponse<List<UsersResponse>>(localVarStatusCode,
                 localVarResponse.Headers.ToDictionary(x => x.Name, x => x.Value.ToString()),
-                (UsersResponse) Configuration.ApiClient.Deserialize(localVarResponse, typeof(UsersResponse)));
+                (List<UsersResponse>) Configuration.ApiClient.Deserialize(localVarResponse, typeof(List<UsersResponse>)));
         }
 
         /// <summary>
         /// Lists all users 
         /// </summary>
         /// <exception cref="IO.Swagger.Client.ApiException">Thrown when fails to make API call</exception>
-        /// <returns>Task of UsersResponse</returns>
-        public async System.Threading.Tasks.Task<UsersResponse> AdminUsersGetAsync ()
+        /// <returns>Task of List&lt;UsersResponse&gt;</returns>
+        public async System.Threading.Tasks.Task<List<UsersResponse>> AdminUsersGetAsync ()
         {
-             ApiResponse<UsersResponse> localVarResponse = await AdminUsersGetAsyncWithHttpInfo();
+             ApiResponse<List<UsersResponse>> localVarResponse = await AdminUsersGetAsyncWithHttpInfo();
              return localVarResponse.Data;
 
         }
@@ -2254,8 +2240,8 @@ namespace IO.Swagger.Api
         /// Lists all users 
         /// </summary>
         /// <exception cref="IO.Swagger.Client.ApiException">Thrown when fails to make API call</exception>
-        /// <returns>Task of ApiResponse (UsersResponse)</returns>
-        public async System.Threading.Tasks.Task<ApiResponse<UsersResponse>> AdminUsersGetAsyncWithHttpInfo ()
+        /// <returns>Task of ApiResponse (List&lt;UsersResponse&gt;)</returns>
+        public async System.Threading.Tasks.Task<ApiResponse<List<UsersResponse>>> AdminUsersGetAsyncWithHttpInfo ()
         {
 
             var localVarPath = "/Admin/Users";
@@ -2302,9 +2288,9 @@ namespace IO.Swagger.Api
                 if (exception != null) throw exception;
             }
 
-            return new ApiResponse<UsersResponse>(localVarStatusCode,
+            return new ApiResponse<List<UsersResponse>>(localVarStatusCode,
                 localVarResponse.Headers.ToDictionary(x => x.Name, x => x.Value.ToString()),
-                (UsersResponse) Configuration.ApiClient.Deserialize(localVarResponse, typeof(UsersResponse)));
+                (List<UsersResponse>) Configuration.ApiClient.Deserialize(localVarResponse, typeof(List<UsersResponse>)));
         }
 
         /// <summary>

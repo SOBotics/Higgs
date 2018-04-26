@@ -25,41 +25,41 @@ using SwaggerDateConverter = IO.Swagger.Client.SwaggerDateConverter;
 namespace IO.Swagger.Model
 {
     /// <summary>
-    /// UsersResponse
+    /// ReviewerCheckResponse
     /// </summary>
     [DataContract]
-    public partial class UsersResponse :  IEquatable<UsersResponse>, IValidatableObject
+    public partial class ReviewerCheckResponse :  IEquatable<ReviewerCheckResponse>, IValidatableObject
     {
         /// <summary>
-        /// Initializes a new instance of the <see cref="UsersResponse" /> class.
+        /// Initializes a new instance of the <see cref="ReviewerCheckResponse" /> class.
         /// </summary>
-        /// <param name="UserId">UserId.</param>
-        /// <param name="DisplayName">DisplayName.</param>
-        /// <param name="Scopes">Scopes.</param>
-        public UsersResponse(int? UserId = default(int?), string DisplayName = default(string), List<string> Scopes = default(List<string>))
+        /// <param name="Dashboard">Dashboard.</param>
+        /// <param name="Bot">Bot.</param>
+        /// <param name="ReportId">ReportId.</param>
+        public ReviewerCheckResponse(string Dashboard = default(string), string Bot = default(string), int? ReportId = default(int?))
         {
-            this.UserId = UserId;
-            this.DisplayName = DisplayName;
-            this.Scopes = Scopes;
+            this.Dashboard = Dashboard;
+            this.Bot = Bot;
+            this.ReportId = ReportId;
         }
         
         /// <summary>
-        /// Gets or Sets UserId
+        /// Gets or Sets Dashboard
         /// </summary>
-        [DataMember(Name="userId", EmitDefaultValue=false)]
-        public int? UserId { get; set; }
+        [DataMember(Name="dashboard", EmitDefaultValue=false)]
+        public string Dashboard { get; set; }
 
         /// <summary>
-        /// Gets or Sets DisplayName
+        /// Gets or Sets Bot
         /// </summary>
-        [DataMember(Name="displayName", EmitDefaultValue=false)]
-        public string DisplayName { get; set; }
+        [DataMember(Name="bot", EmitDefaultValue=false)]
+        public string Bot { get; set; }
 
         /// <summary>
-        /// Gets or Sets Scopes
+        /// Gets or Sets ReportId
         /// </summary>
-        [DataMember(Name="scopes", EmitDefaultValue=false)]
-        public List<string> Scopes { get; set; }
+        [DataMember(Name="reportId", EmitDefaultValue=false)]
+        public int? ReportId { get; set; }
 
         /// <summary>
         /// Returns the string presentation of the object
@@ -68,10 +68,10 @@ namespace IO.Swagger.Model
         public override string ToString()
         {
             var sb = new StringBuilder();
-            sb.Append("class UsersResponse {\n");
-            sb.Append("  UserId: ").Append(UserId).Append("\n");
-            sb.Append("  DisplayName: ").Append(DisplayName).Append("\n");
-            sb.Append("  Scopes: ").Append(Scopes).Append("\n");
+            sb.Append("class ReviewerCheckResponse {\n");
+            sb.Append("  Dashboard: ").Append(Dashboard).Append("\n");
+            sb.Append("  Bot: ").Append(Bot).Append("\n");
+            sb.Append("  ReportId: ").Append(ReportId).Append("\n");
             sb.Append("}\n");
             return sb.ToString();
         }
@@ -92,34 +92,34 @@ namespace IO.Swagger.Model
         /// <returns>Boolean</returns>
         public override bool Equals(object input)
         {
-            return this.Equals(input as UsersResponse);
+            return this.Equals(input as ReviewerCheckResponse);
         }
 
         /// <summary>
-        /// Returns true if UsersResponse instances are equal
+        /// Returns true if ReviewerCheckResponse instances are equal
         /// </summary>
-        /// <param name="input">Instance of UsersResponse to be compared</param>
+        /// <param name="input">Instance of ReviewerCheckResponse to be compared</param>
         /// <returns>Boolean</returns>
-        public bool Equals(UsersResponse input)
+        public bool Equals(ReviewerCheckResponse input)
         {
             if (input == null)
                 return false;
 
             return 
                 (
-                    this.UserId == input.UserId ||
-                    (this.UserId != null &&
-                    this.UserId.Equals(input.UserId))
+                    this.Dashboard == input.Dashboard ||
+                    (this.Dashboard != null &&
+                    this.Dashboard.Equals(input.Dashboard))
                 ) && 
                 (
-                    this.DisplayName == input.DisplayName ||
-                    (this.DisplayName != null &&
-                    this.DisplayName.Equals(input.DisplayName))
+                    this.Bot == input.Bot ||
+                    (this.Bot != null &&
+                    this.Bot.Equals(input.Bot))
                 ) && 
                 (
-                    this.Scopes == input.Scopes ||
-                    this.Scopes != null &&
-                    this.Scopes.SequenceEqual(input.Scopes)
+                    this.ReportId == input.ReportId ||
+                    (this.ReportId != null &&
+                    this.ReportId.Equals(input.ReportId))
                 );
         }
 
@@ -132,12 +132,12 @@ namespace IO.Swagger.Model
             unchecked // Overflow is fine, just wrap
             {
                 int hashCode = 41;
-                if (this.UserId != null)
-                    hashCode = hashCode * 59 + this.UserId.GetHashCode();
-                if (this.DisplayName != null)
-                    hashCode = hashCode * 59 + this.DisplayName.GetHashCode();
-                if (this.Scopes != null)
-                    hashCode = hashCode * 59 + this.Scopes.GetHashCode();
+                if (this.Dashboard != null)
+                    hashCode = hashCode * 59 + this.Dashboard.GetHashCode();
+                if (this.Bot != null)
+                    hashCode = hashCode * 59 + this.Bot.GetHashCode();
+                if (this.ReportId != null)
+                    hashCode = hashCode * 59 + this.ReportId.GetHashCode();
                 return hashCode;
             }
         }

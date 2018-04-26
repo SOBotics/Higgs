@@ -11,8 +11,8 @@
  */
 
 
-export interface ReviewerReportsResponse {
-    id?: number;
-    title?: string;
-    dashboardName?: string;
+export interface ReviewerCheckResponse {
+    dashboard?: string;
+    bot?: string;
+    reportId?: number;
 }

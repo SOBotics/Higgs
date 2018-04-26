@@ -18,7 +18,6 @@ import { CustomHttpUrlEncodingCodec }                        from '../encoder';
 
 import { Observable }                                        from 'rxjs/Observable';
 
-import { AddUserScopeRequest } from '../model/addUserScopeRequest';
 import { BotResponse } from '../model/botResponse';
 import { BotsResponse } from '../model/botsResponse';
 import { CreateBotRequest } from '../model/createBotRequest';
@@ -551,16 +550,24 @@ export class AdminService {
     }
 
     /**
-     * Add a scope to a user
+     * Lists all users
      * 
-     * @param request 
+     * @param userId 
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      */
-    public adminSetUserScopesPost(request?: AddUserScopeRequest, observe?: 'body', reportProgress?: boolean): Observable<any>;
-    public adminSetUserScopesPost(request?: AddUserScopeRequest, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<any>>;
-    public adminSetUserScopesPost(request?: AddUserScopeRequest, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<any>>;
-    public adminSetUserScopesPost(request?: AddUserScopeRequest, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
+    public adminUserGet(userId: number, observe?: 'body', reportProgress?: boolean): Observable<UsersResponse>;
+    public adminUserGet(userId: number, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<UsersResponse>>;
+    public adminUserGet(userId: number, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<UsersResponse>>;
+    public adminUserGet(userId: number, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
+        if (userId === null || userId === undefined) {
+            throw new Error('Required parameter userId was null or undefined when calling adminUserGet.');
+        }
+
+        let queryParameters = new HttpParams({encoder: new CustomHttpUrlEncodingCodec()});
+        if (userId !== undefined) {
+            queryParameters = queryParameters.set('userId', <any>userId);
+        }
 
         let headers = this.defaultHeaders;
 
@@ -585,19 +592,11 @@ export class AdminService {
 
         // to determine the Content-Type header
         let consumes: string[] = [
-            'application/json-patch+json',
-            'application/json',
-            'text/json',
-            'application/_*+json'
         ];
-        let httpContentTypeSelected:string | undefined = this.configuration.selectHeaderContentType(consumes);
-        if (httpContentTypeSelected != undefined) {
-            headers = headers.set("Content-Type", httpContentTypeSelected);
-        }
 
-        return this.httpClient.post<any>(`${this.basePath}/Admin/SetUserScopes`,
-            request,
+        return this.httpClient.get<UsersResponse>(`${this.basePath}/Admin/User`,
             {
+                params: queryParameters,
                 withCredentials: this.configuration.withCredentials,
                 headers: headers,
                 observe: observe,
@@ -612,9 +611,9 @@ export class AdminService {
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      */
-    public adminUsersGet(observe?: 'body', reportProgress?: boolean): Observable<UsersResponse>;
-    public adminUsersGet(observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<UsersResponse>>;
-    public adminUsersGet(observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<UsersResponse>>;
+    public adminUsersGet(observe?: 'body', reportProgress?: boolean): Observable<Array<UsersResponse>>;
+    public adminUsersGet(observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<Array<UsersResponse>>>;
+    public adminUsersGet(observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<Array<UsersResponse>>>;
     public adminUsersGet(observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
 
         let headers = this.defaultHeaders;
@@ -642,7 +641,7 @@ export class AdminService {
         let consumes: string[] = [
         ];
 
-        return this.httpClient.get<UsersResponse>(`${this.basePath}/Admin/Users`,
+        return this.httpClient.get<Array<UsersResponse>>(`${this.basePath}/Admin/Users`,
             {
                 withCredentials: this.configuration.withCredentials,
                 headers: headers,
