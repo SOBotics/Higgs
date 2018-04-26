@@ -28,6 +28,8 @@ export class ReportComponent implements OnInit {
   public feedbackClicked(id: number) {
     this.reviewerService.reviewerSendFeedbackPost(this.currentReportId, id)
       .subscribe(r => {
+        // TODO: Remove in future, use websocks to refresh feedback
+        window.location.reload();
       });
   }
 
