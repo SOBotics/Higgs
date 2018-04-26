@@ -41,7 +41,15 @@ namespace Higgs.Server.Controllers
                 {
                     Id = r.Id,
                     Title = r.Title,
-                    DashboardName = r.Bot.DashboardName
+                    DashboardName = r.Bot.DashboardName,
+                    DetectionScore = r.DetectionScore,
+                    Feedback = r.Feedbacks.Select(feedback => new ReviewerReportFeedbackResponse
+                    {
+                        Icon = feedback.Feedback.Icon,
+                        Colour = feedback.Feedback.Colour,
+                        FeedbackName = feedback.Feedback.Name,
+                        UserName = feedback.User.Name
+                    }).ToList()
                 })
                 .OrderByDescending(r => r.Id)
                 .Take(50);

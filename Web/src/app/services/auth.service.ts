@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Configuration } from '../../swagger-gen';
 import { BehaviorSubject } from 'rxjs/BehaviorSubject';
+import { Observable } from 'rxjs/Observable';
 
 export const AccessTokenStorageKey = 'access_token';
 
@@ -18,7 +19,7 @@ export class AuthService {
   constructor(private config: Configuration) {
   }
 
-  public GetAuthDetails(): BehaviorSubject<AuthDetails> {
+  public GetAuthDetails(): Observable<AuthDetails> {
     return this.subject;
   }
 

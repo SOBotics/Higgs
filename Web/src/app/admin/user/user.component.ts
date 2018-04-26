@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { UsersResponse, AdminService } from '../../../swagger-gen';
 import { ActivatedRoute } from '@angular/router';
+import 'rxjs/add/operator/combineLatest';
 
 @Component({
   selector: 'app-user',

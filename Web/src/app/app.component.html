@@ -10,13 +10,7 @@
                 <li class="nav-item">
                     <a class="nav-link" routerLink="/reports">Reports</a>
                 </li>
-                <li class="nav-item">
-                    <a class="nav-link" routerLink="/Posts">Search</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" routerLink="/Posts">Review</a>
-                </li>
-                <li class="nav-item">
+                <li class="nav-item" *ngIf="isAdmin">
                     <a class="nav-link" routerLink="/admin">Admin</a>
                 </li>
             </ul>
@@ -40,7 +34,7 @@
 </header>
 
 <main role="main" class="container">
-    <app-mini-profiler-ui></app-mini-profiler-ui>
+    <app-mini-profiler-ui [hidden]="!isDev"></app-mini-profiler-ui>
     <router-outlet (activate)="onRouterActivate($event)"></router-outlet>
 </main>
 

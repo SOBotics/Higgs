@@ -12,6 +12,8 @@ import { ReportComponent } from './report/report.component';
 })
 export class AppComponent implements OnInit {
   public isLoggedIn: boolean;
+  public isAdmin: boolean;
+  public isDev: boolean;
   private userName: string;
   constructor(
     private authService: AuthService,
@@ -46,6 +48,8 @@ export class AppComponent implements OnInit {
 
     this.authService.GetAuthDetails().subscribe(details => {
       this.isLoggedIn = details.IsAuthenticated;
+      this.isAdmin = this.isLoggedIn && details.GetScopes().indexOf('admin') >= 0;
+      this.isDev = this.isLoggedIn && details.GetScopes().indexOf('dev') >= 0;
       if (this.isLoggedIn) {
         this.userName = details.RawToken.unique_name;
       }

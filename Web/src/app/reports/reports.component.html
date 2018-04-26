@@ -1,3 +1,36 @@
-<div *ngFor="let report of reportsResponse">
-  <a routerLink="/{{report.dashboardName}}/report/{{report.id}}">[{{report.dashboardName}}] - {{report.title}}</a>
-</div>
+<table class="table">
+  <thead>
+    <tr>
+      <th>
+        Dashboard
+      </th>
+      <th>
+        Title
+      </th>
+      <th>
+        Score
+      </th>
+      <th>
+        Feedback
+      </th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let report of reportsResponse">
+      <td>
+        <a routerLink="/{{report.dashboardName}}">{{report.dashboardName}}</a>
+      </td>
+      <td>
+        <a routerLink="/{{report.dashboardName}}/report/{{report.id}}">{{report.title}}</a>
+      </td>
+      <td>
+        {{report.detectionScore}}
+      </td>
+      <td>
+        <span *ngFor="let feedback of report.feedback" class="feedback" [style.color]="feedback.colour" [title]="feedback.feedbackName + ' - ' + feedback.userName">
+          {{feedback.icon}}
+        </span>
+      </td>
+    </tr>
+  </tbody>
+</table>
