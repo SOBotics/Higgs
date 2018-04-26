@@ -8,7 +8,7 @@ namespace Higgs.Server.Utilities
 {
     public static class DbUtilities
     {
-        private static readonly string[] DEFAULT_NEW_USER_SCOPES = {Scopes.REVIEWER_SEND_FEEDBACK};
+        private static readonly string[] DEFAULT_NEW_USER_SCOPES = {Scopes.SCOPE_REVIEWER};
 
         public static DbUser GetOrCreateUser(this HiggsDbContext dbContext, int accountId)
         {

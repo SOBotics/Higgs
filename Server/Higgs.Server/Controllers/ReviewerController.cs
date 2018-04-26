@@ -140,18 +140,8 @@ namespace Higgs.Server.Controllers
         /// <summary>
         ///     Lists all pending review
         /// </summary>
-        [HttpPost("feedback/sendFeedback")]
-        [Authorize(Scopes.REVIEWER_SEND_FEEDBACK)]
-        public IActionResult SendFeedbackObsolete(int reportId, int id)
-        {
-            return SendFeedback(reportId, id);
-        }
-
-        /// <summary>
-        ///     Lists all pending review
-        /// </summary>
         [HttpPost("SendFeedback")]
-        [Authorize(Scopes.REVIEWER_SEND_FEEDBACK)]
+        [Authorize(Scopes.SCOPE_REVIEWER)]
         public IActionResult SendFeedback(int reportId, int id)
         {
             var allowedFeedbacks = _dbContext.ReportAllowedFeedbacks.Where(r => r.ReportId == reportId && r.Feedback.IsEnabled).Select(f => f.FeedbackId).ToList();

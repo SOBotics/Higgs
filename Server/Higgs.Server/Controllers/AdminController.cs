@@ -30,7 +30,7 @@ namespace Higgs.Server.Controllers
         ///     Lists all bots
         /// </summary>
         [HttpGet("Bots")]
-        [Authorize(Scopes.ADMIN_VIEW_BOT_DETAILS)]
+        [Authorize(Scopes.SCOPE_BOT_OWNER)]
         [SwaggerResponse((int) HttpStatusCode.OK, typeof(List<BotsResponse>), Description = "View bot details")]
         public List<BotsResponse> Bots()
         {
@@ -47,7 +47,7 @@ namespace Higgs.Server.Controllers
         /// </summary>
         /// <returns>The ID of the created bot</returns>
         [HttpPost("RegisterBot")]
-        [Authorize(Scopes.ADMIN_REGISTER_BOT)]
+        [Authorize(Scopes.SCOPE_BOT_OWNER)]
         [SwaggerResponse((int) HttpStatusCode.OK, typeof(int), "Successfully registered bot")]
         [SwaggerResponse((int) HttpStatusCode.BadRequest, typeof(ErrorResponse))]
         public IActionResult RegisterBot([FromBody] CreateBotRequest request)
@@ -79,7 +79,7 @@ namespace Higgs.Server.Controllers
         }
         
         [HttpGet("Bot")]
-        [Authorize(Scopes.ADMIN_VIEW_BOT_DETAILS)]
+        [Authorize(Scopes.SCOPE_BOT_OWNER)]
         public BotResponse Bot(int botId)
         {
             return _dbContext.Bots.Where(b => b.Id == botId)
@@ -98,14 +98,14 @@ namespace Higgs.Server.Controllers
 
         [HttpGet("Scopes")]
         [SwaggerResponse((int)HttpStatusCode.OK, typeof(List<string>))]
-        [Authorize(Scopes.ADMIN_VIEW_SCOPES)]
+        [Authorize(Scopes.SCOPE_ADMIN)]
         public List<string> AllScopes()
         {
             return Scopes.AllScopes.Select(s => s.Key).ToList();
         }
 
         [HttpGet("BotScopes")]
-        [Authorize(Scopes.ADMIN_VIEW_BOT_DETAILS)]
+        [Authorize(Scopes.SCOPE_ADMIN)]
         public List<string> BotScopes(int botId)
         {
             var botScopes = _dbContext.Bots.Where(b => b.Id == botId)
@@ -119,7 +119,7 @@ namespace Higgs.Server.Controllers
         ///     Update a bots details
         /// </summary>
         [HttpPost("EditBot")]
-        [Authorize(Scopes.ADMIN_EDIT_BOT)]
+        [Authorize(Scopes.SCOPE_BOT_OWNER)]
         [SwaggerResponse((int) HttpStatusCode.OK, Description = "Successfully edited bot")]
         [SwaggerResponse((int) HttpStatusCode.BadRequest, typeof(ErrorResponse), Description = "Bot not found")]
         public IActionResult EditBot([FromBody] EditCreateBotRequest request)
@@ -147,7 +147,7 @@ namespace Higgs.Server.Controllers
         }
 
         [HttpGet("ViewBotFeedbackTypes")]
-        [Authorize(Scopes.ADMIN_EDIT_BOT)]
+        [Authorize(Scopes.SCOPE_BOT_OWNER)]
         [SwaggerResponse((int)HttpStatusCode.OK, typeof(IList<ViewBotFeedbackTypesResponse>))]
         [SwaggerResponse((int)HttpStatusCode.BadRequest, typeof(ErrorResponse), Description = "Bot not found")]
         public IActionResult ViewBotFeedbackTypes(int botId)
@@ -171,7 +171,7 @@ namespace Higgs.Server.Controllers
         }
 
         [HttpPost("EditBotFeedbackTypes")]
-        [Authorize(Scopes.ADMIN_EDIT_BOT)]
+        [Authorize(Scopes.SCOPE_BOT_OWNER)]
         [SwaggerResponse((int) HttpStatusCode.OK, Description = "Successfully edited bot feedback types")]
         [SwaggerResponse((int) HttpStatusCode.BadRequest, typeof(ErrorResponse), Description = "Bot not found")]
         public IActionResult EditBotFeedbackTypes([FromBody] EditBotFeedbackTypesRequest request)
@@ -229,7 +229,7 @@ namespace Higgs.Server.Controllers
         ///     Deactivates a bot
         /// </summary>
         [HttpPost("DeactiveateBot")]
-        [Authorize(Scopes.ADMIN_DEACTIVATE_BOT)]
+        [Authorize(Scopes.SCOPE_BOT_OWNER)]
         [SwaggerResponse((int) HttpStatusCode.OK, Description = "Successfully deactivated bot")]
         [SwaggerResponse((int) HttpStatusCode.BadRequest, typeof(ErrorResponse))]
         public IActionResult DeactiveateBot([FromBody] DeleteBotRequest request)
@@ -241,7 +241,7 @@ namespace Higgs.Server.Controllers
         ///     Set bot scopes
         /// </summary>
         [HttpPost("SetBotScopes")]
-        [Authorize(Scopes.ADMIN_EDIT_BOT_SCOPE)]
+        [Authorize(Scopes.SCOPE_BOT_OWNER)]
         [SwaggerResponse((int) HttpStatusCode.OK, Description = "Successfully updated bots scopes")]
         [SwaggerResponse((int) HttpStatusCode.BadRequest, typeof(ErrorResponse))]
         public IActionResult SetBotScopes([FromBody] SetBotScopesRequest request)
@@ -274,7 +274,7 @@ namespace Higgs.Server.Controllers
         ///     Lists all users
         /// </summary>
         [HttpGet("Users")]
-        [Authorize(Scopes.ADMIN_VIEW_USER_DETAILS)]
+        [Authorize(Scopes.SCOPE_ADMIN)]
         [SwaggerResponse((int) HttpStatusCode.OK, typeof(List<UsersResponse>), Description = "View all users")]
         public IActionResult Users()
         {
@@ -290,7 +290,7 @@ namespace Higgs.Server.Controllers
         ///     Lists all users
         /// </summary>
         [HttpGet("User")]
-        [Authorize(Scopes.ADMIN_VIEW_USER_DETAILS)]
+        [Authorize(Scopes.SCOPE_ADMIN)]
         [SwaggerResponse((int)HttpStatusCode.OK, typeof(UsersResponse), Description = "View user details")]
         public IActionResult GetUser(int userId)
         {

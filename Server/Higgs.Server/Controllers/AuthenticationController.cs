@@ -128,9 +128,7 @@ namespace Higgs.Server.Controllers
 
             var signingKey = Convert.FromBase64String(_configuration["JwtSigningKey"]);
             
-            // Temporary measure for testing
-            var defaultNewUserScopes = Scopes.AllScopes.Select(a => a.Key).ToArray();
-            var user = _dbContext.GetOrCreateUser(accountId, defaultNewUserScopes);
+            var user = _dbContext.GetOrCreateUser(accountId);
             user.Name = displayName;
 
             _dbContext.SaveChanges();

@@ -62,7 +62,7 @@ namespace Higgs.Server.Controllers
         }
     
         [HttpPost("RegisterUserFeedbackByContent")]
-        [Authorize(Scopes.BOT_SEND_FEEDBACK)]
+        [Authorize(Scopes.SCOPE_BOT)]
         public IActionResult RegisterUserFeedbackByContent([FromBody] RegisterUserFeedbackByContentRequest request)
         {
             var matchedReport = _dbContext.Reports.FirstOrDefault(r => r.ContentUrl == request.ContentUrl);
@@ -78,7 +78,7 @@ namespace Higgs.Server.Controllers
         }
 
         [HttpPost("RegisterUserFeedback")]
-        [Authorize(Scopes.BOT_SEND_FEEDBACK)]
+        [Authorize(Scopes.SCOPE_BOT)]
         public IActionResult RegisterUserFeedback([FromBody] RegisterUserFeedbackRequest request)
         {
             var botId = GetBotId();
@@ -128,7 +128,7 @@ namespace Higgs.Server.Controllers
         ///     The id of the report created
         /// </returns>
         [HttpPost("RegisterPost")]
-        [Authorize(Scopes.BOT_REGISTER_POST)]
+        [Authorize(Scopes.SCOPE_BOT)]
         [SwaggerResponse((int) HttpStatusCode.OK, typeof(int))]
         [SwaggerResponse((int) HttpStatusCode.BadRequest, typeof(ErrorResponse))]
         public IActionResult RegisterPost([FromBody] RegisterPostRequest request)

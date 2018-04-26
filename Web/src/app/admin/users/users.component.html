@@ -1,5 +1,5 @@
-<table>
-  <thead class="table">
+<table class="table">
+  <thead>
     <tr>
       <th>Id</th>
       <th>Name</th>
@@ -16,7 +16,7 @@
         {{user.displayName}}
       </td>
       <td>
-        {{user.scopes}}
+        {{user.scopes.join(', ')}}
       </td>
       <td><a routerLink="/admin/user/{{user.userId}}">Edit</a></td>
     </tr>

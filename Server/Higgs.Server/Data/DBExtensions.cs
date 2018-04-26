@@ -23,11 +23,17 @@ namespace Higgs.Server.Data
                 return;
 
             var seedUsers = new[] {new SeedUser {AccountId = RobAccountId, UserName = "Rob"}};
-            var dbScopes = context.Scopes.ToList().ToLookup(p => p.Name, StringComparer.OrdinalIgnoreCase);
+            var dbScopes = context.Scopes.ToList().ToDictionary(p => p.Name, p => p, StringComparer.OrdinalIgnoreCase);
 
+            // Insert new scopes
             foreach (var scope in Scopes.AllScopes)
-                if (!dbScopes.Contains(scope.Key))
+                if (!dbScopes.ContainsKey(scope.Key))
                     context.Scopes.Add(new DbScope {Name = scope.Key, Description = scope.Value});
+
+            // Delete old scopes
+            foreach (var dbScope in dbScopes)
+                if (!Scopes.AllScopes.ContainsKey(dbScope.Key))
+                    context.Scopes.Remove(dbScope.Value);
 
             foreach (var seedUser in seedUsers)
             {
