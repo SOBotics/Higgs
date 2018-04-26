@@ -36,24 +36,53 @@ namespace Higgs.Server.Controllers
         [HttpGet("Reports")]
         public List<ReviewerReportsResponse> Reports()
         {
-            var query = _dbContext.Reports
-                .Select(r => new ReviewerReportsResponse
+            // We're writing two queries, otherwise EFCore hits the N+1 problem
+
+            var reports = _dbContext.Reports
+                .Select(r => new
                 {
-                    Id = r.Id,
-                    Title = r.Title,
-                    DashboardName = r.Bot.DashboardName,
-                    DetectionScore = r.DetectionScore,
-                    Feedback = r.Feedbacks.Select(feedback => new ReviewerReportFeedbackResponse
+                    r.Id,
+                    r.Title,
+                    r.Bot.DashboardName,
+                    r.DetectionScore,
+                }).OrderByDescending(r => r.Id)
+                .Take(50)
+                .ToList();
+
+            var reportIds = reports.Select(r => r.Id).ToList();
+            var feedbacks = _dbContext.ReportFeedbacks.Where(rf => reportIds.Contains(rf.ReportId))
+                .Select(feedback => new
+                {
+                    feedback.ReportId,
+                    feedback.Feedback.Icon,
+                    feedback.Feedback.Colour,
+                    FeedbackName = feedback.Feedback.Name,
+                    UserName = feedback.User.Name
+                }).GroupBy(r => r.ReportId)
+                .ToDictionary(r => r.Key, r => r.ToList());
+
+            var result =
+                reports
+                    .Select(r => new ReviewerReportsResponse
                     {
-                        Icon = feedback.Feedback.Icon,
-                        Colour = feedback.Feedback.Colour,
-                        FeedbackName = feedback.Feedback.Name,
-                        UserName = feedback.User.Name
-                    }).ToList()
-                })
-                .OrderByDescending(r => r.Id)
-                .Take(50);
-            return query.ToList();
+                        Id = r.Id,
+                        Title = r.Title,
+                        DashboardName = r.DashboardName,
+                        DetectionScore = r.DetectionScore,
+                        Feedback = feedbacks.ContainsKey(r.Id)
+                            ? feedbacks[r.Id].Select(feedback => new ReviewerReportFeedbackResponse
+                            {
+                                Icon = feedback.Icon,
+                                Colour = feedback.Colour,
+                                FeedbackName = feedback.FeedbackName,
+                                UserName = feedback.UserName
+                            }).ToList()
+                            : new List<ReviewerReportFeedbackResponse>()
+                    })
+                    .OrderByDescending(r => r.Id)
+                    .ToList();
+
+            return result;
         }
 
         [HttpGet("Report")]
