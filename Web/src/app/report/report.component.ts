@@ -26,7 +26,7 @@ export class ReportComponent implements OnInit {
   ) { }
 
   public feedbackClicked(id: number) {
-    this.reviewerService.reviewerFeedbackSendFeedbackPost(this.currentReportId, id)
+    this.reviewerService.reviewerSendFeedbackPost(this.currentReportId, id)
       .subscribe(r => {
       });
   }
