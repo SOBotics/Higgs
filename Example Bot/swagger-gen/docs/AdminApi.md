@@ -14,6 +14,7 @@ Method | HTTP request | Description
 [**AdminScopesGet**](AdminApi.md#adminscopesget) | **GET** /Admin/Scopes | 
 [**AdminSetBotScopesPost**](AdminApi.md#adminsetbotscopespost) | **POST** /Admin/SetBotScopes | Set bot scopes
 [**AdminUserGet**](AdminApi.md#adminuserget) | **GET** /Admin/User | Lists all users
+[**AdminUserPost**](AdminApi.md#adminuserpost) | **POST** /Admin/User | Lists all users
 [**AdminUsersGet**](AdminApi.md#adminusersget) | **GET** /Admin/Users | Lists all users
 [**AdminViewBotFeedbackTypesGet**](AdminApi.md#adminviewbotfeedbacktypesget) | **GET** /Admin/ViewBotFeedbackTypes | 
 
@@ -619,6 +620,67 @@ Name | Type | Description  | Notes
 
  - **Content-Type**: Not defined
  - **Accept**: text/plain, application/json, text/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+<a name="adminuserpost"></a>
+# **AdminUserPost**
+> void AdminUserPost (UpdateUserRequest request = null)
+
+Lists all users
+
+### Example
+```csharp
+using System;
+using System.Diagnostics;
+using IO.Swagger.Api;
+using IO.Swagger.Client;
+using IO.Swagger.Model;
+
+namespace Example
+{
+    public class AdminUserPostExample
+    {
+        public void main()
+        {
+            // Configure OAuth2 access token for authorization: oauth2
+            Configuration.Default.AccessToken = "YOUR_ACCESS_TOKEN";
+
+            var apiInstance = new AdminApi();
+            var request = new UpdateUserRequest(); // UpdateUserRequest |  (optional) 
+
+            try
+            {
+                // Lists all users
+                apiInstance.AdminUserPost(request);
+            }
+            catch (Exception e)
+            {
+                Debug.Print("Exception when calling AdminApi.AdminUserPost: " + e.Message );
+            }
+        }
+    }
+}
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **request** | [**UpdateUserRequest**](UpdateUserRequest.md)|  | [optional] 
+
+### Return type
+
+void (empty response body)
+
+### Authorization
+
+[oauth2](../README.md#oauth2)
+
+### HTTP request headers
+
+ - **Content-Type**: application/json-patch+json, application/json, text/json, application/_*+json
+ - **Accept**: Not defined
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 

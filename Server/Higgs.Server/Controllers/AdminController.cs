@@ -303,5 +303,40 @@ namespace Higgs.Server.Controllers
                     Scopes = u.UserScopes.Select(us => us.ScopeName).ToList()
                 }).FirstOrDefault());
         }
+
+        /// <summary>
+        ///     Lists all users
+        /// </summary>
+        [HttpPost("User")]
+        [Authorize(Scopes.SCOPE_ADMIN)]
+        [SwaggerResponse((int)HttpStatusCode.OK, Description = "Update user details")]
+        [SwaggerResponse((int)HttpStatusCode.BadRequest, Description = "User doesn't exist")]
+        public IActionResult UpdateUserDetails([FromBody] UpdateUserRequest request)
+        {
+            var user = _dbContext.Users.Include(u => u.UserScopes).FirstOrDefault(u => u.AccountId == request.Id);
+            if (user == null)
+                return BadRequest(new ErrorResponse("User not found"));
+
+            var userScopes = user.UserScopes.ToDictionary(us => us.ScopeName, us => us, StringComparer.OrdinalIgnoreCase);
+            var requestScopes = request.Scopes.ToHashSet();
+            foreach (var userScope in userScopes)
+            {
+                if (!requestScopes.Contains(userScope.Key))
+                    _dbContext.UserScopes.Remove(userScope.Value);
+            }
+
+            foreach (var requestScope in requestScopes)
+            {
+                if (!userScopes.ContainsKey(requestScope))
+                    _dbContext.UserScopes.Add(new DbUserScope
+                    {
+                        UserId = user.AccountId,
+                        ScopeName = requestScope
+                    });
+            }
+
+            _dbContext.SaveChanges();
+            return Ok();
+        }
     }
 }

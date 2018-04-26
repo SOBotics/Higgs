@@ -14,6 +14,7 @@ export class UserComponent implements OnInit {
     Name: string;
     Scopes: { Name: string, Assigned: boolean }[]
   };
+  private userId: number;
 
 
   constructor(private adminService: AdminService, private route: ActivatedRoute) { }
@@ -21,9 +22,9 @@ export class UserComponent implements OnInit {
   ngOnInit() {
     const allScopes = this.adminService.adminScopesGet();
     this.route.params.subscribe(params => {
-      const userId = +params['id'];
-      if (userId) {
-        allScopes.combineLatest(this.adminService.adminUserGet(userId), (scopes, user) => ({
+      this.userId = +params['id'];
+      if (this.userId) {
+        allScopes.combineLatest(this.adminService.adminUserGet(this.userId), (scopes, user) => ({
           Scopes: scopes,
           User: user
         }))
@@ -44,5 +45,16 @@ export class UserComponent implements OnInit {
           });
       }
     });
+  }
+
+  public async updateUser() {
+    const assignedScopes = this.user.Scopes.filter(scope => scope.Assigned)
+      .map(scope => scope.Name);
+
+    this.adminService.adminUserPost({
+      id: this.userId,
+      scopes: assignedScopes
+    })
+      .subscribe(a => window.location.reload());
   }
 }

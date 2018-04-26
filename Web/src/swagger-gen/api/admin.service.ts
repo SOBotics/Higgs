@@ -26,6 +26,7 @@ import { EditBotFeedbackTypesRequest } from '../model/editBotFeedbackTypesReques
 import { EditCreateBotRequest } from '../model/editCreateBotRequest';
 import { ErrorResponse } from '../model/errorResponse';
 import { SetBotScopesRequest } from '../model/setBotScopesRequest';
+import { UpdateUserRequest } from '../model/updateUserRequest';
 import { UsersResponse } from '../model/usersResponse';
 import { ViewBotFeedbackTypesResponse } from '../model/viewBotFeedbackTypesResponse';
 
@@ -597,6 +598,59 @@ export class AdminService {
         return this.httpClient.get<UsersResponse>(`${this.basePath}/Admin/User`,
             {
                 params: queryParameters,
+                withCredentials: this.configuration.withCredentials,
+                headers: headers,
+                observe: observe,
+                reportProgress: reportProgress
+            }
+        );
+    }
+
+    /**
+     * Lists all users
+     * 
+     * @param request 
+     * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
+     * @param reportProgress flag to report request and response progress.
+     */
+    public adminUserPost(request?: UpdateUserRequest, observe?: 'body', reportProgress?: boolean): Observable<any>;
+    public adminUserPost(request?: UpdateUserRequest, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<any>>;
+    public adminUserPost(request?: UpdateUserRequest, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<any>>;
+    public adminUserPost(request?: UpdateUserRequest, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
+
+        let headers = this.defaultHeaders;
+
+        // authentication (oauth2) required
+        if (this.configuration.accessToken) {
+            let accessToken = typeof this.configuration.accessToken === 'function'
+                ? this.configuration.accessToken()
+                : this.configuration.accessToken;
+            headers = headers.set('Authorization', 'Bearer ' + accessToken);
+        }
+
+        // to determine the Accept header
+        let httpHeaderAccepts: string[] = [
+        ];
+        let httpHeaderAcceptSelected: string | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
+        if (httpHeaderAcceptSelected != undefined) {
+            headers = headers.set("Accept", httpHeaderAcceptSelected);
+        }
+
+        // to determine the Content-Type header
+        let consumes: string[] = [
+            'application/json-patch+json',
+            'application/json',
+            'text/json',
+            'application/_*+json'
+        ];
+        let httpContentTypeSelected:string | undefined = this.configuration.selectHeaderContentType(consumes);
+        if (httpContentTypeSelected != undefined) {
+            headers = headers.set("Content-Type", httpContentTypeSelected);
+        }
+
+        return this.httpClient.post<any>(`${this.basePath}/Admin/User`,
+            request,
+            {
                 withCredentials: this.configuration.withCredentials,
                 headers: headers,
                 observe: observe,

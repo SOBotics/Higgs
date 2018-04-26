@@ -108,6 +108,7 @@ Class | Method | HTTP request | Description
 *AdminApi* | [**AdminScopesGet**](docs/AdminApi.md#adminscopesget) | **GET** /Admin/Scopes | 
 *AdminApi* | [**AdminSetBotScopesPost**](docs/AdminApi.md#adminsetbotscopespost) | **POST** /Admin/SetBotScopes | Set bot scopes
 *AdminApi* | [**AdminUserGet**](docs/AdminApi.md#adminuserget) | **GET** /Admin/User | Lists all users
+*AdminApi* | [**AdminUserPost**](docs/AdminApi.md#adminuserpost) | **POST** /Admin/User | Lists all users
 *AdminApi* | [**AdminUsersGet**](docs/AdminApi.md#adminusersget) | **GET** /Admin/Users | Lists all users
 *AdminApi* | [**AdminViewBotFeedbackTypesGet**](docs/AdminApi.md#adminviewbotfeedbacktypesget) | **GET** /Admin/ViewBotFeedbackTypes | 
 *BotApi* | [**BotAquireTokenPost**](docs/BotApi.md#botaquiretokenpost) | **POST** /Bot/AquireToken | 
@@ -119,7 +120,6 @@ Class | Method | HTTP request | Description
 *FileApi* | [**FilePost**](docs/FileApi.md#filepost) | **POST** /File | 
 *ReviewerApi* | [**ReviewerAllReviewsGet**](docs/ReviewerApi.md#reviewerallreviewsget) | **GET** /Reviewer/AllReviews | Lists all reviews
 *ReviewerApi* | [**ReviewerCheckGet**](docs/ReviewerApi.md#reviewercheckget) | **GET** /Reviewer/Check | 
-*ReviewerApi* | [**ReviewerFeedbackSendFeedbackPost**](docs/ReviewerApi.md#reviewerfeedbacksendfeedbackpost) | **POST** /Reviewer/feedback/sendFeedback | Lists all pending review
 *ReviewerApi* | [**ReviewerPendingReviewsGet**](docs/ReviewerApi.md#reviewerpendingreviewsget) | **GET** /Reviewer/PendingReviews | Lists all pending reviews
 *ReviewerApi* | [**ReviewerReportGet**](docs/ReviewerApi.md#reviewerreportget) | **GET** /Reviewer/Report | 
 *ReviewerApi* | [**ReviewerReportsGet**](docs/ReviewerApi.md#reviewerreportsget) | **GET** /Reviewer/Reports | 
@@ -153,6 +153,7 @@ Class | Method | HTTP request | Description
  - [Model.ReviewerReportResponse](docs/ReviewerReportResponse.md)
  - [Model.ReviewerReportsResponse](docs/ReviewerReportsResponse.md)
  - [Model.SetBotScopesRequest](docs/SetBotScopesRequest.md)
+ - [Model.UpdateUserRequest](docs/UpdateUserRequest.md)
  - [Model.UsersResponse](docs/UsersResponse.md)
  - [Model.ViewBotFeedbackTypesResponse](docs/ViewBotFeedbackTypesResponse.md)
 
@@ -167,16 +168,9 @@ Class | Method | HTTP request | Description
 - **Flow**: implicit
 - **Authorization URL**: http://api.higgs.sobotics.org/Authentication/Login
 - **Scopes**: 
-  - admin:viewBotDetails: View all available scopes in the system
-  - admin:viewScopes: View details about registered bots
-  - admin:registerBot: Register a new bot with Higgs
-  - admin:editBot: Edit a bots configuration
-  - admin:deactivateBot: Deactivate a bot
-  - admin:editBotScope: Edit a bots scopes
-  - admin:viewUserDetails: View all user details
-  - admin:editUserScope: Edit a users scopes
-  - reviewer:sendFeedback: Send feedback to a reported post
-  - bot:setFeedbackTypes: Add or update feedback types
-  - bot:registerPost: Register a detected post
-  - bot:sendFeedback: Send feedback to a reported post on behalf of a user
+  - admin: Admin
+  - dev: Dev
+  - bot_owner: Bot owner
+  - bot: Bot
+  - reviewer: Reviewer
 

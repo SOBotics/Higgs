@@ -6,7 +6,6 @@ Method | HTTP request | Description
 ------------- | ------------- | -------------
 [**ReviewerAllReviewsGet**](ReviewerApi.md#reviewerallreviewsget) | **GET** /Reviewer/AllReviews | Lists all reviews
 [**ReviewerCheckGet**](ReviewerApi.md#reviewercheckget) | **GET** /Reviewer/Check | 
-[**ReviewerFeedbackSendFeedbackPost**](ReviewerApi.md#reviewerfeedbacksendfeedbackpost) | **POST** /Reviewer/feedback/sendFeedback | Lists all pending review
 [**ReviewerPendingReviewsGet**](ReviewerApi.md#reviewerpendingreviewsget) | **GET** /Reviewer/PendingReviews | Lists all pending reviews
 [**ReviewerReportGet**](ReviewerApi.md#reviewerreportget) | **GET** /Reviewer/Report | 
 [**ReviewerReportsGet**](ReviewerApi.md#reviewerreportsget) | **GET** /Reviewer/Reports | 
@@ -122,69 +121,6 @@ No authorization required
 
  - **Content-Type**: Not defined
  - **Accept**: text/plain, application/json, text/json
-
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
-
-<a name="reviewerfeedbacksendfeedbackpost"></a>
-# **ReviewerFeedbackSendFeedbackPost**
-> void ReviewerFeedbackSendFeedbackPost (int? reportId, int? id)
-
-Lists all pending review
-
-### Example
-```csharp
-using System;
-using System.Diagnostics;
-using IO.Swagger.Api;
-using IO.Swagger.Client;
-using IO.Swagger.Model;
-
-namespace Example
-{
-    public class ReviewerFeedbackSendFeedbackPostExample
-    {
-        public void main()
-        {
-            // Configure OAuth2 access token for authorization: oauth2
-            Configuration.Default.AccessToken = "YOUR_ACCESS_TOKEN";
-
-            var apiInstance = new ReviewerApi();
-            var reportId = 56;  // int? | 
-            var id = 56;  // int? | 
-
-            try
-            {
-                // Lists all pending review
-                apiInstance.ReviewerFeedbackSendFeedbackPost(reportId, id);
-            }
-            catch (Exception e)
-            {
-                Debug.Print("Exception when calling ReviewerApi.ReviewerFeedbackSendFeedbackPost: " + e.Message );
-            }
-        }
-    }
-}
-```
-
-### Parameters
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **reportId** | **int?**|  | 
- **id** | **int?**|  | 
-
-### Return type
-
-void (empty response body)
-
-### Authorization
-
-[oauth2](../README.md#oauth2)
-
-### HTTP request headers
-
- - **Content-Type**: Not defined
- - **Accept**: Not defined
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 

@@ -22,5 +22,6 @@ export * from './reviewerReportReasonResponse';
 export * from './reviewerReportResponse';
 export * from './reviewerReportsResponse';
 export * from './setBotScopesRequest';
+export * from './updateUserRequest';
 export * from './usersResponse';
 export * from './viewBotFeedbackTypesResponse';
