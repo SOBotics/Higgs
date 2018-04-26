@@ -57,7 +57,13 @@ export class ReportComponent implements OnInit {
                 } else if (!left.tripped && right.tripped) {
                   return 1;
                 }
-                return left.confidence - right.confidence;
+
+                if (left.confidence && !right.confidence) {
+                  return -1;
+                } else if (!left.confidence && right.confidence) {
+                  return 1;
+                }
+                return right.confidence - left.confidence;
               });
             }
             if (response.dashboardName && dashboardName !== response.dashboardName) {
