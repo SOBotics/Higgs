@@ -25,6 +25,9 @@ import { PageNotFoundComponent } from './page-not-found/page-not-found.component
 import { BotScopesComponent } from './admin/bot-scopes/bot-scopes.component';
 import { BotScopeComponent } from './admin//bot-scope/bot-scope.component';
 import { BotFeedbackTypesComponent } from './admin/bot-feedback-types/bot-feedback-types.component';
+import { MiniProfilerUiResultComponent } from './mini-profiler/mini-profiler-ui-result/mini-profiler-ui-result.component';
+import { MiniProfilerUiComponent } from './mini-profiler/mini-profiler-ui/mini-profiler-ui.component';
+import { HttpRequestInterceptorService } from './mini-profiler/http-request-interceptor.service';
 
 
 @NgModule({
@@ -41,7 +44,9 @@ import { BotFeedbackTypesComponent } from './admin/bot-feedback-types/bot-feedba
     PageNotFoundComponent,
     BotScopesComponent,
     BotScopeComponent,
-    BotFeedbackTypesComponent
+    BotFeedbackTypesComponent,
+    MiniProfilerUiComponent,
+    MiniProfilerUiResultComponent
   ],
   imports: [
     BrowserModule,
@@ -55,7 +60,8 @@ import { BotFeedbackTypesComponent } from './admin/bot-feedback-types/bot-feedba
     ReviewerService,
     { provide: BASE_PATH, useValue: environment.apiHost },
     { provide: Configuration, useClass: AuthConfiguration },
-    AuthService
+    AuthService,
+    HttpRequestInterceptorService
   ],
   bootstrap: [AppComponent]
 })

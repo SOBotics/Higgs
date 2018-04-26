@@ -1,0 +1,226 @@
+.noselect {
+    -webkit-touch-callout: none; /* iOS Safari */
+      -webkit-user-select: none; /* Safari */
+       -khtml-user-select: none; /* Konqueror HTML */
+         -moz-user-select: none; /* Firefox */
+          -ms-user-select: none; /* Internet Explorer/Edge */
+              user-select: none; /* Non-prefixed version, currently
+                                    supported by Chrome and Opera */
+  }
+  
+  * {
+    -webkit-touch-callout: auto;
+      -webkit-user-select: auto;
+       -khtml-user-select: auto;
+         -moz-user-select: auto;
+          -ms-user-select: auto;
+              user-select: auto;
+  }
+  
+  .profiler-queries table, .profiler-queries tbody {
+    border: none;
+  }
+  
+  .profiler-queries .queryBox {
+    max-height: 90vh;
+    margin-top: 2px;
+    overflow: auto;
+  }
+  
+  table {
+    background-color: #f1f3f5;
+    border-spacing: 0;
+    border-collapse: collapse;
+  }
+  
+  table tbody tr:nth-child(even) {
+    background-color: #e3e6e8;
+  }
+  table tbody tr:nth-child(even) {
+    background-color: #e3e6ea;
+  }
+  
+  .header {
+    font-size: 14px;
+    font-weight: bold;
+    color: #8dc63f;
+  }
+  
+  a {
+    color: #337ab7;
+    text-decoration: none;
+  }
+  a:hover, a:focus {
+    color: #23527c;
+    text-decoration: underline;
+  }
+  
+  pre {
+    display: block;
+    padding: 9.5px;
+    margin: 0 0 10px;
+    font-size: 13px;
+    line-height: 1.42857143;
+    color: #333;
+    word-break: break-all;
+    word-wrap: break-word;
+    background-color: #f5f5f5;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-weight: normal;
+  }
+  
+  .profiler-queries {
+    padding: 5px;
+    -webkit-box-shadow: 0px 0px 53px 6px rgba(0,0,0,0.75);
+    -moz-box-shadow: 0px 0px 53px 6px rgba(0,0,0,0.75);
+    box-shadow: 0px 0px 53px 6px rgba(0,0,0,0.75);
+    z-index: 2147483643;
+    position: fixed;
+    top: 30px;
+    left: 30px;
+    right: 30px;
+    background: #f1f3f5;
+  
+    border-right: 1px solid #888888;
+    text-align: right;
+  }
+  .closeButton {
+    font-size: 18px;  
+  }
+  .prettyprint code {
+    font-size: 11px;
+  }
+  
+  .profiler-unit {
+    color: #aaaaaa;
+    font-family: Consolas, monospace, serif;
+  }
+  
+  .profiler-name {
+    font-size: 110%;
+    font-weight: bold;
+  }
+  
+  .profiler-info .wrapText {
+    white-space: pre-wrap;      /* CSS3 */   
+    white-space: -moz-pre-wrap; /* Firefox */    
+    white-space: -pre-wrap;     /* Opera <7 */   
+    white-space: -o-pre-wrap;   /* Opera 7 */    
+    word-wrap: break-word;      /* IE */
+  }
+  
+  .profiler-popup {  
+    z-index: 2147483641;
+    position: absolute;
+    background-color: #fff;
+    border: 1px solid #aaa;
+    padding: 5px 10px;
+    text-align: left;
+    line-height: 18px;
+    overflow: auto;
+    -moz-box-shadow: 0px 1px 15px #555555;
+    -webkit-box-shadow: 0px 1px 15px #555555;
+    box-shadow: 0px 1px 15px #555555;
+  }
+  
+  .profiler-toggleable-links {
+    float:right;   
+  }
+  .profiler-label {
+    color: #555555;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-width: 275px;
+    font-weight: normal;
+  }
+  
+  .profiler-number {
+    font-weight: normal;
+  }
+  
+  .profiler-info {
+    text-align: right;
+    vertical-align: top;
+    font-weight: normal;
+  }
+  
+  .profiler-server-time {
+    font-weight: normal;
+  }
+  
+  .profiler-toggle-trivial {
+    font-weight: normal;
+  }
+  
+  .profiler-info > div {
+    margin-top: 5px;
+  }
+  
+  .profiler-info .profiler-name {
+    float: left;
+  }
+  .profiler-server-time {
+    white-space: nowrap;
+    font-size: 95%;
+  }
+  
+  .profiler-timings {
+    width: 100%;
+  }
+  
+  .profiler-timings th {
+    background-color: #fff;
+    color: #aaaaaa;
+    text-align: right;
+  }
+  .profiler-timings th,
+  .profiler-timings td {
+    white-space: nowrap;
+  }
+  .profiler-timings .profiler-show-more {
+    display: none;
+  }
+  .profiler-timings .profiler-duration {
+    color: #111111;
+    text-align: right;
+    font-size: 10px;
+  }
+  .profiler-timings .profiler-indent {
+    letter-spacing: 4px;
+  }
+  .profiler-timings .profiler-queries-show,
+  .profiler-timings .profiler-duration,
+  .profiler-output .profiler-toggle-hidden-columns
+   {
+    font-weight: normal;
+  }
+  
+  th {
+    font-weight: normal;
+  }
+  
+  .profiler-timings .profiler-queries-show .profiler-number,
+  .profiler-timings .profiler-queries-show .profiler-unit {
+    color: #0077cc;
+  }
+  .profiler-timings .profiler-queries-duration {
+    padding-left: 6px;
+  }
+  .profiler-popup .profiler-timings th,
+  .profiler-popup .profiler-timings td {
+    padding: 0 6px;
+  }
+  .profiler-popup .profiler-timings th {
+    font-size: 95%;
+    padding-bottom: 3px;
+  }
+  
+  .profiler-links {
+    margin-top: 10px;
+  }
+  
+  .query {
+    text-align: left;
+  }
+  

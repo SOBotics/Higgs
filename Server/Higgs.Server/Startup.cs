@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Linq;
 using Higgs.Server.Data;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
@@ -9,6 +8,15 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.IdentityModel.Tokens;
 using Swashbuckle.AspNetCore.Swagger;
+
+using Microsoft.AspNetCore.Builder;
+using Microsoft.AspNetCore.Hosting;
+using Microsoft.Data.Sqlite;
+using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Logging;
+
+using StackExchange.Profiling.Storage;
 
 namespace Higgs.Server
 {
@@ -30,7 +38,9 @@ namespace Higgs.Server
                     builder => builder.AllowAnyOrigin()
                         .AllowAnyMethod()
                         .AllowAnyHeader()
-                        .AllowCredentials());
+                        .AllowCredentials()
+                        .WithExposedHeaders("X-MiniProfiler-Ids")
+                );
             });
 
             services.AddMvc();
@@ -75,8 +85,11 @@ namespace Higgs.Server
             });
 
             var connectionString = Configuration.GetConnectionString("HiggsDB");
-            services.AddEntityFrameworkNpgsql()
+            services
+                .AddEntityFrameworkNpgsql()
                 .AddDbContext<HiggsDbContext>(options => options.UseNpgsql(connectionString));
+
+            services.AddMiniProfiler().AddEntityFramework();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -86,10 +99,11 @@ namespace Higgs.Server
 
             app.UseAuthentication();
             app.UseCors("AllowAnyOrigin");
+            app.UseMiniProfiler();
             app.UseMvc();
             app.UseSwagger();
             app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "Higgs API V1"));
-
+            
             using (var serviceScope = app.ApplicationServices.GetRequiredService<IServiceScopeFactory>().CreateScope())
             {
                 var context = serviceScope.ServiceProvider.GetService<HiggsDbContext>();

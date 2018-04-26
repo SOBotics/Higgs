@@ -1,0 +1,28 @@
+<div class="profiler-results" 
+  [class.profiler-left]="Position === 'Left'" 
+  [class.profiler-right]="Position === 'Right'" 
+  (clickOutside)="onClickedOutside($event)" 
+  [style.width]="ProfilerWidth + 'px'"
+  >
+  <div class="profiler-button profiler-toggle">
+    <a href="javascript:void(0)" (click)="toggleGridVisible()">{{Hidden ? 'Show' : 'Hide'}}</a>
+    |
+    <a href="javascript:void(0)" (click)="clearGrid()">Clear</a>
+  </div>
+  <div class="profiler-button pending-requests">
+    {{pendingCount}} pending
+  </div>
+  <app-mini-profiler-ui-result class="profiler-result" 
+    *ngFor="let result of results;trackBy: Id"   
+    [hidden]="Hidden"
+    [ProfilerWidth]="ProfilerWidth"
+    [TopLevel]="result"
+    [Position]="Position"
+    [result]="result.Root" 
+    [rootCustomTiming]="result.CustomTimingStats"
+    (clicked)="childClicked($event)"
+    [active]="result.Root === selectedResult"
+    >
+    
+  </app-mini-profiler-ui-result>
+</div>

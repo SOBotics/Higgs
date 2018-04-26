@@ -1,0 +1,104 @@
+<div class="profiler-popup" 
+  [style.display]="active ? 'block' : 'none'"
+  [style.left]="Position === 'Left' ? ProfilerWidth + 'px' : null"
+  [style.right]="Position === 'Right' ? ProfilerWidth + 'px' : null"
+  >
+  <div class="profiler-info">
+    <span class="profiler-name">
+      {{result.Name}}
+      <span class="profiler-overall-duration">({{result.DurationMilliseconds | number: '1.1'}} ms)</span>
+    </span>
+    <span class="profiler-server-time">
+      {{TopLevel.MachineName}} on {{TopLevel.Started.toUTCString()}}
+    </span>
+  </div>
+  <div class="profiler-output">
+    <table class="profiler-timings">
+      <thead>
+        <tr>
+          <th></th>
+          <th title="in milliseconds">duration</th>
+          <th [class.profiler-show-more]="!showingMore" title="in milliseconds">own duration</th>
+          <th class="time-from-start" [class.profiler-show-more]="!showingMore" title="in milliseconds">from start</th>
+          <th *ngFor="let key of customTimingCategories" [title]="'in milliseconds (call count)'">
+            {{key}}
+          </th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let child of descendants" [class.profiler-trivial]="child.IsTrivial" [style.display]="(child.IsTrivial &amp;&amp; !showingTrivial) ? 'none' : 'table-row'">
+          <td class="profiler-label">
+            <span class="profiler-indent" [innerHTML]="renderIndent(child.Depth)"></span>
+            {{child.Name}}
+          </td>
+          <td class="profiler-duration" title="duration of this step and its children">
+            {{child.DurationMilliseconds | number : '1.1'}}
+          </td>
+          <td class="profiler-duration" [class.profiler-show-more]="!showingMore" title="duration of this step without any children's durations">
+            {{child.DurationWithoutChildrenMilliseconds | number : '1.1'}}
+          </td>
+          <td class="profiler-duration time-from-start" [class.profiler-show-more]="!showingMore" title="time elapsed since profiling started">
+            <span class="profiler-unit">+</span>
+            {{child.StartMilliseconds | number : '1.1'}}
+          </td>
+          <td *ngFor="let key of customTimingCategories" [title]="'in milliseconds (call count)'">
+            <a class="profiler-queries-show" *ngIf="child.CustomTimingStats" (click)="onCustomQueryClicked(child, $event)" href="javascript:void(0)">
+              {{ child.CustomTimingStats[key].Duration | number: '1.1' }} ({{child.CustomTimingStats[key].Count}})
+              <span class="profiler-nuclear" *ngIf="child.HasDuplicateCustomTimings[key]">!</span>
+            </a>
+            <div class="profiler-queries" [style.display]="child.customQueryVisible ? 'block' : 'none'" title="" (clickOutside)="onCustomQueryClickedOutside(child)">
+              <a href="javascript:void(0)" (click)="onCustomQueryClickedOutside(child)" class="closeButton">✖</a>
+              <div class="queryBox">
+                <table>
+                  <tbody>
+                    <tr *ngFor="let customTiming of child.CustomTimings[key]; let i = index" [class.profiler-odd]="i % 2 == 1">
+                      <td class="profiler-info">
+                        <div class="wrapText">{{result.Name}}</div>
+                        <div class="wrapText">{{child.Name}}</div>
+                        <div class="profiler-number">
+                          <span class="profiler-unit">T+</span>{{customTiming.StartMilliseconds | number: '1.1'}}
+                          <span class="profiler-unit">ms</span>
+                        </div>
+                        <div>
+                          {{key}}{{customTiming.ExecuteType &amp;&amp; key !== customTiming.ExecuteType ? ' - ' + customTiming.ExecuteType : ''}}
+                        </div>
+                        <div [title]="customTiming.FirstFetchDurationMilliseconds ? 'first result fetched: ' + customTiming.FirstFetchDurationMilliseconds + 'ms' : ''">
+                          {{customTiming.DurationMilliseconds | number: '1.1'}}
+                          <span class="profiler-unit">ms</span>
+                        </div>
+                        <td>
+                          <div class="query" style="padding: 5px">
+                            <span class="header">Stack</span>
+                            <pre class="profiler-stack-trace" style="margin-top: 10px">{{customTiming.StackTraceSnippet}}</pre>
+                            <span class="header">Query</span>
+                            <pre class="prettyprint" style="margin-top: 10px"><code>{{customTiming.CommandString}}</code></pre>
+                          </div>
+                        </td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+            </td>
+        </tr>
+      </tbody>
+    </table>
+    <div class="profiler-links">
+      <span class="profiler-toggleable-links">
+        <a class="profiler-toggle-hidden-columns" (click)="onShowMoreClicked()" href="javascript:void(0)">
+          {{showingMore ? 'fewer columns' : 'more columns'}}
+        </a>
+        <a *ngIf="numTrivial > 0" class="profiler-toggle-trivial" (click)="onShowTrivialClicked()" href="javascript:void(0)">
+          {{showingTrivial ? 'hide trivial' : 'show trivial'}} ({{numTrivial}})
+        </a>
+      </span>
+    </div>
+  </div>
+</div>
+
+<div class="profiler-button noselect" style="display: block" (click)="onClick()" [class.profiler-button-active]="active">
+  <span class="profiler-number">
+    {{result.DurationMilliseconds | number : '1.1'}}
+    <span class="profiler-unit">ms</span>
+  </span>
+</div>

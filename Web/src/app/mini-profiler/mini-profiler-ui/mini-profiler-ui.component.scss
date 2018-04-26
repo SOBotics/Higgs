@@ -1,0 +1,62 @@
+.profiler-toggle {
+    animation: none;
+    display: block;
+    text-align: left;
+  }
+    
+  .profiler-results {
+    z-index: 2147483643;
+    position: fixed;
+    top: 0px;
+  }
+  
+  .profiler-left {
+    border-right: 1px solid #888888;
+    left: 0px;
+  }
+  .profiler-right {
+    border-left: 1px solid #888888;
+    right: 0px;
+  }
+  
+  .profiler-button.profiler-toggle {
+    cursor: default;  
+    border-bottom: none;
+  }
+  
+  .pending-requests {
+    cursor: default;
+    text-align: center
+  }
+  
+  .profiler-toggle {
+    text-align: center;
+  }
+  
+  .profiler-toggle > a {
+    color: rgb(51, 122, 183);
+    text-decoration: none;
+    font-weight: normal;
+  }
+  
+  /deep/ .profiler-results {
+    font-family: "Open Sans";
+    font-size: 10px;
+  }
+  
+  /deep/ .profiler-button {
+    z-index: 2147483640;
+    border-bottom: 1px solid #888888;
+    background-color: #fff;
+    color: #000000;
+    animation: new-entry 5s 1;
+    padding: 4px 7px;
+    text-align: right;
+    cursor: pointer;
+    font-weight: normal;
+  }
+  
+  /deep/ .profiler-button-active {
+    background-color: maroon;
+    color: #ffffff;
+  }
