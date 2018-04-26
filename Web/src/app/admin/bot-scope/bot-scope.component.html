@@ -1,6 +1,0 @@
-<div *ngFor="let scope of scopes">
-  <input type="checkbox" [checked]="scope.Assigned" [attr.name]="scope.Name" [(ngModel)]="scope.Assigned">
-  <label [attr.for]="scope.Name">{{scope.Name}}</label>
-</div>
-
-<button type="submit" class="btn btn-success" (click)="updateScopes()">Submit</button>

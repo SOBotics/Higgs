@@ -99,14 +99,12 @@ All URIs are relative to *https://localhost*
 Class | Method | HTTP request | Description
 ------------ | ------------- | ------------- | -------------
 *AdminApi* | [**AdminBotGet**](docs/AdminApi.md#adminbotget) | **GET** /Admin/Bot | 
-*AdminApi* | [**AdminBotScopesGet**](docs/AdminApi.md#adminbotscopesget) | **GET** /Admin/BotScopes | 
 *AdminApi* | [**AdminBotsGet**](docs/AdminApi.md#adminbotsget) | **GET** /Admin/Bots | Lists all bots
 *AdminApi* | [**AdminDeactiveateBotPost**](docs/AdminApi.md#admindeactiveatebotpost) | **POST** /Admin/DeactiveateBot | Deactivates a bot
 *AdminApi* | [**AdminEditBotFeedbackTypesPost**](docs/AdminApi.md#admineditbotfeedbacktypespost) | **POST** /Admin/EditBotFeedbackTypes | 
 *AdminApi* | [**AdminEditBotPost**](docs/AdminApi.md#admineditbotpost) | **POST** /Admin/EditBot | Update a bots details
 *AdminApi* | [**AdminRegisterBotPost**](docs/AdminApi.md#adminregisterbotpost) | **POST** /Admin/RegisterBot | Register a bot
 *AdminApi* | [**AdminScopesGet**](docs/AdminApi.md#adminscopesget) | **GET** /Admin/Scopes | 
-*AdminApi* | [**AdminSetBotScopesPost**](docs/AdminApi.md#adminsetbotscopespost) | **POST** /Admin/SetBotScopes | Set bot scopes
 *AdminApi* | [**AdminUserGet**](docs/AdminApi.md#adminuserget) | **GET** /Admin/User | Lists all users
 *AdminApi* | [**AdminUserPost**](docs/AdminApi.md#adminuserpost) | **POST** /Admin/User | Lists all users
 *AdminApi* | [**AdminUsersGet**](docs/AdminApi.md#adminusersget) | **GET** /Admin/Users | Lists all users
@@ -152,7 +150,6 @@ Class | Method | HTTP request | Description
  - [Model.ReviewerReportReasonResponse](docs/ReviewerReportReasonResponse.md)
  - [Model.ReviewerReportResponse](docs/ReviewerReportResponse.md)
  - [Model.ReviewerReportsResponse](docs/ReviewerReportsResponse.md)
- - [Model.SetBotScopesRequest](docs/SetBotScopesRequest.md)
  - [Model.UpdateUserRequest](docs/UpdateUserRequest.md)
  - [Model.UsersResponse](docs/UsersResponse.md)
  - [Model.ViewBotFeedbackTypesResponse](docs/ViewBotFeedbackTypesResponse.md)

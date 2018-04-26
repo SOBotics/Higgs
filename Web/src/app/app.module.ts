@@ -22,8 +22,6 @@ import { AdminHomeComponent } from './admin/admin-home/admin-home.component';
 import { ReportsComponent } from './reports/reports.component';
 import { MetaDataService } from './services/meta-data.service';
 import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
-import { BotScopesComponent } from './admin/bot-scopes/bot-scopes.component';
-import { BotScopeComponent } from './admin//bot-scope/bot-scope.component';
 import { BotFeedbackTypesComponent } from './admin/bot-feedback-types/bot-feedback-types.component';
 import { MiniProfilerUiResultComponent } from './mini-profiler/mini-profiler-ui-result/mini-profiler-ui-result.component';
 import { MiniProfilerUiComponent } from './mini-profiler/mini-profiler-ui/mini-profiler-ui.component';
@@ -44,8 +42,6 @@ import { UserComponent } from './admin/user/user.component';
     AdminHomeComponent,
     ReportsComponent,
     PageNotFoundComponent,
-    BotScopesComponent,
-    BotScopeComponent,
     BotFeedbackTypesComponent,
     MiniProfilerUiComponent,
     MiniProfilerUiResultComponent,

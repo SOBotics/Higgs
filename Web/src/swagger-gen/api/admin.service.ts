@@ -25,7 +25,6 @@ import { DeleteBotRequest } from '../model/deleteBotRequest';
 import { EditBotFeedbackTypesRequest } from '../model/editBotFeedbackTypesRequest';
 import { EditCreateBotRequest } from '../model/editCreateBotRequest';
 import { ErrorResponse } from '../model/errorResponse';
-import { SetBotScopesRequest } from '../model/setBotScopesRequest';
 import { UpdateUserRequest } from '../model/updateUserRequest';
 import { UsersResponse } from '../model/usersResponse';
 import { ViewBotFeedbackTypesResponse } from '../model/viewBotFeedbackTypesResponse';
@@ -112,62 +111,6 @@ export class AdminService {
         ];
 
         return this.httpClient.get<BotResponse>(`${this.basePath}/Admin/Bot`,
-            {
-                params: queryParameters,
-                withCredentials: this.configuration.withCredentials,
-                headers: headers,
-                observe: observe,
-                reportProgress: reportProgress
-            }
-        );
-    }
-
-    /**
-     * 
-     * 
-     * @param botId 
-     * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
-     * @param reportProgress flag to report request and response progress.
-     */
-    public adminBotScopesGet(botId: number, observe?: 'body', reportProgress?: boolean): Observable<Array<string>>;
-    public adminBotScopesGet(botId: number, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<Array<string>>>;
-    public adminBotScopesGet(botId: number, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<Array<string>>>;
-    public adminBotScopesGet(botId: number, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
-        if (botId === null || botId === undefined) {
-            throw new Error('Required parameter botId was null or undefined when calling adminBotScopesGet.');
-        }
-
-        let queryParameters = new HttpParams({encoder: new CustomHttpUrlEncodingCodec()});
-        if (botId !== undefined) {
-            queryParameters = queryParameters.set('botId', <any>botId);
-        }
-
-        let headers = this.defaultHeaders;
-
-        // authentication (oauth2) required
-        if (this.configuration.accessToken) {
-            let accessToken = typeof this.configuration.accessToken === 'function'
-                ? this.configuration.accessToken()
-                : this.configuration.accessToken;
-            headers = headers.set('Authorization', 'Bearer ' + accessToken);
-        }
-
-        // to determine the Accept header
-        let httpHeaderAccepts: string[] = [
-            'text/plain',
-            'application/json',
-            'text/json'
-        ];
-        let httpHeaderAcceptSelected: string | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
-        if (httpHeaderAcceptSelected != undefined) {
-            headers = headers.set("Accept", httpHeaderAcceptSelected);
-        }
-
-        // to determine the Content-Type header
-        let consumes: string[] = [
-        ];
-
-        return this.httpClient.get<Array<string>>(`${this.basePath}/Admin/BotScopes`,
             {
                 params: queryParameters,
                 withCredentials: this.configuration.withCredentials,
@@ -485,62 +428,6 @@ export class AdminService {
         ];
 
         return this.httpClient.get<Array<string>>(`${this.basePath}/Admin/Scopes`,
-            {
-                withCredentials: this.configuration.withCredentials,
-                headers: headers,
-                observe: observe,
-                reportProgress: reportProgress
-            }
-        );
-    }
-
-    /**
-     * Set bot scopes
-     * 
-     * @param request 
-     * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
-     * @param reportProgress flag to report request and response progress.
-     */
-    public adminSetBotScopesPost(request?: SetBotScopesRequest, observe?: 'body', reportProgress?: boolean): Observable<any>;
-    public adminSetBotScopesPost(request?: SetBotScopesRequest, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<any>>;
-    public adminSetBotScopesPost(request?: SetBotScopesRequest, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<any>>;
-    public adminSetBotScopesPost(request?: SetBotScopesRequest, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
-
-        let headers = this.defaultHeaders;
-
-        // authentication (oauth2) required
-        if (this.configuration.accessToken) {
-            let accessToken = typeof this.configuration.accessToken === 'function'
-                ? this.configuration.accessToken()
-                : this.configuration.accessToken;
-            headers = headers.set('Authorization', 'Bearer ' + accessToken);
-        }
-
-        // to determine the Accept header
-        let httpHeaderAccepts: string[] = [
-            'text/plain',
-            'application/json',
-            'text/json'
-        ];
-        let httpHeaderAcceptSelected: string | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
-        if (httpHeaderAcceptSelected != undefined) {
-            headers = headers.set("Accept", httpHeaderAcceptSelected);
-        }
-
-        // to determine the Content-Type header
-        let consumes: string[] = [
-            'application/json-patch+json',
-            'application/json',
-            'text/json',
-            'application/_*+json'
-        ];
-        let httpContentTypeSelected:string | undefined = this.configuration.selectHeaderContentType(consumes);
-        if (httpContentTypeSelected != undefined) {
-            headers = headers.set("Content-Type", httpContentTypeSelected);
-        }
-
-        return this.httpClient.post<any>(`${this.basePath}/Admin/SetBotScopes`,
-            request,
             {
                 withCredentials: this.configuration.withCredentials,
                 headers: headers,

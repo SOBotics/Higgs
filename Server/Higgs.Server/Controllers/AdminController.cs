@@ -5,13 +5,11 @@ using System.Net;
 using Higgs.Server.Data;
 using Higgs.Server.Data.Models;
 using Higgs.Server.Models.Requests.Admin;
-using Higgs.Server.Models.Requests.Bot;
 using Higgs.Server.Models.Responses;
 using Higgs.Server.Models.Responses.Admin;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using StackExchange.Profiling;
 using Swashbuckle.AspNetCore.SwaggerGen;
 
 namespace Higgs.Server.Controllers
@@ -74,6 +72,12 @@ namespace Higgs.Server.Controllers
                 TabTitle = request.TabTitle
             };
             _dbContext.Bots.Add(bot);
+            _dbContext.BotScopes.Add(new DbBotScope
+            {
+                Bot = bot,
+                ScopeName = Scopes.SCOPE_BOT
+            });
+
             _dbContext.SaveChanges();
             return Json(bot.Id);
         }
@@ -103,17 +107,6 @@ namespace Higgs.Server.Controllers
         {
             return Scopes.AllScopes.Select(s => s.Key).ToList();
         }
-
-        [HttpGet("BotScopes")]
-        [Authorize(Scopes.SCOPE_ADMIN)]
-        public List<string> BotScopes(int botId)
-        {
-            var botScopes = _dbContext.Bots.Where(b => b.Id == botId)
-                .SelectMany(b => b.BotScopes.Select(bs => bs.ScopeName))
-                .ToList();
-
-            return botScopes;
-        }
        
         /// <summary>
         ///     Update a bots details
@@ -124,7 +117,7 @@ namespace Higgs.Server.Controllers
         [SwaggerResponse((int) HttpStatusCode.BadRequest, typeof(ErrorResponse), Description = "Bot not found")]
         public IActionResult EditBot([FromBody] EditCreateBotRequest request)
         {
-            var existingBot = _dbContext.Bots.FirstOrDefault(b => b.Id == request.BotId);
+            var existingBot = _dbContext.Bots.Include(b => b.BotScopes).FirstOrDefault(b => b.Id == request.BotId);
             if (existingBot == null)
                 return BadRequest(new ErrorResponse($"Bot with id {request.BotId} not found."));
 
@@ -237,39 +230,6 @@ namespace Higgs.Server.Controllers
             return Ok();
         }
 
-        /// <summary>
-        ///     Set bot scopes
-        /// </summary>
-        [HttpPost("SetBotScopes")]
-        [Authorize(Scopes.SCOPE_BOT_OWNER)]
-        [SwaggerResponse((int) HttpStatusCode.OK, Description = "Successfully updated bots scopes")]
-        [SwaggerResponse((int) HttpStatusCode.BadRequest, typeof(ErrorResponse))]
-        public IActionResult SetBotScopes([FromBody] SetBotScopesRequest request)
-        {
-            var bot = _dbContext.Bots.FirstOrDefault(b => b.Id == request.BotId);
-            if (bot == null)
-                return BadRequest(new ErrorResponse("Bot does not exist with that id"));
-
-            var requestScopesLookup = new HashSet<string>(request.Scopes);
-            var existingBotScopes = _dbContext.BotScopes.Where(bs => bs.BotId == request.BotId).ToList();
-            var existingScopesLookup = existingBotScopes.ToDictionary(s => s.ScopeName, s => s);
-
-            foreach (var existingBotScope in existingBotScopes)
-            {
-                if (!requestScopesLookup.Contains(existingBotScope.ScopeName))
-                    _dbContext.BotScopes.Remove(existingBotScope);
-            }
-
-            foreach (var newBotScope in request.Scopes)
-            {
-                if (!existingScopesLookup.ContainsKey(newBotScope))
-                    _dbContext.BotScopes.Add(new DbBotScope {BotId = request.BotId, ScopeName = newBotScope});
-            }
-
-            _dbContext.SaveChanges();
-            return Ok();
-        }
-        
         /// <summary>
         ///     Lists all users
         /// </summary>
