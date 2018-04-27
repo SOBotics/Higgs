@@ -13,7 +13,7 @@
     {{pendingCount}} pending
   </div>
   <app-mini-profiler-ui-result class="profiler-result" 
-    *ngFor="let result of results;trackBy: Id"   
+    *ngFor="let result of results;trackBy: result.Id"   
     [hidden]="Hidden"
     [ProfilerWidth]="ProfilerWidth"
     [TopLevel]="result"
