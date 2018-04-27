@@ -15,9 +15,10 @@ const MiniProfilerEndPoint = 'mini-profiler-resources/results';
 export class MiniProfilerUiComponent implements OnInit {
     private originalSend: (data?: Document) => void;
     private fetchedIds: string[] = [];
-    private results: ProfileResult[] = [];
-    private pendingCount = 0;
+    public results: ProfileResult[] = [];
     private selectedResult;
+
+    public pendingCount = 0;
 
     @Input()
     public Hidden = false;
@@ -43,7 +44,7 @@ export class MiniProfilerUiComponent implements OnInit {
         }
     }
 
-    private toggleGridVisible() {
+    public toggleGridVisible() {
         this.Hidden = !this.Hidden;
     }
 
@@ -51,7 +52,7 @@ export class MiniProfilerUiComponent implements OnInit {
         this.results = [];
     }
 
-    private onClickedOutside(event) {
+    public onClickedOutside(event) {
         this.selectedResult = null;
     }
 
