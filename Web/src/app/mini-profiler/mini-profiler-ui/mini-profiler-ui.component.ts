@@ -56,6 +56,10 @@ export class MiniProfilerUiComponent implements OnInit {
         this.selectedResult = null;
     }
 
+    public identify (index, item) {
+        return item.Id;
+    }
+
     private GetResults(ids: string[], miniProfilerUrl: string) {
         for (let i = 0; i < ids.length; i++) {
             const id = ids[i];
