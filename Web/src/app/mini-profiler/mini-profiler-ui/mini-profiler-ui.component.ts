@@ -47,7 +47,7 @@ export class MiniProfilerUiComponent implements OnInit {
         this.Hidden = !this.Hidden;
     }
 
-    private clearGrid() {
+    public clearGrid() {
         this.results = [];
     }
 

@@ -23,13 +23,13 @@ export class MiniProfilerUiResultComponent implements OnInit {
 
   @Output() clicked: EventEmitter<any> = new EventEmitter<any>();
 
-  private showingMore: boolean;
+  public showingMore: boolean;
+  public customTimingCategories: string[] = [];
+  public descendants;
+  public numTrivial: number;
+
   private showingTrivial: boolean;
-  private numTrivial: number;
-
-  private customTimingCategories: string[] = [];
-  private descendants;
-
+  
   constructor() {
   }
 
