@@ -19,6 +19,10 @@ namespace Higgs.Server.Data.Models
         public string FavIcon { get; set; }
         public string TabTitle { get; set; }
 
+        [ForeignKey("OwnerAccount")]
+        public int OwnerAccountId { get; set; }
+        public DbUser OwnerAccount { get; set; }
+
         [InverseProperty("Bot")]
         public List<DbBotScope> BotScopes { get; set; }
 

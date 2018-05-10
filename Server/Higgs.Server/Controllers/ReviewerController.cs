@@ -8,6 +8,7 @@ using Higgs.Server.Data.Models;
 using Higgs.Server.Models.Responses;
 using Higgs.Server.Models.Responses.Bot;
 using Higgs.Server.Models.Responses.Reviewer;
+using Higgs.Server.Utilities;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Swashbuckle.AspNetCore.SwaggerGen;
@@ -182,7 +183,7 @@ namespace Higgs.Server.Controllers
         {
             var allowedFeedbacks = _dbContext.ReportAllowedFeedbacks.Where(r => r.ReportId == reportId && r.Feedback.IsEnabled).Select(f => f.FeedbackId).ToList();
 
-            var userIdStr = User.Claims.Where(c => c.Type == AuthenticationController.ACCOUNT_ID_CLAIM).Select(c => c.Value).FirstOrDefault();
+            var userIdStr = User.Claims.Where(c => c.Type == SecurityUtils.ACCOUNT_ID_CLAIM).Select(c => c.Value).FirstOrDefault();
             if (!string.IsNullOrWhiteSpace(userIdStr) && int.TryParse(userIdStr, out var userId))
             {
                 if (allowedFeedbacks.Contains(id))

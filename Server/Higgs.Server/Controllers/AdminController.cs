@@ -7,6 +7,7 @@ using Higgs.Server.Data.Models;
 using Higgs.Server.Models.Requests.Admin;
 using Higgs.Server.Models.Responses;
 using Higgs.Server.Models.Responses.Admin;
+using Higgs.Server.Utilities;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -28,11 +29,24 @@ namespace Higgs.Server.Controllers
         ///     Lists all bots
         /// </summary>
         [HttpGet("Bots")]
-        [Authorize(Scopes.SCOPE_BOT_OWNER)]
+        [Authorize]
         [SwaggerResponse((int) HttpStatusCode.OK, typeof(List<BotsResponse>), Description = "View bot details")]
         public List<BotsResponse> Bots()
         {
-            return _dbContext.Bots.Select(b => new BotsResponse
+            if (!User.HasClaim(Scopes.SCOPE_BOT_OWNER) && !User.HasClaim(Scopes.SCOPE_ADMIN))
+                throw new HttpStatusException(HttpStatusCode.Unauthorized);
+
+            IQueryable<DbBot> bots = _dbContext.Bots;
+            if (!User.HasClaim(Scopes.SCOPE_ADMIN))
+            {
+                var userId = User.GetUserId();
+                if (!userId.HasValue)
+                    throw new HttpStatusException(HttpStatusCode.Unauthorized);
+
+                bots = bots.Where(b => b.OwnerAccountId == userId);
+            }
+                
+            return bots.Select(b => new BotsResponse
             {
                 BotId = b.Id,
                 Description = b.Description,
@@ -56,9 +70,11 @@ namespace Higgs.Server.Controllers
                 return BadRequest(new ErrorResponse("Description is required"));
             if (string.IsNullOrWhiteSpace(request.Secret))
                 return BadRequest(new ErrorResponse("Secret is required"));
-
             if (_dbContext.Bots.Any(b => b.Name == request.Name))
                 return BadRequest(new ErrorResponse($"Bot with name '{request.Name}' already exists"));
+            var userId = User.GetUserId();
+            if (!userId.HasValue)
+                throw new HttpStatusException(HttpStatusCode.Unauthorized);
             
             var bot = new DbBot
             {
@@ -69,8 +85,13 @@ namespace Higgs.Server.Controllers
                 FavIcon = request.FavIcon,
                 Homepage = request.Homepage,
                 LogoUrl = request.LogoUrl,
-                TabTitle = request.TabTitle
+                TabTitle = request.TabTitle,
+                OwnerAccountId = userId.Value
             };
+
+            if (request.OwnerAccountId.HasValue && User.HasClaim(Scopes.SCOPE_ADMIN))
+                bot.OwnerAccountId = request.OwnerAccountId.Value;
+
             _dbContext.Bots.Add(bot);
             _dbContext.BotScopes.Add(new DbBotScope
             {
@@ -83,10 +104,12 @@ namespace Higgs.Server.Controllers
         }
         
         [HttpGet("Bot")]
-        [Authorize(Scopes.SCOPE_BOT_OWNER)]
         public BotResponse Bot(int botId)
         {
-            return _dbContext.Bots.Where(b => b.Id == botId)
+            if (!User.HasClaim(Scopes.SCOPE_BOT_OWNER) && !User.HasClaim(Scopes.SCOPE_ADMIN))
+                throw new HttpStatusException(HttpStatusCode.Unauthorized);
+
+            var bot = _dbContext.Bots.Where(b => b.Id == botId)
                 .Select(b => new BotResponse
                 {
                     Id = b.Id,
@@ -96,8 +119,16 @@ namespace Higgs.Server.Controllers
                     Homepage = b.Homepage,
                     LogoUrl = b.LogoUrl,
                     FavIcon = b.FavIcon,
-                    TabTitle = b.TabTitle
+                    TabTitle = b.TabTitle,
+                    OwnerAccountId = b.OwnerAccountId
                 }).FirstOrDefault();
+
+            if (bot == null)
+                throw new HttpStatusException(HttpStatusCode.BadRequest, "Bot not found");
+            if (User.HasClaim(Scopes.SCOPE_ADMIN) || bot.OwnerAccountId == User.GetUserId())
+                return bot;
+            
+            throw new HttpStatusException(HttpStatusCode.Unauthorized);
         }
 
         [HttpGet("Scopes")]
@@ -112,14 +143,19 @@ namespace Higgs.Server.Controllers
         ///     Update a bots details
         /// </summary>
         [HttpPost("EditBot")]
-        [Authorize(Scopes.SCOPE_BOT_OWNER)]
         [SwaggerResponse((int) HttpStatusCode.OK, Description = "Successfully edited bot")]
         [SwaggerResponse((int) HttpStatusCode.BadRequest, typeof(ErrorResponse), Description = "Bot not found")]
         public IActionResult EditBot([FromBody] EditCreateBotRequest request)
         {
+            if (!User.HasClaim(Scopes.SCOPE_BOT_OWNER) && !User.HasClaim(Scopes.SCOPE_ADMIN))
+                throw new HttpStatusException(HttpStatusCode.Unauthorized);
+
             var existingBot = _dbContext.Bots.Include(b => b.BotScopes).FirstOrDefault(b => b.Id == request.BotId);
             if (existingBot == null)
                 return BadRequest(new ErrorResponse($"Bot with id {request.BotId} not found."));
+
+            if (!User.HasClaim(Scopes.SCOPE_ADMIN) && existingBot.OwnerAccountId != User.GetUserId())
+                throw new HttpStatusException(HttpStatusCode.Unauthorized);
 
             existingBot.Name = request.Name;
             existingBot.DashboardName = request.DashboardName;
@@ -128,7 +164,10 @@ namespace Higgs.Server.Controllers
             // Deliberately not using IsNullOrWhitespace here, as an admin may want to revoke credentials from the bot entirely
             if (!string.IsNullOrEmpty(request.Secret))
                 existingBot.Secret = BCrypt.Net.BCrypt.HashPassword(request.Secret);
-
+            
+            if (request.OwnerAccountId.HasValue && User.HasClaim(Scopes.SCOPE_ADMIN))
+                existingBot.OwnerAccountId = request.OwnerAccountId.Value;
+            
             existingBot.FavIcon = request.FavIcon;
             existingBot.Homepage = request.Homepage;
             existingBot.LogoUrl = request.LogoUrl;

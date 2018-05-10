@@ -25,8 +25,6 @@ namespace Higgs.Server.Controllers
         private readonly string _oauthRedirect;
         private readonly IConfiguration _configuration;
         private readonly HiggsDbContext _dbContext;
-        public const string ACCOUNT_ID_CLAIM = "accountId";
-
         public AuthenticationController(IConfiguration configuration, HiggsDbContext dbContext)
         {
             _configuration = configuration;
@@ -64,7 +62,7 @@ namespace Higgs.Server.Controllers
                     var claims = new[]
                     {
                         new Claim(ClaimTypes.Name, user.Name),
-                        new Claim(ACCOUNT_ID_CLAIM, user.AccountId.ToString())
+                        new Claim(SecurityUtils.ACCOUNT_ID_CLAIM, user.AccountId.ToString())
                     }.Concat(userScopes.Select(c => new Claim(c, string.Empty)));
 
                     var signingKey = Convert.FromBase64String(_configuration["JwtSigningKey"]);
@@ -144,7 +142,7 @@ namespace Higgs.Server.Controllers
             var claims = new[]
             {
                 new Claim(ClaimTypes.Name, displayName),
-                new Claim(ACCOUNT_ID_CLAIM, accountId.ToString())
+                new Claim(SecurityUtils.ACCOUNT_ID_CLAIM, accountId.ToString())
             }.Concat(userScopes.Intersect(requestedScopes).Select(c => new Claim(c, string.Empty)));
 
             var token = CreateJwtToken(claims, signingKey);
