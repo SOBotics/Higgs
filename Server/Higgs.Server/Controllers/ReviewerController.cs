@@ -37,7 +37,6 @@ namespace Higgs.Server.Controllers
         public List<ReviewerReportsResponse> Reports()
         {
             // We're writing two queries, otherwise EFCore hits the N+1 problem
-
             var reports = _dbContext.Reports
                 .Select(r => new
                 {
@@ -60,7 +59,7 @@ namespace Higgs.Server.Controllers
                     UserName = feedback.User.Name
                 }).GroupBy(r => r.ReportId)
                 .ToDictionary(r => r.Key, r => r.ToList());
-
+            
             var result =
                 reports
                     .Select(r => new ReviewerReportsResponse
