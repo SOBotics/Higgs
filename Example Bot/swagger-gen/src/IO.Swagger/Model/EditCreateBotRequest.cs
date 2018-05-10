@@ -39,6 +39,7 @@ namespace IO.Swagger.Model
         /// Initializes a new instance of the <see cref="EditCreateBotRequest" /> class.
         /// </summary>
         /// <param name="BotId">BotId (required).</param>
+        /// <param name="OwnerAccountId">OwnerAccountId.</param>
         /// <param name="Secret">Secret.</param>
         /// <param name="Name">Name of the bot (required).</param>
         /// <param name="DashboardName">Name of the dashboard (required).</param>
@@ -47,7 +48,7 @@ namespace IO.Swagger.Model
         /// <param name="LogoUrl">LogoUrl.</param>
         /// <param name="FavIcon">FavIcon.</param>
         /// <param name="TabTitle">TabTitle.</param>
-        public EditCreateBotRequest(int? BotId = default(int?), string Secret = default(string), string Name = default(string), string DashboardName = default(string), string Description = default(string), string Homepage = default(string), string LogoUrl = default(string), string FavIcon = default(string), string TabTitle = default(string))
+        public EditCreateBotRequest(int? BotId = default(int?), int? OwnerAccountId = default(int?), string Secret = default(string), string Name = default(string), string DashboardName = default(string), string Description = default(string), string Homepage = default(string), string LogoUrl = default(string), string FavIcon = default(string), string TabTitle = default(string))
         {
             // to ensure "BotId" is required (not null)
             if (BotId == null)
@@ -85,6 +86,7 @@ namespace IO.Swagger.Model
             {
                 this.Description = Description;
             }
+            this.OwnerAccountId = OwnerAccountId;
             this.Secret = Secret;
             this.Homepage = Homepage;
             this.LogoUrl = LogoUrl;
@@ -97,6 +99,12 @@ namespace IO.Swagger.Model
         /// </summary>
         [DataMember(Name="botId", EmitDefaultValue=false)]
         public int? BotId { get; set; }
+
+        /// <summary>
+        /// Gets or Sets OwnerAccountId
+        /// </summary>
+        [DataMember(Name="ownerAccountId", EmitDefaultValue=false)]
+        public int? OwnerAccountId { get; set; }
 
         /// <summary>
         /// Gets or Sets Secret
@@ -158,6 +166,7 @@ namespace IO.Swagger.Model
             var sb = new StringBuilder();
             sb.Append("class EditCreateBotRequest {\n");
             sb.Append("  BotId: ").Append(BotId).Append("\n");
+            sb.Append("  OwnerAccountId: ").Append(OwnerAccountId).Append("\n");
             sb.Append("  Secret: ").Append(Secret).Append("\n");
             sb.Append("  Name: ").Append(Name).Append("\n");
             sb.Append("  DashboardName: ").Append(DashboardName).Append("\n");
@@ -204,6 +213,11 @@ namespace IO.Swagger.Model
                     this.BotId == input.BotId ||
                     (this.BotId != null &&
                     this.BotId.Equals(input.BotId))
+                ) && 
+                (
+                    this.OwnerAccountId == input.OwnerAccountId ||
+                    (this.OwnerAccountId != null &&
+                    this.OwnerAccountId.Equals(input.OwnerAccountId))
                 ) && 
                 (
                     this.Secret == input.Secret ||
@@ -258,6 +272,8 @@ namespace IO.Swagger.Model
                 int hashCode = 41;
                 if (this.BotId != null)
                     hashCode = hashCode * 59 + this.BotId.GetHashCode();
+                if (this.OwnerAccountId != null)
+                    hashCode = hashCode * 59 + this.OwnerAccountId.GetHashCode();
                 if (this.Secret != null)
                     hashCode = hashCode * 59 + this.Secret.GetHashCode();
                 if (this.Name != null)

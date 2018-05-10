@@ -40,13 +40,14 @@ namespace IO.Swagger.Model
         /// </summary>
         /// <param name="Secret">Secret (required).</param>
         /// <param name="Name">Name of the bot (required).</param>
+        /// <param name="OwnerAccountId">OwnerAccountId.</param>
         /// <param name="DashboardName">Name of the dashboard (required).</param>
         /// <param name="Description">Description of the bot (required).</param>
         /// <param name="Homepage">Homepage.</param>
         /// <param name="LogoUrl">LogoUrl.</param>
         /// <param name="FavIcon">FavIcon.</param>
         /// <param name="TabTitle">TabTitle.</param>
-        public CreateBotRequest(string Secret = default(string), string Name = default(string), string DashboardName = default(string), string Description = default(string), string Homepage = default(string), string LogoUrl = default(string), string FavIcon = default(string), string TabTitle = default(string))
+        public CreateBotRequest(string Secret = default(string), string Name = default(string), int? OwnerAccountId = default(int?), string DashboardName = default(string), string Description = default(string), string Homepage = default(string), string LogoUrl = default(string), string FavIcon = default(string), string TabTitle = default(string))
         {
             // to ensure "Secret" is required (not null)
             if (Secret == null)
@@ -84,6 +85,7 @@ namespace IO.Swagger.Model
             {
                 this.Description = Description;
             }
+            this.OwnerAccountId = OwnerAccountId;
             this.Homepage = Homepage;
             this.LogoUrl = LogoUrl;
             this.FavIcon = FavIcon;
@@ -102,6 +104,12 @@ namespace IO.Swagger.Model
         /// <value>Name of the bot</value>
         [DataMember(Name="name", EmitDefaultValue=false)]
         public string Name { get; set; }
+
+        /// <summary>
+        /// Gets or Sets OwnerAccountId
+        /// </summary>
+        [DataMember(Name="ownerAccountId", EmitDefaultValue=false)]
+        public int? OwnerAccountId { get; set; }
 
         /// <summary>
         /// Name of the dashboard
@@ -151,6 +159,7 @@ namespace IO.Swagger.Model
             sb.Append("class CreateBotRequest {\n");
             sb.Append("  Secret: ").Append(Secret).Append("\n");
             sb.Append("  Name: ").Append(Name).Append("\n");
+            sb.Append("  OwnerAccountId: ").Append(OwnerAccountId).Append("\n");
             sb.Append("  DashboardName: ").Append(DashboardName).Append("\n");
             sb.Append("  Description: ").Append(Description).Append("\n");
             sb.Append("  Homepage: ").Append(Homepage).Append("\n");
@@ -202,6 +211,11 @@ namespace IO.Swagger.Model
                     this.Name.Equals(input.Name))
                 ) && 
                 (
+                    this.OwnerAccountId == input.OwnerAccountId ||
+                    (this.OwnerAccountId != null &&
+                    this.OwnerAccountId.Equals(input.OwnerAccountId))
+                ) && 
+                (
                     this.DashboardName == input.DashboardName ||
                     (this.DashboardName != null &&
                     this.DashboardName.Equals(input.DashboardName))
@@ -246,6 +260,8 @@ namespace IO.Swagger.Model
                     hashCode = hashCode * 59 + this.Secret.GetHashCode();
                 if (this.Name != null)
                     hashCode = hashCode * 59 + this.Name.GetHashCode();
+                if (this.OwnerAccountId != null)
+                    hashCode = hashCode * 59 + this.OwnerAccountId.GetHashCode();
                 if (this.DashboardName != null)
                     hashCode = hashCode * 59 + this.DashboardName.GetHashCode();
                 if (this.Description != null)

@@ -13,6 +13,7 @@
 
 export interface EditCreateBotRequest {
     botId: number;
+    ownerAccountId?: number;
     secret?: string;
     /**
      * Name of the bot

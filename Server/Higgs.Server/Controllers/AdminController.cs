@@ -316,6 +316,8 @@ namespace Higgs.Server.Controllers
             if (user == null)
                 return BadRequest(new ErrorResponse("User not found"));
 
+            user.Name = request.Name;
+
             var userScopes = user.UserScopes.ToDictionary(us => us.ScopeName, us => us, StringComparer.OrdinalIgnoreCase);
             var requestScopes = request.Scopes.ToHashSet();
             foreach (var userScope in userScopes)

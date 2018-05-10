@@ -36,11 +36,15 @@ namespace IO.Swagger.Model
         /// <param name="Id">Id.</param>
         /// <param name="Title">Title.</param>
         /// <param name="DashboardName">DashboardName.</param>
-        public ReviewerReportsResponse(int? Id = default(int?), string Title = default(string), string DashboardName = default(string))
+        /// <param name="DetectionScore">DetectionScore.</param>
+        /// <param name="Feedback">Feedback.</param>
+        public ReviewerReportsResponse(int? Id = default(int?), string Title = default(string), string DashboardName = default(string), double? DetectionScore = default(double?), List<ReviewerReportFeedbackResponse> Feedback = default(List<ReviewerReportFeedbackResponse>))
         {
             this.Id = Id;
             this.Title = Title;
             this.DashboardName = DashboardName;
+            this.DetectionScore = DetectionScore;
+            this.Feedback = Feedback;
         }
         
         /// <summary>
@@ -62,6 +66,18 @@ namespace IO.Swagger.Model
         public string DashboardName { get; set; }
 
         /// <summary>
+        /// Gets or Sets DetectionScore
+        /// </summary>
+        [DataMember(Name="detectionScore", EmitDefaultValue=false)]
+        public double? DetectionScore { get; set; }
+
+        /// <summary>
+        /// Gets or Sets Feedback
+        /// </summary>
+        [DataMember(Name="feedback", EmitDefaultValue=false)]
+        public List<ReviewerReportFeedbackResponse> Feedback { get; set; }
+
+        /// <summary>
         /// Returns the string presentation of the object
         /// </summary>
         /// <returns>String presentation of the object</returns>
@@ -72,6 +88,8 @@ namespace IO.Swagger.Model
             sb.Append("  Id: ").Append(Id).Append("\n");
             sb.Append("  Title: ").Append(Title).Append("\n");
             sb.Append("  DashboardName: ").Append(DashboardName).Append("\n");
+            sb.Append("  DetectionScore: ").Append(DetectionScore).Append("\n");
+            sb.Append("  Feedback: ").Append(Feedback).Append("\n");
             sb.Append("}\n");
             return sb.ToString();
         }
@@ -120,6 +138,16 @@ namespace IO.Swagger.Model
                     this.DashboardName == input.DashboardName ||
                     (this.DashboardName != null &&
                     this.DashboardName.Equals(input.DashboardName))
+                ) && 
+                (
+                    this.DetectionScore == input.DetectionScore ||
+                    (this.DetectionScore != null &&
+                    this.DetectionScore.Equals(input.DetectionScore))
+                ) && 
+                (
+                    this.Feedback == input.Feedback ||
+                    this.Feedback != null &&
+                    this.Feedback.SequenceEqual(input.Feedback)
                 );
         }
 
@@ -138,6 +166,10 @@ namespace IO.Swagger.Model
                     hashCode = hashCode * 59 + this.Title.GetHashCode();
                 if (this.DashboardName != null)
                     hashCode = hashCode * 59 + this.DashboardName.GetHashCode();
+                if (this.DetectionScore != null)
+                    hashCode = hashCode * 59 + this.DetectionScore.GetHashCode();
+                if (this.Feedback != null)
+                    hashCode = hashCode * 59 + this.Feedback.GetHashCode();
                 return hashCode;
             }
         }

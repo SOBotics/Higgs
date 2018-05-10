@@ -5,10 +5,13 @@ import { Observable } from 'rxjs/Observable';
 
 export const AccessTokenStorageKey = 'access_token';
 
+export type Scopes = 'admin' | 'dev' | 'bot_owner' | 'bot' | 'reviewer';
+
 export interface AuthDetails {
   RawToken: any;
   IsAuthenticated: boolean;
-  GetScopes: () => string[];
+  HasScope: (scope: Scopes) => boolean;
+  GetScopes: () => Scopes[];
 }
 
 @Injectable()
@@ -43,22 +46,25 @@ export class AuthService {
       return payload;
     };
     const tokenData = getTokenData();
+    const getScopes = () => {
+      if (!tokenData) {
+        return [];
+      }
+      const scopes = [];
+      const keys = Object.keys(tokenData);
+      keys.forEach(key => {
+        if (AuthService.nonScopeClaims.indexOf(key) < 0) {
+          scopes.push(key);
+        }
+      });
+      return scopes;
+    };
+
     return {
       RawToken: tokenData,
       IsAuthenticated: !!tokenData,
-      GetScopes: () => {
-        if (!tokenData) {
-          return [];
-        }
-        const scopes = [];
-        const keys = Object.keys(tokenData);
-        keys.forEach(key => {
-          if (AuthService.nonScopeClaims.indexOf(key) < 0) {
-            scopes.push(key);
-          }
-        });
-        return scopes;
-      }
+      GetScopes: getScopes,
+      HasScope: (scope: Scopes) => !!tokenData && getScopes().indexOf(scope) >= 0
     };
   }
 

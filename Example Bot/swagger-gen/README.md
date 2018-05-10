@@ -70,9 +70,6 @@ namespace Example
         public void main()
         {
 
-            // Configure OAuth2 access token for authorization: oauth2
-            Configuration.Default.AccessToken = "YOUR_ACCESS_TOKEN";
-
             var apiInstance = new AdminApi();
             var botId = 56;  // int? | 
 

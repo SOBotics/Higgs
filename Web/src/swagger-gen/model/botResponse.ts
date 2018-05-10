@@ -16,6 +16,7 @@ export interface BotResponse {
     name: string;
     dashboardName: string;
     description: string;
+    ownerAccountId?: number;
     homepage?: string;
     logoUrl?: string;
     favIcon?: string;

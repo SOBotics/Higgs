@@ -7,6 +7,7 @@ Name | Type | Description | Notes
 **Name** | **string** |  | 
 **DashboardName** | **string** |  | 
 **Description** | **string** |  | 
+**OwnerAccountId** | **int?** |  | [optional] 
 **Homepage** | **string** |  | [optional] 
 **LogoUrl** | **string** |  | [optional] 
 **FavIcon** | **string** |  | [optional] 
