@@ -29,13 +29,10 @@ namespace Higgs.Server.Controllers
         ///     Lists all bots
         /// </summary>
         [HttpGet("Bots")]
-        [Authorize]
+        [Authorize(Scopes.SCOPE_BOT_OWNER)]
         [SwaggerResponse((int) HttpStatusCode.OK, typeof(List<BotsResponse>), Description = "View bot details")]
         public List<BotsResponse> Bots()
         {
-            if (!User.HasClaim(Scopes.SCOPE_BOT_OWNER) && !User.HasClaim(Scopes.SCOPE_ADMIN))
-                throw new HttpStatusException(HttpStatusCode.Unauthorized);
-
             IQueryable<DbBot> bots = _dbContext.Bots;
             if (!User.HasClaim(Scopes.SCOPE_ADMIN))
             {
@@ -104,11 +101,9 @@ namespace Higgs.Server.Controllers
         }
         
         [HttpGet("Bot")]
+        [Authorize(Scopes.SCOPE_BOT_OWNER)]
         public BotResponse Bot(int botId)
         {
-            if (!User.HasClaim(Scopes.SCOPE_BOT_OWNER) && !User.HasClaim(Scopes.SCOPE_ADMIN))
-                throw new HttpStatusException(HttpStatusCode.Unauthorized);
-
             var bot = _dbContext.Bots.Where(b => b.Id == botId)
                 .Select(b => new BotResponse
                 {
@@ -143,13 +138,11 @@ namespace Higgs.Server.Controllers
         ///     Update a bots details
         /// </summary>
         [HttpPost("EditBot")]
+        [Authorize(Scopes.SCOPE_BOT_OWNER)]
         [SwaggerResponse((int) HttpStatusCode.OK, Description = "Successfully edited bot")]
         [SwaggerResponse((int) HttpStatusCode.BadRequest, typeof(ErrorResponse), Description = "Bot not found")]
         public IActionResult EditBot([FromBody] EditCreateBotRequest request)
         {
-            if (!User.HasClaim(Scopes.SCOPE_BOT_OWNER) && !User.HasClaim(Scopes.SCOPE_ADMIN))
-                throw new HttpStatusException(HttpStatusCode.Unauthorized);
-
             var existingBot = _dbContext.Bots.Include(b => b.BotScopes).FirstOrDefault(b => b.Id == request.BotId);
             if (existingBot == null)
                 return BadRequest(new ErrorResponse($"Bot with id {request.BotId} not found."));
