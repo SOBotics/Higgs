@@ -109,6 +109,7 @@ Class | Method | HTTP request | Description
 *AdminApi* | [**AdminUserPost**](docs/AdminApi.md#adminuserpost) | **POST** /Admin/User | Lists all users
 *AdminApi* | [**AdminUsersGet**](docs/AdminApi.md#adminusersget) | **GET** /Admin/Users | Lists all users
 *AdminApi* | [**AdminViewBotFeedbackTypesGet**](docs/AdminApi.md#adminviewbotfeedbacktypesget) | **GET** /Admin/ViewBotFeedbackTypes | 
+*AuthenticationApi* | [**AuthenticationRefreshTokenPost**](docs/AuthenticationApi.md#authenticationrefreshtokenpost) | **POST** /Authentication/RefreshToken | 
 *BotApi* | [**BotAquireTokenPost**](docs/BotApi.md#botaquiretokenpost) | **POST** /Bot/AquireToken | 
 *BotApi* | [**BotRegisterPostPost**](docs/BotApi.md#botregisterpostpost) | **POST** /Bot/RegisterPost | Used by bots to register a detected post
 *BotApi* | [**BotRegisterUserFeedbackByContentPost**](docs/BotApi.md#botregisteruserfeedbackbycontentpost) | **POST** /Bot/RegisterUserFeedbackByContent | 

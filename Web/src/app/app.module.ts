@@ -4,7 +4,7 @@ import { FormsModule } from '@angular/forms';
 import { HttpModule } from '@angular/http';
 
 import { AppComponent } from './app.component';
-import { AdminService, BASE_PATH, Configuration, ReviewerService } from '../swagger-gen';
+import { AdminService, BASE_PATH, Configuration, ReviewerService, AuthenticationService } from '../swagger-gen';
 import { environment } from '../environments/environment';
 import { AuthConfiguration } from './AuthConfiguration';
 import { RouterModule } from '@angular/router';
@@ -58,6 +58,7 @@ import { UserComponent } from './admin/user/user.component';
     MetaDataService,
     AdminService,
     ReviewerService,
+    AuthenticationService,
     { provide: BASE_PATH, useValue: environment.apiHost },
     { provide: Configuration, useClass: AuthConfiguration },
     AuthService,
