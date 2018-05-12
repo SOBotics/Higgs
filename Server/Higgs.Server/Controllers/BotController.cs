@@ -139,6 +139,11 @@ namespace Higgs.Server.Controllers
             if (!botId.HasValue)
                 return BadRequest("Invalid or missing botId in claim");
 
+            if (string.IsNullOrWhiteSpace(request.Title))
+                return BadRequest("Title is required");
+            if (string.IsNullOrWhiteSpace(request.ContentUrl))
+                return BadRequest("ContentUrl is required");
+
             var report = new DbReport
             {
                 AuthorName = request.AuthorName,
