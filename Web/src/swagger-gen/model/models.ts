@@ -14,6 +14,8 @@ export * from './registerPostReason';
 export * from './registerPostRequest';
 export * from './registerUserFeedbackByContentRequest';
 export * from './registerUserFeedbackRequest';
+export * from './reportsOverTimeResponse';
+export * from './reportsTotalResponse';
 export * from './reviewerCheckResponse';
 export * from './reviewerReportAllowedFeedbackResponse';
 export * from './reviewerReportContentFragmentResponse';

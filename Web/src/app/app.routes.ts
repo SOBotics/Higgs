@@ -11,7 +11,7 @@ import { UsersComponent } from './admin/users/users.component';
 import { UserComponent } from './admin/user/user.component';
 
 export const appRoutes: Routes = [
-    { path: '', component: ReportsComponent },
+    { path: '', component: HomeComponent },
 
     { path: 'admin', component: AdminHomeComponent },
     { path: 'admin/bots', component: BotsComponent },

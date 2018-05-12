@@ -109,6 +109,8 @@ Class | Method | HTTP request | Description
 *AdminApi* | [**AdminUserPost**](docs/AdminApi.md#adminuserpost) | **POST** /Admin/User | Lists all users
 *AdminApi* | [**AdminUsersGet**](docs/AdminApi.md#adminusersget) | **GET** /Admin/Users | Lists all users
 *AdminApi* | [**AdminViewBotFeedbackTypesGet**](docs/AdminApi.md#adminviewbotfeedbacktypesget) | **GET** /Admin/ViewBotFeedbackTypes | 
+*AnalyticsApi* | [**AnalyticsReportsOverTimeGet**](docs/AnalyticsApi.md#analyticsreportsovertimeget) | **GET** /Analytics/ReportsOverTime | 
+*AnalyticsApi* | [**AnalyticsReportsTotalGet**](docs/AnalyticsApi.md#analyticsreportstotalget) | **GET** /Analytics/ReportsTotal | 
 *AuthenticationApi* | [**AuthenticationRefreshTokenPost**](docs/AuthenticationApi.md#authenticationrefreshtokenpost) | **POST** /Authentication/RefreshToken | 
 *BotApi* | [**BotAquireTokenPost**](docs/BotApi.md#botaquiretokenpost) | **POST** /Bot/AquireToken | 
 *BotApi* | [**BotRegisterPostPost**](docs/BotApi.md#botregisterpostpost) | **POST** /Bot/RegisterPost | Used by bots to register a detected post
@@ -144,6 +146,8 @@ Class | Method | HTTP request | Description
  - [Model.RegisterPostRequest](docs/RegisterPostRequest.md)
  - [Model.RegisterUserFeedbackByContentRequest](docs/RegisterUserFeedbackByContentRequest.md)
  - [Model.RegisterUserFeedbackRequest](docs/RegisterUserFeedbackRequest.md)
+ - [Model.ReportsOverTimeResponse](docs/ReportsOverTimeResponse.md)
+ - [Model.ReportsTotalResponse](docs/ReportsTotalResponse.md)
  - [Model.ReviewerCheckResponse](docs/ReviewerCheckResponse.md)
  - [Model.ReviewerReportAllowedFeedbackResponse](docs/ReviewerReportAllowedFeedbackResponse.md)
  - [Model.ReviewerReportContentFragmentResponse](docs/ReviewerReportContentFragmentResponse.md)

@@ -4,7 +4,7 @@ import { FormsModule } from '@angular/forms';
 import { HttpModule } from '@angular/http';
 
 import { AppComponent } from './app.component';
-import { AdminService, BASE_PATH, Configuration, ReviewerService, AuthenticationService } from '../swagger-gen';
+import { AdminService, BASE_PATH, Configuration, ReviewerService, AuthenticationService, AnalyticsService } from '../swagger-gen';
 import { environment } from '../environments/environment';
 import { AuthConfiguration } from './AuthConfiguration';
 import { RouterModule } from '@angular/router';
@@ -28,6 +28,7 @@ import { MiniProfilerUiComponent } from './mini-profiler/mini-profiler-ui/mini-p
 import { HttpRequestInterceptorService } from './mini-profiler/http-request-interceptor.service';
 import { UsersComponent } from './admin/users/users.component';
 import { UserComponent } from './admin/user/user.component';
+import { ChartModule } from 'angular-highcharts';
 
 
 @NgModule({
@@ -52,6 +53,7 @@ import { UserComponent } from './admin/user/user.component';
     BrowserModule,
     FormsModule,
     HttpClientModule,
+    ChartModule,
     RouterModule.forRoot(appRoutes)
   ],
   providers: [
@@ -59,6 +61,7 @@ import { UserComponent } from './admin/user/user.component';
     AdminService,
     ReviewerService,
     AuthenticationService,
+    AnalyticsService,
     { provide: BASE_PATH, useValue: environment.apiHost },
     { provide: Configuration, useClass: AuthConfiguration },
     AuthService,

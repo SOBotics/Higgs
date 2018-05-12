@@ -1,1 +1,10 @@
-Home page!
+<div class="container">
+    <div class="row">
+        <div class="col-md-6">
+            <div *ngIf="reportsOverTimeChart" [chart]="reportsOverTimeChart"></div>
+        </div>
+        <div class="col-md-6">
+            <div *ngIf="reportsTotalChart" [chart]="reportsTotalChart"></div>
+        </div>
+    </div>
+</div>
