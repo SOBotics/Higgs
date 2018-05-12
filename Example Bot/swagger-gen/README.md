@@ -109,6 +109,8 @@ Class | Method | HTTP request | Description
 *AdminApi* | [**AdminUserPost**](docs/AdminApi.md#adminuserpost) | **POST** /Admin/User | Lists all users
 *AdminApi* | [**AdminUsersGet**](docs/AdminApi.md#adminusersget) | **GET** /Admin/Users | Lists all users
 *AdminApi* | [**AdminViewBotFeedbackTypesGet**](docs/AdminApi.md#adminviewbotfeedbacktypesget) | **GET** /Admin/ViewBotFeedbackTypes | 
+*AnalyticsApi* | [**AnalyticsReportsByFeedbackGet**](docs/AnalyticsApi.md#analyticsreportsbyfeedbackget) | **GET** /Analytics/ReportsByFeedback | 
+*AnalyticsApi* | [**AnalyticsReportsByReasonGet**](docs/AnalyticsApi.md#analyticsreportsbyreasonget) | **GET** /Analytics/ReportsByReason | 
 *AnalyticsApi* | [**AnalyticsReportsOverTimeGet**](docs/AnalyticsApi.md#analyticsreportsovertimeget) | **GET** /Analytics/ReportsOverTime | 
 *AnalyticsApi* | [**AnalyticsReportsTotalGet**](docs/AnalyticsApi.md#analyticsreportstotalget) | **GET** /Analytics/ReportsTotal | 
 *AuthenticationApi* | [**AuthenticationRefreshTokenPost**](docs/AuthenticationApi.md#authenticationrefreshtokenpost) | **POST** /Authentication/RefreshToken | 
@@ -146,6 +148,8 @@ Class | Method | HTTP request | Description
  - [Model.RegisterPostRequest](docs/RegisterPostRequest.md)
  - [Model.RegisterUserFeedbackByContentRequest](docs/RegisterUserFeedbackByContentRequest.md)
  - [Model.RegisterUserFeedbackRequest](docs/RegisterUserFeedbackRequest.md)
+ - [Model.ReportsByFeedbackResponse](docs/ReportsByFeedbackResponse.md)
+ - [Model.ReportsByReasonResponse](docs/ReportsByReasonResponse.md)
  - [Model.ReportsOverTimeResponse](docs/ReportsOverTimeResponse.md)
  - [Model.ReportsTotalResponse](docs/ReportsTotalResponse.md)
  - [Model.ReviewerCheckResponse](docs/ReviewerCheckResponse.md)

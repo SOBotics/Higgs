@@ -15,8 +15,21 @@ export class HomeComponent implements OnInit {
 
   public reportsOverTimeChart: Chart = null;
   public reportsTotalChart: Chart = null;
+  public reportsReasonsChart: Chart = null;
+  public reportsFeedbackChart: Chart = null;
 
   ngOnInit() {
+    this.updateCharts();
+  }
+
+  private updateCharts() {
+    this.updateOverTimeChart();
+    this.updateTotalChart();
+    this.updateReasonsChart();
+    this.updateFeedbackChart();
+  }
+
+  private updateOverTimeChart() {
     this.analyticsService.analyticsReportsOverTimeGet().subscribe(overTimeData => {
       const groupedData = GroupBy(overTimeData, 'dashboardName');
       const series: { name: string, data: [number, number][] }[] = [];
@@ -60,6 +73,9 @@ export class HomeComponent implements OnInit {
         series: series
       });
     });
+  }
+
+  private updateTotalChart() {
     this.analyticsService.analyticsReportsTotalGet().subscribe(totalData => {
       const mappedData = totalData.map(points => ({ name: points.dashboardName, y: points.count }));
       this.reportsTotalChart = new Chart({
@@ -68,6 +84,46 @@ export class HomeComponent implements OnInit {
         },
         title: {
           text: 'Total reports by dashboard'
+        },
+        series: [{
+          data: mappedData
+        }],
+        credits: {
+          enabled: false
+        },
+      });
+    });
+  }
+
+  private updateReasonsChart() {
+    this.analyticsService.analyticsReportsByReasonGet().subscribe(totalData => {
+      const mappedData = totalData.map(points => ({ name: points.name, y: points.count }));
+      this.reportsReasonsChart = new Chart({
+        chart: {
+          type: 'pie'
+        },
+        title: {
+          text: 'Top 15 report reasons (tripped)'
+        },
+        series: [{
+          data: mappedData
+        }],
+        credits: {
+          enabled: false
+        },
+      });
+    });
+  }
+
+  private updateFeedbackChart() {
+    this.analyticsService.analyticsReportsByFeedbackGet().subscribe(totalData => {
+      const mappedData = totalData.map(points => ({ name: points.name, y: points.count }));
+      this.reportsFeedbackChart = new Chart({
+        chart: {
+          type: 'pie'
+        },
+        title: {
+          text: 'Top 15 report feedback'
         },
         series: [{
           data: mappedData

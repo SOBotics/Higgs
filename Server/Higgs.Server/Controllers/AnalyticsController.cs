@@ -55,5 +55,42 @@ GROUP BY ""r0"".""BotId"", ""r.Bot0"".""DashboardName""
                 return results;
             }
         }
+
+        [HttpGet("ReportsByReason")]
+        public List<ReportsByReasonResponse> ReportsByReason()
+        {
+            using (var connection = _dbContext.Database.GetDbConnection())
+            {
+                var results = connection.Query<ReportsByReasonResponse>(@"
+SELECT ""Reasons"".""Name"", COUNT(1) as ""Count""
+	FROM public.""ReportReasons""
+	INNER JOIN public.""Reasons"" on ""ReportReasons"".""ReasonId"" = ""Reasons"".""Id""
+	WHERE ""ReportReasons"".""Tripped"" = true
+	GROUP BY ""Reasons"".""Name""
+	ORDER BY COUNT(1) DESC
+	LIMIT 15
+").ToList();
+
+                return results;
+            }
+        }
+
+        [HttpGet("ReportsByFeedback")]
+        public List<ReportsByFeedbackResponse> ReportsByFeedback()
+        {
+            using (var connection = _dbContext.Database.GetDbConnection())
+            {
+                var results = connection.Query<ReportsByFeedbackResponse>(@"
+SELECT ""Feedbacks"".""Name"", COUNT(1) as ""Count""
+	FROM public.""ReportFeedbacks""
+	INNER JOIN public.""Feedbacks"" on ""ReportFeedbacks"".""FeedbackId"" = ""Feedbacks"".""Id""
+	GROUP BY ""Feedbacks"".""Name""
+	ORDER BY COUNT(1) DESC
+	LIMIT 15
+").ToList();
+
+                return results;
+            }
+        }
     }
 }

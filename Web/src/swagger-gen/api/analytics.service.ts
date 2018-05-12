@@ -18,6 +18,8 @@ import { CustomHttpUrlEncodingCodec }                        from '../encoder';
 
 import { Observable }                                        from 'rxjs/Observable';
 
+import { ReportsByFeedbackResponse } from '../model/reportsByFeedbackResponse';
+import { ReportsByReasonResponse } from '../model/reportsByReasonResponse';
 import { ReportsOverTimeResponse } from '../model/reportsOverTimeResponse';
 import { ReportsTotalResponse } from '../model/reportsTotalResponse';
 
@@ -56,6 +58,82 @@ export class AnalyticsService {
         return false;
     }
 
+
+    /**
+     * 
+     * 
+     * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
+     * @param reportProgress flag to report request and response progress.
+     */
+    public analyticsReportsByFeedbackGet(observe?: 'body', reportProgress?: boolean): Observable<Array<ReportsByFeedbackResponse>>;
+    public analyticsReportsByFeedbackGet(observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<Array<ReportsByFeedbackResponse>>>;
+    public analyticsReportsByFeedbackGet(observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<Array<ReportsByFeedbackResponse>>>;
+    public analyticsReportsByFeedbackGet(observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
+
+        let headers = this.defaultHeaders;
+
+        // to determine the Accept header
+        let httpHeaderAccepts: string[] = [
+            'text/plain',
+            'application/json',
+            'text/json'
+        ];
+        let httpHeaderAcceptSelected: string | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
+        if (httpHeaderAcceptSelected != undefined) {
+            headers = headers.set("Accept", httpHeaderAcceptSelected);
+        }
+
+        // to determine the Content-Type header
+        let consumes: string[] = [
+        ];
+
+        return this.httpClient.get<Array<ReportsByFeedbackResponse>>(`${this.basePath}/Analytics/ReportsByFeedback`,
+            {
+                withCredentials: this.configuration.withCredentials,
+                headers: headers,
+                observe: observe,
+                reportProgress: reportProgress
+            }
+        );
+    }
+
+    /**
+     * 
+     * 
+     * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
+     * @param reportProgress flag to report request and response progress.
+     */
+    public analyticsReportsByReasonGet(observe?: 'body', reportProgress?: boolean): Observable<Array<ReportsByReasonResponse>>;
+    public analyticsReportsByReasonGet(observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<Array<ReportsByReasonResponse>>>;
+    public analyticsReportsByReasonGet(observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<Array<ReportsByReasonResponse>>>;
+    public analyticsReportsByReasonGet(observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
+
+        let headers = this.defaultHeaders;
+
+        // to determine the Accept header
+        let httpHeaderAccepts: string[] = [
+            'text/plain',
+            'application/json',
+            'text/json'
+        ];
+        let httpHeaderAcceptSelected: string | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
+        if (httpHeaderAcceptSelected != undefined) {
+            headers = headers.set("Accept", httpHeaderAcceptSelected);
+        }
+
+        // to determine the Content-Type header
+        let consumes: string[] = [
+        ];
+
+        return this.httpClient.get<Array<ReportsByReasonResponse>>(`${this.basePath}/Analytics/ReportsByReason`,
+            {
+                withCredentials: this.configuration.withCredentials,
+                headers: headers,
+                observe: observe,
+                reportProgress: reportProgress
+            }
+        );
+    }
 
     /**
      * 
