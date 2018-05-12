@@ -150,6 +150,7 @@ namespace Higgs.Server.Controllers
                 AuthorReputation = request.AuthorReputation,
                 BotId = botId.Value,
                 Title = request.Title,
+                ContentType = request.ContentType,
                 
                 ContentCreationDate = request.ContentCreationDate?.ToUniversalTime(),
                 ContentUrl = request.ContentUrl,
