@@ -22,15 +22,17 @@ export class HomeComponent implements OnInit {
       const series: { name: string, data: [number, number][] }[] = [];
       for (const key in groupedData) {
         if (groupedData.hasOwnProperty(key)) {
+          const data = groupedData[key].map(gd => {
+            const date = new Date(gd.date);
+            // Why..?
+            const utcDate = Date.UTC(date.getUTCFullYear(), date.getUTCMonth(), date.getUTCDate(),
+              date.getUTCHours(), date.getUTCMinutes(), date.getUTCSeconds());
+            return [utcDate, gd.count];
+          });
+          data.sort((left, right) => left[0] - right[0]);
           series.push({
             name: key,
-            data: groupedData[key].map(gd => {
-              const date = new Date(gd.date);
-              // Why..?
-              const utcDate = Date.UTC(date.getUTCFullYear(), date.getUTCMonth(), date.getUTCDate(),
-                date.getUTCHours(), date.getUTCMinutes(), date.getUTCSeconds());
-              return [utcDate, gd.count];
-            })
+            data: data
           });
         }
       }
@@ -45,8 +47,7 @@ export class HomeComponent implements OnInit {
           type: 'datetime',
           labels: {
             format: '{value:%Y-%m-%d}'
-          },
-          tickInterval: 1
+          }
         },
         yAxis: {
           title: {
@@ -58,7 +59,6 @@ export class HomeComponent implements OnInit {
         },
         series: series
       });
-      console.log(series);
     });
     this.analyticsService.analyticsReportsTotalGet().subscribe(totalData => {
       const mappedData = totalData.map(points => ({ name: points.dashboardName, y: points.count }));
