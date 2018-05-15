@@ -4,6 +4,7 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **BotId** | **int?** |  | 
+**OwnerAccountId** | **int?** |  | [optional] 
 **Secret** | **string** |  | [optional] 
 **Name** | **string** | Name of the bot | 
 **DashboardName** | **string** | Name of the dashboard | 

@@ -4,6 +4,8 @@ import { HttpClientModule } from '@angular/common/http';
 import { Configuration } from './configuration';
 
 import { AdminService } from './api/admin.service';
+import { AnalyticsService } from './api/analytics.service';
+import { AuthenticationService } from './api/authentication.service';
 import { BotService } from './api/bot.service';
 import { FileService } from './api/file.service';
 import { ReviewerService } from './api/reviewer.service';
@@ -14,6 +16,8 @@ import { ReviewerService } from './api/reviewer.service';
   exports:      [],
   providers: [
     AdminService,
+    AnalyticsService,
+    AuthenticationService,
     BotService,
     FileService,
     ReviewerService ]

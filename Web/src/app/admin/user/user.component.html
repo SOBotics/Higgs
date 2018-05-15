@@ -6,7 +6,7 @@
   </div>
   <div class="form-group">
     <label for="name">Name</label>
-    <input type="text" class="form-control" id="name" required [(ngModel)]="user.Name" name="name" #name="ngModel" disabled>
+    <input type="text" class="form-control" id="name" required [(ngModel)]="user.Name" name="name" #name="ngModel">
   </div>
   <h2>Scopes</h2>
   <div *ngFor="let scope of user.Scopes">

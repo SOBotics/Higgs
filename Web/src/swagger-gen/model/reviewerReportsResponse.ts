@@ -9,10 +9,13 @@
  * https://github.com/swagger-api/swagger-codegen.git
  * Do not edit the class manually.
  */
+import { ReviewerReportFeedbackResponse } from './reviewerReportFeedbackResponse';
 
 
 export interface ReviewerReportsResponse {
     id?: number;
     title?: string;
     dashboardName?: string;
+    detectionScore?: number;
+    feedback?: Array<ReviewerReportFeedbackResponse>;
 }

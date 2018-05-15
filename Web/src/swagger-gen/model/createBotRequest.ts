@@ -17,6 +17,7 @@ export interface CreateBotRequest {
      * Name of the bot
      */
     name: string;
+    ownerAccountId?: number;
     /**
      * Name of the dashboard
      */

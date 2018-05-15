@@ -42,11 +42,12 @@ namespace IO.Swagger.Model
         /// <param name="Name">Name (required).</param>
         /// <param name="DashboardName">DashboardName (required).</param>
         /// <param name="Description">Description (required).</param>
+        /// <param name="OwnerAccountId">OwnerAccountId.</param>
         /// <param name="Homepage">Homepage.</param>
         /// <param name="LogoUrl">LogoUrl.</param>
         /// <param name="FavIcon">FavIcon.</param>
         /// <param name="TabTitle">TabTitle.</param>
-        public BotResponse(int? Id = default(int?), string Name = default(string), string DashboardName = default(string), string Description = default(string), string Homepage = default(string), string LogoUrl = default(string), string FavIcon = default(string), string TabTitle = default(string))
+        public BotResponse(int? Id = default(int?), string Name = default(string), string DashboardName = default(string), string Description = default(string), int? OwnerAccountId = default(int?), string Homepage = default(string), string LogoUrl = default(string), string FavIcon = default(string), string TabTitle = default(string))
         {
             // to ensure "Id" is required (not null)
             if (Id == null)
@@ -84,6 +85,7 @@ namespace IO.Swagger.Model
             {
                 this.Description = Description;
             }
+            this.OwnerAccountId = OwnerAccountId;
             this.Homepage = Homepage;
             this.LogoUrl = LogoUrl;
             this.FavIcon = FavIcon;
@@ -113,6 +115,12 @@ namespace IO.Swagger.Model
         /// </summary>
         [DataMember(Name="description", EmitDefaultValue=false)]
         public string Description { get; set; }
+
+        /// <summary>
+        /// Gets or Sets OwnerAccountId
+        /// </summary>
+        [DataMember(Name="ownerAccountId", EmitDefaultValue=false)]
+        public int? OwnerAccountId { get; set; }
 
         /// <summary>
         /// Gets or Sets Homepage
@@ -150,6 +158,7 @@ namespace IO.Swagger.Model
             sb.Append("  Name: ").Append(Name).Append("\n");
             sb.Append("  DashboardName: ").Append(DashboardName).Append("\n");
             sb.Append("  Description: ").Append(Description).Append("\n");
+            sb.Append("  OwnerAccountId: ").Append(OwnerAccountId).Append("\n");
             sb.Append("  Homepage: ").Append(Homepage).Append("\n");
             sb.Append("  LogoUrl: ").Append(LogoUrl).Append("\n");
             sb.Append("  FavIcon: ").Append(FavIcon).Append("\n");
@@ -209,6 +218,11 @@ namespace IO.Swagger.Model
                     this.Description.Equals(input.Description))
                 ) && 
                 (
+                    this.OwnerAccountId == input.OwnerAccountId ||
+                    (this.OwnerAccountId != null &&
+                    this.OwnerAccountId.Equals(input.OwnerAccountId))
+                ) && 
+                (
                     this.Homepage == input.Homepage ||
                     (this.Homepage != null &&
                     this.Homepage.Equals(input.Homepage))
@@ -247,6 +261,8 @@ namespace IO.Swagger.Model
                     hashCode = hashCode * 59 + this.DashboardName.GetHashCode();
                 if (this.Description != null)
                     hashCode = hashCode * 59 + this.Description.GetHashCode();
+                if (this.OwnerAccountId != null)
+                    hashCode = hashCode * 59 + this.OwnerAccountId.GetHashCode();
                 if (this.Homepage != null)
                     hashCode = hashCode * 59 + this.Homepage.GetHashCode();
                 if (this.LogoUrl != null)

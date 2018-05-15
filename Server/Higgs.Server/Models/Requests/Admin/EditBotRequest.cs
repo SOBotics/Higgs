@@ -8,6 +8,8 @@ namespace Higgs.Server.Models.Requests.Admin
         [Required]
         public int BotId { get; set; }
 
+        public int? OwnerAccountId { get; set; }
+
         public string Secret { get; set; }
 
         /// <summary>

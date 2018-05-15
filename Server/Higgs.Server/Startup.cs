@@ -91,6 +91,7 @@ namespace Higgs.Server
             app.UseAuthentication();
             app.UseCors("AllowAnyOrigin");
             app.UseMiniProfiler();
+            app.UseMiddleware(typeof(ExceptionHandlerMiddleware));
             app.UseMvc();
             app.UseSwagger();
             app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "Higgs API V1"));

@@ -14,6 +14,7 @@ export class AppComponent implements OnInit {
   public isLoggedIn: boolean;
   public isAdmin: boolean;
   public isDev: boolean;
+  public isBotOwner: boolean;
   private userName: string;
   constructor(
     private authService: AuthService,
@@ -37,6 +38,7 @@ export class AppComponent implements OnInit {
   }
 
   ngOnInit() {
+    // Watch for access token in the URL. If it's there, store the token and remove it from the URL.
     this.activatedRoute.queryParams.subscribe((params: Params) => {
       const accessToken = params['access_token'];
       if (accessToken) {
@@ -48,8 +50,9 @@ export class AppComponent implements OnInit {
 
     this.authService.GetAuthDetails().subscribe(details => {
       this.isLoggedIn = details.IsAuthenticated;
-      this.isAdmin = this.isLoggedIn && details.GetScopes().indexOf('admin') >= 0;
-      this.isDev = this.isLoggedIn && details.GetScopes().indexOf('dev') >= 0;
+      this.isAdmin = details.HasScope('admin');
+      this.isDev = details.HasScope('dev');
+      this.isBotOwner = details.HasScope('bot_owner');
       if (this.isLoggedIn) {
         this.userName = details.RawToken.unique_name;
       }

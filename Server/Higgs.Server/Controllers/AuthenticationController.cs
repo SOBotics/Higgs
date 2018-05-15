@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.IdentityModel.Tokens.Jwt;
 using System.Linq;
+using System.Net;
 using System.Security.Claims;
 using System.Text;
 using System.Threading;
@@ -25,8 +26,6 @@ namespace Higgs.Server.Controllers
         private readonly string _oauthRedirect;
         private readonly IConfiguration _configuration;
         private readonly HiggsDbContext _dbContext;
-        public const string ACCOUNT_ID_CLAIM = "accountId";
-
         public AuthenticationController(IConfiguration configuration, HiggsDbContext dbContext)
         {
             _configuration = configuration;
@@ -64,7 +63,7 @@ namespace Higgs.Server.Controllers
                     var claims = new[]
                     {
                         new Claim(ClaimTypes.Name, user.Name),
-                        new Claim(ACCOUNT_ID_CLAIM, user.AccountId.ToString())
+                        new Claim(SecurityUtils.ACCOUNT_ID_CLAIM, user.AccountId.ToString())
                     }.Concat(userScopes.Select(c => new Claim(c, string.Empty)));
 
                     var signingKey = Convert.FromBase64String(_configuration["JwtSigningKey"]);
@@ -126,7 +125,7 @@ namespace Higgs.Server.Controllers
             int accountId = userDetails.user_id;
             string displayName = userDetails.display_name;
 
-            var signingKey = Convert.FromBase64String(_configuration["JwtSigningKey"]);
+            var signingKey = GetSigningKey();
             
             var user = _dbContext.GetOrCreateUser(accountId);
             user.Name = displayName;
@@ -144,12 +143,30 @@ namespace Higgs.Server.Controllers
             var claims = new[]
             {
                 new Claim(ClaimTypes.Name, displayName),
-                new Claim(ACCOUNT_ID_CLAIM, accountId.ToString())
+                new Claim(SecurityUtils.ACCOUNT_ID_CLAIM, accountId.ToString())
             }.Concat(userScopes.Intersect(requestedScopes).Select(c => new Claim(c, string.Empty)));
 
             var token = CreateJwtToken(claims, signingKey);
 
             return Redirect($"{loginState.RedirectURI}?access_token={token}");
+        }
+
+        private byte[] GetSigningKey()
+        {
+            var signingKey = Convert.FromBase64String(_configuration["JwtSigningKey"]);
+            return signingKey;
+        }
+
+        [HttpPost("RefreshToken")]
+        public string RefreshToken()
+        {
+            if (User == null)
+                throw new HttpStatusException(HttpStatusCode.Unauthorized);
+
+            var signingKey = GetSigningKey();
+            var newToken = CreateJwtToken(User.Claims, signingKey);
+
+            return newToken;
         }
         
         public static string CreateJwtToken(IEnumerable<Claim> claims, byte[] symmetricKey)
@@ -160,7 +177,7 @@ namespace Higgs.Server.Controllers
                 Subject = new ClaimsIdentity(claims),
 
                 Expires = DateTime.UtcNow.AddDays(7),
-                SigningCredentials =
+                SigningCredentials = 
                     new SigningCredentials(new SymmetricSecurityKey(symmetricKey),
                         SecurityAlgorithms.HmacSha256Signature)
             };

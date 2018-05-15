@@ -10,8 +10,14 @@
                 <li class="nav-item">
                     <a class="nav-link" routerLink="/reports">Reports</a>
                 </li>
-                <li class="nav-item" *ngIf="isAdmin">
-                    <a class="nav-link" routerLink="/admin">Admin</a>
+                <li class="nav-item dropdown hidden-md-down" *ngIf="isAdmin || isBotOwner">
+                    <a class="nav-link dropdown-toggle" href="#" id="adminDropdownLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        Admin
+                    </a>
+                    <div class="dropdown-menu" aria-labelledby="adminDropdownLink">
+                        <a *ngIf="isAdmin || isBotOwner" class="dropdown-item" routerLink="/admin/bots">Bots</a>
+                        <a *ngIf="isAdmin" class="dropdown-item" routerLink="/admin/users">Users</a>
+                    </div>
                 </li>
             </ul>
 
@@ -28,6 +34,7 @@
                             Log out
                         </button>
                     </div>
+                </li>
             </ul>
         </div>
     </nav>

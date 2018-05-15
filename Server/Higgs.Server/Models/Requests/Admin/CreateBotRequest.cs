@@ -13,6 +13,8 @@ namespace Higgs.Server.Models.Requests.Admin
         [Required]
         public string Name { get; set; }
 
+        public int? OwnerAccountId { get; set; }
+
         /// <summary>
         ///     Name of the dashboard
         /// </summary>

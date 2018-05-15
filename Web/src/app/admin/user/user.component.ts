@@ -54,6 +54,7 @@ export class UserComponent implements OnInit {
 
     this.adminService.adminUserPost({
       id: this.userId,
+      name: this.user.Name,
       scopes: assignedScopes
     })
       .subscribe(a => window.location.reload());

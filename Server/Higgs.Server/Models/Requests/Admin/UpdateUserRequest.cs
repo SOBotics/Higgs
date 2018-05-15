@@ -7,6 +7,7 @@ namespace Higgs.Server.Models.Requests.Admin
     {
         [Required]
         public int Id { get; set; }
+        public string Name { get; set; }
         public List<string> Scopes { get; set; }
     }
 }

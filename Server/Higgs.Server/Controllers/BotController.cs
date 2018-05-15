@@ -79,27 +79,29 @@ namespace Higgs.Server.Controllers
 
         [HttpPost("RegisterUserFeedback")]
         [Authorize(Scopes.SCOPE_BOT)]
-        public IActionResult RegisterUserFeedback([FromBody] RegisterUserFeedbackRequest request)
+        public OkResult RegisterUserFeedback([FromBody] RegisterUserFeedbackRequest request)
         {
             var botId = GetBotId();
             if (!botId.HasValue)
-                return BadRequest("Invalid or missing botId in claim");
+                throw new HttpStatusException(HttpStatusCode.BadRequest, "Invalid or missing botId in claim");
 
             var report = _dbContext.Reports.FirstOrDefault(r => r.Id == request.ReportId);
             if (report?.BotId != botId)
-                return BadRequest("Bot is not authorized to submit feedback to this report");
+                throw new HttpStatusException(HttpStatusCode.BadRequest, "Bot is not authorized to submit feedback to this report");
 
             if (string.IsNullOrWhiteSpace(request.Feedback))
-                return BadRequest("Feedback type must be provided");
+                throw new HttpStatusException(HttpStatusCode.BadRequest, "Feedback type must be provided");
 
             var allowedFeedback = _dbContext.ReportAllowedFeedbacks
                 .Include(raf => raf.Feedback)
                 .FirstOrDefault(raf => request.Feedback.Equals(raf.Feedback.Name, StringComparison.OrdinalIgnoreCase));
 
             if (allowedFeedback == null)
-                return BadRequest("Feedback not allowed for report");
+                throw new HttpStatusException(HttpStatusCode.BadRequest, "Feedback not allowed for report");
 
             var user = _dbContext.GetOrCreateUser(request.UserId);
+            if (user.UserScopes.All(us => us.ScopeName != Scopes.SCOPE_REVIEWER))
+                throw new HttpStatusException(HttpStatusCode.BadRequest, "User is not authorized as a reviewer");
             
             var existingFeedback = _dbContext.ReportFeedbacks.FirstOrDefault(rf => rf.UserId == request.UserId && rf.ReportId == request.ReportId);
             if (existingFeedback == null)
@@ -137,12 +139,18 @@ namespace Higgs.Server.Controllers
             if (!botId.HasValue)
                 return BadRequest("Invalid or missing botId in claim");
 
+            if (string.IsNullOrWhiteSpace(request.Title))
+                return BadRequest("Title is required");
+            if (string.IsNullOrWhiteSpace(request.ContentUrl))
+                return BadRequest("ContentUrl is required");
+
             var report = new DbReport
             {
                 AuthorName = request.AuthorName,
                 AuthorReputation = request.AuthorReputation,
                 BotId = botId.Value,
                 Title = request.Title,
+                ContentType = request.ContentType,
                 
                 ContentCreationDate = request.ContentCreationDate?.ToUniversalTime(),
                 ContentUrl = request.ContentUrl,

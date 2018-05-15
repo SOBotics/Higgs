@@ -18,6 +18,8 @@ namespace Higgs.Server.Models.Responses.Admin
         [Required]
         public string Description { get; set; }
 
+        public int OwnerAccountId { get; set; }
+
         public string Homepage { get; set; }
         public string LogoUrl { get; set; }
 

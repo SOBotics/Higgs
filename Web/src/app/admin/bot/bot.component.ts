@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { AdminService, BotResponse } from '../../../swagger-gen';
 import { ActivatedRoute, Router } from '@angular/router';
+import { AuthService } from '../../services/auth.service';
 
 @Component({
   selector: 'app-bot',
@@ -9,12 +10,14 @@ import { ActivatedRoute, Router } from '@angular/router';
 })
 export class BotComponent implements OnInit {
   private botId: number | undefined;
-  private isNew = false;
-  private submitted = false;
+  public isAdmin = false;
+  public isNew = false;
+  public submitted = false;
 
   constructor(
     private route: ActivatedRoute,
     private adminService: AdminService,
+    private authService: AuthService,
     private router: Router) { }
 
   public botDetails: Partial<BotResponse>;
@@ -45,6 +48,10 @@ export class BotComponent implements OnInit {
           this.botDetails = response;
         });
       }
+    });
+
+    this.authService.GetAuthDetails().subscribe(details => {
+      this.isAdmin = details.HasScope('admin');
     });
   }
 }

@@ -13,5 +13,6 @@
 
 export interface UpdateUserRequest {
     id: number;
+    name?: string;
     scopes?: Array<string>;
 }

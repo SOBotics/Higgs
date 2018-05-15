@@ -37,11 +37,15 @@ namespace Higgs.Server.Migrations
 
                     b.Property<string>("Name");
 
+                    b.Property<int>("OwnerAccountId");
+
                     b.Property<string>("Secret");
 
                     b.Property<string>("TabTitle");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("OwnerAccountId");
 
                     b.ToTable("Bots");
                 });
@@ -296,6 +300,14 @@ namespace Higgs.Server.Migrations
                     b.HasIndex("ReportId");
 
                     b.ToTable("ContentFragments");
+                });
+
+            modelBuilder.Entity("Higgs.Server.Data.Models.DbBot", b =>
+                {
+                    b.HasOne("Higgs.Server.Data.Models.DbUser", "OwnerAccount")
+                        .WithMany("OwnedBots")
+                        .HasForeignKey("OwnerAccountId")
+                        .OnDelete(DeleteBehavior.Cascade);
                 });
 
             modelBuilder.Entity("Higgs.Server.Data.Models.DbBotScope", b =>
