@@ -1,5 +1,6 @@
 ﻿using System;
 using Higgs.Server.Data;
+using Higgs.Server.Utilities;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -80,7 +81,11 @@ namespace Higgs.Server
                 .AddEntityFrameworkNpgsql()
                 .AddDbContext<HiggsDbContext>(options => options.UseNpgsql(connectionString));
 
-            services.AddMiniProfiler().AddEntityFramework();
+            services.AddMiniProfiler(options =>
+            {
+                options.ResultsAuthorize = request => request.HttpContext.User.HasClaim(Scopes.SCOPE_DEV);
+                options.ResultsListAuthorize = request => request.HttpContext.User.HasClaim(Scopes.SCOPE_DEV);
+            }).AddEntityFramework();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

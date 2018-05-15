@@ -9,7 +9,8 @@ export const AccessTokenStorageKey = 'access_token';
 export type Scopes = 'admin' | 'dev' | 'bot_owner' | 'bot' | 'reviewer';
 
 export interface AuthDetails {
-  RawToken: any;
+  RawToken: string;
+  TokenData: any;
   IsAuthenticated: boolean;
   HasScope: (scope: Scopes) => boolean;
   GetScopes: () => Scopes[];
@@ -28,32 +29,28 @@ export class AuthService {
   }
 
   private getAuthDetails(): AuthDetails {
-    const getTokenData = () => {
+    const getAccessToken = () => {
       const accessTokenGetter = this.config.accessToken;
       if (!accessTokenGetter) {
         return undefined;
       }
-      let accessToken: string;
       if (typeof accessTokenGetter === 'function') {
-        accessToken = accessTokenGetter();
+        return accessTokenGetter();
       } else {
-        accessToken = accessTokenGetter;
+        return accessTokenGetter;
       }
-      if (!accessToken) {
-        return undefined;
-      }
-      const tokenPayload = accessToken.split('.')[1];
-      const payload = JSON.parse(atob(tokenPayload));
-      return payload;
     };
-    let tokenData = getTokenData();
-    tokenData = this.HandleExpiryDates(tokenData);
+    const accessToken = getAccessToken();
+    const tokenPayload = accessToken.split('.')[1];
+    let payload = JSON.parse(atob(tokenPayload));
+
+    payload = this.HandleExpiryDates(payload);
     const getScopes = () => {
-      if (!tokenData) {
+      if (!payload) {
         return [];
       }
       const scopes = [];
-      const keys = Object.keys(tokenData);
+      const keys = Object.keys(payload);
       keys.forEach(key => {
         if (AuthService.nonScopeClaims.indexOf(key) < 0) {
           scopes.push(key);
@@ -63,19 +60,20 @@ export class AuthService {
     };
 
     return {
-      RawToken: tokenData,
-      IsAuthenticated: !!tokenData,
+      RawToken: accessToken,
+      TokenData: payload,
+      IsAuthenticated: !!accessToken,
       GetScopes: getScopes,
-      HasScope: (scope: Scopes) => !!tokenData && getScopes().indexOf(scope) >= 0
+      HasScope: (scope: Scopes) => !!accessToken && getScopes().indexOf(scope) >= 0
     };
   }
 
-  private HandleExpiryDates(tokenData: any) {
+  private HandleExpiryDates(payload: any) {
     const now = new Date();
-    if (!tokenData || !tokenData.exp) {
+    if (!payload || !payload.exp) {
       return undefined;
     } else {
-      const expDate = new Date(tokenData.exp * 1000);
+      const expDate = new Date(payload.exp * 1000);
       // Typescript doesn't recognize that dates can be subtracted
       let timeToRefresh = expDate as any - (now as any);
       timeToRefresh -= (1000 * 60 * 5); // Refresh 5 minutes before expiry
@@ -87,7 +85,7 @@ export class AuthService {
           this.Login(token);
         });
       }, timeToRefresh);
-      return tokenData;
+      return payload;
     }
   }
 

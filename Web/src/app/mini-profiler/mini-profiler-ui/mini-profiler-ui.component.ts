@@ -21,6 +21,8 @@ export class MiniProfilerUiComponent implements OnInit {
     public pendingCount = 0;
 
     @Input()
+    public Authorization?: string;
+    @Input()
     public Hidden = false;
     @Input()
     public TrivialMilliseconds = 50;
@@ -56,7 +58,7 @@ export class MiniProfilerUiComponent implements OnInit {
         this.selectedResult = null;
     }
 
-    public identify (index, item) {
+    public identify(index, item) {
         return item.Id;
     }
 
@@ -71,8 +73,11 @@ export class MiniProfilerUiComponent implements OnInit {
             const body = new FormData();
             body.append('id', id);
             body.append('popup', '1');
-
-            this.httpClient.post(miniProfilerUrl + MiniProfilerEndPoint, body).subscribe((result: ProfileResult) => {
+            let headers = new HttpHeaders();
+            if (this.Authorization) {
+                headers = headers.append('Authorization', this.Authorization);
+            }
+            this.httpClient.post(miniProfilerUrl + MiniProfilerEndPoint, body, { headers: headers }).subscribe((result: ProfileResult) => {
                 this.processJson(result);
                 while (this.MaxEntries > 0 && this.results.length >= this.MaxEntries) {
                     this.results.shift();

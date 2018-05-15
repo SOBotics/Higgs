@@ -15,6 +15,7 @@ export class AppComponent implements OnInit {
   public isAdmin: boolean;
   public isDev: boolean;
   public isBotOwner: boolean;
+  public rawToken: string;
   private userName: string;
   constructor(
     private authService: AuthService,
@@ -49,12 +50,13 @@ export class AppComponent implements OnInit {
     });
 
     this.authService.GetAuthDetails().subscribe(details => {
+      this.rawToken = `Bearer ${details.RawToken}`;
       this.isLoggedIn = details.IsAuthenticated;
       this.isAdmin = details.HasScope('admin');
       this.isDev = details.HasScope('dev');
       this.isBotOwner = details.HasScope('bot_owner');
       if (this.isLoggedIn) {
-        this.userName = details.RawToken.unique_name;
+        this.userName = details.TokenData.unique_name;
       }
     });
   }
