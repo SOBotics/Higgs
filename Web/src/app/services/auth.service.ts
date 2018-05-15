@@ -41,10 +41,12 @@ export class AuthService {
       }
     };
     const accessToken = getAccessToken();
-    const tokenPayload = accessToken.split('.')[1];
-    let payload = JSON.parse(atob(tokenPayload));
-
-    payload = this.HandleExpiryDates(payload);
+    let payload = null;
+    if (accessToken) {
+      const tokenPayload = accessToken.split('.')[1];
+      payload = JSON.parse(atob(tokenPayload));
+      payload = this.HandleExpiryDates(payload);
+    }
     const getScopes = () => {
       if (!payload) {
         return [];
@@ -64,7 +66,7 @@ export class AuthService {
       TokenData: payload,
       IsAuthenticated: !!accessToken,
       GetScopes: getScopes,
-      HasScope: (scope: Scopes) => !!accessToken && getScopes().indexOf(scope) >= 0
+      HasScope: (scope: Scopes) => !!payload && getScopes().indexOf(scope) >= 0
     };
   }
 
