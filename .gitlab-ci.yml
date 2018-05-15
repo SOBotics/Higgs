@@ -30,3 +30,26 @@ build web:
   artifacts:
     paths:
       - Web/dist
+
+deploy server production:
+  environment: production
+  stage: deploy
+  when: manual
+  only:
+    - master
+  variables:
+    GIT_STRATEGY: none
+    
+  script:
+    - apt-get -qq update
+    - apt-get -qq -y install rsync
+    - 'which ssh-agent || ( apt-get update -y && apt-get install openssh-client -y )'
+    - eval $(ssh-agent -s)
+    - echo "$SSH_KEY_DEPLOY" > ~/tmpssh
+    - mkdir -p ~/.ssh
+    - ls -la
+    - '[[ -f /.dockerenv ]] && echo -e "Host *\n\tStrictHostKeyChecking no\n\n" > ~/.ssh/config'
+    - rsync -az --force --delete --progress -e "ssh -p22 -i ~/tmpssh" Server/Higgs.Server/bin/Release/netcoreapp2.0/publish/* deploy@$PRODUCTION_IP:/var/www/Higgs/Server
+    - "ssh deploy@$PRODUCTION_IP 'cp /var/www/Higgs/appsettings.Production.json /var/www/Higgs/Server/.'"
+    - "ssh deploy@$PRODUCTION_IP 'systemctl restart higgs.service'"
+    - rm tmpssh
