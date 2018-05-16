@@ -23,6 +23,10 @@
     cursor: default;  
     border-bottom: none;
   }
+
+  .profiler-button.profiler-toggle-hidden {
+    border-bottom: 1px solid #888888;
+  }
   
   .pending-requests {
     cursor: default;

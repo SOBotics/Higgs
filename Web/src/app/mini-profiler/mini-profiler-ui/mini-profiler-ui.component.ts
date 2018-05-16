@@ -23,7 +23,7 @@ export class MiniProfilerUiComponent implements OnInit {
     @Input()
     public Authorization?: string;
     @Input()
-    public Hidden = false;
+    public Hidden = true;
     @Input()
     public TrivialMilliseconds = 50;
     @Input()

@@ -4,12 +4,12 @@
   (clickOutside)="onClickedOutside($event)" 
   [style.width]="ProfilerWidth + 'px'"
   >
-  <div class="profiler-button profiler-toggle">
+  <div class="profiler-button profiler-toggle" [class.profiler-toggle-hidden]="Hidden">
     <a href="javascript:void(0)" (click)="toggleGridVisible()">{{Hidden ? 'Show' : 'Hide'}}</a>
     |
     <a href="javascript:void(0)" (click)="clearGrid()">Clear</a>
   </div>
-  <div class="profiler-button pending-requests">
+  <div class="profiler-button pending-requests" [hidden]="Hidden">
     {{pendingCount}} pending
   </div>
   <app-mini-profiler-ui-result class="profiler-result" 
