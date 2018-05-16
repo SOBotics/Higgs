@@ -38,26 +38,19 @@ namespace IO.Swagger.Model
         /// <summary>
         /// Initializes a new instance of the <see cref="CreateBotRequest" /> class.
         /// </summary>
-        /// <param name="Secret">Secret (required).</param>
-        /// <param name="Name">Name of the bot (required).</param>
         /// <param name="OwnerAccountId">OwnerAccountId.</param>
+        /// <param name="Secret">Secret.</param>
+        /// <param name="Name">Name of the bot (required).</param>
         /// <param name="DashboardName">Name of the dashboard (required).</param>
         /// <param name="Description">Description of the bot (required).</param>
         /// <param name="Homepage">Homepage.</param>
         /// <param name="LogoUrl">LogoUrl.</param>
         /// <param name="FavIcon">FavIcon.</param>
         /// <param name="TabTitle">TabTitle.</param>
-        public CreateBotRequest(string Secret = default(string), string Name = default(string), int? OwnerAccountId = default(int?), string DashboardName = default(string), string Description = default(string), string Homepage = default(string), string LogoUrl = default(string), string FavIcon = default(string), string TabTitle = default(string))
+        /// <param name="Feedbacks">Feedbacks.</param>
+        /// <param name="ConflictExceptions">ConflictExceptions.</param>
+        public CreateBotRequest(int? OwnerAccountId = default(int?), string Secret = default(string), string Name = default(string), string DashboardName = default(string), string Description = default(string), string Homepage = default(string), string LogoUrl = default(string), string FavIcon = default(string), string TabTitle = default(string), List<CreateBotRequestFeedback> Feedbacks = default(List<CreateBotRequestFeedback>), List<CreateBotRequestExceptions> ConflictExceptions = default(List<CreateBotRequestExceptions>))
         {
-            // to ensure "Secret" is required (not null)
-            if (Secret == null)
-            {
-                throw new InvalidDataException("Secret is a required property for CreateBotRequest and cannot be null");
-            }
-            else
-            {
-                this.Secret = Secret;
-            }
             // to ensure "Name" is required (not null)
             if (Name == null)
             {
@@ -86,12 +79,21 @@ namespace IO.Swagger.Model
                 this.Description = Description;
             }
             this.OwnerAccountId = OwnerAccountId;
+            this.Secret = Secret;
             this.Homepage = Homepage;
             this.LogoUrl = LogoUrl;
             this.FavIcon = FavIcon;
             this.TabTitle = TabTitle;
+            this.Feedbacks = Feedbacks;
+            this.ConflictExceptions = ConflictExceptions;
         }
         
+        /// <summary>
+        /// Gets or Sets OwnerAccountId
+        /// </summary>
+        [DataMember(Name="ownerAccountId", EmitDefaultValue=false)]
+        public int? OwnerAccountId { get; set; }
+
         /// <summary>
         /// Gets or Sets Secret
         /// </summary>
@@ -104,12 +106,6 @@ namespace IO.Swagger.Model
         /// <value>Name of the bot</value>
         [DataMember(Name="name", EmitDefaultValue=false)]
         public string Name { get; set; }
-
-        /// <summary>
-        /// Gets or Sets OwnerAccountId
-        /// </summary>
-        [DataMember(Name="ownerAccountId", EmitDefaultValue=false)]
-        public int? OwnerAccountId { get; set; }
 
         /// <summary>
         /// Name of the dashboard
@@ -150,6 +146,18 @@ namespace IO.Swagger.Model
         public string TabTitle { get; set; }
 
         /// <summary>
+        /// Gets or Sets Feedbacks
+        /// </summary>
+        [DataMember(Name="feedbacks", EmitDefaultValue=false)]
+        public List<CreateBotRequestFeedback> Feedbacks { get; set; }
+
+        /// <summary>
+        /// Gets or Sets ConflictExceptions
+        /// </summary>
+        [DataMember(Name="conflictExceptions", EmitDefaultValue=false)]
+        public List<CreateBotRequestExceptions> ConflictExceptions { get; set; }
+
+        /// <summary>
         /// Returns the string presentation of the object
         /// </summary>
         /// <returns>String presentation of the object</returns>
@@ -157,15 +165,17 @@ namespace IO.Swagger.Model
         {
             var sb = new StringBuilder();
             sb.Append("class CreateBotRequest {\n");
+            sb.Append("  OwnerAccountId: ").Append(OwnerAccountId).Append("\n");
             sb.Append("  Secret: ").Append(Secret).Append("\n");
             sb.Append("  Name: ").Append(Name).Append("\n");
-            sb.Append("  OwnerAccountId: ").Append(OwnerAccountId).Append("\n");
             sb.Append("  DashboardName: ").Append(DashboardName).Append("\n");
             sb.Append("  Description: ").Append(Description).Append("\n");
             sb.Append("  Homepage: ").Append(Homepage).Append("\n");
             sb.Append("  LogoUrl: ").Append(LogoUrl).Append("\n");
             sb.Append("  FavIcon: ").Append(FavIcon).Append("\n");
             sb.Append("  TabTitle: ").Append(TabTitle).Append("\n");
+            sb.Append("  Feedbacks: ").Append(Feedbacks).Append("\n");
+            sb.Append("  ConflictExceptions: ").Append(ConflictExceptions).Append("\n");
             sb.Append("}\n");
             return sb.ToString();
         }
@@ -201,6 +211,11 @@ namespace IO.Swagger.Model
 
             return 
                 (
+                    this.OwnerAccountId == input.OwnerAccountId ||
+                    (this.OwnerAccountId != null &&
+                    this.OwnerAccountId.Equals(input.OwnerAccountId))
+                ) && 
+                (
                     this.Secret == input.Secret ||
                     (this.Secret != null &&
                     this.Secret.Equals(input.Secret))
@@ -209,11 +224,6 @@ namespace IO.Swagger.Model
                     this.Name == input.Name ||
                     (this.Name != null &&
                     this.Name.Equals(input.Name))
-                ) && 
-                (
-                    this.OwnerAccountId == input.OwnerAccountId ||
-                    (this.OwnerAccountId != null &&
-                    this.OwnerAccountId.Equals(input.OwnerAccountId))
                 ) && 
                 (
                     this.DashboardName == input.DashboardName ||
@@ -244,6 +254,16 @@ namespace IO.Swagger.Model
                     this.TabTitle == input.TabTitle ||
                     (this.TabTitle != null &&
                     this.TabTitle.Equals(input.TabTitle))
+                ) && 
+                (
+                    this.Feedbacks == input.Feedbacks ||
+                    this.Feedbacks != null &&
+                    this.Feedbacks.SequenceEqual(input.Feedbacks)
+                ) && 
+                (
+                    this.ConflictExceptions == input.ConflictExceptions ||
+                    this.ConflictExceptions != null &&
+                    this.ConflictExceptions.SequenceEqual(input.ConflictExceptions)
                 );
         }
 
@@ -256,12 +276,12 @@ namespace IO.Swagger.Model
             unchecked // Overflow is fine, just wrap
             {
                 int hashCode = 41;
+                if (this.OwnerAccountId != null)
+                    hashCode = hashCode * 59 + this.OwnerAccountId.GetHashCode();
                 if (this.Secret != null)
                     hashCode = hashCode * 59 + this.Secret.GetHashCode();
                 if (this.Name != null)
                     hashCode = hashCode * 59 + this.Name.GetHashCode();
-                if (this.OwnerAccountId != null)
-                    hashCode = hashCode * 59 + this.OwnerAccountId.GetHashCode();
                 if (this.DashboardName != null)
                     hashCode = hashCode * 59 + this.DashboardName.GetHashCode();
                 if (this.Description != null)
@@ -274,6 +294,10 @@ namespace IO.Swagger.Model
                     hashCode = hashCode * 59 + this.FavIcon.GetHashCode();
                 if (this.TabTitle != null)
                     hashCode = hashCode * 59 + this.TabTitle.GetHashCode();
+                if (this.Feedbacks != null)
+                    hashCode = hashCode * 59 + this.Feedbacks.GetHashCode();
+                if (this.ConflictExceptions != null)
+                    hashCode = hashCode * 59 + this.ConflictExceptions.GetHashCode();
                 return hashCode;
             }
         }

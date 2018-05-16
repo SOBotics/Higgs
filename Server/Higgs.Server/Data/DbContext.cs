@@ -13,6 +13,8 @@ namespace Higgs.Server.Data
         public DbSet<DbUser> Users { get; set; }
         public DbSet<DbBot> Bots { get; set; }
         public DbSet<DbFeedback> Feedbacks { get; set; }
+        public DbSet<DbConflictException> ConflictExceptions { get; set; }
+        public DbSet<DbConflictExceptionFeedback> ConflictExceptionFeedbacks { get; set; }
         public DbSet<DbReportAllowedFeedback> ReportAllowedFeedbacks { get; set; }
         public DbSet<DbContentFragment> ContentFragments { get; set; }
         public DbSet<DbReport> Reports { get; set; }

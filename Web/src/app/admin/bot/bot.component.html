@@ -1,65 +1,147 @@
-<ng-container *ngIf="botDetails">
-  <div class="container">
-    <div [hidden]="submitted">
-      <form (ngSubmit)="onSubmit()" #botForm="ngForm">
-        <div *ngIf="isAdmin" class="form-group">
-          <label for="name">Owner Account Id</label>
-          <input type="text" class="form-control" id="ownerAccountId" required [(ngModel)]="botDetails.ownerAccountId" name="ownerAccountId" #ownerAccountId="ngModel">
-          <div [hidden]="ownerAccountId.valid || ownerAccountId.untouched" class="alert alert-danger">
-            Required
-          </div>
-        </div>
-
-        <div class="form-group">
-          <label for="name">Name</label>
-          <input type="text" class="form-control" id="name" required [(ngModel)]="botDetails.name" name="name" #name="ngModel">
-          <div [hidden]="name.valid || name.untouched" class="alert alert-danger">
-            Required
-          </div>
-        </div>
-        <div class="form-group">
-          <label for="name">Dashboard Name</label>
-          <input type="text" class="form-control" id="dashboardName" required [(ngModel)]="botDetails.dashboardName" name="dashboardName"
-            #dashboardName="ngModel">
-          <div [hidden]="dashboardName.valid || dashboardName.untouched" class="alert alert-danger">
-            Required
-          </div>
-        </div>
-        <div class="form-group">
-          <label for="name">Description</label>
-          <input type="text" class="form-control" id="description" required [(ngModel)]="botDetails.description" name="description"
-            #description="ngModel">
-          <div [hidden]="description.valid || description.untouched" class="alert alert-danger">
-            Required
-          </div>
-        </div>
-        <div class="form-group">
-          <label for="name">Secret</label>
-          <input type="password" class="form-control" id="secret" [required]="isNew" [(ngModel)]="botDetails.secret" name="secret"
-            #secret="ngModel">
-          <div [hidden]="secret.valid || secret.untouched" class="alert alert-danger">
-            Required
-          </div>
-        </div>
-        <div class="form-group">
-          <label for="name">Homepage</label>
-          <input type="text" class="form-control" id="homePage" [(ngModel)]="botDetails.homePage" name="homePage" #homePage="ngModel">
-        </div>
-        <div class="form-group">
-          <label for="name">Logo URL</label>
-          <input type="text" class="form-control" id="logoUrl" [(ngModel)]="botDetails.logoUrl" name="logoUrl" #logoUrl="ngModel">
-        </div>
-        <div class="form-group">
-          <label for="name">FavIcon</label>
-          <input type="text" class="form-control" id="favIcon" [(ngModel)]="botDetails.favIcon" name="favIcon" #favIcon="ngModel">
-        </div>
-        <div class="form-group">
-          <label for="name">Tab Title</label>
-          <input type="text" class="form-control" id="tabTitle" [(ngModel)]="botDetails.tabTitle" name="tabTitle" #tabTitle="ngModel">
-        </div>
-
-        <button type="submit" class="btn btn-success" [disabled]="!botForm.form.valid">Submit</button>
-      </form>
+<div class="container">
+  <nav>
+    <div class="nav nav-tabs" id="nav-tab" role="tablist">
+      <a class="nav-item nav-link active" id="nav-general-tab" data-toggle="tab" href="#nav-general" role="tab" aria-controls="nav-general"
+        aria-selected="true">General</a>
+      <a class="nav-item nav-link" id="nav-feedback-tab" data-toggle="tab" href="#nav-feedback" role="tab" aria-controls="nav-feedback"
+        aria-selected="true">Feedback</a>
+      <a class="nav-item nav-link" id="nav-conflicts-tab" data-toggle="tab" href="#nav-conflicts" role="tab" aria-controls="nav-conflicts"
+        aria-selected="false">Conflict Exceptions</a>
     </div>
-  </div>
-</ng-container>
+  </nav>
+
+  <form (ngSubmit)="onSubmit()" #botForm="ngForm">
+    <div class="tab-content" id="nav-tabContent" *ngIf="botDetails">
+      <div class="tab-pane fade show active" id="nav-general" role="tabpanel">
+        <div class="container">
+          <div *ngIf="isAdmin" class="form-group">
+            <label for="name">Owner Account Id</label>
+            <input type="text" class="form-control" id="ownerAccountId" required [(ngModel)]="botDetails.ownerAccountId" name="ownerAccountId"
+              #ownerAccountId="ngModel">
+            <div [hidden]="ownerAccountId.valid || ownerAccountId.untouched" class="alert alert-danger">
+              Required
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label for="name">Name</label>
+            <input type="text" class="form-control" id="name" required [(ngModel)]="botDetails.name" name="name" #name="ngModel">
+            <div [hidden]="name.valid || name.untouched" class="alert alert-danger">
+              Required
+            </div>
+          </div>
+          <div class="form-group">
+            <label for="name">Dashboard Name</label>
+            <input type="text" class="form-control" id="dashboardName" required [(ngModel)]="botDetails.dashboardName" name="dashboardName"
+              #dashboardName="ngModel">
+            <div [hidden]="dashboardName.valid || dashboardName.untouched" class="alert alert-danger">
+              Required
+            </div>
+          </div>
+          <div class="form-group">
+            <label for="name">Description</label>
+            <input type="text" class="form-control" id="description" required [(ngModel)]="botDetails.description" name="description"
+              #description="ngModel">
+            <div [hidden]="description.valid || description.untouched" class="alert alert-danger">
+              Required
+            </div>
+          </div>
+          <div class="form-group">
+            <label for="name">Secret</label>
+            <input type="password" class="form-control" id="secret" [required]="isNew" [(ngModel)]="botDetails.secret" name="secret"
+              #secret="ngModel">
+            <div [hidden]="secret.valid || secret.untouched" class="alert alert-danger">
+              Required
+            </div>
+          </div>
+          <div class="form-group">
+            <label for="name">Homepage</label>
+            <input type="text" class="form-control" id="homePage" [(ngModel)]="botDetails.homePage" name="homePage" #homePage="ngModel">
+          </div>
+          <div class="form-group">
+            <label for="name">Logo URL</label>
+            <input type="text" class="form-control" id="logoUrl" [(ngModel)]="botDetails.logoUrl" name="logoUrl" #logoUrl="ngModel">
+          </div>
+          <div class="form-group">
+            <label for="name">FavIcon</label>
+            <input type="text" class="form-control" id="favIcon" [(ngModel)]="botDetails.favIcon" name="favIcon" #favIcon="ngModel">
+          </div>
+          <div class="form-group">
+            <label for="name">Tab Title</label>
+            <input type="text" class="form-control" id="tabTitle" [(ngModel)]="botDetails.tabTitle" name="tabTitle" #tabTitle="ngModel">
+          </div>
+        </div>
+      </div>
+      <div class="tab-pane fade show" id="nav-feedback" role="tabpanel">
+        <table class="table">
+          <thead>
+            <tr>
+              <th>Name</th>
+              <th>Colour</th>
+              <th>Icon</th>
+              <th>Actionable</th>
+              <th>Enabled</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let feedback of botDetails.feedbacks">
+              <td>
+                <input type="text" class="form-control" [(ngModel)]="feedback.name" [ngModelOptions]="{standalone: true}">
+              </td>
+              <td>
+                <input type="text" class="form-control" [(ngModel)]="feedback.colour" [ngModelOptions]="{standalone: true}">
+              </td>
+              <td>
+                <input type="text" class="form-control" [(ngModel)]="feedback.icon" [ngModelOptions]="{standalone: true}">
+              </td>
+              <td>
+                <input type="checkbox" [(ngModel)]="feedback.isActionable" [ngModelOptions]="{standalone: true}">
+              </td>
+              <td>
+                <input type="checkbox" [(ngModel)]="feedback.isEnabled" [ngModelOptions]="{standalone: true}">
+              </td>
+            </tr>
+          </tbody>
+        </table>
+        <a href="javascript:void(0)" class="btn btn-success" (click)="addNewFeedback()">New</a>
+      </div>
+      <div class="tab-pane fade" id="nav-conflicts" role="tabpanel">
+        <p class="conflict-description">By default, all feedback types conflict with eachother. In addition, all conflicts will raise an alert to admins.
+          Here, you can override that functionality, either to mark feedbacks as non-conflicting, or to disable the alert
+          to admins for a particular conflict.</p>
+        <table class="table">
+          <thead>
+            <tr>
+              <th>Feedback types</th>
+              <th>Is conflict</th>
+              <th>Requires admin</th>
+              <th></th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let conflictException of botDetails.conflictExceptions">
+              <td>
+                <ss-multiselect-dropdown [options]="getConflictOptions()" [(ngModel)]="conflictException.botResponseConflictFeedbacks" [settings]="conflictDropdownSettings"
+                  [texts]="conflictDropdownTexts" [ngModelOptions]="{standalone: true}"></ss-multiselect-dropdown>
+              </td>
+              <td>
+                <input type="checkbox" [(ngModel)]="conflictException.isConflict" [ngModelOptions]="{standalone: true}">
+              </td>
+              <td>
+                <input type="checkbox" [(ngModel)]="conflictException.requiresAdmin" [ngModelOptions]="{standalone: true}">
+              </td>
+              <td>
+                <button type="button" class="btn btn-danger">Remove</button>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+        <a href="javascript:void(0)" class="btn btn-success" (click)="addNewConflict()">New</a>
+      </div>
+    </div>
+
+    <div class="md-col-12 text-right">
+      <button type="submit" class="btn btn-success" [disabled]="!botForm.form.valid">Submit</button>
+    </div>
+  </form>
+</div>

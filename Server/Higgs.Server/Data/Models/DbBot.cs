@@ -28,5 +28,8 @@ namespace Higgs.Server.Data.Models
 
         [InverseProperty("Bot")]
         public List<DbFeedback> Feedbacks { get; set; }
+
+        [InverseProperty("Bot")]
+        public List<DbConflictException> ConflictExceptions { get; set; }
     }
 }

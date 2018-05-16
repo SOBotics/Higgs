@@ -1,19 +1,20 @@
-# IO.Swagger.Model.BotResponse
+# IO.Swagger.Model.EditBotRequest
 ## Properties
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Id** | **int?** |  | 
-**Name** | **string** |  | 
-**DashboardName** | **string** |  | 
-**Description** | **string** |  | 
+**BotId** | **int?** |  | 
 **OwnerAccountId** | **int?** |  | [optional] 
+**Secret** | **string** |  | [optional] 
+**Name** | **string** | Name of the bot | 
+**DashboardName** | **string** | Name of the dashboard | 
+**Description** | **string** | Description of the bot | 
 **Homepage** | **string** |  | [optional] 
 **LogoUrl** | **string** |  | [optional] 
 **FavIcon** | **string** |  | [optional] 
 **TabTitle** | **string** |  | [optional] 
-**Feedbacks** | [**List&lt;BotResponseFeedback&gt;**](BotResponseFeedback.md) |  | [optional] 
-**ConflictExceptions** | [**List&lt;BotResponseConflictExceptions&gt;**](BotResponseConflictExceptions.md) |  | [optional] 
+**Feedbacks** | [**List&lt;CreateBotRequestFeedback&gt;**](CreateBotRequestFeedback.md) |  | [optional] 
+**ConflictExceptions** | [**List&lt;CreateBotRequestExceptions&gt;**](CreateBotRequestExceptions.md) |  | [optional] 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 

@@ -22,12 +22,10 @@ import { BotResponse } from '../model/botResponse';
 import { BotsResponse } from '../model/botsResponse';
 import { CreateBotRequest } from '../model/createBotRequest';
 import { DeleteBotRequest } from '../model/deleteBotRequest';
-import { EditBotFeedbackTypesRequest } from '../model/editBotFeedbackTypesRequest';
-import { EditCreateBotRequest } from '../model/editCreateBotRequest';
+import { EditBotRequest } from '../model/editBotRequest';
 import { ErrorResponse } from '../model/errorResponse';
 import { UpdateUserRequest } from '../model/updateUserRequest';
 import { UsersResponse } from '../model/usersResponse';
-import { ViewBotFeedbackTypesResponse } from '../model/viewBotFeedbackTypesResponse';
 
 import { BASE_PATH, COLLECTION_FORMATS }                     from '../variables';
 import { Configuration }                                     from '../configuration';
@@ -224,72 +222,16 @@ export class AdminService {
     }
 
     /**
-     * 
-     * 
-     * @param request 
-     * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
-     * @param reportProgress flag to report request and response progress.
-     */
-    public adminEditBotFeedbackTypesPost(request?: EditBotFeedbackTypesRequest, observe?: 'body', reportProgress?: boolean): Observable<any>;
-    public adminEditBotFeedbackTypesPost(request?: EditBotFeedbackTypesRequest, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<any>>;
-    public adminEditBotFeedbackTypesPost(request?: EditBotFeedbackTypesRequest, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<any>>;
-    public adminEditBotFeedbackTypesPost(request?: EditBotFeedbackTypesRequest, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
-
-        let headers = this.defaultHeaders;
-
-        // authentication (oauth2) required
-        if (this.configuration.accessToken) {
-            let accessToken = typeof this.configuration.accessToken === 'function'
-                ? this.configuration.accessToken()
-                : this.configuration.accessToken;
-            headers = headers.set('Authorization', 'Bearer ' + accessToken);
-        }
-
-        // to determine the Accept header
-        let httpHeaderAccepts: string[] = [
-            'text/plain',
-            'application/json',
-            'text/json'
-        ];
-        let httpHeaderAcceptSelected: string | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
-        if (httpHeaderAcceptSelected != undefined) {
-            headers = headers.set("Accept", httpHeaderAcceptSelected);
-        }
-
-        // to determine the Content-Type header
-        let consumes: string[] = [
-            'application/json-patch+json',
-            'application/json',
-            'text/json',
-            'application/_*+json'
-        ];
-        let httpContentTypeSelected:string | undefined = this.configuration.selectHeaderContentType(consumes);
-        if (httpContentTypeSelected != undefined) {
-            headers = headers.set("Content-Type", httpContentTypeSelected);
-        }
-
-        return this.httpClient.post<any>(`${this.basePath}/Admin/EditBotFeedbackTypes`,
-            request,
-            {
-                withCredentials: this.configuration.withCredentials,
-                headers: headers,
-                observe: observe,
-                reportProgress: reportProgress
-            }
-        );
-    }
-
-    /**
      * Update a bots details
      * 
      * @param request 
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      */
-    public adminEditBotPost(request?: EditCreateBotRequest, observe?: 'body', reportProgress?: boolean): Observable<any>;
-    public adminEditBotPost(request?: EditCreateBotRequest, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<any>>;
-    public adminEditBotPost(request?: EditCreateBotRequest, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<any>>;
-    public adminEditBotPost(request?: EditCreateBotRequest, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
+    public adminEditBotPost(request?: EditBotRequest, observe?: 'body', reportProgress?: boolean): Observable<any>;
+    public adminEditBotPost(request?: EditBotRequest, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<any>>;
+    public adminEditBotPost(request?: EditBotRequest, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<any>>;
+    public adminEditBotPost(request?: EditBotRequest, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
 
         let headers = this.defaultHeaders;
 
@@ -584,62 +526,6 @@ export class AdminService {
 
         return this.httpClient.get<Array<UsersResponse>>(`${this.basePath}/Admin/Users`,
             {
-                withCredentials: this.configuration.withCredentials,
-                headers: headers,
-                observe: observe,
-                reportProgress: reportProgress
-            }
-        );
-    }
-
-    /**
-     * 
-     * 
-     * @param botId 
-     * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
-     * @param reportProgress flag to report request and response progress.
-     */
-    public adminViewBotFeedbackTypesGet(botId: number, observe?: 'body', reportProgress?: boolean): Observable<Array<ViewBotFeedbackTypesResponse>>;
-    public adminViewBotFeedbackTypesGet(botId: number, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<Array<ViewBotFeedbackTypesResponse>>>;
-    public adminViewBotFeedbackTypesGet(botId: number, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<Array<ViewBotFeedbackTypesResponse>>>;
-    public adminViewBotFeedbackTypesGet(botId: number, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
-        if (botId === null || botId === undefined) {
-            throw new Error('Required parameter botId was null or undefined when calling adminViewBotFeedbackTypesGet.');
-        }
-
-        let queryParameters = new HttpParams({encoder: new CustomHttpUrlEncodingCodec()});
-        if (botId !== undefined) {
-            queryParameters = queryParameters.set('botId', <any>botId);
-        }
-
-        let headers = this.defaultHeaders;
-
-        // authentication (oauth2) required
-        if (this.configuration.accessToken) {
-            let accessToken = typeof this.configuration.accessToken === 'function'
-                ? this.configuration.accessToken()
-                : this.configuration.accessToken;
-            headers = headers.set('Authorization', 'Bearer ' + accessToken);
-        }
-
-        // to determine the Accept header
-        let httpHeaderAccepts: string[] = [
-            'text/plain',
-            'application/json',
-            'text/json'
-        ];
-        let httpHeaderAcceptSelected: string | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
-        if (httpHeaderAcceptSelected != undefined) {
-            headers = headers.set("Accept", httpHeaderAcceptSelected);
-        }
-
-        // to determine the Content-Type header
-        let consumes: string[] = [
-        ];
-
-        return this.httpClient.get<Array<ViewBotFeedbackTypesResponse>>(`${this.basePath}/Admin/ViewBotFeedbackTypes`,
-            {
-                params: queryParameters,
                 withCredentials: this.configuration.withCredentials,
                 headers: headers,
                 observe: observe,

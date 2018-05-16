@@ -69,22 +69,19 @@ namespace Higgs.Server.Controllers
                 return BadRequest(new ErrorResponse("Secret is required"));
             if (_dbContext.Bots.Any(b => b.Name == request.Name))
                 return BadRequest(new ErrorResponse($"Bot with name '{request.Name}' already exists"));
+
             var userId = User.GetUserId();
             if (!userId.HasValue)
                 throw new HttpStatusException(HttpStatusCode.Unauthorized);
-            
+
             var bot = new DbBot
             {
-                Name = request.Name,
-                DashboardName = request.DashboardName,
-                Description = request.Description,
-                Secret = BCrypt.Net.BCrypt.HashPassword(request.Secret),
-                FavIcon = request.FavIcon,
-                Homepage = request.Homepage,
-                LogoUrl = request.LogoUrl,
-                TabTitle = request.TabTitle,
-                OwnerAccountId = userId.Value
+                BotScopes = new List<DbBotScope>(),
+                Feedbacks = new List<DbFeedback>(),
+                ConflictExceptions = new List<DbConflictException>()
             };
+
+            FillBotDetails(bot, request);
 
             if (request.OwnerAccountId.HasValue && User.HasClaim(Scopes.SCOPE_ADMIN))
                 bot.OwnerAccountId = request.OwnerAccountId.Value;
@@ -120,6 +117,32 @@ namespace Higgs.Server.Controllers
 
             if (bot == null)
                 throw new HttpStatusException(HttpStatusCode.BadRequest, "Bot not found");
+            
+            var feedbacks = _dbContext.Feedbacks.Where(f => f.BotId == botId)
+                .Select(f => new BotResponseFeedback
+                {
+                    Id = f.Id,
+                    Name = f.Name,
+                    Colour = f.Colour,
+                    Icon = f.Icon,
+                    IsActionable = f.IsActionable,
+                    IsEnabled = f.IsEnabled
+                }).ToList();
+            bot.Feedbacks = feedbacks;
+
+            var conflictExceptions = _dbContext.ConflictExceptions.Where(bceg => bceg.BotId == botId)
+                .Include(conflictExceptionGroup => conflictExceptionGroup.ConflictExceptionFeedbacks)
+                .ToList()
+                .Select(conflictExceptionGroup => new BotResponseConflictExceptions
+                {
+                    Id = conflictExceptionGroup.Id,
+                    IsConflict = conflictExceptionGroup.IsConflict,
+                    RequiresAdmin = conflictExceptionGroup.RequiresAdmin,
+                    BotResponseConflictFeedbacks = conflictExceptionGroup.ConflictExceptionFeedbacks.Select(gg => gg.FeedbackId).ToList()
+                }).ToList();
+
+            bot.ConflictExceptions = conflictExceptions;
+            
             if (User.HasClaim(Scopes.SCOPE_ADMIN) || bot.OwnerAccountId == User.GetUserId())
                 return bot;
             
@@ -141,15 +164,30 @@ namespace Higgs.Server.Controllers
         [Authorize(Scopes.SCOPE_BOT_OWNER)]
         [SwaggerResponse((int) HttpStatusCode.OK, Description = "Successfully edited bot")]
         [SwaggerResponse((int) HttpStatusCode.BadRequest, typeof(ErrorResponse), Description = "Bot not found")]
-        public IActionResult EditBot([FromBody] EditCreateBotRequest request)
+        public IActionResult EditBot([FromBody] EditBotRequest request)
         {
-            var existingBot = _dbContext.Bots.Include(b => b.BotScopes).FirstOrDefault(b => b.Id == request.BotId);
+            var existingBot = _dbContext.Bots
+                .Include(b => b.BotScopes)
+                .Include(b => b.Feedbacks)
+                .Include(b => b.ConflictExceptions)
+                .ThenInclude(b => b.ConflictExceptionFeedbacks)
+                .FirstOrDefault(b => b.Id == request.BotId);
+
             if (existingBot == null)
                 return BadRequest(new ErrorResponse($"Bot with id {request.BotId} not found."));
 
             if (!User.HasClaim(Scopes.SCOPE_ADMIN) && existingBot.OwnerAccountId != User.GetUserId())
                 throw new HttpStatusException(HttpStatusCode.Unauthorized);
 
+            FillBotDetails(existingBot, request);
+
+            _dbContext.SaveChanges();
+
+            return Ok();
+        }
+
+        private void FillBotDetails(DbBot existingBot, CreateBotRequest request)
+        {
             existingBot.Name = request.Name;
             existingBot.DashboardName = request.DashboardName;
             existingBot.Description = request.Description;
@@ -157,57 +195,18 @@ namespace Higgs.Server.Controllers
             // Deliberately not using IsNullOrWhitespace here, as an admin may want to revoke credentials from the bot entirely
             if (!string.IsNullOrEmpty(request.Secret))
                 existingBot.Secret = BCrypt.Net.BCrypt.HashPassword(request.Secret);
-            
+
             if (request.OwnerAccountId.HasValue && User.HasClaim(Scopes.SCOPE_ADMIN))
                 existingBot.OwnerAccountId = request.OwnerAccountId.Value;
-            
+
             existingBot.FavIcon = request.FavIcon;
             existingBot.Homepage = request.Homepage;
             existingBot.LogoUrl = request.LogoUrl;
             existingBot.TabTitle = request.TabTitle;
 
-            _dbContext.SaveChanges();
-
-            return Ok();
-        }
-
-        [HttpGet("ViewBotFeedbackTypes")]
-        [Authorize(Scopes.SCOPE_BOT_OWNER)]
-        [SwaggerResponse((int)HttpStatusCode.OK, typeof(IList<ViewBotFeedbackTypesResponse>))]
-        [SwaggerResponse((int)HttpStatusCode.BadRequest, typeof(ErrorResponse), Description = "Bot not found")]
-        public IActionResult ViewBotFeedbackTypes(int botId)
-        {
-            var existingBot = _dbContext.Bots.FirstOrDefault(b => b.Id == botId);
-            if (existingBot == null)
-                return BadRequest(new ErrorResponse($"Bot with id {botId} not found."));
-
-            var feedback = _dbContext.Feedbacks.Where(f => f.BotId == botId)
-                .Select(f => new ViewBotFeedbackTypesResponse
-                {
-                    Id = f.Id,
-                    Name = f.Name,
-                    Colour = f.Colour,
-                    Icon = f.Icon,
-                    IsActionable = f.IsActionable,
-                    IsEnabled = f.IsEnabled
-                }).ToList();
-
-            return Json(feedback);
-        }
-
-        [HttpPost("EditBotFeedbackTypes")]
-        [Authorize(Scopes.SCOPE_BOT_OWNER)]
-        [SwaggerResponse((int) HttpStatusCode.OK, Description = "Successfully edited bot feedback types")]
-        [SwaggerResponse((int) HttpStatusCode.BadRequest, typeof(ErrorResponse), Description = "Bot not found")]
-        public IActionResult EditBotFeedbackTypes([FromBody] EditBotFeedbackTypesRequest request)
-        {
-            var existingBot = _dbContext.Bots.Include(b => b.Feedbacks).FirstOrDefault(b => b.Id == request.BotId);
-            if (existingBot == null)
-                return BadRequest(new ErrorResponse($"Bot with id {request.BotId} not found."));
-
             var feedbackTypes = existingBot.Feedbacks.ToDictionary(f => f.Id, f => f);
-
-            foreach (var feedbackType in request.FeedbackTypes)
+            var createdFeedbacks = new Dictionary<int, DbFeedback>();
+            foreach (var feedbackType in request.Feedbacks)
             {
                 if (feedbackTypes.ContainsKey(feedbackType.Id))
                 {
@@ -221,35 +220,104 @@ namespace Higgs.Server.Controllers
                 }
                 else
                 {
-                    if (feedbackType.Id == 0) // It's a new one
-                    {
-                        var dbFeedbackType = new DbFeedback
-                        {
-                            BotId = request.BotId,
-                            Name = feedbackType.Name,
-                            Colour = feedbackType.Colour,
-                            Icon = feedbackType.Icon,
-                            IsActionable = feedbackType.IsActionable,
-                            IsEnabled = feedbackType.IsEnabled
-                        };
-                        existingBot.Feedbacks.Add(dbFeedbackType);
+                    if (feedbackType.Id >= 0) continue;
 
-                        _dbContext.Feedbacks.Add(dbFeedbackType);
-                    }
+                    // It's a new one
+                    var dbFeedbackType = new DbFeedback
+                    {
+                        Bot = existingBot,
+                        Name = feedbackType.Name,
+                        Colour = feedbackType.Colour,
+                        Icon = feedbackType.Icon,
+                        IsActionable = feedbackType.IsActionable,
+                        IsEnabled = feedbackType.IsEnabled
+                    };
+                    existingBot.Feedbacks.Add(dbFeedbackType);
+                    _dbContext.Feedbacks.Add(dbFeedbackType);
+
+                    createdFeedbacks.Add(feedbackType.Id, dbFeedbackType);
                 }
             }
-            
+
             if (existingBot.Feedbacks.GroupBy(f => f.Name, StringComparer.OrdinalIgnoreCase).Any(g => g.Count() > 1))
             {
                 // We have duplicates
-                return BadRequest(new ErrorResponse($"Feedback names must be unique"));
+                throw new HttpStatusException(HttpStatusCode.BadRequest, "Feedback names must be unique");
             }
-            
-            _dbContext.SaveChanges();
 
-            return Ok();
+            var conflictExceptions = existingBot.ConflictExceptions.ToDictionary(ce => ce.Id, ce => ce);
+            foreach (var conflictException in request.ConflictExceptions)
+            {
+                if (conflictExceptions.ContainsKey(conflictException.Id))
+                {
+                    var dbConflictException = conflictExceptions[conflictException.Id];
+                    dbConflictException.IsConflict = conflictException.IsConflict;
+                    dbConflictException.RequiresAdmin = conflictException.RequiresAdmin;
+
+                    // Delete the old ones, and re-create
+                    foreach (var existingDbFeedback in dbConflictException.ConflictExceptionFeedbacks)
+                        _dbContext.ConflictExceptionFeedbacks.Remove(existingDbFeedback);
+                    
+                    foreach (var conflictFeedbackId in conflictException.BotResponseConflictFeedbacks)
+                    {
+                        var newConflictException = new DbConflictExceptionFeedback
+                        {
+                            ConflictException = dbConflictException
+                        };
+
+                        if (conflictFeedbackId < 0)
+                        {
+                            if (createdFeedbacks.ContainsKey(conflictFeedbackId))
+                                newConflictException.Feedback = createdFeedbacks[conflictFeedbackId];
+                            else
+                                throw new HttpStatusException(HttpStatusCode.BadRequest, "Invalid FeedbackId for conflict");
+                        }
+                        else
+                        {
+                            newConflictException.FeedbackId = conflictFeedbackId;
+                        }
+                        _dbContext.ConflictExceptionFeedbacks.Add(newConflictException);
+                    }
+                }
+                else
+                {
+                    if (conflictException.Id >= 0) continue;
+
+                    // It's a new one
+                    var dbConflictException = new DbConflictException
+                    {
+                        Bot = existingBot,
+                        IsConflict = conflictException.IsConflict,
+                        RequiresAdmin = conflictException.RequiresAdmin
+                    };
+
+                    foreach (var conflictFeedbackId in conflictException.BotResponseConflictFeedbacks)
+                    {
+                        var newConflictException = new DbConflictExceptionFeedback
+                        {
+                            ConflictException = dbConflictException
+                        };
+
+                        if (conflictFeedbackId < 0)
+                        {
+                            if (createdFeedbacks.ContainsKey(conflictFeedbackId))
+                                newConflictException.Feedback = createdFeedbacks[conflictFeedbackId];
+                            else
+                                throw new HttpStatusException(HttpStatusCode.BadRequest, "Invalid FeedbackId for conflict");
+                        }
+                        else
+                        {
+                            newConflictException.FeedbackId = conflictFeedbackId;
+                        }
+                        _dbContext.ConflictExceptionFeedbacks.Add(newConflictException);
+                    }
+
+                    existingBot.ConflictExceptions.Add(dbConflictException);
+                    _dbContext.ConflictExceptions.Add(dbConflictException);
+                }
+            }
         }
-
+        
         /// <summary>
         ///     Deactivates a bot
         /// </summary>

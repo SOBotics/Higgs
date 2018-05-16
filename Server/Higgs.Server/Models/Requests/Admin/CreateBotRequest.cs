@@ -1,10 +1,12 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 
 namespace Higgs.Server.Models.Requests.Admin
 {
     public class CreateBotRequest
     {
-        [Required]
+        public int? OwnerAccountId { get; set; }
+
         public string Secret { get; set; }
 
         /// <summary>
@@ -12,8 +14,6 @@ namespace Higgs.Server.Models.Requests.Admin
         /// </summary>
         [Required]
         public string Name { get; set; }
-
-        public int? OwnerAccountId { get; set; }
 
         /// <summary>
         ///     Name of the dashboard
@@ -26,11 +26,38 @@ namespace Higgs.Server.Models.Requests.Admin
         /// </summary>
         [Required]
         public string Description { get; set; }
-        
+
         public string Homepage { get; set; }
         public string LogoUrl { get; set; }
 
         public string FavIcon { get; set; }
         public string TabTitle { get; set; }
+
+        public List<CreateBotRequestFeedback> Feedbacks { get; set; }
+        public List<CreateBotRequestExceptions> ConflictExceptions { get; set; }
+    }
+
+    public class CreateBotRequestFeedback
+    {
+        public int Id { get; set; }
+        public string Name { get; set; }
+        public string Colour { get; set; }
+        public string Icon { get; set; }
+        public bool IsActionable { get; set; }
+        public bool IsEnabled { get; set; }
+    }
+
+    public class CreateBotRequestExceptions
+    {
+        public int Id { get; set; }
+        public bool IsConflict { get; set; }
+        public bool RequiresAdmin { get; set; }
+        public List<int> BotResponseConflictFeedbacks { get; set; }
+    }
+
+    public class CreateBotRequestConflictFeedback
+    {
+        public int FeedbackId { get; set; }
+        public string FeedbackName { get; set; }
     }
 }

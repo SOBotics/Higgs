@@ -1,0 +1,17 @@
+﻿{
+	"Logging": {
+		"IncludeScopes": false,
+		"Debug": {
+			"LogLevel": {
+				"Default": "Warning"
+			}
+		},
+		"Console": {
+			"LogLevel": {
+				"Default": "Warning"
+			}
+		}
+	},
+	"HostName": "http://api.higgs.sobotics.org",
+	"JwtSigningKey": "db3OIsj+BXE9NZDy0t8W3TcNekrF+2d/1sFnWG4HnV8TZY30iTOdtVWJG8abWvB1GlOgJuQZdcF2Luqm/hccMw=="
+}

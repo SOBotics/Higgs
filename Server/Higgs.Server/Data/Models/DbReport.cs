@@ -41,5 +41,8 @@ namespace Higgs.Server.Data.Models
 
         [InverseProperty("Report")]
         public List<DbReportFeedback> Feedbacks { get; set; }
+
+        [InverseProperty("Report")]
+        public List<DbConflictException> ConflictExceptions { get; set; }
     }
 }

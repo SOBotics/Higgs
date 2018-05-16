@@ -496,6 +496,11 @@
         }
       }
     },
+    "angular-2-dropdown-multiselect": {
+      "version": "1.7.1",
+      "resolved": "https://registry.npmjs.org/angular-2-dropdown-multiselect/-/angular-2-dropdown-multiselect-1.7.1.tgz",
+      "integrity": "sha512-wUnOX1atvB8q4Y2c4OqAPucV48QGZntBHU0rg3+ZZzmW0NUWJMEfFjv7Vh9hRLf8ZMxiYR6MfoYkBOHpwB9GRQ=="
+    },
     "angular-highcharts": {
       "version": "6.0.0",
       "resolved": "https://registry.npmjs.org/angular-highcharts/-/angular-highcharts-6.0.0.tgz",

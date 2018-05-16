@@ -25,45 +25,46 @@ using SwaggerDateConverter = IO.Swagger.Client.SwaggerDateConverter;
 namespace IO.Swagger.Model
 {
     /// <summary>
-    /// BotResponse
+    /// EditBotRequest
     /// </summary>
     [DataContract]
-    public partial class BotResponse :  IEquatable<BotResponse>, IValidatableObject
+    public partial class EditBotRequest :  IEquatable<EditBotRequest>, IValidatableObject
     {
         /// <summary>
-        /// Initializes a new instance of the <see cref="BotResponse" /> class.
+        /// Initializes a new instance of the <see cref="EditBotRequest" /> class.
         /// </summary>
         [JsonConstructorAttribute]
-        protected BotResponse() { }
+        protected EditBotRequest() { }
         /// <summary>
-        /// Initializes a new instance of the <see cref="BotResponse" /> class.
+        /// Initializes a new instance of the <see cref="EditBotRequest" /> class.
         /// </summary>
-        /// <param name="Id">Id (required).</param>
-        /// <param name="Name">Name (required).</param>
-        /// <param name="DashboardName">DashboardName (required).</param>
-        /// <param name="Description">Description (required).</param>
+        /// <param name="BotId">BotId (required).</param>
         /// <param name="OwnerAccountId">OwnerAccountId.</param>
+        /// <param name="Secret">Secret.</param>
+        /// <param name="Name">Name of the bot (required).</param>
+        /// <param name="DashboardName">Name of the dashboard (required).</param>
+        /// <param name="Description">Description of the bot (required).</param>
         /// <param name="Homepage">Homepage.</param>
         /// <param name="LogoUrl">LogoUrl.</param>
         /// <param name="FavIcon">FavIcon.</param>
         /// <param name="TabTitle">TabTitle.</param>
         /// <param name="Feedbacks">Feedbacks.</param>
         /// <param name="ConflictExceptions">ConflictExceptions.</param>
-        public BotResponse(int? Id = default(int?), string Name = default(string), string DashboardName = default(string), string Description = default(string), int? OwnerAccountId = default(int?), string Homepage = default(string), string LogoUrl = default(string), string FavIcon = default(string), string TabTitle = default(string), List<BotResponseFeedback> Feedbacks = default(List<BotResponseFeedback>), List<BotResponseConflictExceptions> ConflictExceptions = default(List<BotResponseConflictExceptions>))
+        public EditBotRequest(int? BotId = default(int?), int? OwnerAccountId = default(int?), string Secret = default(string), string Name = default(string), string DashboardName = default(string), string Description = default(string), string Homepage = default(string), string LogoUrl = default(string), string FavIcon = default(string), string TabTitle = default(string), List<CreateBotRequestFeedback> Feedbacks = default(List<CreateBotRequestFeedback>), List<CreateBotRequestExceptions> ConflictExceptions = default(List<CreateBotRequestExceptions>))
         {
-            // to ensure "Id" is required (not null)
-            if (Id == null)
+            // to ensure "BotId" is required (not null)
+            if (BotId == null)
             {
-                throw new InvalidDataException("Id is a required property for BotResponse and cannot be null");
+                throw new InvalidDataException("BotId is a required property for EditBotRequest and cannot be null");
             }
             else
             {
-                this.Id = Id;
+                this.BotId = BotId;
             }
             // to ensure "Name" is required (not null)
             if (Name == null)
             {
-                throw new InvalidDataException("Name is a required property for BotResponse and cannot be null");
+                throw new InvalidDataException("Name is a required property for EditBotRequest and cannot be null");
             }
             else
             {
@@ -72,7 +73,7 @@ namespace IO.Swagger.Model
             // to ensure "DashboardName" is required (not null)
             if (DashboardName == null)
             {
-                throw new InvalidDataException("DashboardName is a required property for BotResponse and cannot be null");
+                throw new InvalidDataException("DashboardName is a required property for EditBotRequest and cannot be null");
             }
             else
             {
@@ -81,13 +82,14 @@ namespace IO.Swagger.Model
             // to ensure "Description" is required (not null)
             if (Description == null)
             {
-                throw new InvalidDataException("Description is a required property for BotResponse and cannot be null");
+                throw new InvalidDataException("Description is a required property for EditBotRequest and cannot be null");
             }
             else
             {
                 this.Description = Description;
             }
             this.OwnerAccountId = OwnerAccountId;
+            this.Secret = Secret;
             this.Homepage = Homepage;
             this.LogoUrl = LogoUrl;
             this.FavIcon = FavIcon;
@@ -97,34 +99,43 @@ namespace IO.Swagger.Model
         }
         
         /// <summary>
-        /// Gets or Sets Id
+        /// Gets or Sets BotId
         /// </summary>
-        [DataMember(Name="id", EmitDefaultValue=false)]
-        public int? Id { get; set; }
-
-        /// <summary>
-        /// Gets or Sets Name
-        /// </summary>
-        [DataMember(Name="name", EmitDefaultValue=false)]
-        public string Name { get; set; }
-
-        /// <summary>
-        /// Gets or Sets DashboardName
-        /// </summary>
-        [DataMember(Name="dashboardName", EmitDefaultValue=false)]
-        public string DashboardName { get; set; }
-
-        /// <summary>
-        /// Gets or Sets Description
-        /// </summary>
-        [DataMember(Name="description", EmitDefaultValue=false)]
-        public string Description { get; set; }
+        [DataMember(Name="botId", EmitDefaultValue=false)]
+        public int? BotId { get; set; }
 
         /// <summary>
         /// Gets or Sets OwnerAccountId
         /// </summary>
         [DataMember(Name="ownerAccountId", EmitDefaultValue=false)]
         public int? OwnerAccountId { get; set; }
+
+        /// <summary>
+        /// Gets or Sets Secret
+        /// </summary>
+        [DataMember(Name="secret", EmitDefaultValue=false)]
+        public string Secret { get; set; }
+
+        /// <summary>
+        /// Name of the bot
+        /// </summary>
+        /// <value>Name of the bot</value>
+        [DataMember(Name="name", EmitDefaultValue=false)]
+        public string Name { get; set; }
+
+        /// <summary>
+        /// Name of the dashboard
+        /// </summary>
+        /// <value>Name of the dashboard</value>
+        [DataMember(Name="dashboardName", EmitDefaultValue=false)]
+        public string DashboardName { get; set; }
+
+        /// <summary>
+        /// Description of the bot
+        /// </summary>
+        /// <value>Description of the bot</value>
+        [DataMember(Name="description", EmitDefaultValue=false)]
+        public string Description { get; set; }
 
         /// <summary>
         /// Gets or Sets Homepage
@@ -154,13 +165,13 @@ namespace IO.Swagger.Model
         /// Gets or Sets Feedbacks
         /// </summary>
         [DataMember(Name="feedbacks", EmitDefaultValue=false)]
-        public List<BotResponseFeedback> Feedbacks { get; set; }
+        public List<CreateBotRequestFeedback> Feedbacks { get; set; }
 
         /// <summary>
         /// Gets or Sets ConflictExceptions
         /// </summary>
         [DataMember(Name="conflictExceptions", EmitDefaultValue=false)]
-        public List<BotResponseConflictExceptions> ConflictExceptions { get; set; }
+        public List<CreateBotRequestExceptions> ConflictExceptions { get; set; }
 
         /// <summary>
         /// Returns the string presentation of the object
@@ -169,12 +180,13 @@ namespace IO.Swagger.Model
         public override string ToString()
         {
             var sb = new StringBuilder();
-            sb.Append("class BotResponse {\n");
-            sb.Append("  Id: ").Append(Id).Append("\n");
+            sb.Append("class EditBotRequest {\n");
+            sb.Append("  BotId: ").Append(BotId).Append("\n");
+            sb.Append("  OwnerAccountId: ").Append(OwnerAccountId).Append("\n");
+            sb.Append("  Secret: ").Append(Secret).Append("\n");
             sb.Append("  Name: ").Append(Name).Append("\n");
             sb.Append("  DashboardName: ").Append(DashboardName).Append("\n");
             sb.Append("  Description: ").Append(Description).Append("\n");
-            sb.Append("  OwnerAccountId: ").Append(OwnerAccountId).Append("\n");
             sb.Append("  Homepage: ").Append(Homepage).Append("\n");
             sb.Append("  LogoUrl: ").Append(LogoUrl).Append("\n");
             sb.Append("  FavIcon: ").Append(FavIcon).Append("\n");
@@ -201,24 +213,34 @@ namespace IO.Swagger.Model
         /// <returns>Boolean</returns>
         public override bool Equals(object input)
         {
-            return this.Equals(input as BotResponse);
+            return this.Equals(input as EditBotRequest);
         }
 
         /// <summary>
-        /// Returns true if BotResponse instances are equal
+        /// Returns true if EditBotRequest instances are equal
         /// </summary>
-        /// <param name="input">Instance of BotResponse to be compared</param>
+        /// <param name="input">Instance of EditBotRequest to be compared</param>
         /// <returns>Boolean</returns>
-        public bool Equals(BotResponse input)
+        public bool Equals(EditBotRequest input)
         {
             if (input == null)
                 return false;
 
             return 
                 (
-                    this.Id == input.Id ||
-                    (this.Id != null &&
-                    this.Id.Equals(input.Id))
+                    this.BotId == input.BotId ||
+                    (this.BotId != null &&
+                    this.BotId.Equals(input.BotId))
+                ) && 
+                (
+                    this.OwnerAccountId == input.OwnerAccountId ||
+                    (this.OwnerAccountId != null &&
+                    this.OwnerAccountId.Equals(input.OwnerAccountId))
+                ) && 
+                (
+                    this.Secret == input.Secret ||
+                    (this.Secret != null &&
+                    this.Secret.Equals(input.Secret))
                 ) && 
                 (
                     this.Name == input.Name ||
@@ -234,11 +256,6 @@ namespace IO.Swagger.Model
                     this.Description == input.Description ||
                     (this.Description != null &&
                     this.Description.Equals(input.Description))
-                ) && 
-                (
-                    this.OwnerAccountId == input.OwnerAccountId ||
-                    (this.OwnerAccountId != null &&
-                    this.OwnerAccountId.Equals(input.OwnerAccountId))
                 ) && 
                 (
                     this.Homepage == input.Homepage ||
@@ -281,16 +298,18 @@ namespace IO.Swagger.Model
             unchecked // Overflow is fine, just wrap
             {
                 int hashCode = 41;
-                if (this.Id != null)
-                    hashCode = hashCode * 59 + this.Id.GetHashCode();
+                if (this.BotId != null)
+                    hashCode = hashCode * 59 + this.BotId.GetHashCode();
+                if (this.OwnerAccountId != null)
+                    hashCode = hashCode * 59 + this.OwnerAccountId.GetHashCode();
+                if (this.Secret != null)
+                    hashCode = hashCode * 59 + this.Secret.GetHashCode();
                 if (this.Name != null)
                     hashCode = hashCode * 59 + this.Name.GetHashCode();
                 if (this.DashboardName != null)
                     hashCode = hashCode * 59 + this.DashboardName.GetHashCode();
                 if (this.Description != null)
                     hashCode = hashCode * 59 + this.Description.GetHashCode();
-                if (this.OwnerAccountId != null)
-                    hashCode = hashCode * 59 + this.OwnerAccountId.GetHashCode();
                 if (this.Homepage != null)
                     hashCode = hashCode * 59 + this.Homepage.GetHashCode();
                 if (this.LogoUrl != null)

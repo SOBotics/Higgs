@@ -9,20 +9,30 @@
  * https://github.com/swagger-api/swagger-codegen.git
  * Do not edit the class manually.
  */
-import { BotResponseConflictExceptions } from './botResponseConflictExceptions';
-import { BotResponseFeedback } from './botResponseFeedback';
+import { CreateBotRequestExceptions } from './createBotRequestExceptions';
+import { CreateBotRequestFeedback } from './createBotRequestFeedback';
 
 
-export interface BotResponse {
-    id: number;
-    name: string;
-    dashboardName: string;
-    description: string;
+export interface EditBotRequest {
+    botId: number;
     ownerAccountId?: number;
+    secret?: string;
+    /**
+     * Name of the bot
+     */
+    name: string;
+    /**
+     * Name of the dashboard
+     */
+    dashboardName: string;
+    /**
+     * Description of the bot
+     */
+    description: string;
     homepage?: string;
     logoUrl?: string;
     favIcon?: string;
     tabTitle?: string;
-    feedbacks?: Array<BotResponseFeedback>;
-    conflictExceptions?: Array<BotResponseConflictExceptions>;
+    feedbacks?: Array<CreateBotRequestFeedback>;
+    conflictExceptions?: Array<CreateBotRequestExceptions>;
 }

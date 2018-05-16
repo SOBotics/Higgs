@@ -9,15 +9,17 @@
  * https://github.com/swagger-api/swagger-codegen.git
  * Do not edit the class manually.
  */
+import { CreateBotRequestExceptions } from './createBotRequestExceptions';
+import { CreateBotRequestFeedback } from './createBotRequestFeedback';
 
 
 export interface CreateBotRequest {
-    secret: string;
+    ownerAccountId?: number;
+    secret?: string;
     /**
      * Name of the bot
      */
     name: string;
-    ownerAccountId?: number;
     /**
      * Name of the dashboard
      */
@@ -30,4 +32,6 @@ export interface CreateBotRequest {
     logoUrl?: string;
     favIcon?: string;
     tabTitle?: string;
+    feedbacks?: Array<CreateBotRequestFeedback>;
+    conflictExceptions?: Array<CreateBotRequestExceptions>;
 }

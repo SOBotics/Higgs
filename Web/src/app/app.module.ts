@@ -22,14 +22,13 @@ import { AdminHomeComponent } from './admin/admin-home/admin-home.component';
 import { ReportsComponent } from './reports/reports.component';
 import { MetaDataService } from './services/meta-data.service';
 import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
-import { BotFeedbackTypesComponent } from './admin/bot-feedback-types/bot-feedback-types.component';
 import { MiniProfilerUiResultComponent } from './mini-profiler/mini-profiler-ui-result/mini-profiler-ui-result.component';
 import { MiniProfilerUiComponent } from './mini-profiler/mini-profiler-ui/mini-profiler-ui.component';
 import { HttpRequestInterceptorService } from './mini-profiler/http-request-interceptor.service';
 import { UsersComponent } from './admin/users/users.component';
 import { UserComponent } from './admin/user/user.component';
 import { ChartModule } from 'angular-highcharts';
-
+import { MultiselectDropdownModule } from 'angular-2-dropdown-multiselect';
 
 @NgModule({
   declarations: [
@@ -43,7 +42,6 @@ import { ChartModule } from 'angular-highcharts';
     AdminHomeComponent,
     ReportsComponent,
     PageNotFoundComponent,
-    BotFeedbackTypesComponent,
     MiniProfilerUiComponent,
     MiniProfilerUiResultComponent,
     UsersComponent,
@@ -54,6 +52,7 @@ import { ChartModule } from 'angular-highcharts';
     FormsModule,
     HttpClientModule,
     ChartModule,
+    MultiselectDropdownModule,
     RouterModule.forRoot(appRoutes)
   ],
   providers: [

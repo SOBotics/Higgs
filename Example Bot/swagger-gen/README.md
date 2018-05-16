@@ -101,14 +101,12 @@ Class | Method | HTTP request | Description
 *AdminApi* | [**AdminBotGet**](docs/AdminApi.md#adminbotget) | **GET** /Admin/Bot | 
 *AdminApi* | [**AdminBotsGet**](docs/AdminApi.md#adminbotsget) | **GET** /Admin/Bots | Lists all bots
 *AdminApi* | [**AdminDeactiveateBotPost**](docs/AdminApi.md#admindeactiveatebotpost) | **POST** /Admin/DeactiveateBot | Deactivates a bot
-*AdminApi* | [**AdminEditBotFeedbackTypesPost**](docs/AdminApi.md#admineditbotfeedbacktypespost) | **POST** /Admin/EditBotFeedbackTypes | 
 *AdminApi* | [**AdminEditBotPost**](docs/AdminApi.md#admineditbotpost) | **POST** /Admin/EditBot | Update a bots details
 *AdminApi* | [**AdminRegisterBotPost**](docs/AdminApi.md#adminregisterbotpost) | **POST** /Admin/RegisterBot | Register a bot
 *AdminApi* | [**AdminScopesGet**](docs/AdminApi.md#adminscopesget) | **GET** /Admin/Scopes | 
 *AdminApi* | [**AdminUserGet**](docs/AdminApi.md#adminuserget) | **GET** /Admin/User | Lists all users
 *AdminApi* | [**AdminUserPost**](docs/AdminApi.md#adminuserpost) | **POST** /Admin/User | Lists all users
 *AdminApi* | [**AdminUsersGet**](docs/AdminApi.md#adminusersget) | **GET** /Admin/Users | Lists all users
-*AdminApi* | [**AdminViewBotFeedbackTypesGet**](docs/AdminApi.md#adminviewbotfeedbacktypesget) | **GET** /Admin/ViewBotFeedbackTypes | 
 *AnalyticsApi* | [**AnalyticsReportsByFeedbackGet**](docs/AnalyticsApi.md#analyticsreportsbyfeedbackget) | **GET** /Analytics/ReportsByFeedback | 
 *AnalyticsApi* | [**AnalyticsReportsByReasonGet**](docs/AnalyticsApi.md#analyticsreportsbyreasonget) | **GET** /Analytics/ReportsByReason | 
 *AnalyticsApi* | [**AnalyticsReportsOverTimeGet**](docs/AnalyticsApi.md#analyticsreportsovertimeget) | **GET** /Analytics/ReportsOverTime | 
@@ -136,11 +134,14 @@ Class | Method | HTTP request | Description
  - [Model.AquireTokenRequest](docs/AquireTokenRequest.md)
  - [Model.AquireTokenResponse](docs/AquireTokenResponse.md)
  - [Model.BotResponse](docs/BotResponse.md)
+ - [Model.BotResponseConflictExceptions](docs/BotResponseConflictExceptions.md)
+ - [Model.BotResponseFeedback](docs/BotResponseFeedback.md)
  - [Model.BotsResponse](docs/BotsResponse.md)
  - [Model.CreateBotRequest](docs/CreateBotRequest.md)
+ - [Model.CreateBotRequestExceptions](docs/CreateBotRequestExceptions.md)
+ - [Model.CreateBotRequestFeedback](docs/CreateBotRequestFeedback.md)
  - [Model.DeleteBotRequest](docs/DeleteBotRequest.md)
- - [Model.EditBotFeedbackTypesRequest](docs/EditBotFeedbackTypesRequest.md)
- - [Model.EditCreateBotRequest](docs/EditCreateBotRequest.md)
+ - [Model.EditBotRequest](docs/EditBotRequest.md)
  - [Model.ErrorResponse](docs/ErrorResponse.md)
  - [Model.RegisterPostAttribute](docs/RegisterPostAttribute.md)
  - [Model.RegisterPostContentFragment](docs/RegisterPostContentFragment.md)
@@ -161,7 +162,6 @@ Class | Method | HTTP request | Description
  - [Model.ReviewerReportsResponse](docs/ReviewerReportsResponse.md)
  - [Model.UpdateUserRequest](docs/UpdateUserRequest.md)
  - [Model.UsersResponse](docs/UsersResponse.md)
- - [Model.ViewBotFeedbackTypesResponse](docs/ViewBotFeedbackTypesResponse.md)
 
 
 <a name="documentation-for-authorization"></a>

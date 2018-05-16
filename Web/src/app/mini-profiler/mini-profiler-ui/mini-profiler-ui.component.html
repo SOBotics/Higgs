@@ -9,9 +9,9 @@
     |
     <a href="javascript:void(0)" (click)="clearGrid()">Clear</a>
   </div>
-  <div class="profiler-button pending-requests" [hidden]="Hidden">
+  <!-- <div class="profiler-button pending-requests" [hidden]="Hidden">
     {{pendingCount}} pending
-  </div>
+  </div> -->
   <app-mini-profiler-ui-result class="profiler-result" 
     *ngFor="let result of results;trackBy:identify"   
     [hidden]="Hidden"

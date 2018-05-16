@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { AdminService, BotResponse } from '../../../swagger-gen';
 import { ActivatedRoute, Router } from '@angular/router';
 import { AuthService } from '../../services/auth.service';
+import { IMultiSelectTexts, IMultiSelectSettings } from 'angular-2-dropdown-multiselect';
 
 @Component({
   selector: 'app-bot',
@@ -13,6 +14,12 @@ export class BotComponent implements OnInit {
   public isAdmin = false;
   public isNew = false;
   public submitted = false;
+
+  public conflictDropdownSettings: IMultiSelectSettings;
+  public conflictDropdownTexts: IMultiSelectTexts;
+
+  private newFeedbackItemId = -1;
+  private newConflictItemId = -1;
 
   constructor(
     private route: ActivatedRoute,
@@ -35,11 +42,29 @@ export class BotComponent implements OnInit {
     }
   }
 
+  public getConflictOptions() {
+    return this.botDetails.feedbacks.map(r => ({
+      id: r.id,
+      name: r.name
+    }));
+  }
+
+  public addNewFeedback() {
+    this.botDetails.feedbacks.push({ id: this.newFeedbackItemId-- });
+  }
+
+  public addNewConflict() {
+    this.botDetails.conflictExceptions.push({ id: this.newConflictItemId-- });
+  }
+
   ngOnInit() {
     this.route.params.subscribe(params => {
       const id = params['id'];
       if (!id) {
-        this.botDetails = {};
+        this.botDetails = {
+          feedbacks: [],
+          conflictExceptions: []
+        };
         this.isNew = true;
       } else {
         this.botId = +id;
@@ -53,5 +78,14 @@ export class BotComponent implements OnInit {
     this.authService.GetAuthDetails().subscribe(details => {
       this.isAdmin = details.HasScope('admin');
     });
+
+    this.conflictDropdownSettings = {
+      checkedStyle: 'fontawesome',
+      buttonClasses: 'btn btn-default',
+      dynamicTitleMaxItems: 10
+    };
+    this.conflictDropdownTexts = {
+      defaultTitle: 'Select reasons'
+    };
   }
 }
