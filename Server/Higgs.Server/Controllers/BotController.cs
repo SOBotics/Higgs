@@ -13,6 +13,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
+using Newtonsoft.Json;
 using Swashbuckle.AspNetCore.SwaggerGen;
 
 namespace Higgs.Server.Controllers
@@ -203,6 +204,8 @@ namespace Higgs.Server.Controllers
                         FeedbackId = feedbackTypes[allowedFeedback],
                         Report = report
                     });
+                } else {
+                    throw new HttpStatusException(HttpStatusCode.BadRequest, $"Feedback '{allowedFeedback}' not registered for bot");
                 }
             }
             var reasons = _dbContext.Reasons.Where(f => f.BotId == botId).ToDictionary(f => f.Name, f => f);

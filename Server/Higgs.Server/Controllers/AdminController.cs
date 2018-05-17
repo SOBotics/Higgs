@@ -192,8 +192,7 @@ namespace Higgs.Server.Controllers
             existingBot.DashboardName = request.DashboardName;
             existingBot.Description = request.Description;
 
-            // Deliberately not using IsNullOrWhitespace here, as an admin may want to revoke credentials from the bot entirely
-            if (!string.IsNullOrEmpty(request.Secret))
+            if (!string.IsNullOrWhiteSpace(request.Secret))
                 existingBot.Secret = BCrypt.Net.BCrypt.HashPassword(request.Secret);
 
             if (request.OwnerAccountId.HasValue && User.HasClaim(Scopes.SCOPE_ADMIN))

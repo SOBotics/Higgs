@@ -22,7 +22,7 @@ namespace Higgs.Server.Test
         public async Task TestCreateBot()
         {
             Authenticate(
-                new[] {new Claim(SecurityUtils.ACCOUNT_ID_CLAIM, DBExtensions.RobAccountId.ToString())},
+                new[] { new Claim(SecurityUtils.ACCOUNT_ID_CLAIM, DBExtensions.RobAccountId.ToString()) },
                 Scopes.SCOPE_BOT_OWNER
             );
 
@@ -54,6 +54,38 @@ namespace Higgs.Server.Test
                     Assert.NotNull(dbContext.ConflictExceptionFeedbacks.FirstOrDefault(a => a.FeedbackId == tpFeedback.Id));
                     Assert.NotNull(dbContext.ConflictExceptionFeedbacks.FirstOrDefault(a => a.FeedbackId == fpFeedback.Id));
                 });
+        }
+
+        [Test]
+        public void TestCreateBotInvalidConflict()
+        {
+            Authenticate(
+                new[] { new Claim(SecurityUtils.ACCOUNT_ID_CLAIM, DBExtensions.RobAccountId.ToString()) },
+                Scopes.SCOPE_BOT_OWNER
+            );
+
+            var request = new CreateBotRequest
+            {
+                Name = "asd",
+                DashboardName = "da",
+                Description = "ds",
+                Secret = "abc",
+                Feedbacks = new List<CreateBotRequestFeedback>
+                {
+                    new CreateBotRequestFeedback {Id = -1, Name = "tp"},
+                    new CreateBotRequestFeedback {Id = -2, Name = "fp"},
+                },
+                ConflictExceptions = new List<CreateBotRequestExceptions>
+                {
+                    new CreateBotRequestExceptions {Id = -1, BotResponseConflictFeedbacks = new List<int> {-1, -2, -3}}
+                }
+            };
+
+            var exception = Assert.ThrowsAsync<HttpStatusException>(async () =>
+            {
+                await Client.PostAsync("/Admin/RegisterBot", request);
+            });
+            Assert.AreEqual("Invalid FeedbackId for conflict", exception.Message);
         }
     }
 }
