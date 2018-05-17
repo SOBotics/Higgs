@@ -135,6 +135,7 @@ namespace Higgs.Server.Controllers
                     Feedback = r.Feedbacks.Where(f => f.InvalidatedDate == null).Select(feedback => new ReviewerReportFeedbackResponse
                     {
                         Id = feedback.Id,
+                        UserId = feedback.UserId,
                         Icon = feedback.Feedback.Icon,
                         Colour = feedback.Feedback.Colour,
                         FeedbackName = feedback.Feedback.Name,
@@ -231,7 +232,7 @@ namespace Higgs.Server.Controllers
             {
                 return Ok();
             }
-            if (existingFeedback.UserId != userId && !User.HasClaim(Scopes.SCOPE_ADMIN)) {
+            if (existingFeedback.UserId != userId && !User.HasClaim(Scopes.SCOPE_ROOM_OWNER)) {
                 throw new HttpStatusException(HttpStatusCode.Unauthorized);
             }
 

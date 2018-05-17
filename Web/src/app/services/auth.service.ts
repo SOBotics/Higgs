@@ -6,14 +6,16 @@ import { AuthenticationService } from '../../swagger-gen/api/authentication.serv
 
 export const AccessTokenStorageKey = 'access_token';
 
-export type Scopes = 'admin' | 'dev' | 'bot_owner' | 'bot' | 'reviewer';
-
+export type Scope = 'admin' | 'room_owner' | 'dev' | 'bot_owner' | 'bot' | 'reviewer';
+export interface Claim { key: string; value: any; }
 export interface AuthDetails {
   RawToken: string;
   TokenData: any;
   IsAuthenticated: boolean;
-  HasScope: (scope: Scopes) => boolean;
-  GetScopes: () => Scopes[];
+  Scopes: Scope[];
+  Claims: Claim[];
+  GetClaim: (claim: string) => any;
+  HasScope: (scope: Scope) => boolean;
 }
 
 @Injectable()
@@ -47,26 +49,33 @@ export class AuthService {
       payload = JSON.parse(atob(tokenPayload));
       payload = this.HandleExpiryDates(payload);
     }
-    const getScopes = () => {
-      if (!payload) {
-        return [];
-      }
-      const scopes = [];
+
+    const scopes: Scope[] = [];
+    const claims: Claim[] = [];
+    if (payload) {
       const keys = Object.keys(payload);
       keys.forEach(key => {
         if (AuthService.nonScopeClaims.indexOf(key) < 0) {
-          scopes.push(key);
+          scopes.push(key as Scope);
         }
+        claims.push({ key: key, value: payload[key] });
       });
-      return scopes;
+    }
+    const getClaim = (claim: string) => {
+      const matchingClaim = claims.find(a => a.key === claim);
+      if (matchingClaim) {
+        return matchingClaim.value;
+      }
     };
 
     return {
       RawToken: accessToken,
       TokenData: payload,
       IsAuthenticated: !!accessToken,
-      GetScopes: getScopes,
-      HasScope: (scope: Scopes) => !!payload && getScopes().indexOf(scope) >= 0
+      Scopes: scopes,
+      Claims: claims,
+      GetClaim: getClaim,
+      HasScope: (scope: Scope) => !!payload && scopes.indexOf(scope) >= 0
     };
   }
 

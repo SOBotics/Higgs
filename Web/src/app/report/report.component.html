@@ -3,7 +3,8 @@
     <img *ngIf="postDetails.botLogo" class="botLogo" src="{{postDetails.botLogo}}" title="{{postDetails.botName}}" />
     <a href="{{postDetails.contentUrl}}">{{postDetails.title}}</a>
     <span *ngFor="let feedback of postDetails.feedback" class="feedback" [style.color]="feedback.colour" [title]="feedback.feedbackName + ' - ' + feedback.userName">
-      {{feedback.icon}}
+      <p class="feedbackIcon">{{feedback.icon}}</p>
+      <a *ngIf="isRoomOwner || feedback.userId == myUserId" class="feedbackRemove" href="javascript:void(0)" (click)="clearFeedback(feedback.id)">Clear</a>
     </span>
   </h3>
   <div>{{postDetails.details}}</div>

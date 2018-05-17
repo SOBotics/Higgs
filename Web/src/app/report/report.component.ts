@@ -13,6 +13,8 @@ import { MetaDataService } from '../services/meta-data.service';
 export class ReportComponent implements OnInit {
   public postDetails: ReviewerReportResponse;
   public isLoggedIn: boolean;
+  public isAdmin: boolean;
+  public myUserId: number;
   public reportNotFound: boolean;
 
   private currentReportId?: number;
@@ -36,6 +38,11 @@ export class ReportComponent implements OnInit {
   ngOnInit() {
     this.authService.GetAuthDetails().subscribe(details => {
       this.isLoggedIn = details.IsAuthenticated;
+      this.isAdmin = details.HasScope('admin');
+      const userIdStr = details.GetClaim('accountId');
+      if (userIdStr) {
+        this.myUserId = parseInt(userIdStr, 10);
+      }
     });
 
     this.route.params.subscribe(params => {
@@ -86,6 +93,14 @@ export class ReportComponent implements OnInit {
           }
         });
       }
+    });
+  }
+
+  public clearFeedback(feedbackId: number) {
+    this.reviewerService.reviewerClearFeedbackPost({ feedbackId: feedbackId })
+    .subscribe(r => {
+      // TODO: Remove in future, use websocks to refresh feedback
+      window.location.reload();
     });
   }
 }

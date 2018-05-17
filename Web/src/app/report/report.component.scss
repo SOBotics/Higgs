@@ -35,6 +35,19 @@ button {
     cursor: default;
 }
 
+.feedback > .feedbackIcon {
+    display: inline-block;
+}
+
+.feedback > .feedbackRemove {
+    font-size: 12px;
+    vertical-align: middle;
+    display: none;
+}
+.feedback:hover > .feedbackRemove {
+    display: inline-block;
+}
+
 .reasons-table {
     font-size:2vw;
 }
