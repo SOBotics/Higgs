@@ -60,6 +60,7 @@ namespace Higgs.Server.Test
         public override void Configure(IApplicationBuilder app, IHostingEnvironment env)
         {
             app.UseAuthentication();
+            app.UseMiddleware(typeof(ExceptionHandlerMiddleware));
             app.UseMvc();
         }
     }

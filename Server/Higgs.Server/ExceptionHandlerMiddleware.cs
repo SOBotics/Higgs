@@ -34,11 +34,16 @@ namespace Higgs.Server
             if (exception is HttpStatusException requestException)
                 code = (int)requestException.StatusCode;
 
-            var result = JsonConvert.SerializeObject(new { Error = exception.Message });
+            var result = JsonConvert.SerializeObject(new ErrorWrapper { Error = exception.Message });
             context.Response.ContentType = "application/json";
             context.Response.StatusCode = code;
             return context.Response.WriteAsync(result);
         }
+    }
+
+    public class ErrorWrapper 
+    {
+        public string Error { get;set; }
     }
 
     public class HttpStatusException : Exception

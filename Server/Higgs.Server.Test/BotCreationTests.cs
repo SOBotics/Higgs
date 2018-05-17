@@ -57,7 +57,7 @@ namespace Higgs.Server.Test
         }
 
         [Test]
-        public void TestCreateBotInvalidConflict()
+        public async Task TestCreateBotInvalidConflict()
         {
             Authenticate(
                 new[] { new Claim(SecurityUtils.ACCOUNT_ID_CLAIM, 1.ToString()) },
@@ -81,11 +81,8 @@ namespace Higgs.Server.Test
                 }
             };
 
-            var exception = Assert.ThrowsAsync<HttpStatusException>(async () =>
-            {
-                await Client.PostAsync("/Admin/RegisterBot", request);
-            });
-            Assert.AreEqual("Invalid FeedbackId for conflict", exception.Message);
+            var response = await Client.PostAsync("/Admin/RegisterBot", request);
+            await response.AssertError(HttpStatusCode.BadRequest, "Invalid FeedbackId for conflict");
         }
     }
 }

@@ -193,11 +193,11 @@ namespace Higgs.Server.Test
                 Scopes.SCOPE_REVIEWER
             );
 
-            var exception = Assert.ThrowsAsync<HttpStatusException>(async () => await Client.PostAsync("/Reviewer/ClearFeedback", new ClearFeedbackRequest
+            var response = await Client.PostAsync("/Reviewer/ClearFeedback", new ClearFeedbackRequest
             {
                 FeedbackId = 1
-            }));
-            Assert.AreEqual(HttpStatusCode.Unauthorized, exception.StatusCode);
+            });
+            await response.AssertError(HttpStatusCode.Unauthorized);
         }
 
         [Test]

@@ -21,7 +21,7 @@ namespace Higgs.Server.Test
     public class BotApiTests : BaseControllerTests
     {
         [Test]
-        public void TestBlankTitleInvalid()
+        public async Task TestBlankTitleInvalid()
         {
             Authenticate(
                 new[] { new Claim("botId", "1") },
@@ -34,15 +34,12 @@ namespace Higgs.Server.Test
                 ContentUrl = "http://www.google.com"
             };
 
-            var exception = Assert.ThrowsAsync<HttpStatusException>(async () =>
-            {
-                await Client.PostAsync("/Bot/RegisterPost", request);
-            });
-            Assert.AreEqual("Title is required", exception.Message);
+            var response = await Client.PostAsync("/Bot/RegisterPost", request);
+            await response.AssertError(HttpStatusCode.BadRequest, "Title is required");
         }
 
         [Test]
-        public void TestBlankContentUrlInvalid()
+        public async Task TestBlankContentUrlInvalid()
         {
             Authenticate(
                 new[] { new Claim("botId", "1") },
@@ -55,15 +52,12 @@ namespace Higgs.Server.Test
                 ContentUrl = ""
             };
 
-            var exception = Assert.ThrowsAsync<HttpStatusException>(async () =>
-            {
-                await Client.PostAsync("/Bot/RegisterPost", request);
-            });
-            Assert.AreEqual("ContentUrl is required", exception.Message);
+            var result = await Client.PostAsync("/Bot/RegisterPost", request);
+            await result.AssertError(HttpStatusCode.BadRequest, "ContentUrl is required");
         }
 
         [Test]
-        public void TestInvalidFeedbackRejected() 
+        public async Task TestInvalidFeedbackRejected() 
         {
             Authenticate(
                 new[] { new Claim("botId", "1") },
@@ -77,11 +71,8 @@ namespace Higgs.Server.Test
                 AllowedFeedback = new List<string> { "tp" }
             };
 
-            var exception = Assert.ThrowsAsync<HttpStatusException>(async () =>
-            {
-                await Client.PostAsync("/Bot/RegisterPost", request);
-            });
-            Assert.AreEqual("Feedback 'tp' not registered for bot", exception.Message);
+            var result = await Client.PostAsync("/Bot/RegisterPost", request);
+            await result.AssertError(HttpStatusCode.BadRequest, "Feedback 'tp' not registered for bot");
         }
 
         [Test]
@@ -196,14 +187,14 @@ namespace Higgs.Server.Test
             var result = await Client.PostAsync("/Bot/RegisterPost", registerPostRequest);
             var reportId = JsonConvert.DeserializeObject<int>(await result.Content.ReadAsStringAsync());
 
-            var exception = Assert.ThrowsAsync<HttpStatusException>(async () => await Client.PostAsync("/Bot/RegisterUserFeedback", new RegisterUserFeedbackRequest
+            var userFeedbackResult = await Client.PostAsync("/Bot/RegisterUserFeedback", new RegisterUserFeedbackRequest
             {
                 ReportId = reportId,
                 UserId = 1,
                 Feedback = "tp"
-            }));
+            });
 
-            Assert.AreEqual("User is not authorized as a reviewer", exception.Message);
+            await userFeedbackResult.AssertError(HttpStatusCode.BadRequest, "User is not authorized as a reviewer");
         }
 
         [Test]
@@ -233,14 +224,13 @@ namespace Higgs.Server.Test
             var result = await Client.PostAsync("/Bot/RegisterPost", registerPostRequest);
             var reportId = JsonConvert.DeserializeObject<int>(await result.Content.ReadAsStringAsync());
 
-            var exception = Assert.ThrowsAsync<HttpStatusException>(async () => await Client.PostAsync("/Bot/RegisterUserFeedback", new RegisterUserFeedbackRequest
+            var userFeedbackResult = await Client.PostAsync("/Bot/RegisterUserFeedback", new RegisterUserFeedbackRequest
             {
                 ReportId = reportId,
                 UserId = 1,
                 Feedback = "fp"
-            }));
-
-            Assert.AreEqual("Feedback not allowed for report", exception.Message);
+            });
+            await userFeedbackResult.AssertError(HttpStatusCode.BadRequest, "Feedback not allowed for report");
         }
     }
 }
