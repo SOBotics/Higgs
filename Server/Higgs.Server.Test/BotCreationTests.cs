@@ -44,7 +44,7 @@ namespace Higgs.Server.Test
             };
 
             var response = await Client.PostAsync("/Admin/RegisterBot", request);
-            Assert.AreEqual(HttpStatusCode.OK, response.StatusCode);
+            response.AssertSuccess();
             WithDatabase(dbContext =>
                 {
                     var tpFeedback = dbContext.Feedbacks.FirstOrDefault(f => f.Name == "tp");

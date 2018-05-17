@@ -109,7 +109,7 @@ namespace Higgs.Server.Test
                 Feedback = "tp"
             });
 
-            Assert.AreEqual(HttpStatusCode.OK, feedbackResult.StatusCode);
+            feedbackResult.AssertSuccess();
         }
 
         [Test]
@@ -153,7 +153,7 @@ namespace Higgs.Server.Test
                 Feedback = "tp"
             });
 
-            Assert.AreEqual(HttpStatusCode.OK, feedbackResult.StatusCode);
+            feedbackResult.AssertSuccess();
         }
 
         [Test]

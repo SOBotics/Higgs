@@ -15,6 +15,11 @@ namespace Higgs.Server.Test
             return client.PostAsync(url, stringContent);
         }
 
+        public static void AssertSuccess(this HttpResponseMessage message) 
+        {
+            Assert.AreEqual(HttpStatusCode.OK, message.StatusCode);
+        }
+
         public static async Task AssertError(this HttpResponseMessage message, HttpStatusCode code, string errorMessage = null)
         {
             Assert.AreEqual(code, message.StatusCode);
