@@ -85,6 +85,7 @@ namespace Higgs.Server
             {
                 options.ResultsAuthorize = request => request.HttpContext.User.HasClaim(Scopes.SCOPE_DEV);
                 options.ResultsListAuthorize = request => request.HttpContext.User.HasClaim(Scopes.SCOPE_DEV);
+                options.TrackConnectionOpenClose = false;
             }).AddEntityFramework();
         }
 
