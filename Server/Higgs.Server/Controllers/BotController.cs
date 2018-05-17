@@ -46,10 +46,10 @@ namespace Higgs.Server.Controllers
 
             
             if (bot == null)
-                return BadRequest(new ErrorResponse("Bot with that id does not exist."));
+                throw new HttpStatusException(HttpStatusCode.BadRequest, "Bot with that id does not exist.");
 
             if (!BCrypt.Net.BCrypt.Verify(request.Secret, bot.Secret))
-                return BadRequest(new ErrorResponse("Invalid secret provided."));
+                throw new HttpStatusException(HttpStatusCode.Unauthorized, "Invalid secret provided.");
 
             var claims = (request.RequestedScopes?.Intersect(bot.AllowedScopes, StringComparer.OrdinalIgnoreCase) ?? bot.AllowedScopes)
                 .Select(s => new Claim(s, string.Empty))
@@ -137,12 +137,11 @@ namespace Higgs.Server.Controllers
         {
             var botId = GetBotId();
             if (!botId.HasValue)
-                return BadRequest("Invalid or missing botId in claim");
-
+                throw new HttpStatusException(HttpStatusCode.BadRequest, "Invalid or missing botId in claim");
             if (string.IsNullOrWhiteSpace(request.Title))
-                return BadRequest("Title is required");
+                throw new HttpStatusException(HttpStatusCode.BadRequest, "Title is required");
             if (string.IsNullOrWhiteSpace(request.ContentUrl))
-                return BadRequest("ContentUrl is required");
+                throw new HttpStatusException(HttpStatusCode.BadRequest, "ContentUrl is required");
 
             var report = new DbReport
             {

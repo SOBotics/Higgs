@@ -47,7 +47,12 @@ namespace Higgs.Server.Test
             Assert.AreEqual(HttpStatusCode.OK, response.StatusCode);
             WithDatabase(dbContext =>
                 {
-                    Assert.AreEqual(0, dbContext.ConflictExceptionFeedbacks.Count(a => a.FeedbackId < 0), "Expected ConflictExceptionFeedback IDs to be updated to newly created feedback");
+                    var tpFeedback = dbContext.Feedbacks.FirstOrDefault(f => f.Name == "tp");
+                    var fpFeedback = dbContext.Feedbacks.FirstOrDefault(f => f.Name == "fp");
+
+                    Assert.AreEqual(2, dbContext.ConflictExceptionFeedbacks.Count());
+                    Assert.NotNull(dbContext.ConflictExceptionFeedbacks.FirstOrDefault(a => a.FeedbackId == tpFeedback.Id));
+                    Assert.NotNull(dbContext.ConflictExceptionFeedbacks.FirstOrDefault(a => a.FeedbackId == fpFeedback.Id));
                 });
         }
     }
