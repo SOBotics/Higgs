@@ -201,7 +201,7 @@ namespace Higgs.Server.Test
         }
 
         [Test]
-        public async Task AdminClearFeedback()
+        public async Task RoomOwnerClearFeedback()
         {
             Authenticate(
                 new[] { new Claim(SecurityUtils.ACCOUNT_ID_CLAIM, 1.ToString()) },
@@ -243,7 +243,7 @@ namespace Higgs.Server.Test
 
             Authenticate(
                 new[] { new Claim(SecurityUtils.ACCOUNT_ID_CLAIM, 2.ToString()) },
-                Scopes.SCOPE_ADMIN, Scopes.SCOPE_REVIEWER
+                Scopes.SCOPE_ADMIN, Scopes.SCOPE_ROOM_OWNER
             );
 
             var clearFeedbackRequest = await Client.PostAsync("/Reviewer/ClearFeedback", new ClearFeedbackRequest
