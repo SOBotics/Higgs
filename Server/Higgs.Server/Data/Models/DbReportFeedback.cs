@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using System;
+using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Higgs.Server.Data.Models
@@ -19,5 +20,12 @@ namespace Higgs.Server.Data.Models
         public int FeedbackId { get; set; }
         [ForeignKey("FeedbackId")]
         public DbFeedback Feedback { get; set; }
+
+        public DateTime? InvalidatedDate { get; set; }
+        public string InvalidationReason { get; set; }
+
+        [ForeignKey("InvalidatedBy")]
+        public int? InvalidatedByUserId { get; set; }
+        public DbUser InvalidatedBy { get; set; }
     }
 }

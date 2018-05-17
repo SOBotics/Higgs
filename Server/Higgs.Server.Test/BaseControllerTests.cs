@@ -60,6 +60,9 @@ namespace Higgs.Server.Test
         {
             var signingKey = Convert.FromBase64String(Configuration["JwtSigningKey"]);
             var token = AuthenticationController.CreateJwtToken(claims, signingKey);
+            if (Client.DefaultRequestHeaders.Contains("Authorization")) {
+                Client.DefaultRequestHeaders.Remove("Authorization");
+            }
             Client.DefaultRequestHeaders.Add("Authorization", $"Bearer {token}");
         }
 

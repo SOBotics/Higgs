@@ -22,7 +22,7 @@ namespace Higgs.Server.Test
         public async Task TestCreateBot()
         {
             Authenticate(
-                new[] { new Claim(SecurityUtils.ACCOUNT_ID_CLAIM, DBExtensions.RobAccountId.ToString()) },
+                new[] { new Claim(SecurityUtils.ACCOUNT_ID_CLAIM, 1.ToString()) },
                 Scopes.SCOPE_BOT_OWNER
             );
 
@@ -60,7 +60,7 @@ namespace Higgs.Server.Test
         public void TestCreateBotInvalidConflict()
         {
             Authenticate(
-                new[] { new Claim(SecurityUtils.ACCOUNT_ID_CLAIM, DBExtensions.RobAccountId.ToString()) },
+                new[] { new Claim(SecurityUtils.ACCOUNT_ID_CLAIM, 1.ToString()) },
                 Scopes.SCOPE_BOT_OWNER
             );
 

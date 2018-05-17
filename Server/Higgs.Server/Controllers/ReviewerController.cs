@@ -5,6 +5,7 @@ using System.Net;
 using System.Security.Cryptography;
 using Higgs.Server.Data;
 using Higgs.Server.Data.Models;
+using Higgs.Server.Models.Requests.Reviewer;
 using Higgs.Server.Models.Responses;
 using Higgs.Server.Models.Responses.Bot;
 using Higgs.Server.Models.Responses.Reviewer;
@@ -131,8 +132,9 @@ namespace Higgs.Server.Controllers
                         Colour = af.Feedback.Colour
                     }).ToList(),
 
-                    Feedback = r.Feedbacks.Select(feedback => new ReviewerReportFeedbackResponse
+                    Feedback = r.Feedbacks.Where(f => f.InvalidatedDate == null).Select(feedback => new ReviewerReportFeedbackResponse
                     {
+                        Id = feedback.Id,
                         Icon = feedback.Feedback.Icon,
                         Colour = feedback.Feedback.Colour,
                         FeedbackName = feedback.Feedback.Name,
@@ -179,36 +181,66 @@ namespace Higgs.Server.Controllers
         /// </summary>
         [HttpPost("SendFeedback")]
         [Authorize(Scopes.SCOPE_REVIEWER)]
-        public IActionResult SendFeedback(int reportId, int id)
+        public IActionResult SendFeedback([FromBody] SendFeedbackRequest request)
         {
-            var allowedFeedbacks = _dbContext.ReportAllowedFeedbacks.Where(r => r.ReportId == reportId && r.Feedback.IsEnabled).Select(f => f.FeedbackId).ToList();
+            var allowedFeedbacks = _dbContext.ReportAllowedFeedbacks.Where(r => r.ReportId == request.ReportId && r.Feedback.IsEnabled).Select(f => f.FeedbackId).ToList();
 
-            var userIdStr = User.Claims.Where(c => c.Type == SecurityUtils.ACCOUNT_ID_CLAIM).Select(c => c.Value).FirstOrDefault();
-            if (!string.IsNullOrWhiteSpace(userIdStr) && int.TryParse(userIdStr, out var userId))
+            var userId = User.GetUserId();
+            if (!userId.HasValue)
+                throw new HttpStatusException(HttpStatusCode.Unauthorized);
+            
+            if (allowedFeedbacks.Contains(request.FeedbackId))
             {
-                if (allowedFeedbacks.Contains(id))
+                var existingFeedback = _dbContext.ReportFeedbacks.FirstOrDefault(rf => rf.UserId == userId && rf.ReportId == request.ReportId && rf.InvalidatedDate == null);
+                if (existingFeedback != null) 
                 {
-                    var existingFeedback = _dbContext.ReportFeedbacks.FirstOrDefault(rf => rf.UserId == userId && rf.ReportId == reportId);
-                    if (existingFeedback == null)
-                    {
-                        _dbContext.ReportFeedbacks.Add(new DbReportFeedback
-                        {
-                            FeedbackId = id,
-                            ReportId = reportId,
-                            UserId = userId
-                        });
+                    // No change
+                    if (existingFeedback.FeedbackId == request.FeedbackId) {
+                        return Ok();
                     }
-                    else
-                    {
-                        existingFeedback.FeedbackId = id;
-                    }
-
-                    _dbContext.SaveChanges();
-                    return Ok(0);
+                    
+                    existingFeedback.InvalidatedByUserId = userId.Value;
+                    existingFeedback.InvalidatedDate = DateTime.UtcNow;
+                    existingFeedback.InvalidationReason = "Feedback changed";
                 }
+                
+                _dbContext.ReportFeedbacks.Add(new DbReportFeedback
+                {
+                    FeedbackId = request.FeedbackId,
+                    ReportId = request.ReportId,
+                    UserId = userId.Value
+                });
+                
+                _dbContext.SaveChanges();
+                return Ok();
             }
 
-            return BadRequest(new ErrorResponse("Invalid feedback id"));
+            throw new HttpStatusException(HttpStatusCode.BadRequest, "Invalid feedback id");
+        }
+
+        [HttpPost("ClearFeedback")]
+        [Authorize(Scopes.SCOPE_REVIEWER)]
+        public IActionResult ClearFeedback([FromBody] ClearFeedbackRequest request)
+        {
+            var userId = User.GetUserId();
+            if (!userId.HasValue)
+                throw new HttpStatusException(HttpStatusCode.Unauthorized);
+
+            var existingFeedback = _dbContext.ReportFeedbacks.FirstOrDefault(rf => rf.Id == request.FeedbackId && rf.InvalidatedDate == null);
+            if (existingFeedback == null) 
+            {
+                return Ok();
+            }
+            if (existingFeedback.UserId != userId && !User.HasClaim(Scopes.SCOPE_ADMIN)) {
+                throw new HttpStatusException(HttpStatusCode.Unauthorized);
+            }
+
+            existingFeedback.InvalidatedDate = DateTime.UtcNow;
+            existingFeedback.InvalidatedByUserId = userId.Value;
+            existingFeedback.InvalidationReason = "Feedback cleared";
+            _dbContext.SaveChanges();
+
+            return Ok();
         }
     }
 }

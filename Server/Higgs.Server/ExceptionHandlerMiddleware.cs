@@ -32,7 +32,7 @@ namespace Higgs.Server
         {
             var code = (int)HttpStatusCode.InternalServerError;
             if (exception is HttpStatusException requestException)
-                code = requestException.StatusCode;
+                code = (int)requestException.StatusCode;
 
             var result = JsonConvert.SerializeObject(new { Error = exception.Message });
             context.Response.ContentType = "application/json";
@@ -44,15 +44,16 @@ namespace Higgs.Server
     public class HttpStatusException : Exception
     {
         public HttpStatusException(HttpStatusCode statusCode, string message = null)
-            : this((int)statusCode, message)
-        {
-        }
-        public HttpStatusException(int statusCode, string message = null)
             : base(message)
         {
             StatusCode = statusCode;
         }
+        public HttpStatusException(int statusCode, string message = null)
+            : this((HttpStatusCode)statusCode, message)
+        {
+            
+        }
 
-        public int StatusCode { get; }
+        public HttpStatusCode StatusCode { get; }
     }
 }
