@@ -13,7 +13,7 @@ import { MetaDataService } from '../services/meta-data.service';
 export class ReportComponent implements OnInit {
   public postDetails: ReviewerReportResponse;
   public isLoggedIn: boolean;
-  public isAdmin: boolean;
+  public isRoomOwner: boolean;
   public myUserId: number;
   public reportNotFound: boolean;
 
@@ -38,7 +38,7 @@ export class ReportComponent implements OnInit {
   ngOnInit() {
     this.authService.GetAuthDetails().subscribe(details => {
       this.isLoggedIn = details.IsAuthenticated;
-      this.isAdmin = details.HasScope('admin');
+      this.isRoomOwner = details.HasScope('room_owner');
       const userIdStr = details.GetClaim('accountId');
       if (userIdStr) {
         this.myUserId = parseInt(userIdStr, 10);
