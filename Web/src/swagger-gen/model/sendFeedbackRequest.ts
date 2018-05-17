@@ -11,9 +11,7 @@
  */
 
 
-export interface BotResponseConflictExceptions {
-    id?: number;
-    isConflict?: boolean;
-    requiresAdmin?: boolean;
-    botResponseConflictFeedbacks?: Array<number>;
+export interface SendFeedbackRequest {
+    reportId?: number;
+    feedbackId?: number;
 }

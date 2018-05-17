@@ -34,13 +34,13 @@ namespace IO.Swagger.Model
         /// Initializes a new instance of the <see cref="CreateBotRequestExceptions" /> class.
         /// </summary>
         /// <param name="Id">Id.</param>
-        /// <param name="IsConfict">IsConfict.</param>
+        /// <param name="IsConflict">IsConflict.</param>
         /// <param name="RequiresAdmin">RequiresAdmin.</param>
         /// <param name="BotResponseConflictFeedbacks">BotResponseConflictFeedbacks.</param>
-        public CreateBotRequestExceptions(int? Id = default(int?), bool? IsConfict = default(bool?), bool? RequiresAdmin = default(bool?), List<int?> BotResponseConflictFeedbacks = default(List<int?>))
+        public CreateBotRequestExceptions(int? Id = default(int?), bool? IsConflict = default(bool?), bool? RequiresAdmin = default(bool?), List<int?> BotResponseConflictFeedbacks = default(List<int?>))
         {
             this.Id = Id;
-            this.IsConfict = IsConfict;
+            this.IsConflict = IsConflict;
             this.RequiresAdmin = RequiresAdmin;
             this.BotResponseConflictFeedbacks = BotResponseConflictFeedbacks;
         }
@@ -52,10 +52,10 @@ namespace IO.Swagger.Model
         public int? Id { get; set; }
 
         /// <summary>
-        /// Gets or Sets IsConfict
+        /// Gets or Sets IsConflict
         /// </summary>
-        [DataMember(Name="isConfict", EmitDefaultValue=false)]
-        public bool? IsConfict { get; set; }
+        [DataMember(Name="isConflict", EmitDefaultValue=false)]
+        public bool? IsConflict { get; set; }
 
         /// <summary>
         /// Gets or Sets RequiresAdmin
@@ -78,7 +78,7 @@ namespace IO.Swagger.Model
             var sb = new StringBuilder();
             sb.Append("class CreateBotRequestExceptions {\n");
             sb.Append("  Id: ").Append(Id).Append("\n");
-            sb.Append("  IsConfict: ").Append(IsConfict).Append("\n");
+            sb.Append("  IsConflict: ").Append(IsConflict).Append("\n");
             sb.Append("  RequiresAdmin: ").Append(RequiresAdmin).Append("\n");
             sb.Append("  BotResponseConflictFeedbacks: ").Append(BotResponseConflictFeedbacks).Append("\n");
             sb.Append("}\n");
@@ -121,9 +121,9 @@ namespace IO.Swagger.Model
                     this.Id.Equals(input.Id))
                 ) && 
                 (
-                    this.IsConfict == input.IsConfict ||
-                    (this.IsConfict != null &&
-                    this.IsConfict.Equals(input.IsConfict))
+                    this.IsConflict == input.IsConflict ||
+                    (this.IsConflict != null &&
+                    this.IsConflict.Equals(input.IsConflict))
                 ) && 
                 (
                     this.RequiresAdmin == input.RequiresAdmin ||
@@ -148,8 +148,8 @@ namespace IO.Swagger.Model
                 int hashCode = 41;
                 if (this.Id != null)
                     hashCode = hashCode * 59 + this.Id.GetHashCode();
-                if (this.IsConfict != null)
-                    hashCode = hashCode * 59 + this.IsConfict.GetHashCode();
+                if (this.IsConflict != null)
+                    hashCode = hashCode * 59 + this.IsConflict.GetHashCode();
                 if (this.RequiresAdmin != null)
                     hashCode = hashCode * 59 + this.RequiresAdmin.GetHashCode();
                 if (this.BotResponseConflictFeedbacks != null)

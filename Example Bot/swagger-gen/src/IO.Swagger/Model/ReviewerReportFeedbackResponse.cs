@@ -33,18 +33,26 @@ namespace IO.Swagger.Model
         /// <summary>
         /// Initializes a new instance of the <see cref="ReviewerReportFeedbackResponse" /> class.
         /// </summary>
+        /// <param name="Id">Id.</param>
         /// <param name="FeedbackName">FeedbackName.</param>
         /// <param name="UserName">UserName.</param>
         /// <param name="Icon">Icon.</param>
         /// <param name="Colour">Colour.</param>
-        public ReviewerReportFeedbackResponse(string FeedbackName = default(string), string UserName = default(string), string Icon = default(string), string Colour = default(string))
+        public ReviewerReportFeedbackResponse(int? Id = default(int?), string FeedbackName = default(string), string UserName = default(string), string Icon = default(string), string Colour = default(string))
         {
+            this.Id = Id;
             this.FeedbackName = FeedbackName;
             this.UserName = UserName;
             this.Icon = Icon;
             this.Colour = Colour;
         }
         
+        /// <summary>
+        /// Gets or Sets Id
+        /// </summary>
+        [DataMember(Name="id", EmitDefaultValue=false)]
+        public int? Id { get; set; }
+
         /// <summary>
         /// Gets or Sets FeedbackName
         /// </summary>
@@ -77,6 +85,7 @@ namespace IO.Swagger.Model
         {
             var sb = new StringBuilder();
             sb.Append("class ReviewerReportFeedbackResponse {\n");
+            sb.Append("  Id: ").Append(Id).Append("\n");
             sb.Append("  FeedbackName: ").Append(FeedbackName).Append("\n");
             sb.Append("  UserName: ").Append(UserName).Append("\n");
             sb.Append("  Icon: ").Append(Icon).Append("\n");
@@ -116,6 +125,11 @@ namespace IO.Swagger.Model
 
             return 
                 (
+                    this.Id == input.Id ||
+                    (this.Id != null &&
+                    this.Id.Equals(input.Id))
+                ) && 
+                (
                     this.FeedbackName == input.FeedbackName ||
                     (this.FeedbackName != null &&
                     this.FeedbackName.Equals(input.FeedbackName))
@@ -146,6 +160,8 @@ namespace IO.Swagger.Model
             unchecked // Overflow is fine, just wrap
             {
                 int hashCode = 41;
+                if (this.Id != null)
+                    hashCode = hashCode * 59 + this.Id.GetHashCode();
                 if (this.FeedbackName != null)
                     hashCode = hashCode * 59 + this.FeedbackName.GetHashCode();
                 if (this.UserName != null)

@@ -13,7 +13,7 @@
 
 export interface CreateBotRequestExceptions {
     id?: number;
-    isConfict?: boolean;
+    isConflict?: boolean;
     requiresAdmin?: boolean;
     botResponseConflictFeedbacks?: Array<number>;
 }

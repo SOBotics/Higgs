@@ -6,6 +6,7 @@ Method | HTTP request | Description
 ------------- | ------------- | -------------
 [**ReviewerAllReviewsGet**](ReviewerApi.md#reviewerallreviewsget) | **GET** /Reviewer/AllReviews | Lists all reviews
 [**ReviewerCheckGet**](ReviewerApi.md#reviewercheckget) | **GET** /Reviewer/Check | 
+[**ReviewerClearFeedbackPost**](ReviewerApi.md#reviewerclearfeedbackpost) | **POST** /Reviewer/ClearFeedback | 
 [**ReviewerPendingReviewsGet**](ReviewerApi.md#reviewerpendingreviewsget) | **GET** /Reviewer/PendingReviews | Lists all pending reviews
 [**ReviewerReportGet**](ReviewerApi.md#reviewerreportget) | **GET** /Reviewer/Report | 
 [**ReviewerReportsGet**](ReviewerApi.md#reviewerreportsget) | **GET** /Reviewer/Reports | 
@@ -121,6 +122,66 @@ No authorization required
 
  - **Content-Type**: Not defined
  - **Accept**: text/plain, application/json, text/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+<a name="reviewerclearfeedbackpost"></a>
+# **ReviewerClearFeedbackPost**
+> void ReviewerClearFeedbackPost (ClearFeedbackRequest request = null)
+
+
+
+### Example
+```csharp
+using System;
+using System.Diagnostics;
+using IO.Swagger.Api;
+using IO.Swagger.Client;
+using IO.Swagger.Model;
+
+namespace Example
+{
+    public class ReviewerClearFeedbackPostExample
+    {
+        public void main()
+        {
+            // Configure OAuth2 access token for authorization: oauth2
+            Configuration.Default.AccessToken = "YOUR_ACCESS_TOKEN";
+
+            var apiInstance = new ReviewerApi();
+            var request = new ClearFeedbackRequest(); // ClearFeedbackRequest |  (optional) 
+
+            try
+            {
+                apiInstance.ReviewerClearFeedbackPost(request);
+            }
+            catch (Exception e)
+            {
+                Debug.Print("Exception when calling ReviewerApi.ReviewerClearFeedbackPost: " + e.Message );
+            }
+        }
+    }
+}
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **request** | [**ClearFeedbackRequest**](ClearFeedbackRequest.md)|  | [optional] 
+
+### Return type
+
+void (empty response body)
+
+### Authorization
+
+[oauth2](../README.md#oauth2)
+
+### HTTP request headers
+
+ - **Content-Type**: application/json-patch+json, application/json, text/json, application/_*+json
+ - **Accept**: Not defined
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
@@ -292,7 +353,7 @@ No authorization required
 
 <a name="reviewersendfeedbackpost"></a>
 # **ReviewerSendFeedbackPost**
-> void ReviewerSendFeedbackPost (int? reportId, int? id)
+> void ReviewerSendFeedbackPost (SendFeedbackRequest request = null)
 
 Lists all pending review
 
@@ -314,13 +375,12 @@ namespace Example
             Configuration.Default.AccessToken = "YOUR_ACCESS_TOKEN";
 
             var apiInstance = new ReviewerApi();
-            var reportId = 56;  // int? | 
-            var id = 56;  // int? | 
+            var request = new SendFeedbackRequest(); // SendFeedbackRequest |  (optional) 
 
             try
             {
                 // Lists all pending review
-                apiInstance.ReviewerSendFeedbackPost(reportId, id);
+                apiInstance.ReviewerSendFeedbackPost(request);
             }
             catch (Exception e)
             {
@@ -335,8 +395,7 @@ namespace Example
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **reportId** | **int?**|  | 
- **id** | **int?**|  | 
+ **request** | [**SendFeedbackRequest**](SendFeedbackRequest.md)|  | [optional] 
 
 ### Return type
 
@@ -348,7 +407,7 @@ void (empty response body)
 
 ### HTTP request headers
 
- - **Content-Type**: Not defined
+ - **Content-Type**: application/json-patch+json, application/json, text/json, application/_*+json
  - **Accept**: Not defined
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)

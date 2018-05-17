@@ -4,7 +4,7 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **Id** | **int?** |  | [optional] 
-**IsConfict** | **bool?** |  | [optional] 
+**IsConflict** | **bool?** |  | [optional] 
 **RequiresAdmin** | **bool?** |  | [optional] 
 **BotResponseConflictFeedbacks** | **List&lt;int?&gt;** |  | [optional] 
 

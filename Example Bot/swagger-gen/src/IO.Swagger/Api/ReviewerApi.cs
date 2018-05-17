@@ -65,6 +65,27 @@ namespace IO.Swagger.Api
         /// <returns>ApiResponse of List&lt;ReviewerCheckResponse&gt;</returns>
         ApiResponse<List<ReviewerCheckResponse>> ReviewerCheckGetWithHttpInfo (string contentUrl = null);
         /// <summary>
+        /// 
+        /// </summary>
+        /// <remarks>
+        /// 
+        /// </remarks>
+        /// <exception cref="IO.Swagger.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="request"> (optional)</param>
+        /// <returns></returns>
+        void ReviewerClearFeedbackPost (ClearFeedbackRequest request = null);
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <remarks>
+        /// 
+        /// </remarks>
+        /// <exception cref="IO.Swagger.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="request"> (optional)</param>
+        /// <returns>ApiResponse of Object(void)</returns>
+        ApiResponse<Object> ReviewerClearFeedbackPostWithHttpInfo (ClearFeedbackRequest request = null);
+        /// <summary>
         /// Lists all pending reviews
         /// </summary>
         /// <remarks>
@@ -130,10 +151,9 @@ namespace IO.Swagger.Api
         /// 
         /// </remarks>
         /// <exception cref="IO.Swagger.Client.ApiException">Thrown when fails to make API call</exception>
-        /// <param name="reportId"></param>
-        /// <param name="id"></param>
+        /// <param name="request"> (optional)</param>
         /// <returns></returns>
-        void ReviewerSendFeedbackPost (int? reportId, int? id);
+        void ReviewerSendFeedbackPost (SendFeedbackRequest request = null);
 
         /// <summary>
         /// Lists all pending review
@@ -142,10 +162,9 @@ namespace IO.Swagger.Api
         /// 
         /// </remarks>
         /// <exception cref="IO.Swagger.Client.ApiException">Thrown when fails to make API call</exception>
-        /// <param name="reportId"></param>
-        /// <param name="id"></param>
+        /// <param name="request"> (optional)</param>
         /// <returns>ApiResponse of Object(void)</returns>
-        ApiResponse<Object> ReviewerSendFeedbackPostWithHttpInfo (int? reportId, int? id);
+        ApiResponse<Object> ReviewerSendFeedbackPostWithHttpInfo (SendFeedbackRequest request = null);
         #endregion Synchronous Operations
         #region Asynchronous Operations
         /// <summary>
@@ -188,6 +207,27 @@ namespace IO.Swagger.Api
         /// <param name="contentUrl"> (optional)</param>
         /// <returns>Task of ApiResponse (List&lt;ReviewerCheckResponse&gt;)</returns>
         System.Threading.Tasks.Task<ApiResponse<List<ReviewerCheckResponse>>> ReviewerCheckGetAsyncWithHttpInfo (string contentUrl = null);
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <remarks>
+        /// 
+        /// </remarks>
+        /// <exception cref="IO.Swagger.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="request"> (optional)</param>
+        /// <returns>Task of void</returns>
+        System.Threading.Tasks.Task ReviewerClearFeedbackPostAsync (ClearFeedbackRequest request = null);
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <remarks>
+        /// 
+        /// </remarks>
+        /// <exception cref="IO.Swagger.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="request"> (optional)</param>
+        /// <returns>Task of ApiResponse</returns>
+        System.Threading.Tasks.Task<ApiResponse<Object>> ReviewerClearFeedbackPostAsyncWithHttpInfo (ClearFeedbackRequest request = null);
         /// <summary>
         /// Lists all pending reviews
         /// </summary>
@@ -254,10 +294,9 @@ namespace IO.Swagger.Api
         /// 
         /// </remarks>
         /// <exception cref="IO.Swagger.Client.ApiException">Thrown when fails to make API call</exception>
-        /// <param name="reportId"></param>
-        /// <param name="id"></param>
+        /// <param name="request"> (optional)</param>
         /// <returns>Task of void</returns>
-        System.Threading.Tasks.Task ReviewerSendFeedbackPostAsync (int? reportId, int? id);
+        System.Threading.Tasks.Task ReviewerSendFeedbackPostAsync (SendFeedbackRequest request = null);
 
         /// <summary>
         /// Lists all pending review
@@ -266,10 +305,9 @@ namespace IO.Swagger.Api
         /// 
         /// </remarks>
         /// <exception cref="IO.Swagger.Client.ApiException">Thrown when fails to make API call</exception>
-        /// <param name="reportId"></param>
-        /// <param name="id"></param>
+        /// <param name="request"> (optional)</param>
         /// <returns>Task of ApiResponse</returns>
-        System.Threading.Tasks.Task<ApiResponse<Object>> ReviewerSendFeedbackPostAsyncWithHttpInfo (int? reportId, int? id);
+        System.Threading.Tasks.Task<ApiResponse<Object>> ReviewerSendFeedbackPostAsyncWithHttpInfo (SendFeedbackRequest request = null);
         #endregion Asynchronous Operations
     }
 
@@ -616,6 +654,163 @@ namespace IO.Swagger.Api
             return new ApiResponse<List<ReviewerCheckResponse>>(localVarStatusCode,
                 localVarResponse.Headers.ToDictionary(x => x.Name, x => x.Value.ToString()),
                 (List<ReviewerCheckResponse>) Configuration.ApiClient.Deserialize(localVarResponse, typeof(List<ReviewerCheckResponse>)));
+        }
+
+        /// <summary>
+        ///  
+        /// </summary>
+        /// <exception cref="IO.Swagger.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="request"> (optional)</param>
+        /// <returns></returns>
+        public void ReviewerClearFeedbackPost (ClearFeedbackRequest request = null)
+        {
+             ReviewerClearFeedbackPostWithHttpInfo(request);
+        }
+
+        /// <summary>
+        ///  
+        /// </summary>
+        /// <exception cref="IO.Swagger.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="request"> (optional)</param>
+        /// <returns>ApiResponse of Object(void)</returns>
+        public ApiResponse<Object> ReviewerClearFeedbackPostWithHttpInfo (ClearFeedbackRequest request = null)
+        {
+
+            var localVarPath = "/Reviewer/ClearFeedback";
+            var localVarPathParams = new Dictionary<String, String>();
+            var localVarQueryParams = new List<KeyValuePair<String, String>>();
+            var localVarHeaderParams = new Dictionary<String, String>(Configuration.DefaultHeader);
+            var localVarFormParams = new Dictionary<String, String>();
+            var localVarFileParams = new Dictionary<String, FileParameter>();
+            Object localVarPostBody = null;
+
+            // to determine the Content-Type header
+            String[] localVarHttpContentTypes = new String[] {
+                "application/json-patch+json", 
+                "application/json", 
+                "text/json", 
+                "application/_*+json"
+            };
+            String localVarHttpContentType = Configuration.ApiClient.SelectHeaderContentType(localVarHttpContentTypes);
+
+            // to determine the Accept header
+            String[] localVarHttpHeaderAccepts = new String[] {
+            };
+            String localVarHttpHeaderAccept = Configuration.ApiClient.SelectHeaderAccept(localVarHttpHeaderAccepts);
+            if (localVarHttpHeaderAccept != null)
+                localVarHeaderParams.Add("Accept", localVarHttpHeaderAccept);
+
+            if (request != null && request.GetType() != typeof(byte[]))
+            {
+                localVarPostBody = Configuration.ApiClient.Serialize(request); // http body (model) parameter
+            }
+            else
+            {
+                localVarPostBody = request; // byte array
+            }
+
+            // authentication (oauth2) required
+            // oauth required
+            if (!String.IsNullOrEmpty(Configuration.AccessToken))
+            {
+                localVarHeaderParams["Authorization"] = "Bearer " + Configuration.AccessToken;
+            }
+
+            // make the HTTP request
+            IRestResponse localVarResponse = (IRestResponse) Configuration.ApiClient.CallApi(localVarPath,
+                Method.POST, localVarQueryParams, localVarPostBody, localVarHeaderParams, localVarFormParams, localVarFileParams,
+                localVarPathParams, localVarHttpContentType);
+
+            int localVarStatusCode = (int) localVarResponse.StatusCode;
+
+            if (ExceptionFactory != null)
+            {
+                Exception exception = ExceptionFactory("ReviewerClearFeedbackPost", localVarResponse);
+                if (exception != null) throw exception;
+            }
+
+            return new ApiResponse<Object>(localVarStatusCode,
+                localVarResponse.Headers.ToDictionary(x => x.Name, x => x.Value.ToString()),
+                null);
+        }
+
+        /// <summary>
+        ///  
+        /// </summary>
+        /// <exception cref="IO.Swagger.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="request"> (optional)</param>
+        /// <returns>Task of void</returns>
+        public async System.Threading.Tasks.Task ReviewerClearFeedbackPostAsync (ClearFeedbackRequest request = null)
+        {
+             await ReviewerClearFeedbackPostAsyncWithHttpInfo(request);
+
+        }
+
+        /// <summary>
+        ///  
+        /// </summary>
+        /// <exception cref="IO.Swagger.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="request"> (optional)</param>
+        /// <returns>Task of ApiResponse</returns>
+        public async System.Threading.Tasks.Task<ApiResponse<Object>> ReviewerClearFeedbackPostAsyncWithHttpInfo (ClearFeedbackRequest request = null)
+        {
+
+            var localVarPath = "/Reviewer/ClearFeedback";
+            var localVarPathParams = new Dictionary<String, String>();
+            var localVarQueryParams = new List<KeyValuePair<String, String>>();
+            var localVarHeaderParams = new Dictionary<String, String>(Configuration.DefaultHeader);
+            var localVarFormParams = new Dictionary<String, String>();
+            var localVarFileParams = new Dictionary<String, FileParameter>();
+            Object localVarPostBody = null;
+
+            // to determine the Content-Type header
+            String[] localVarHttpContentTypes = new String[] {
+                "application/json-patch+json", 
+                "application/json", 
+                "text/json", 
+                "application/_*+json"
+            };
+            String localVarHttpContentType = Configuration.ApiClient.SelectHeaderContentType(localVarHttpContentTypes);
+
+            // to determine the Accept header
+            String[] localVarHttpHeaderAccepts = new String[] {
+            };
+            String localVarHttpHeaderAccept = Configuration.ApiClient.SelectHeaderAccept(localVarHttpHeaderAccepts);
+            if (localVarHttpHeaderAccept != null)
+                localVarHeaderParams.Add("Accept", localVarHttpHeaderAccept);
+
+            if (request != null && request.GetType() != typeof(byte[]))
+            {
+                localVarPostBody = Configuration.ApiClient.Serialize(request); // http body (model) parameter
+            }
+            else
+            {
+                localVarPostBody = request; // byte array
+            }
+
+            // authentication (oauth2) required
+            // oauth required
+            if (!String.IsNullOrEmpty(Configuration.AccessToken))
+            {
+                localVarHeaderParams["Authorization"] = "Bearer " + Configuration.AccessToken;
+            }
+
+            // make the HTTP request
+            IRestResponse localVarResponse = (IRestResponse) await Configuration.ApiClient.CallApiAsync(localVarPath,
+                Method.POST, localVarQueryParams, localVarPostBody, localVarHeaderParams, localVarFormParams, localVarFileParams,
+                localVarPathParams, localVarHttpContentType);
+
+            int localVarStatusCode = (int) localVarResponse.StatusCode;
+
+            if (ExceptionFactory != null)
+            {
+                Exception exception = ExceptionFactory("ReviewerClearFeedbackPost", localVarResponse);
+                if (exception != null) throw exception;
+            }
+
+            return new ApiResponse<Object>(localVarStatusCode,
+                localVarResponse.Headers.ToDictionary(x => x.Name, x => x.Value.ToString()),
+                null);
         }
 
         /// <summary>
@@ -1001,29 +1196,21 @@ namespace IO.Swagger.Api
         /// Lists all pending review 
         /// </summary>
         /// <exception cref="IO.Swagger.Client.ApiException">Thrown when fails to make API call</exception>
-        /// <param name="reportId"></param>
-        /// <param name="id"></param>
+        /// <param name="request"> (optional)</param>
         /// <returns></returns>
-        public void ReviewerSendFeedbackPost (int? reportId, int? id)
+        public void ReviewerSendFeedbackPost (SendFeedbackRequest request = null)
         {
-             ReviewerSendFeedbackPostWithHttpInfo(reportId, id);
+             ReviewerSendFeedbackPostWithHttpInfo(request);
         }
 
         /// <summary>
         /// Lists all pending review 
         /// </summary>
         /// <exception cref="IO.Swagger.Client.ApiException">Thrown when fails to make API call</exception>
-        /// <param name="reportId"></param>
-        /// <param name="id"></param>
+        /// <param name="request"> (optional)</param>
         /// <returns>ApiResponse of Object(void)</returns>
-        public ApiResponse<Object> ReviewerSendFeedbackPostWithHttpInfo (int? reportId, int? id)
+        public ApiResponse<Object> ReviewerSendFeedbackPostWithHttpInfo (SendFeedbackRequest request = null)
         {
-            // verify the required parameter 'reportId' is set
-            if (reportId == null)
-                throw new ApiException(400, "Missing required parameter 'reportId' when calling ReviewerApi->ReviewerSendFeedbackPost");
-            // verify the required parameter 'id' is set
-            if (id == null)
-                throw new ApiException(400, "Missing required parameter 'id' when calling ReviewerApi->ReviewerSendFeedbackPost");
 
             var localVarPath = "/Reviewer/SendFeedback";
             var localVarPathParams = new Dictionary<String, String>();
@@ -1035,6 +1222,10 @@ namespace IO.Swagger.Api
 
             // to determine the Content-Type header
             String[] localVarHttpContentTypes = new String[] {
+                "application/json-patch+json", 
+                "application/json", 
+                "text/json", 
+                "application/_*+json"
             };
             String localVarHttpContentType = Configuration.ApiClient.SelectHeaderContentType(localVarHttpContentTypes);
 
@@ -1045,8 +1236,14 @@ namespace IO.Swagger.Api
             if (localVarHttpHeaderAccept != null)
                 localVarHeaderParams.Add("Accept", localVarHttpHeaderAccept);
 
-            if (reportId != null) localVarQueryParams.AddRange(Configuration.ApiClient.ParameterToKeyValuePairs("", "reportId", reportId)); // query parameter
-            if (id != null) localVarQueryParams.AddRange(Configuration.ApiClient.ParameterToKeyValuePairs("", "id", id)); // query parameter
+            if (request != null && request.GetType() != typeof(byte[]))
+            {
+                localVarPostBody = Configuration.ApiClient.Serialize(request); // http body (model) parameter
+            }
+            else
+            {
+                localVarPostBody = request; // byte array
+            }
 
             // authentication (oauth2) required
             // oauth required
@@ -1077,12 +1274,11 @@ namespace IO.Swagger.Api
         /// Lists all pending review 
         /// </summary>
         /// <exception cref="IO.Swagger.Client.ApiException">Thrown when fails to make API call</exception>
-        /// <param name="reportId"></param>
-        /// <param name="id"></param>
+        /// <param name="request"> (optional)</param>
         /// <returns>Task of void</returns>
-        public async System.Threading.Tasks.Task ReviewerSendFeedbackPostAsync (int? reportId, int? id)
+        public async System.Threading.Tasks.Task ReviewerSendFeedbackPostAsync (SendFeedbackRequest request = null)
         {
-             await ReviewerSendFeedbackPostAsyncWithHttpInfo(reportId, id);
+             await ReviewerSendFeedbackPostAsyncWithHttpInfo(request);
 
         }
 
@@ -1090,17 +1286,10 @@ namespace IO.Swagger.Api
         /// Lists all pending review 
         /// </summary>
         /// <exception cref="IO.Swagger.Client.ApiException">Thrown when fails to make API call</exception>
-        /// <param name="reportId"></param>
-        /// <param name="id"></param>
+        /// <param name="request"> (optional)</param>
         /// <returns>Task of ApiResponse</returns>
-        public async System.Threading.Tasks.Task<ApiResponse<Object>> ReviewerSendFeedbackPostAsyncWithHttpInfo (int? reportId, int? id)
+        public async System.Threading.Tasks.Task<ApiResponse<Object>> ReviewerSendFeedbackPostAsyncWithHttpInfo (SendFeedbackRequest request = null)
         {
-            // verify the required parameter 'reportId' is set
-            if (reportId == null)
-                throw new ApiException(400, "Missing required parameter 'reportId' when calling ReviewerApi->ReviewerSendFeedbackPost");
-            // verify the required parameter 'id' is set
-            if (id == null)
-                throw new ApiException(400, "Missing required parameter 'id' when calling ReviewerApi->ReviewerSendFeedbackPost");
 
             var localVarPath = "/Reviewer/SendFeedback";
             var localVarPathParams = new Dictionary<String, String>();
@@ -1112,6 +1301,10 @@ namespace IO.Swagger.Api
 
             // to determine the Content-Type header
             String[] localVarHttpContentTypes = new String[] {
+                "application/json-patch+json", 
+                "application/json", 
+                "text/json", 
+                "application/_*+json"
             };
             String localVarHttpContentType = Configuration.ApiClient.SelectHeaderContentType(localVarHttpContentTypes);
 
@@ -1122,8 +1315,14 @@ namespace IO.Swagger.Api
             if (localVarHttpHeaderAccept != null)
                 localVarHeaderParams.Add("Accept", localVarHttpHeaderAccept);
 
-            if (reportId != null) localVarQueryParams.AddRange(Configuration.ApiClient.ParameterToKeyValuePairs("", "reportId", reportId)); // query parameter
-            if (id != null) localVarQueryParams.AddRange(Configuration.ApiClient.ParameterToKeyValuePairs("", "id", id)); // query parameter
+            if (request != null && request.GetType() != typeof(byte[]))
+            {
+                localVarPostBody = Configuration.ApiClient.Serialize(request); // http body (model) parameter
+            }
+            else
+            {
+                localVarPostBody = request; // byte array
+            }
 
             // authentication (oauth2) required
             // oauth required

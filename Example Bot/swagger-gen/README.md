@@ -121,6 +121,7 @@ Class | Method | HTTP request | Description
 *FileApi* | [**FilePost**](docs/FileApi.md#filepost) | **POST** /File | 
 *ReviewerApi* | [**ReviewerAllReviewsGet**](docs/ReviewerApi.md#reviewerallreviewsget) | **GET** /Reviewer/AllReviews | Lists all reviews
 *ReviewerApi* | [**ReviewerCheckGet**](docs/ReviewerApi.md#reviewercheckget) | **GET** /Reviewer/Check | 
+*ReviewerApi* | [**ReviewerClearFeedbackPost**](docs/ReviewerApi.md#reviewerclearfeedbackpost) | **POST** /Reviewer/ClearFeedback | 
 *ReviewerApi* | [**ReviewerPendingReviewsGet**](docs/ReviewerApi.md#reviewerpendingreviewsget) | **GET** /Reviewer/PendingReviews | Lists all pending reviews
 *ReviewerApi* | [**ReviewerReportGet**](docs/ReviewerApi.md#reviewerreportget) | **GET** /Reviewer/Report | 
 *ReviewerApi* | [**ReviewerReportsGet**](docs/ReviewerApi.md#reviewerreportsget) | **GET** /Reviewer/Reports | 
@@ -137,6 +138,7 @@ Class | Method | HTTP request | Description
  - [Model.BotResponseConflictExceptions](docs/BotResponseConflictExceptions.md)
  - [Model.BotResponseFeedback](docs/BotResponseFeedback.md)
  - [Model.BotsResponse](docs/BotsResponse.md)
+ - [Model.ClearFeedbackRequest](docs/ClearFeedbackRequest.md)
  - [Model.CreateBotRequest](docs/CreateBotRequest.md)
  - [Model.CreateBotRequestExceptions](docs/CreateBotRequestExceptions.md)
  - [Model.CreateBotRequestFeedback](docs/CreateBotRequestFeedback.md)
@@ -160,6 +162,7 @@ Class | Method | HTTP request | Description
  - [Model.ReviewerReportReasonResponse](docs/ReviewerReportReasonResponse.md)
  - [Model.ReviewerReportResponse](docs/ReviewerReportResponse.md)
  - [Model.ReviewerReportsResponse](docs/ReviewerReportsResponse.md)
+ - [Model.SendFeedbackRequest](docs/SendFeedbackRequest.md)
  - [Model.UpdateUserRequest](docs/UpdateUserRequest.md)
  - [Model.UsersResponse](docs/UsersResponse.md)
 
