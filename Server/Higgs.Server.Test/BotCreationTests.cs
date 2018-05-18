@@ -84,5 +84,86 @@ namespace Higgs.Server.Test
             var response = await Client.PostAsync("/Admin/RegisterBot", request);
             await response.AssertError(HttpStatusCode.BadRequest, "Invalid FeedbackId for conflict");
         }
+
+        [Test]
+        public async Task TestBotCreateDuplicateFeedbackNames()
+        {
+            Authenticate(
+                new[] { new Claim(SecurityUtils.ACCOUNT_ID_CLAIM, 1.ToString()) },
+                Scopes.SCOPE_BOT_OWNER
+            );
+
+            var request = new CreateBotRequest
+            {
+                Name = "asd",
+                DashboardName = "da",
+                Description = "ds",
+                Secret = "abc",
+                Feedbacks = new List<CreateBotRequestFeedback>
+                {
+                    new CreateBotRequestFeedback {Id = -1, Name = "tp"},
+                    new CreateBotRequestFeedback {Id = -2, Name = "tp"},
+                }
+            };
+
+            var response = await Client.PostAsync("/Admin/RegisterBot", request);
+            await response.AssertError(HttpStatusCode.BadRequest, "Feedback names must be unique");
+        }
+
+
+        [Test]
+        public async Task TestBotCreateDuplicateFeedbackIds()
+        {
+            Authenticate(
+                new[] { new Claim(SecurityUtils.ACCOUNT_ID_CLAIM, 1.ToString()) },
+                Scopes.SCOPE_BOT_OWNER
+            );
+
+            var request = new CreateBotRequest
+            {
+                Name = "asd",
+                DashboardName = "da",
+                Description = "ds",
+                Secret = "abc",
+                Feedbacks = new List<CreateBotRequestFeedback>
+                {
+                    new CreateBotRequestFeedback {Id = -1, Name = "tp"},
+                    new CreateBotRequestFeedback {Id = -1, Name = "fp"},
+                }
+            };
+
+            var response = await Client.PostAsync("/Admin/RegisterBot", request);
+            await response.AssertError(HttpStatusCode.BadRequest, "Duplicate feedback ids");
+        }
+
+        [Test]
+        public async Task TestBotCreateDuplicateConflictIds()
+        {
+            Authenticate(
+                new[] { new Claim(SecurityUtils.ACCOUNT_ID_CLAIM, 1.ToString()) },
+                Scopes.SCOPE_BOT_OWNER
+            );
+
+            var request = new CreateBotRequest
+            {
+                Name = "asd",
+                DashboardName = "da",
+                Description = "ds",
+                Secret = "abc",
+                Feedbacks = new List<CreateBotRequestFeedback>
+                {
+                    new CreateBotRequestFeedback {Id = -1, Name = "tp"},
+                    new CreateBotRequestFeedback {Id = -2, Name = "fp"},
+                },
+                ConflictExceptions = new List<CreateBotRequestExceptions>
+                {
+                    new CreateBotRequestExceptions {Id = -1, BotResponseConflictFeedbacks = new List<int> {-1 }},
+                    new CreateBotRequestExceptions {Id = -1, BotResponseConflictFeedbacks = new List<int> {-2 }}
+                }
+            };
+
+            var response = await Client.PostAsync("/Admin/RegisterBot", request);
+            await response.AssertError(HttpStatusCode.BadRequest, "Duplicate conflict exception ids");
+        }
     }
 }

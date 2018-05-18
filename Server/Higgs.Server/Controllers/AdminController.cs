@@ -203,94 +203,62 @@ namespace Higgs.Server.Controllers
             existingBot.LogoUrl = request.LogoUrl;
             existingBot.TabTitle = request.TabTitle;
 
-            var feedbackTypes = existingBot.Feedbacks.ToDictionary(f => f.Id, f => f);
-            var createdFeedbacks = new Dictionary<int, DbFeedback>();
-            foreach (var feedbackType in request.Feedbacks)
-            {
-                if (feedbackTypes.ContainsKey(feedbackType.Id))
-                {
-                    // Edit it
-                    var dbFeedbackType = feedbackTypes[feedbackType.Id];
-                    dbFeedbackType.Name = feedbackType.Name;
-                    dbFeedbackType.Colour = feedbackType.Colour;
-                    dbFeedbackType.Icon = feedbackType.Icon;
-                    dbFeedbackType.IsActionable = feedbackType.IsActionable;
-                    dbFeedbackType.IsEnabled = feedbackType.IsEnabled;
-                }
-                else
-                {
-                    if (feedbackType.Id >= 0) continue;
+            if (request.Feedbacks.GroupBy(f => f.Id).Any(g => g.Count() > 1))
+                throw new HttpStatusException(HttpStatusCode.BadRequest, "Duplicate feedback ids");
 
-                    // It's a new one
+            var createdFeedbacks = new Dictionary<int, DbFeedback>();
+            CollectionUpdater.UpdateCollection(
+                existingBot.Feedbacks.ToDictionary(f => f.Id, f => f),
+                request.Feedbacks.ToDictionary(f => f.Id, f => f),
+                newFeedback =>
+                {
                     var dbFeedbackType = new DbFeedback
                     {
                         Bot = existingBot,
-                        Name = feedbackType.Name,
-                        Colour = feedbackType.Colour,
-                        Icon = feedbackType.Icon,
-                        IsActionable = feedbackType.IsActionable,
-                        IsEnabled = feedbackType.IsEnabled
+                        Name = newFeedback.Name,
+                        Colour = newFeedback.Colour,
+                        Icon = newFeedback.Icon,
+                        IsActionable = newFeedback.IsActionable,
+                        IsEnabled = newFeedback.IsEnabled
                     };
                     existingBot.Feedbacks.Add(dbFeedbackType);
                     _dbContext.Feedbacks.Add(dbFeedbackType);
 
-                    createdFeedbacks.Add(feedbackType.Id, dbFeedbackType);
-                }
-            }
-
+                    createdFeedbacks.Add(newFeedback.Id, dbFeedbackType);
+                },
+                (existingFeedback, newFeedback) =>
+                {
+                    existingFeedback.Name = newFeedback.Name;
+                    existingFeedback.Colour = newFeedback.Colour;
+                    existingFeedback.Icon = newFeedback.Icon;
+                    existingFeedback.IsActionable = newFeedback.IsActionable;
+                    existingFeedback.IsEnabled = newFeedback.IsEnabled;
+                },
+                existingFeedback => { }
+            );
+            
             if (existingBot.Feedbacks.GroupBy(f => f.Name, StringComparer.OrdinalIgnoreCase).Any(g => g.Count() > 1))
             {
                 // We have duplicates
                 throw new HttpStatusException(HttpStatusCode.BadRequest, "Feedback names must be unique");
             }
 
-            var conflictExceptions = existingBot.ConflictExceptions.ToDictionary(ce => ce.Id, ce => ce);
-            foreach (var conflictException in request.ConflictExceptions)
-            {
-                if (conflictExceptions.ContainsKey(conflictException.Id))
+            if (request.ConflictExceptions.GroupBy(f => f.Id).Any(g => g.Count() > 1))
+                throw new HttpStatusException(HttpStatusCode.BadRequest, "Duplicate conflict exception ids");
+
+            CollectionUpdater.UpdateCollection(
+                existingBot.ConflictExceptions.ToDictionary(ce => ce.Id, ce => ce),
+                request.ConflictExceptions.ToDictionary(ce => ce.Id, ce => ce),
+                newConflict =>
                 {
-                    var dbConflictException = conflictExceptions[conflictException.Id];
-                    dbConflictException.IsConflict = conflictException.IsConflict;
-                    dbConflictException.RequiresAdmin = conflictException.RequiresAdmin;
-
-                    // Delete the old ones, and re-create
-                    foreach (var existingDbFeedback in dbConflictException.ConflictExceptionFeedbacks)
-                        _dbContext.ConflictExceptionFeedbacks.Remove(existingDbFeedback);
-                    
-                    foreach (var conflictFeedbackId in conflictException.BotResponseConflictFeedbacks)
-                    {
-                        var newConflictException = new DbConflictExceptionFeedback
-                        {
-                            ConflictException = dbConflictException
-                        };
-
-                        if (conflictFeedbackId < 0)
-                        {
-                            if (createdFeedbacks.ContainsKey(conflictFeedbackId))
-                                newConflictException.Feedback = createdFeedbacks[conflictFeedbackId];
-                            else
-                                throw new HttpStatusException(HttpStatusCode.BadRequest, "Invalid FeedbackId for conflict");
-                        }
-                        else
-                        {
-                            newConflictException.FeedbackId = conflictFeedbackId;
-                        }
-                        _dbContext.ConflictExceptionFeedbacks.Add(newConflictException);
-                    }
-                }
-                else
-                {
-                    if (conflictException.Id >= 0) continue;
-
-                    // It's a new one
                     var dbConflictException = new DbConflictException
                     {
                         Bot = existingBot,
-                        IsConflict = conflictException.IsConflict,
-                        RequiresAdmin = conflictException.RequiresAdmin
+                        IsConflict = newConflict.IsConflict,
+                        RequiresAdmin = newConflict.RequiresAdmin
                     };
 
-                    foreach (var conflictFeedbackId in conflictException.BotResponseConflictFeedbacks)
+                    foreach (var conflictFeedbackId in newConflict.BotResponseConflictFeedbacks)
                     {
                         var newConflictException = new DbConflictExceptionFeedback
                         {
@@ -313,8 +281,46 @@ namespace Higgs.Server.Controllers
 
                     existingBot.ConflictExceptions.Add(dbConflictException);
                     _dbContext.ConflictExceptions.Add(dbConflictException);
+                },
+                (existingConflict, newConflict) =>
+                {
+                    existingConflict.IsConflict = newConflict.IsConflict;
+                    existingConflict.RequiresAdmin = newConflict.RequiresAdmin;
+
+                    CollectionUpdater.UpdateCollection(
+                        existingConflict.ConflictExceptionFeedbacks.ToDictionary(d => d.FeedbackId, d => d),
+                        newConflict.BotResponseConflictFeedbacks.ToDictionary(d => d, d => d),
+                        newConflictFeedbackId =>
+                        {
+                            var newConflictException = new DbConflictExceptionFeedback
+                            {
+                                ConflictException = existingConflict
+                            };
+                            if (newConflictFeedbackId < 0)
+                            {
+                                if (createdFeedbacks.ContainsKey(newConflictFeedbackId))
+                                    newConflictException.Feedback = createdFeedbacks[newConflictFeedbackId];
+                                else
+                                    throw new HttpStatusException(HttpStatusCode.BadRequest, "Invalid FeedbackId for conflict");
+                            }
+                            else
+                            {
+                                newConflictException.FeedbackId = newConflictFeedbackId;
+                            }
+                            _dbContext.ConflictExceptionFeedbacks.Add(newConflictException);
+                        },
+                        (existingConflictFeedback, newConflictFeedback) => { },
+                        existingConflictFeedback =>
+                        {
+                            _dbContext.ConflictExceptionFeedbacks.Remove(existingConflictFeedback);
+                        }
+                    );
+                },
+                existingConflict =>
+                {
+                    _dbContext.ConflictExceptions.Remove(existingConflict);
                 }
-            }
+            );
         }
         
         /// <summary>

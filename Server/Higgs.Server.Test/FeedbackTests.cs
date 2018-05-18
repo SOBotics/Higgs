@@ -243,7 +243,7 @@ namespace Higgs.Server.Test
 
             Authenticate(
                 new[] { new Claim(SecurityUtils.ACCOUNT_ID_CLAIM, 2.ToString()) },
-                Scopes.SCOPE_ADMIN, Scopes.SCOPE_ROOM_OWNER
+                Scopes.SCOPE_ROOM_OWNER, Scopes.SCOPE_REVIEWER
             );
 
             var clearFeedbackRequest = await Client.PostAsync("/Reviewer/ClearFeedback", new ClearFeedbackRequest
