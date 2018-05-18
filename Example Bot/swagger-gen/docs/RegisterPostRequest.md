@@ -18,6 +18,8 @@ Name | Type | Description | Notes
 **Reasons** | [**List&lt;RegisterPostReason&gt;**](RegisterPostReason.md) | A list of reasons the report was detected | [optional] 
 **AllowedFeedback** | **List&lt;string&gt;** | A list of feedback types | [optional] 
 **Attributes** | [**List&lt;RegisterPostAttribute&gt;**](RegisterPostAttribute.md) | Any custom attributes to be associated with the report | [optional] 
+**RequiredFeedback** | **int?** |  | [optional] 
+**RequiredFeedbackConflicted** | **int?** |  | [optional] 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 

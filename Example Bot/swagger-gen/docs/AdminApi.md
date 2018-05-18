@@ -8,6 +8,7 @@ Method | HTTP request | Description
 [**AdminBotsGet**](AdminApi.md#adminbotsget) | **GET** /Admin/Bots | Lists all bots
 [**AdminDeactiveateBotPost**](AdminApi.md#admindeactiveatebotpost) | **POST** /Admin/DeactiveateBot | Deactivates a bot
 [**AdminEditBotPost**](AdminApi.md#admineditbotpost) | **POST** /Admin/EditBot | Update a bots details
+[**AdminForceProcessReportsPost**](AdminApi.md#adminforceprocessreportspost) | **POST** /Admin/ForceProcessReports | 
 [**AdminRegisterBotPost**](AdminApi.md#adminregisterbotpost) | **POST** /Admin/RegisterBot | Register a bot
 [**AdminScopesGet**](AdminApi.md#adminscopesget) | **GET** /Admin/Scopes | 
 [**AdminUserGet**](AdminApi.md#adminuserget) | **GET** /Admin/User | Lists all users
@@ -253,6 +254,62 @@ void (empty response body)
 
  - **Content-Type**: application/json-patch+json, application/json, text/json, application/_*+json
  - **Accept**: text/plain, application/json, text/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+<a name="adminforceprocessreportspost"></a>
+# **AdminForceProcessReportsPost**
+> void AdminForceProcessReportsPost ()
+
+
+
+### Example
+```csharp
+using System;
+using System.Diagnostics;
+using IO.Swagger.Api;
+using IO.Swagger.Client;
+using IO.Swagger.Model;
+
+namespace Example
+{
+    public class AdminForceProcessReportsPostExample
+    {
+        public void main()
+        {
+            // Configure OAuth2 access token for authorization: oauth2
+            Configuration.Default.AccessToken = "YOUR_ACCESS_TOKEN";
+
+            var apiInstance = new AdminApi();
+
+            try
+            {
+                apiInstance.AdminForceProcessReportsPost();
+            }
+            catch (Exception e)
+            {
+                Debug.Print("Exception when calling AdminApi.AdminForceProcessReportsPost: " + e.Message );
+            }
+        }
+    }
+}
+```
+
+### Parameters
+This endpoint does not need any parameter.
+
+### Return type
+
+void (empty response body)
+
+### Authorization
+
+[oauth2](../README.md#oauth2)
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: Not defined
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 

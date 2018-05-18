@@ -15,6 +15,8 @@ Name | Type | Description | Notes
 **TabTitle** | **string** |  | [optional] 
 **Feedbacks** | [**List&lt;CreateBotRequestFeedback&gt;**](CreateBotRequestFeedback.md) |  | [optional] 
 **ConflictExceptions** | [**List&lt;CreateBotRequestExceptions&gt;**](CreateBotRequestExceptions.md) |  | [optional] 
+**RequiredFeedback** | **int?** |  | 
+**RequiredFeedbackConflicted** | **int?** |  | 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 

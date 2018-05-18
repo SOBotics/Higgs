@@ -34,4 +34,6 @@ export interface CreateBotRequest {
     tabTitle?: string;
     feedbacks?: Array<CreateBotRequestFeedback>;
     conflictExceptions?: Array<CreateBotRequestExceptions>;
+    requiredFeedback: number;
+    requiredFeedbackConflicted: number;
 }

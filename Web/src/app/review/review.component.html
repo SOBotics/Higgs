@@ -1,0 +1,6 @@
+<app-report *ngIf="reviewingReport && !done" [postDetails]="reviewingReport" (FeedbackClicked)="OnFeedbackClicked()" (FeedbackCleared)="OnFeedbackCleared()">
+
+</app-report>
+<app-page-not-found *ngIf="done">
+
+</app-page-not-found>

@@ -13,6 +13,7 @@
 
 export interface ReviewerReportFeedbackResponse {
     id?: number;
+    userId?: number;
     feedbackName?: string;
     userName?: string;
     icon?: string;

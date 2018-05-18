@@ -15,5 +15,6 @@ export interface BotResponseConflictExceptions {
     id?: number;
     isConflict?: boolean;
     requiresAdmin?: boolean;
+    requiredFeedback?: number;
     botResponseConflictFeedbacks?: Array<number>;
 }

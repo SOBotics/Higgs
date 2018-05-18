@@ -16,6 +16,7 @@ import { ReviewerReportReasonResponse } from './reviewerReportReasonResponse';
 
 
 export interface ReviewerReportResponse {
+    id?: number;
     title?: string;
     botLogo?: string;
     botName?: string;

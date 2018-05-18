@@ -8,15 +8,16 @@ namespace Higgs.Server.Models.Responses.Admin
     {
         [Required]
         public int Id { get; set; }
-        
         [Required]
         public string Name { get; set; }
-
         [Required]
         public string DashboardName { get; set; }
-
         [Required]
         public string Description { get; set; }
+        [Required]
+        public int RequiredFeedback { get; set; }
+        [Required]
+        public int RequiredFeedbackConflicted { get; set; }
 
         public int OwnerAccountId { get; set; }
 
@@ -25,9 +26,6 @@ namespace Higgs.Server.Models.Responses.Admin
 
         public string FavIcon { get; set; }
         public string TabTitle { get; set; }
-
-        public int RequiredFeedback { get; set; }
-        public int RequiredFeedbackConflicted { get; set; }
 
         public List<BotResponseFeedback> Feedbacks { get; set; }
         public List<BotResponseConflictExceptions> ConflictExceptions { get; set; }

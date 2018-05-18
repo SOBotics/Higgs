@@ -7,6 +7,8 @@ Name | Type | Description | Notes
 **Name** | **string** |  | 
 **DashboardName** | **string** |  | 
 **Description** | **string** |  | 
+**RequiredFeedback** | **int?** |  | 
+**RequiredFeedbackConflicted** | **int?** |  | 
 **OwnerAccountId** | **int?** |  | [optional] 
 **Homepage** | **string** |  | [optional] 
 **LogoUrl** | **string** |  | [optional] 

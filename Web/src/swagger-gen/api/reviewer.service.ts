@@ -61,41 +61,6 @@ export class ReviewerService {
 
 
     /**
-     * Lists all reviews
-     * 
-     * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
-     * @param reportProgress flag to report request and response progress.
-     */
-    public reviewerAllReviewsGet(observe?: 'body', reportProgress?: boolean): Observable<any>;
-    public reviewerAllReviewsGet(observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<any>>;
-    public reviewerAllReviewsGet(observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<any>>;
-    public reviewerAllReviewsGet(observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
-
-        let headers = this.defaultHeaders;
-
-        // to determine the Accept header
-        let httpHeaderAccepts: string[] = [
-        ];
-        let httpHeaderAcceptSelected: string | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
-        if (httpHeaderAcceptSelected != undefined) {
-            headers = headers.set("Accept", httpHeaderAcceptSelected);
-        }
-
-        // to determine the Content-Type header
-        let consumes: string[] = [
-        ];
-
-        return this.httpClient.get<any>(`${this.basePath}/Reviewer/AllReviews`,
-            {
-                withCredentials: this.configuration.withCredentials,
-                headers: headers,
-                observe: observe,
-                reportProgress: reportProgress
-            }
-        );
-    }
-
-    /**
      * 
      * 
      * @param contentUrl 
@@ -185,6 +150,59 @@ export class ReviewerService {
         return this.httpClient.post<any>(`${this.basePath}/Reviewer/ClearFeedback`,
             request,
             {
+                withCredentials: this.configuration.withCredentials,
+                headers: headers,
+                observe: observe,
+                reportProgress: reportProgress
+            }
+        );
+    }
+
+    /**
+     * 
+     * 
+     * @param lastId 
+     * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
+     * @param reportProgress flag to report request and response progress.
+     */
+    public reviewerNextReviewGet(lastId?: number, observe?: 'body', reportProgress?: boolean): Observable<ReviewerReportResponse>;
+    public reviewerNextReviewGet(lastId?: number, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<ReviewerReportResponse>>;
+    public reviewerNextReviewGet(lastId?: number, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<ReviewerReportResponse>>;
+    public reviewerNextReviewGet(lastId?: number, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
+
+        let queryParameters = new HttpParams({encoder: new CustomHttpUrlEncodingCodec()});
+        if (lastId !== undefined) {
+            queryParameters = queryParameters.set('lastId', <any>lastId);
+        }
+
+        let headers = this.defaultHeaders;
+
+        // authentication (oauth2) required
+        if (this.configuration.accessToken) {
+            let accessToken = typeof this.configuration.accessToken === 'function'
+                ? this.configuration.accessToken()
+                : this.configuration.accessToken;
+            headers = headers.set('Authorization', 'Bearer ' + accessToken);
+        }
+
+        // to determine the Accept header
+        let httpHeaderAccepts: string[] = [
+            'text/plain',
+            'application/json',
+            'text/json'
+        ];
+        let httpHeaderAcceptSelected: string | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
+        if (httpHeaderAcceptSelected != undefined) {
+            headers = headers.set("Accept", httpHeaderAcceptSelected);
+        }
+
+        // to determine the Content-Type header
+        let consumes: string[] = [
+        ];
+
+        return this.httpClient.get<ReviewerReportResponse>(`${this.basePath}/Reviewer/NextReview`,
+            {
+                params: queryParameters,
                 withCredentials: this.configuration.withCredentials,
                 headers: headers,
                 observe: observe,

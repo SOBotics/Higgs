@@ -35,4 +35,6 @@ export interface EditBotRequest {
     tabTitle?: string;
     feedbacks?: Array<CreateBotRequestFeedback>;
     conflictExceptions?: Array<CreateBotRequestExceptions>;
+    requiredFeedback: number;
+    requiredFeedbackConflicted: number;
 }

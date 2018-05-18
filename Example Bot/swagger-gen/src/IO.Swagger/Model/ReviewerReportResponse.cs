@@ -33,6 +33,7 @@ namespace IO.Swagger.Model
         /// <summary>
         /// Initializes a new instance of the <see cref="ReviewerReportResponse" /> class.
         /// </summary>
+        /// <param name="Id">Id.</param>
         /// <param name="Title">Title.</param>
         /// <param name="BotLogo">BotLogo.</param>
         /// <param name="BotName">BotName.</param>
@@ -53,8 +54,9 @@ namespace IO.Swagger.Model
         /// <param name="Reasons">Reasons.</param>
         /// <param name="AllowedFeedback">AllowedFeedback.</param>
         /// <param name="Feedback">Feedback.</param>
-        public ReviewerReportResponse(string Title = default(string), string BotLogo = default(string), string BotName = default(string), string DashboardName = default(string), string TabTitle = default(string), string FavIcon = default(string), string BotHomePage = default(string), string ContentUrl = default(string), string ContentSite = default(string), string ContentType = default(string), int? ContentId = default(int?), double? DetectionScore = default(double?), List<ReviewerReportContentFragmentResponse> ContentFragments = default(List<ReviewerReportContentFragmentResponse>), string AuthorName = default(string), int? AuthorReputation = default(int?), DateTime? ContentCreationDate = default(DateTime?), DateTime? DetectedDate = default(DateTime?), List<ReviewerReportReasonResponse> Reasons = default(List<ReviewerReportReasonResponse>), List<ReviewerReportAllowedFeedbackResponse> AllowedFeedback = default(List<ReviewerReportAllowedFeedbackResponse>), List<ReviewerReportFeedbackResponse> Feedback = default(List<ReviewerReportFeedbackResponse>))
+        public ReviewerReportResponse(int? Id = default(int?), string Title = default(string), string BotLogo = default(string), string BotName = default(string), string DashboardName = default(string), string TabTitle = default(string), string FavIcon = default(string), string BotHomePage = default(string), string ContentUrl = default(string), string ContentSite = default(string), string ContentType = default(string), int? ContentId = default(int?), double? DetectionScore = default(double?), List<ReviewerReportContentFragmentResponse> ContentFragments = default(List<ReviewerReportContentFragmentResponse>), string AuthorName = default(string), int? AuthorReputation = default(int?), DateTime? ContentCreationDate = default(DateTime?), DateTime? DetectedDate = default(DateTime?), List<ReviewerReportReasonResponse> Reasons = default(List<ReviewerReportReasonResponse>), List<ReviewerReportAllowedFeedbackResponse> AllowedFeedback = default(List<ReviewerReportAllowedFeedbackResponse>), List<ReviewerReportFeedbackResponse> Feedback = default(List<ReviewerReportFeedbackResponse>))
         {
+            this.Id = Id;
             this.Title = Title;
             this.BotLogo = BotLogo;
             this.BotName = BotName;
@@ -77,6 +79,12 @@ namespace IO.Swagger.Model
             this.Feedback = Feedback;
         }
         
+        /// <summary>
+        /// Gets or Sets Id
+        /// </summary>
+        [DataMember(Name="id", EmitDefaultValue=false)]
+        public int? Id { get; set; }
+
         /// <summary>
         /// Gets or Sets Title
         /// </summary>
@@ -205,6 +213,7 @@ namespace IO.Swagger.Model
         {
             var sb = new StringBuilder();
             sb.Append("class ReviewerReportResponse {\n");
+            sb.Append("  Id: ").Append(Id).Append("\n");
             sb.Append("  Title: ").Append(Title).Append("\n");
             sb.Append("  BotLogo: ").Append(BotLogo).Append("\n");
             sb.Append("  BotName: ").Append(BotName).Append("\n");
@@ -259,6 +268,11 @@ namespace IO.Swagger.Model
                 return false;
 
             return 
+                (
+                    this.Id == input.Id ||
+                    (this.Id != null &&
+                    this.Id.Equals(input.Id))
+                ) && 
                 (
                     this.Title == input.Title ||
                     (this.Title != null &&
@@ -370,6 +384,8 @@ namespace IO.Swagger.Model
             unchecked // Overflow is fine, just wrap
             {
                 int hashCode = 41;
+                if (this.Id != null)
+                    hashCode = hashCode * 59 + this.Id.GetHashCode();
                 if (this.Title != null)
                     hashCode = hashCode * 59 + this.Title.GetHashCode();
                 if (this.BotLogo != null)

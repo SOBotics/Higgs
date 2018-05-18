@@ -102,6 +102,7 @@ Class | Method | HTTP request | Description
 *AdminApi* | [**AdminBotsGet**](docs/AdminApi.md#adminbotsget) | **GET** /Admin/Bots | Lists all bots
 *AdminApi* | [**AdminDeactiveateBotPost**](docs/AdminApi.md#admindeactiveatebotpost) | **POST** /Admin/DeactiveateBot | Deactivates a bot
 *AdminApi* | [**AdminEditBotPost**](docs/AdminApi.md#admineditbotpost) | **POST** /Admin/EditBot | Update a bots details
+*AdminApi* | [**AdminForceProcessReportsPost**](docs/AdminApi.md#adminforceprocessreportspost) | **POST** /Admin/ForceProcessReports | 
 *AdminApi* | [**AdminRegisterBotPost**](docs/AdminApi.md#adminregisterbotpost) | **POST** /Admin/RegisterBot | Register a bot
 *AdminApi* | [**AdminScopesGet**](docs/AdminApi.md#adminscopesget) | **GET** /Admin/Scopes | 
 *AdminApi* | [**AdminUserGet**](docs/AdminApi.md#adminuserget) | **GET** /Admin/User | Lists all users
@@ -119,9 +120,9 @@ Class | Method | HTTP request | Description
 *FileApi* | [**FileByIdGet**](docs/FileApi.md#filebyidget) | **GET** /File/{id} | 
 *FileApi* | [**FileGet**](docs/FileApi.md#fileget) | **GET** /File | 
 *FileApi* | [**FilePost**](docs/FileApi.md#filepost) | **POST** /File | 
-*ReviewerApi* | [**ReviewerAllReviewsGet**](docs/ReviewerApi.md#reviewerallreviewsget) | **GET** /Reviewer/AllReviews | Lists all reviews
 *ReviewerApi* | [**ReviewerCheckGet**](docs/ReviewerApi.md#reviewercheckget) | **GET** /Reviewer/Check | 
 *ReviewerApi* | [**ReviewerClearFeedbackPost**](docs/ReviewerApi.md#reviewerclearfeedbackpost) | **POST** /Reviewer/ClearFeedback | 
+*ReviewerApi* | [**ReviewerNextReviewGet**](docs/ReviewerApi.md#reviewernextreviewget) | **GET** /Reviewer/NextReview | 
 *ReviewerApi* | [**ReviewerPendingReviewsGet**](docs/ReviewerApi.md#reviewerpendingreviewsget) | **GET** /Reviewer/PendingReviews | Lists all pending reviews
 *ReviewerApi* | [**ReviewerReportGet**](docs/ReviewerApi.md#reviewerreportget) | **GET** /Reviewer/Report | 
 *ReviewerApi* | [**ReviewerReportsGet**](docs/ReviewerApi.md#reviewerreportsget) | **GET** /Reviewer/Reports | 
@@ -175,9 +176,10 @@ Class | Method | HTTP request | Description
 
 - **Type**: OAuth
 - **Flow**: implicit
-- **Authorization URL**: http://api.higgs.sobotics.org/Authentication/Login
+- **Authorization URL**: http://localhost:50192/Authentication/Login
 - **Scopes**: 
   - admin: Admin
+  - room_owner: room_owner
   - dev: Dev
   - bot_owner: Bot owner
   - bot: Bot

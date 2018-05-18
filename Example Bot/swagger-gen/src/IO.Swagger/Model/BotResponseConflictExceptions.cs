@@ -36,12 +36,14 @@ namespace IO.Swagger.Model
         /// <param name="Id">Id.</param>
         /// <param name="IsConflict">IsConflict.</param>
         /// <param name="RequiresAdmin">RequiresAdmin.</param>
+        /// <param name="RequiredFeedback">RequiredFeedback.</param>
         /// <param name="BotResponseConflictFeedbacks">BotResponseConflictFeedbacks.</param>
-        public BotResponseConflictExceptions(int? Id = default(int?), bool? IsConflict = default(bool?), bool? RequiresAdmin = default(bool?), List<int?> BotResponseConflictFeedbacks = default(List<int?>))
+        public BotResponseConflictExceptions(int? Id = default(int?), bool? IsConflict = default(bool?), bool? RequiresAdmin = default(bool?), int? RequiredFeedback = default(int?), List<int?> BotResponseConflictFeedbacks = default(List<int?>))
         {
             this.Id = Id;
             this.IsConflict = IsConflict;
             this.RequiresAdmin = RequiresAdmin;
+            this.RequiredFeedback = RequiredFeedback;
             this.BotResponseConflictFeedbacks = BotResponseConflictFeedbacks;
         }
         
@@ -64,6 +66,12 @@ namespace IO.Swagger.Model
         public bool? RequiresAdmin { get; set; }
 
         /// <summary>
+        /// Gets or Sets RequiredFeedback
+        /// </summary>
+        [DataMember(Name="requiredFeedback", EmitDefaultValue=false)]
+        public int? RequiredFeedback { get; set; }
+
+        /// <summary>
         /// Gets or Sets BotResponseConflictFeedbacks
         /// </summary>
         [DataMember(Name="botResponseConflictFeedbacks", EmitDefaultValue=false)]
@@ -80,6 +88,7 @@ namespace IO.Swagger.Model
             sb.Append("  Id: ").Append(Id).Append("\n");
             sb.Append("  IsConflict: ").Append(IsConflict).Append("\n");
             sb.Append("  RequiresAdmin: ").Append(RequiresAdmin).Append("\n");
+            sb.Append("  RequiredFeedback: ").Append(RequiredFeedback).Append("\n");
             sb.Append("  BotResponseConflictFeedbacks: ").Append(BotResponseConflictFeedbacks).Append("\n");
             sb.Append("}\n");
             return sb.ToString();
@@ -131,6 +140,11 @@ namespace IO.Swagger.Model
                     this.RequiresAdmin.Equals(input.RequiresAdmin))
                 ) && 
                 (
+                    this.RequiredFeedback == input.RequiredFeedback ||
+                    (this.RequiredFeedback != null &&
+                    this.RequiredFeedback.Equals(input.RequiredFeedback))
+                ) && 
+                (
                     this.BotResponseConflictFeedbacks == input.BotResponseConflictFeedbacks ||
                     this.BotResponseConflictFeedbacks != null &&
                     this.BotResponseConflictFeedbacks.SequenceEqual(input.BotResponseConflictFeedbacks)
@@ -152,6 +166,8 @@ namespace IO.Swagger.Model
                     hashCode = hashCode * 59 + this.IsConflict.GetHashCode();
                 if (this.RequiresAdmin != null)
                     hashCode = hashCode * 59 + this.RequiresAdmin.GetHashCode();
+                if (this.RequiredFeedback != null)
+                    hashCode = hashCode * 59 + this.RequiredFeedback.GetHashCode();
                 if (this.BotResponseConflictFeedbacks != null)
                     hashCode = hashCode * 59 + this.BotResponseConflictFeedbacks.GetHashCode();
                 return hashCode;

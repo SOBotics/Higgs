@@ -1,0 +1,6 @@
+<app-report *ngIf="report && !reportNotFound" [postDetails]="report" (FeedbackClicked)="OnFeedbackClicked()" (FeedbackCleared)="OnFeedbackCleared()">
+
+</app-report>
+<div *ngIf="reportNotFound">
+    No more reviews
+</div>

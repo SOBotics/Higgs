@@ -18,6 +18,8 @@ export interface BotResponse {
     name: string;
     dashboardName: string;
     description: string;
+    requiredFeedback: number;
+    requiredFeedbackConflicted: number;
     ownerAccountId?: number;
     homepage?: string;
     logoUrl?: string;

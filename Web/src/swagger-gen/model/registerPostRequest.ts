@@ -75,4 +75,6 @@ export interface RegisterPostRequest {
      * Any custom attributes to be associated with the report
      */
     attributes?: Array<RegisterPostAttribute>;
+    requiredFeedback?: number;
+    requiredFeedbackConflicted?: number;
 }

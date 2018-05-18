@@ -1,4 +1,4 @@
-<ng-container *ngIf="!!postDetails && !reportNotFound">
+<ng-container *ngIf="!!postDetails">
   <h3>
     <img *ngIf="postDetails.botLogo" class="botLogo" src="{{postDetails.botLogo}}" title="{{postDetails.botName}}" />
     <a href="{{postDetails.contentUrl}}">{{postDetails.title}}</a>
@@ -83,6 +83,3 @@
     </table>
   </div>
 </ng-container>
-<app-page-not-found *ngIf="reportNotFound">
-
-</app-page-not-found>

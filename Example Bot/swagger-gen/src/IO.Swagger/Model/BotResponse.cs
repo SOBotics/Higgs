@@ -42,6 +42,8 @@ namespace IO.Swagger.Model
         /// <param name="Name">Name (required).</param>
         /// <param name="DashboardName">DashboardName (required).</param>
         /// <param name="Description">Description (required).</param>
+        /// <param name="RequiredFeedback">RequiredFeedback (required).</param>
+        /// <param name="RequiredFeedbackConflicted">RequiredFeedbackConflicted (required).</param>
         /// <param name="OwnerAccountId">OwnerAccountId.</param>
         /// <param name="Homepage">Homepage.</param>
         /// <param name="LogoUrl">LogoUrl.</param>
@@ -49,7 +51,7 @@ namespace IO.Swagger.Model
         /// <param name="TabTitle">TabTitle.</param>
         /// <param name="Feedbacks">Feedbacks.</param>
         /// <param name="ConflictExceptions">ConflictExceptions.</param>
-        public BotResponse(int? Id = default(int?), string Name = default(string), string DashboardName = default(string), string Description = default(string), int? OwnerAccountId = default(int?), string Homepage = default(string), string LogoUrl = default(string), string FavIcon = default(string), string TabTitle = default(string), List<BotResponseFeedback> Feedbacks = default(List<BotResponseFeedback>), List<BotResponseConflictExceptions> ConflictExceptions = default(List<BotResponseConflictExceptions>))
+        public BotResponse(int? Id = default(int?), string Name = default(string), string DashboardName = default(string), string Description = default(string), int? RequiredFeedback = default(int?), int? RequiredFeedbackConflicted = default(int?), int? OwnerAccountId = default(int?), string Homepage = default(string), string LogoUrl = default(string), string FavIcon = default(string), string TabTitle = default(string), List<BotResponseFeedback> Feedbacks = default(List<BotResponseFeedback>), List<BotResponseConflictExceptions> ConflictExceptions = default(List<BotResponseConflictExceptions>))
         {
             // to ensure "Id" is required (not null)
             if (Id == null)
@@ -87,6 +89,24 @@ namespace IO.Swagger.Model
             {
                 this.Description = Description;
             }
+            // to ensure "RequiredFeedback" is required (not null)
+            if (RequiredFeedback == null)
+            {
+                throw new InvalidDataException("RequiredFeedback is a required property for BotResponse and cannot be null");
+            }
+            else
+            {
+                this.RequiredFeedback = RequiredFeedback;
+            }
+            // to ensure "RequiredFeedbackConflicted" is required (not null)
+            if (RequiredFeedbackConflicted == null)
+            {
+                throw new InvalidDataException("RequiredFeedbackConflicted is a required property for BotResponse and cannot be null");
+            }
+            else
+            {
+                this.RequiredFeedbackConflicted = RequiredFeedbackConflicted;
+            }
             this.OwnerAccountId = OwnerAccountId;
             this.Homepage = Homepage;
             this.LogoUrl = LogoUrl;
@@ -119,6 +139,18 @@ namespace IO.Swagger.Model
         /// </summary>
         [DataMember(Name="description", EmitDefaultValue=false)]
         public string Description { get; set; }
+
+        /// <summary>
+        /// Gets or Sets RequiredFeedback
+        /// </summary>
+        [DataMember(Name="requiredFeedback", EmitDefaultValue=false)]
+        public int? RequiredFeedback { get; set; }
+
+        /// <summary>
+        /// Gets or Sets RequiredFeedbackConflicted
+        /// </summary>
+        [DataMember(Name="requiredFeedbackConflicted", EmitDefaultValue=false)]
+        public int? RequiredFeedbackConflicted { get; set; }
 
         /// <summary>
         /// Gets or Sets OwnerAccountId
@@ -174,6 +206,8 @@ namespace IO.Swagger.Model
             sb.Append("  Name: ").Append(Name).Append("\n");
             sb.Append("  DashboardName: ").Append(DashboardName).Append("\n");
             sb.Append("  Description: ").Append(Description).Append("\n");
+            sb.Append("  RequiredFeedback: ").Append(RequiredFeedback).Append("\n");
+            sb.Append("  RequiredFeedbackConflicted: ").Append(RequiredFeedbackConflicted).Append("\n");
             sb.Append("  OwnerAccountId: ").Append(OwnerAccountId).Append("\n");
             sb.Append("  Homepage: ").Append(Homepage).Append("\n");
             sb.Append("  LogoUrl: ").Append(LogoUrl).Append("\n");
@@ -236,6 +270,16 @@ namespace IO.Swagger.Model
                     this.Description.Equals(input.Description))
                 ) && 
                 (
+                    this.RequiredFeedback == input.RequiredFeedback ||
+                    (this.RequiredFeedback != null &&
+                    this.RequiredFeedback.Equals(input.RequiredFeedback))
+                ) && 
+                (
+                    this.RequiredFeedbackConflicted == input.RequiredFeedbackConflicted ||
+                    (this.RequiredFeedbackConflicted != null &&
+                    this.RequiredFeedbackConflicted.Equals(input.RequiredFeedbackConflicted))
+                ) && 
+                (
                     this.OwnerAccountId == input.OwnerAccountId ||
                     (this.OwnerAccountId != null &&
                     this.OwnerAccountId.Equals(input.OwnerAccountId))
@@ -289,6 +333,10 @@ namespace IO.Swagger.Model
                     hashCode = hashCode * 59 + this.DashboardName.GetHashCode();
                 if (this.Description != null)
                     hashCode = hashCode * 59 + this.Description.GetHashCode();
+                if (this.RequiredFeedback != null)
+                    hashCode = hashCode * 59 + this.RequiredFeedback.GetHashCode();
+                if (this.RequiredFeedbackConflicted != null)
+                    hashCode = hashCode * 59 + this.RequiredFeedbackConflicted.GetHashCode();
                 if (this.OwnerAccountId != null)
                     hashCode = hashCode * 59 + this.OwnerAccountId.GetHashCode();
                 if (this.Homepage != null)

@@ -3,6 +3,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
+**Id** | **int?** |  | [optional] 
 **Title** | **string** |  | [optional] 
 **BotLogo** | **string** |  | [optional] 
 **BotName** | **string** |  | [optional] 

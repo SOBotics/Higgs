@@ -4,68 +4,14 @@ All URIs are relative to *https://localhost*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**ReviewerAllReviewsGet**](ReviewerApi.md#reviewerallreviewsget) | **GET** /Reviewer/AllReviews | Lists all reviews
 [**ReviewerCheckGet**](ReviewerApi.md#reviewercheckget) | **GET** /Reviewer/Check | 
 [**ReviewerClearFeedbackPost**](ReviewerApi.md#reviewerclearfeedbackpost) | **POST** /Reviewer/ClearFeedback | 
+[**ReviewerNextReviewGet**](ReviewerApi.md#reviewernextreviewget) | **GET** /Reviewer/NextReview | 
 [**ReviewerPendingReviewsGet**](ReviewerApi.md#reviewerpendingreviewsget) | **GET** /Reviewer/PendingReviews | Lists all pending reviews
 [**ReviewerReportGet**](ReviewerApi.md#reviewerreportget) | **GET** /Reviewer/Report | 
 [**ReviewerReportsGet**](ReviewerApi.md#reviewerreportsget) | **GET** /Reviewer/Reports | 
 [**ReviewerSendFeedbackPost**](ReviewerApi.md#reviewersendfeedbackpost) | **POST** /Reviewer/SendFeedback | Lists all pending review
 
-
-<a name="reviewerallreviewsget"></a>
-# **ReviewerAllReviewsGet**
-> void ReviewerAllReviewsGet ()
-
-Lists all reviews
-
-### Example
-```csharp
-using System;
-using System.Diagnostics;
-using IO.Swagger.Api;
-using IO.Swagger.Client;
-using IO.Swagger.Model;
-
-namespace Example
-{
-    public class ReviewerAllReviewsGetExample
-    {
-        public void main()
-        {
-            var apiInstance = new ReviewerApi();
-
-            try
-            {
-                // Lists all reviews
-                apiInstance.ReviewerAllReviewsGet();
-            }
-            catch (Exception e)
-            {
-                Debug.Print("Exception when calling ReviewerApi.ReviewerAllReviewsGet: " + e.Message );
-            }
-        }
-    }
-}
-```
-
-### Parameters
-This endpoint does not need any parameter.
-
-### Return type
-
-void (empty response body)
-
-### Authorization
-
-No authorization required
-
-### HTTP request headers
-
- - **Content-Type**: Not defined
- - **Accept**: Not defined
-
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 <a name="reviewercheckget"></a>
 # **ReviewerCheckGet**
@@ -182,6 +128,67 @@ void (empty response body)
 
  - **Content-Type**: application/json-patch+json, application/json, text/json, application/_*+json
  - **Accept**: Not defined
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+<a name="reviewernextreviewget"></a>
+# **ReviewerNextReviewGet**
+> ReviewerReportResponse ReviewerNextReviewGet (int? lastId = null)
+
+
+
+### Example
+```csharp
+using System;
+using System.Diagnostics;
+using IO.Swagger.Api;
+using IO.Swagger.Client;
+using IO.Swagger.Model;
+
+namespace Example
+{
+    public class ReviewerNextReviewGetExample
+    {
+        public void main()
+        {
+            // Configure OAuth2 access token for authorization: oauth2
+            Configuration.Default.AccessToken = "YOUR_ACCESS_TOKEN";
+
+            var apiInstance = new ReviewerApi();
+            var lastId = 56;  // int? |  (optional) 
+
+            try
+            {
+                ReviewerReportResponse result = apiInstance.ReviewerNextReviewGet(lastId);
+                Debug.WriteLine(result);
+            }
+            catch (Exception e)
+            {
+                Debug.Print("Exception when calling ReviewerApi.ReviewerNextReviewGet: " + e.Message );
+            }
+        }
+    }
+}
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **lastId** | **int?**|  | [optional] 
+
+### Return type
+
+[**ReviewerReportResponse**](ReviewerReportResponse.md)
+
+### Authorization
+
+[oauth2](../README.md#oauth2)
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: text/plain, application/json, text/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 

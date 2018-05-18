@@ -4,6 +4,7 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **Id** | **int?** |  | [optional] 
+**UserId** | **int?** |  | [optional] 
 **FeedbackName** | **string** |  | [optional] 
 **UserName** | **string** |  | [optional] 
 **Icon** | **string** |  | [optional] 

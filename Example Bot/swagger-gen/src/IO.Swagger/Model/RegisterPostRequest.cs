@@ -53,7 +53,9 @@ namespace IO.Swagger.Model
         /// <param name="Reasons">A list of reasons the report was detected.</param>
         /// <param name="AllowedFeedback">A list of feedback types.</param>
         /// <param name="Attributes">Any custom attributes to be associated with the report.</param>
-        public RegisterPostRequest(string Title = default(string), string ContentUrl = default(string), string ContentSite = default(string), string ContentType = default(string), int? ContentId = default(int?), double? DetectionScore = default(double?), string Content = default(string), List<RegisterPostContentFragment> ContentFragments = default(List<RegisterPostContentFragment>), string AuthorName = default(string), int? AuthorReputation = default(int?), DateTime? ContentCreationDate = default(DateTime?), DateTime? DetectedDate = default(DateTime?), List<RegisterPostReason> Reasons = default(List<RegisterPostReason>), List<string> AllowedFeedback = default(List<string>), List<RegisterPostAttribute> Attributes = default(List<RegisterPostAttribute>))
+        /// <param name="RequiredFeedback">RequiredFeedback.</param>
+        /// <param name="RequiredFeedbackConflicted">RequiredFeedbackConflicted.</param>
+        public RegisterPostRequest(string Title = default(string), string ContentUrl = default(string), string ContentSite = default(string), string ContentType = default(string), int? ContentId = default(int?), double? DetectionScore = default(double?), string Content = default(string), List<RegisterPostContentFragment> ContentFragments = default(List<RegisterPostContentFragment>), string AuthorName = default(string), int? AuthorReputation = default(int?), DateTime? ContentCreationDate = default(DateTime?), DateTime? DetectedDate = default(DateTime?), List<RegisterPostReason> Reasons = default(List<RegisterPostReason>), List<string> AllowedFeedback = default(List<string>), List<RegisterPostAttribute> Attributes = default(List<RegisterPostAttribute>), int? RequiredFeedback = default(int?), int? RequiredFeedbackConflicted = default(int?))
         {
             // to ensure "Title" is required (not null)
             if (Title == null)
@@ -86,6 +88,8 @@ namespace IO.Swagger.Model
             this.Reasons = Reasons;
             this.AllowedFeedback = AllowedFeedback;
             this.Attributes = Attributes;
+            this.RequiredFeedback = RequiredFeedback;
+            this.RequiredFeedbackConflicted = RequiredFeedbackConflicted;
         }
         
         /// <summary>
@@ -194,6 +198,18 @@ namespace IO.Swagger.Model
         public List<RegisterPostAttribute> Attributes { get; set; }
 
         /// <summary>
+        /// Gets or Sets RequiredFeedback
+        /// </summary>
+        [DataMember(Name="requiredFeedback", EmitDefaultValue=false)]
+        public int? RequiredFeedback { get; set; }
+
+        /// <summary>
+        /// Gets or Sets RequiredFeedbackConflicted
+        /// </summary>
+        [DataMember(Name="requiredFeedbackConflicted", EmitDefaultValue=false)]
+        public int? RequiredFeedbackConflicted { get; set; }
+
+        /// <summary>
         /// Returns the string presentation of the object
         /// </summary>
         /// <returns>String presentation of the object</returns>
@@ -216,6 +232,8 @@ namespace IO.Swagger.Model
             sb.Append("  Reasons: ").Append(Reasons).Append("\n");
             sb.Append("  AllowedFeedback: ").Append(AllowedFeedback).Append("\n");
             sb.Append("  Attributes: ").Append(Attributes).Append("\n");
+            sb.Append("  RequiredFeedback: ").Append(RequiredFeedback).Append("\n");
+            sb.Append("  RequiredFeedbackConflicted: ").Append(RequiredFeedbackConflicted).Append("\n");
             sb.Append("}\n");
             return sb.ToString();
         }
@@ -324,6 +342,16 @@ namespace IO.Swagger.Model
                     this.Attributes == input.Attributes ||
                     this.Attributes != null &&
                     this.Attributes.SequenceEqual(input.Attributes)
+                ) && 
+                (
+                    this.RequiredFeedback == input.RequiredFeedback ||
+                    (this.RequiredFeedback != null &&
+                    this.RequiredFeedback.Equals(input.RequiredFeedback))
+                ) && 
+                (
+                    this.RequiredFeedbackConflicted == input.RequiredFeedbackConflicted ||
+                    (this.RequiredFeedbackConflicted != null &&
+                    this.RequiredFeedbackConflicted.Equals(input.RequiredFeedbackConflicted))
                 );
         }
 
@@ -366,6 +394,10 @@ namespace IO.Swagger.Model
                     hashCode = hashCode * 59 + this.AllowedFeedback.GetHashCode();
                 if (this.Attributes != null)
                     hashCode = hashCode * 59 + this.Attributes.GetHashCode();
+                if (this.RequiredFeedback != null)
+                    hashCode = hashCode * 59 + this.RequiredFeedback.GetHashCode();
+                if (this.RequiredFeedbackConflicted != null)
+                    hashCode = hashCode * 59 + this.RequiredFeedbackConflicted.GetHashCode();
                 return hashCode;
             }
         }

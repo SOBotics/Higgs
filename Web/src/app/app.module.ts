@@ -29,6 +29,8 @@ import { UsersComponent } from './admin/users/users.component';
 import { UserComponent } from './admin/user/user.component';
 import { ChartModule } from 'angular-highcharts';
 import { MultiselectDropdownModule } from 'angular-2-dropdown-multiselect';
+import { ReportPageComponent } from './report-page/report-page.component';
+import { ReviewComponent } from './review/review.component';
 
 @NgModule({
   declarations: [
@@ -45,7 +47,9 @@ import { MultiselectDropdownModule } from 'angular-2-dropdown-multiselect';
     MiniProfilerUiComponent,
     MiniProfilerUiResultComponent,
     UsersComponent,
-    UserComponent
+    UserComponent,
+    ReportPageComponent,
+    ReviewComponent
   ],
   imports: [
     BrowserModule,

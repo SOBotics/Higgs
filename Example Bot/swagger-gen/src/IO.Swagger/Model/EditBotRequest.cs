@@ -50,7 +50,9 @@ namespace IO.Swagger.Model
         /// <param name="TabTitle">TabTitle.</param>
         /// <param name="Feedbacks">Feedbacks.</param>
         /// <param name="ConflictExceptions">ConflictExceptions.</param>
-        public EditBotRequest(int? BotId = default(int?), int? OwnerAccountId = default(int?), string Secret = default(string), string Name = default(string), string DashboardName = default(string), string Description = default(string), string Homepage = default(string), string LogoUrl = default(string), string FavIcon = default(string), string TabTitle = default(string), List<CreateBotRequestFeedback> Feedbacks = default(List<CreateBotRequestFeedback>), List<CreateBotRequestExceptions> ConflictExceptions = default(List<CreateBotRequestExceptions>))
+        /// <param name="RequiredFeedback">RequiredFeedback (required).</param>
+        /// <param name="RequiredFeedbackConflicted">RequiredFeedbackConflicted (required).</param>
+        public EditBotRequest(int? BotId = default(int?), int? OwnerAccountId = default(int?), string Secret = default(string), string Name = default(string), string DashboardName = default(string), string Description = default(string), string Homepage = default(string), string LogoUrl = default(string), string FavIcon = default(string), string TabTitle = default(string), List<CreateBotRequestFeedback> Feedbacks = default(List<CreateBotRequestFeedback>), List<CreateBotRequestExceptions> ConflictExceptions = default(List<CreateBotRequestExceptions>), int? RequiredFeedback = default(int?), int? RequiredFeedbackConflicted = default(int?))
         {
             // to ensure "BotId" is required (not null)
             if (BotId == null)
@@ -87,6 +89,24 @@ namespace IO.Swagger.Model
             else
             {
                 this.Description = Description;
+            }
+            // to ensure "RequiredFeedback" is required (not null)
+            if (RequiredFeedback == null)
+            {
+                throw new InvalidDataException("RequiredFeedback is a required property for EditBotRequest and cannot be null");
+            }
+            else
+            {
+                this.RequiredFeedback = RequiredFeedback;
+            }
+            // to ensure "RequiredFeedbackConflicted" is required (not null)
+            if (RequiredFeedbackConflicted == null)
+            {
+                throw new InvalidDataException("RequiredFeedbackConflicted is a required property for EditBotRequest and cannot be null");
+            }
+            else
+            {
+                this.RequiredFeedbackConflicted = RequiredFeedbackConflicted;
             }
             this.OwnerAccountId = OwnerAccountId;
             this.Secret = Secret;
@@ -174,6 +194,18 @@ namespace IO.Swagger.Model
         public List<CreateBotRequestExceptions> ConflictExceptions { get; set; }
 
         /// <summary>
+        /// Gets or Sets RequiredFeedback
+        /// </summary>
+        [DataMember(Name="requiredFeedback", EmitDefaultValue=false)]
+        public int? RequiredFeedback { get; set; }
+
+        /// <summary>
+        /// Gets or Sets RequiredFeedbackConflicted
+        /// </summary>
+        [DataMember(Name="requiredFeedbackConflicted", EmitDefaultValue=false)]
+        public int? RequiredFeedbackConflicted { get; set; }
+
+        /// <summary>
         /// Returns the string presentation of the object
         /// </summary>
         /// <returns>String presentation of the object</returns>
@@ -193,6 +225,8 @@ namespace IO.Swagger.Model
             sb.Append("  TabTitle: ").Append(TabTitle).Append("\n");
             sb.Append("  Feedbacks: ").Append(Feedbacks).Append("\n");
             sb.Append("  ConflictExceptions: ").Append(ConflictExceptions).Append("\n");
+            sb.Append("  RequiredFeedback: ").Append(RequiredFeedback).Append("\n");
+            sb.Append("  RequiredFeedbackConflicted: ").Append(RequiredFeedbackConflicted).Append("\n");
             sb.Append("}\n");
             return sb.ToString();
         }
@@ -286,6 +320,16 @@ namespace IO.Swagger.Model
                     this.ConflictExceptions == input.ConflictExceptions ||
                     this.ConflictExceptions != null &&
                     this.ConflictExceptions.SequenceEqual(input.ConflictExceptions)
+                ) && 
+                (
+                    this.RequiredFeedback == input.RequiredFeedback ||
+                    (this.RequiredFeedback != null &&
+                    this.RequiredFeedback.Equals(input.RequiredFeedback))
+                ) && 
+                (
+                    this.RequiredFeedbackConflicted == input.RequiredFeedbackConflicted ||
+                    (this.RequiredFeedbackConflicted != null &&
+                    this.RequiredFeedbackConflicted.Equals(input.RequiredFeedbackConflicted))
                 );
         }
 
@@ -322,6 +366,10 @@ namespace IO.Swagger.Model
                     hashCode = hashCode * 59 + this.Feedbacks.GetHashCode();
                 if (this.ConflictExceptions != null)
                     hashCode = hashCode * 59 + this.ConflictExceptions.GetHashCode();
+                if (this.RequiredFeedback != null)
+                    hashCode = hashCode * 59 + this.RequiredFeedback.GetHashCode();
+                if (this.RequiredFeedbackConflicted != null)
+                    hashCode = hashCode * 59 + this.RequiredFeedbackConflicted.GetHashCode();
                 return hashCode;
             }
         }

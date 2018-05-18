@@ -181,7 +181,7 @@ namespace Higgs.Server.Controllers
                 reportQuery = reportQuery.Where(r => r.Id > lastId);
 
             var nextReportId = reportQuery
-                .GroupJoin(_dbContext.ReportFeedbacks.Where(rf => rf.UserId != userId), r => r.Id, rf => rf.ReportId,
+                .GroupJoin(_dbContext.ReportFeedbacks.Where(rf => rf.UserId == userId), r => r.Id, rf => rf.ReportId,
                     (report, group) => new
                     {
                         ReportId = report.Id,
