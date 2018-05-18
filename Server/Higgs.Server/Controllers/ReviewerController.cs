@@ -17,7 +17,7 @@ using Swashbuckle.AspNetCore.SwaggerGen;
 namespace Higgs.Server.Controllers
 {
     [Route("[controller]")]
-    public partial class ReviewerController : Controller
+    public class ReviewerController : Controller
     {
         private readonly HiggsDbContext _dbContext;
 
@@ -142,6 +142,7 @@ namespace Higgs.Server.Controllers
                         UserName = feedback.User.Name
                     }).ToList()
                 }).FirstOrDefault();
+
             if (report == null)
                 return null;
 
@@ -189,34 +190,31 @@ namespace Higgs.Server.Controllers
             var userId = User.GetUserId();
             if (!userId.HasValue)
                 throw new HttpStatusException(HttpStatusCode.Unauthorized);
-            
-            if (allowedFeedbacks.Contains(request.FeedbackId))
-            {
-                var existingFeedback = _dbContext.ReportFeedbacks.FirstOrDefault(rf => rf.UserId == userId && rf.ReportId == request.ReportId && rf.InvalidatedDate == null);
-                if (existingFeedback != null) 
-                {
-                    // No change
-                    if (existingFeedback.FeedbackId == request.FeedbackId) {
-                        return Ok();
-                    }
-                    
-                    existingFeedback.InvalidatedByUserId = userId.Value;
-                    existingFeedback.InvalidatedDate = DateTime.UtcNow;
-                    existingFeedback.InvalidationReason = "Feedback changed";
-                }
-                
-                _dbContext.ReportFeedbacks.Add(new DbReportFeedback
-                {
-                    FeedbackId = request.FeedbackId,
-                    ReportId = request.ReportId,
-                    UserId = userId.Value
-                });
-                
-                _dbContext.SaveChanges();
-                return Ok();
-            }
 
-            throw new HttpStatusException(HttpStatusCode.BadRequest, "Invalid feedback id");
+            if (!allowedFeedbacks.Contains(request.FeedbackId))
+                throw new HttpStatusException(HttpStatusCode.BadRequest, "Invalid feedback id");
+
+            var existingFeedback = _dbContext.ReportFeedbacks.FirstOrDefault(rf => rf.UserId == userId && rf.ReportId == request.ReportId && rf.InvalidatedDate == null);
+            if (existingFeedback != null) 
+            {
+                // No change
+                if (existingFeedback.FeedbackId == request.FeedbackId)
+                    return Ok();
+                    
+                existingFeedback.InvalidatedByUserId = userId.Value;
+                existingFeedback.InvalidatedDate = DateTime.UtcNow;
+                existingFeedback.InvalidationReason = "Feedback changed";
+            }
+                
+            _dbContext.ReportFeedbacks.Add(new DbReportFeedback
+            {
+                FeedbackId = request.FeedbackId,
+                ReportId = request.ReportId,
+                UserId = userId.Value
+            });
+                
+            _dbContext.SaveChanges();
+            return Ok();
         }
 
         [HttpPost("ClearFeedback")]
@@ -228,13 +226,11 @@ namespace Higgs.Server.Controllers
                 throw new HttpStatusException(HttpStatusCode.Unauthorized);
 
             var existingFeedback = _dbContext.ReportFeedbacks.FirstOrDefault(rf => rf.Id == request.FeedbackId && rf.InvalidatedDate == null);
+
             if (existingFeedback == null) 
-            {
                 return Ok();
-            }
-            if (existingFeedback.UserId != userId && !User.HasClaim(Scopes.SCOPE_ROOM_OWNER)) {
+            if (existingFeedback.UserId != userId && !User.HasClaim(Scopes.SCOPE_ROOM_OWNER))
                 throw new HttpStatusException(HttpStatusCode.Unauthorized);
-            }
 
             existingFeedback.InvalidatedDate = DateTime.UtcNow;
             existingFeedback.InvalidatedByUserId = userId.Value;

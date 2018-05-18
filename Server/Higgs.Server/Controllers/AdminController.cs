@@ -188,6 +188,12 @@ namespace Higgs.Server.Controllers
 
         private void FillBotDetails(DbBot existingBot, CreateBotRequest request)
         {
+            if (request.Feedbacks.GroupBy(f => f.Id).Any(g => g.Count() > 1))
+                throw new HttpStatusException(HttpStatusCode.BadRequest, "Duplicate feedback ids");
+
+            if (request.ConflictExceptions.GroupBy(f => f.Id).Any(g => g.Count() > 1))
+                throw new HttpStatusException(HttpStatusCode.BadRequest, "Duplicate conflict exception ids");
+
             existingBot.Name = request.Name;
             existingBot.DashboardName = request.DashboardName;
             existingBot.Description = request.Description;
@@ -202,9 +208,6 @@ namespace Higgs.Server.Controllers
             existingBot.Homepage = request.Homepage;
             existingBot.LogoUrl = request.LogoUrl;
             existingBot.TabTitle = request.TabTitle;
-
-            if (request.Feedbacks.GroupBy(f => f.Id).Any(g => g.Count() > 1))
-                throw new HttpStatusException(HttpStatusCode.BadRequest, "Duplicate feedback ids");
 
             var createdFeedbacks = new Dictionary<int, DbFeedback>();
             CollectionUpdater.UpdateCollection(
@@ -238,13 +241,7 @@ namespace Higgs.Server.Controllers
             );
             
             if (existingBot.Feedbacks.GroupBy(f => f.Name, StringComparer.OrdinalIgnoreCase).Any(g => g.Count() > 1))
-            {
-                // We have duplicates
                 throw new HttpStatusException(HttpStatusCode.BadRequest, "Feedback names must be unique");
-            }
-
-            if (request.ConflictExceptions.GroupBy(f => f.Id).Any(g => g.Count() > 1))
-                throw new HttpStatusException(HttpStatusCode.BadRequest, "Duplicate conflict exception ids");
 
             CollectionUpdater.UpdateCollection(
                 existingBot.ConflictExceptions.ToDictionary(ce => ce.Id, ce => ce),
@@ -378,29 +375,32 @@ namespace Higgs.Server.Controllers
         [SwaggerResponse((int)HttpStatusCode.BadRequest, Description = "User doesn't exist")]
         public IActionResult UpdateUserDetails([FromBody] UpdateUserRequest request)
         {
+            if (request.Scopes.GroupBy(s => s, StringComparer.OrdinalIgnoreCase).Any(g => g.Count() > 1))
+                throw new HttpStatusException(HttpStatusCode.BadRequest, "Duplicate scopes");
+
             var user = _dbContext.Users.Include(u => u.UserScopes).FirstOrDefault(u => u.AccountId == request.Id);
             if (user == null)
                 return BadRequest(new ErrorResponse("User not found"));
 
             user.Name = request.Name;
 
-            var userScopes = user.UserScopes.ToDictionary(us => us.ScopeName, us => us, StringComparer.OrdinalIgnoreCase);
-            var requestScopes = request.Scopes.ToHashSet();
-            foreach (var userScope in userScopes)
-            {
-                if (!requestScopes.Contains(userScope.Key))
-                    _dbContext.UserScopes.Remove(userScope.Value);
-            }
-
-            foreach (var requestScope in requestScopes)
-            {
-                if (!userScopes.ContainsKey(requestScope))
+            CollectionUpdater.UpdateCollection(
+                user.UserScopes.ToDictionary(us => us.ScopeName, us => us, StringComparer.OrdinalIgnoreCase),
+                request.Scopes.ToDictionary(s => s, s => s, StringComparer.OrdinalIgnoreCase),
+                newScope =>
+                {
                     _dbContext.UserScopes.Add(new DbUserScope
                     {
                         UserId = user.AccountId,
-                        ScopeName = requestScope
+                        ScopeName = newScope
                     });
-            }
+                },
+                (existingScope, newScope) => { },
+                existingScope =>
+                {
+                    _dbContext.UserScopes.Remove(existingScope);
+                }
+            );
 
             _dbContext.SaveChanges();
             return Ok();
