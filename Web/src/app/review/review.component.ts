@@ -24,7 +24,7 @@ export class ReviewComponent implements OnInit {
     });
   }
 
-  public OnFeedbackClicked() {
+  public NextItem() {
     if (this.currentSubscription) {
       this.currentSubscription.unsubscribe();
     }

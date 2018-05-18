@@ -15,6 +15,7 @@ export class AppComponent implements OnInit {
   public isAdmin: boolean;
   public isDev: boolean;
   public isBotOwner: boolean;
+  public isReviewer: boolean;
   public rawToken: string;
   private userName: string;
   constructor(
@@ -55,6 +56,7 @@ export class AppComponent implements OnInit {
       this.isAdmin = details.HasScope('admin');
       this.isDev = details.HasScope('dev');
       this.isBotOwner = details.HasScope('bot_owner');
+      this.isReviewer = details.HasScope('reviewer');
       if (this.isLoggedIn) {
         this.userName = details.TokenData.unique_name;
       }

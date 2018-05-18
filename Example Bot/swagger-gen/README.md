@@ -108,6 +108,7 @@ Class | Method | HTTP request | Description
 *AdminApi* | [**AdminUserGet**](docs/AdminApi.md#adminuserget) | **GET** /Admin/User | Lists all users
 *AdminApi* | [**AdminUserPost**](docs/AdminApi.md#adminuserpost) | **POST** /Admin/User | Lists all users
 *AdminApi* | [**AdminUsersGet**](docs/AdminApi.md#adminusersget) | **GET** /Admin/Users | Lists all users
+*AnalyticsApi* | [**AnalyticsFeedbackByUserGet**](docs/AnalyticsApi.md#analyticsfeedbackbyuserget) | **GET** /Analytics/FeedbackByUser | 
 *AnalyticsApi* | [**AnalyticsReportsByFeedbackGet**](docs/AnalyticsApi.md#analyticsreportsbyfeedbackget) | **GET** /Analytics/ReportsByFeedback | 
 *AnalyticsApi* | [**AnalyticsReportsByReasonGet**](docs/AnalyticsApi.md#analyticsreportsbyreasonget) | **GET** /Analytics/ReportsByReason | 
 *AnalyticsApi* | [**AnalyticsReportsOverTimeGet**](docs/AnalyticsApi.md#analyticsreportsovertimeget) | **GET** /Analytics/ReportsOverTime | 
@@ -146,6 +147,7 @@ Class | Method | HTTP request | Description
  - [Model.DeleteBotRequest](docs/DeleteBotRequest.md)
  - [Model.EditBotRequest](docs/EditBotRequest.md)
  - [Model.ErrorResponse](docs/ErrorResponse.md)
+ - [Model.FeedbackByUserResponse](docs/FeedbackByUserResponse.md)
  - [Model.RegisterPostAttribute](docs/RegisterPostAttribute.md)
  - [Model.RegisterPostContentFragment](docs/RegisterPostContentFragment.md)
  - [Model.RegisterPostReason](docs/RegisterPostReason.md)

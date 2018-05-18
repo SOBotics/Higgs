@@ -13,6 +13,7 @@ import { GroupBy } from '../../utils/GroupBy';
 export class HomeComponent implements OnInit {
   public constructor(private analyticsService: AnalyticsService) { }
 
+  public feedbackByUserChart: Chart = null;
   public reportsOverTimeChart: Chart = null;
   public reportsTotalChart: Chart = null;
   public reportsReasonsChart: Chart = null;
@@ -23,11 +24,34 @@ export class HomeComponent implements OnInit {
   }
 
   private updateCharts() {
+    this.updateFeedbackByUserChart();
     this.updateOverTimeChart();
     this.updateTotalChart();
     this.updateReasonsChart();
     this.updateFeedbackChart();
   }
+
+  private updateFeedbackByUserChart() {
+    this.analyticsService.analyticsFeedbackByUserGet().subscribe(totalData => {
+      const mappedData = totalData.map(points => ({ name: points.name, y: points.count }));
+      this.feedbackByUserChart = new Chart({
+        chart: {
+          type: 'pie'
+        },
+        title: {
+          text: 'Top users by feedback'
+        },
+        series: [{
+          name: 'Count',
+          data: mappedData
+        }],
+        credits: {
+          enabled: false
+        },
+      });
+    });
+  }
+
 
   private updateOverTimeChart() {
     this.analyticsService.analyticsReportsOverTimeGet().subscribe(overTimeData => {
@@ -86,6 +110,7 @@ export class HomeComponent implements OnInit {
           text: 'Total reports by dashboard'
         },
         series: [{
+          name: 'Count',
           data: mappedData
         }],
         credits: {
@@ -106,6 +131,7 @@ export class HomeComponent implements OnInit {
           text: 'Top 15 report reasons (tripped)'
         },
         series: [{
+          name: 'Count',
           data: mappedData
         }],
         credits: {
@@ -126,6 +152,7 @@ export class HomeComponent implements OnInit {
           text: 'Top 15 report feedback'
         },
         series: [{
+          name: 'Count',
           data: mappedData
         }],
         credits: {

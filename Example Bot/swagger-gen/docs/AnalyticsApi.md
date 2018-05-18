@@ -4,11 +4,66 @@ All URIs are relative to *https://localhost*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
+[**AnalyticsFeedbackByUserGet**](AnalyticsApi.md#analyticsfeedbackbyuserget) | **GET** /Analytics/FeedbackByUser | 
 [**AnalyticsReportsByFeedbackGet**](AnalyticsApi.md#analyticsreportsbyfeedbackget) | **GET** /Analytics/ReportsByFeedback | 
 [**AnalyticsReportsByReasonGet**](AnalyticsApi.md#analyticsreportsbyreasonget) | **GET** /Analytics/ReportsByReason | 
 [**AnalyticsReportsOverTimeGet**](AnalyticsApi.md#analyticsreportsovertimeget) | **GET** /Analytics/ReportsOverTime | 
 [**AnalyticsReportsTotalGet**](AnalyticsApi.md#analyticsreportstotalget) | **GET** /Analytics/ReportsTotal | 
 
+
+<a name="analyticsfeedbackbyuserget"></a>
+# **AnalyticsFeedbackByUserGet**
+> List<FeedbackByUserResponse> AnalyticsFeedbackByUserGet ()
+
+
+
+### Example
+```csharp
+using System;
+using System.Diagnostics;
+using IO.Swagger.Api;
+using IO.Swagger.Client;
+using IO.Swagger.Model;
+
+namespace Example
+{
+    public class AnalyticsFeedbackByUserGetExample
+    {
+        public void main()
+        {
+            var apiInstance = new AnalyticsApi();
+
+            try
+            {
+                List&lt;FeedbackByUserResponse&gt; result = apiInstance.AnalyticsFeedbackByUserGet();
+                Debug.WriteLine(result);
+            }
+            catch (Exception e)
+            {
+                Debug.Print("Exception when calling AnalyticsApi.AnalyticsFeedbackByUserGet: " + e.Message );
+            }
+        }
+    }
+}
+```
+
+### Parameters
+This endpoint does not need any parameter.
+
+### Return type
+
+[**List<FeedbackByUserResponse>**](FeedbackByUserResponse.md)
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: text/plain, application/json, text/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 <a name="analyticsreportsbyfeedbackget"></a>
 # **AnalyticsReportsByFeedbackGet**

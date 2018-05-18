@@ -1,6 +1,18 @@
-<app-report *ngIf="reviewingReport && !done" [postDetails]="reviewingReport" (FeedbackClicked)="OnFeedbackClicked()" (FeedbackCleared)="OnFeedbackCleared()">
+<div class="row">
+    <div class="col-md-6">
+        <h2>
+            Review Queue
+        </h2>
+    </div>
+    <div class="col-md-6">
+        <a class="float-right" style="vertical-align: middle; line-height: 2.4rem" href="javascript:void(0)" (click)="NextItem()">Skip</a>
+    </div>
+</div>
+
+<hr/>
+<app-report *ngIf="reviewingReport && !done" [postDetails]="reviewingReport" (FeedbackClicked)="NextItem()" (FeedbackCleared)="OnFeedbackCleared()">
 
 </app-report>
-<app-page-not-found *ngIf="done">
-
-</app-page-not-found>
+<div *ngIf="done">
+    No more reviews
+</div>

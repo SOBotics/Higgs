@@ -10,6 +10,9 @@
                 <li class="nav-item">
                     <a class="nav-link" routerLink="/reports">Reports</a>
                 </li>
+                <li class="nav-item" *ngIf="isReviewer">
+                    <a class="nav-link" routerLink="/review">Review</a>
+                </li>
                 <li class="nav-item dropdown hidden-md-down" *ngIf="isAdmin || isBotOwner">
                     <a class="nav-link dropdown-toggle" href="#" id="adminDropdownLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                         Admin

@@ -92,5 +92,23 @@ SELECT ""Feedbacks"".""Name"", COUNT(1) as ""Count""
                 return results;
             }
         }
+
+        [HttpGet("FeedbackByUser")]
+        public List<FeedbackByUserResponse> FeedbackByUser()
+        {
+            using (var connection = _dbContext.Database.GetDbConnection())
+            {
+                var results = connection.Query<FeedbackByUserResponse>(@"
+SELECT ""Users"".""Name"", COUNT(1) as ""Count""
+	FROM public.""ReportFeedbacks""
+	INNER JOIN public.""Users"" on ""ReportFeedbacks"".""UserId"" = ""Users"".""AccountId""
+	GROUP BY ""Users"".""AccountId"", ""Users"".""Name""
+	ORDER BY COUNT(1) DESC
+	LIMIT 15
+").ToList();
+
+                return results;
+            }
+        }
     }
 }

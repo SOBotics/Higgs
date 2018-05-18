@@ -12,6 +12,7 @@ export * from './createBotRequestFeedback';
 export * from './deleteBotRequest';
 export * from './editBotRequest';
 export * from './errorResponse';
+export * from './feedbackByUserResponse';
 export * from './registerPostAttribute';
 export * from './registerPostContentFragment';
 export * from './registerPostReason';

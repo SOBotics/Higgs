@@ -1,5 +1,10 @@
 <div class="container">
     <div class="row">
+        <div class="col-md-12">
+            <div *ngIf="feedbackByUserChart" [chart]="feedbackByUserChart"></div>
+        </div>
+    </div>
+    <div class="row">
         <div class="col-md-6">
             <div *ngIf="reportsOverTimeChart" [chart]="reportsOverTimeChart"></div>
         </div>

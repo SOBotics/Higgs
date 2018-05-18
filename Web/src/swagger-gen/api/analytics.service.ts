@@ -18,6 +18,7 @@ import { CustomHttpUrlEncodingCodec }                        from '../encoder';
 
 import { Observable }                                        from 'rxjs/Observable';
 
+import { FeedbackByUserResponse } from '../model/feedbackByUserResponse';
 import { ReportsByFeedbackResponse } from '../model/reportsByFeedbackResponse';
 import { ReportsByReasonResponse } from '../model/reportsByReasonResponse';
 import { ReportsOverTimeResponse } from '../model/reportsOverTimeResponse';
@@ -58,6 +59,44 @@ export class AnalyticsService {
         return false;
     }
 
+
+    /**
+     * 
+     * 
+     * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
+     * @param reportProgress flag to report request and response progress.
+     */
+    public analyticsFeedbackByUserGet(observe?: 'body', reportProgress?: boolean): Observable<Array<FeedbackByUserResponse>>;
+    public analyticsFeedbackByUserGet(observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<Array<FeedbackByUserResponse>>>;
+    public analyticsFeedbackByUserGet(observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<Array<FeedbackByUserResponse>>>;
+    public analyticsFeedbackByUserGet(observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
+
+        let headers = this.defaultHeaders;
+
+        // to determine the Accept header
+        let httpHeaderAccepts: string[] = [
+            'text/plain',
+            'application/json',
+            'text/json'
+        ];
+        let httpHeaderAcceptSelected: string | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
+        if (httpHeaderAcceptSelected != undefined) {
+            headers = headers.set("Accept", httpHeaderAcceptSelected);
+        }
+
+        // to determine the Content-Type header
+        let consumes: string[] = [
+        ];
+
+        return this.httpClient.get<Array<FeedbackByUserResponse>>(`${this.basePath}/Analytics/FeedbackByUser`,
+            {
+                withCredentials: this.configuration.withCredentials,
+                headers: headers,
+                observe: observe,
+                reportProgress: reportProgress
+            }
+        );
+    }
 
     /**
      * 
