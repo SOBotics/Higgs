@@ -188,11 +188,17 @@ namespace Higgs.Server.Controllers
 
         private void FillBotDetails(DbBot existingBot, CreateBotRequest request)
         {
+            if (request.Feedbacks == null)
+                request.Feedbacks = new List<CreateBotRequestFeedback>();
             if (request.Feedbacks.GroupBy(f => f.Id).Any(g => g.Count() > 1))
                 throw new HttpStatusException(HttpStatusCode.BadRequest, "Duplicate feedback ids");
 
+            if (request.ConflictExceptions == null)
+                request.ConflictExceptions = new List<CreateBotRequestExceptions>();
             if (request.ConflictExceptions.GroupBy(f => f.Id).Any(g => g.Count() > 1))
                 throw new HttpStatusException(HttpStatusCode.BadRequest, "Duplicate conflict exception ids");
+
+            ConflictHelper.AssertUniqueConflictFeedbacks(request.ConflictExceptions.Select(c => c.BotResponseConflictFeedbacks));
 
             existingBot.Name = request.Name;
             existingBot.DashboardName = request.DashboardName;

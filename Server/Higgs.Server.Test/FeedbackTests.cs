@@ -148,7 +148,7 @@ namespace Higgs.Server.Test
         }
 
         [Test]
-        public async Task UserCantClearOtherFeedback()
+        public async Task TestUserCantClearOtherFeedback()
         {
             Authenticate(
                 new[] { new Claim(SecurityUtils.ACCOUNT_ID_CLAIM, 1.ToString()) },
@@ -201,7 +201,7 @@ namespace Higgs.Server.Test
         }
 
         [Test]
-        public async Task RoomOwnerClearFeedback()
+        public async Task TestRoomOwnerClearFeedback()
         {
             Authenticate(
                 new[] { new Claim(SecurityUtils.ACCOUNT_ID_CLAIM, 1.ToString()) },
