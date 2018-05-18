@@ -9,7 +9,12 @@ namespace Higgs.Server.Utilities
     {
         public static void AssertUniqueConflictFeedbacks(IEnumerable<List<int>> conflictFeedbacks)
         {
-            var groups = conflictFeedbacks.SelectMany(CreateFeedbackPairs).GroupBy(g => g).ToList();
+            var conflictFeedbackList = conflictFeedbacks.ToList();
+
+            if (conflictFeedbackList.Any(cf => cf.Count <= 1))
+                throw new HttpStatusException(HttpStatusCode.BadRequest, "Conflicts must contain at least two feedback types");
+
+            var groups = conflictFeedbackList.SelectMany(CreateFeedbackPairs).GroupBy(g => g).ToList();
 
             if (groups.Any(g => g.Count() > 1))
                 throw new HttpStatusException(HttpStatusCode.BadRequest, "A pair of feedback ids cannot appear in two different conflicts");

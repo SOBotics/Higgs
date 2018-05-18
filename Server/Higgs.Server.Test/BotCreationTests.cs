@@ -284,5 +284,125 @@ namespace Higgs.Server.Test
             var response = await Client.PostAsync("/Admin/RegisterBot", request);
             response.AssertSuccess();
         }
+
+        [Test]
+        public async Task TestConflictMustContainAtLeastTwoFeedbacks()
+        {
+            Authenticate(
+                new[] { new Claim(SecurityUtils.ACCOUNT_ID_CLAIM, 1.ToString()) },
+                Scopes.SCOPE_BOT_OWNER
+            );
+
+            var request = new CreateBotRequest
+            {
+                Name = "asd",
+                DashboardName = "da",
+                Description = "ds",
+                Secret = "abc",
+                Feedbacks = new List<CreateBotRequestFeedback>
+                {
+                    new CreateBotRequestFeedback {Id = -1, Name = "tp"},
+                    new CreateBotRequestFeedback {Id = -2, Name = "fp"},
+                },
+                ConflictExceptions = new List<CreateBotRequestExceptions>
+                {
+                    new CreateBotRequestExceptions {Id = -1, BotResponseConflictFeedbacks = new List<int> { }},
+                }
+            };
+
+            var response = await Client.PostAsync("/Admin/RegisterBot", request);
+            await response.AssertError(HttpStatusCode.BadRequest, "Conflicts must contain at least two feedback types");
+        }
+
+
+        [Test]
+        public async Task TestConflictMustContainAtLeastTwoFeedbacks2()
+        {
+            Authenticate(
+                new[] { new Claim(SecurityUtils.ACCOUNT_ID_CLAIM, 1.ToString()) },
+                Scopes.SCOPE_BOT_OWNER
+            );
+
+            var request = new CreateBotRequest
+            {
+                Name = "asd",
+                DashboardName = "da",
+                Description = "ds",
+                Secret = "abc",
+                Feedbacks = new List<CreateBotRequestFeedback>
+                {
+                    new CreateBotRequestFeedback {Id = -1, Name = "tp"},
+                    new CreateBotRequestFeedback {Id = -2, Name = "fp"},
+                },
+                ConflictExceptions = new List<CreateBotRequestExceptions>
+                {
+                    new CreateBotRequestExceptions {Id = -1, BotResponseConflictFeedbacks = new List<int> { -1 }},
+                }
+            };
+
+            var response = await Client.PostAsync("/Admin/RegisterBot", request);
+            await response.AssertError(HttpStatusCode.BadRequest, "Conflicts must contain at least two feedback types");
+        }
+
+        [Test]
+        public async Task TestConflictMustContainAtLeastTwoFeedbacks3()
+        {
+            Authenticate(
+                new[] { new Claim(SecurityUtils.ACCOUNT_ID_CLAIM, 1.ToString()) },
+                Scopes.SCOPE_BOT_OWNER
+            );
+
+            var request = new CreateBotRequest
+            {
+                Name = "asd",
+                DashboardName = "da",
+                Description = "ds",
+                Secret = "abc",
+                Feedbacks = new List<CreateBotRequestFeedback>
+                {
+                    new CreateBotRequestFeedback {Id = -1, Name = "tp"},
+                    new CreateBotRequestFeedback {Id = -2, Name = "fp"},
+                },
+                ConflictExceptions = new List<CreateBotRequestExceptions>
+                {
+                    new CreateBotRequestExceptions {Id = -1, BotResponseConflictFeedbacks = new List<int> { -1, -2 }},
+                    new CreateBotRequestExceptions {Id = -2, BotResponseConflictFeedbacks = new List<int> { }},
+                }
+            };
+
+            var response = await Client.PostAsync("/Admin/RegisterBot", request);
+            await response.AssertError(HttpStatusCode.BadRequest, "Conflicts must contain at least two feedback types");
+        }
+
+
+        [Test]
+        public async Task TestConflictMustContainAtLeastTwoFeedbacks4()
+        {
+            Authenticate(
+                new[] { new Claim(SecurityUtils.ACCOUNT_ID_CLAIM, 1.ToString()) },
+                Scopes.SCOPE_BOT_OWNER
+            );
+
+            var request = new CreateBotRequest
+            {
+                Name = "asd",
+                DashboardName = "da",
+                Description = "ds",
+                Secret = "abc",
+                Feedbacks = new List<CreateBotRequestFeedback>
+                {
+                    new CreateBotRequestFeedback {Id = -1, Name = "tp"},
+                    new CreateBotRequestFeedback {Id = -2, Name = "fp"},
+                },
+                ConflictExceptions = new List<CreateBotRequestExceptions>
+                {
+                    new CreateBotRequestExceptions {Id = -1, BotResponseConflictFeedbacks = new List<int> { -1, -2 }},
+                    new CreateBotRequestExceptions {Id = -2, BotResponseConflictFeedbacks = new List<int> { -1 }},
+                }
+            };
+
+            var response = await Client.PostAsync("/Admin/RegisterBot", request);
+            await response.AssertError(HttpStatusCode.BadRequest, "Conflicts must contain at least two feedback types");
+        }
     }
 }
