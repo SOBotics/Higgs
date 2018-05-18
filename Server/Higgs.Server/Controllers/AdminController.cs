@@ -425,7 +425,7 @@ namespace Higgs.Server.Controllers
         {
             var reports = _dbContext.Reports
                 .Include(r => r.Feedbacks).ThenInclude(f => f.Feedback)
-                .Include(r => r.ConflictExceptions)
+                .Include(r => r.ConflictExceptions).ThenInclude(ce => ce.ConflictExceptionFeedbacks)
                 .ToList();
             foreach (var report in reports)
                 ReportProcessor.ProcessReport(report);

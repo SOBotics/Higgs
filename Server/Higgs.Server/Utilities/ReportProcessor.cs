@@ -11,7 +11,7 @@ namespace Higgs.Server.Utilities
         {
             var report = dbContext.Reports.Where(r => r.Id == reportId)
                 .Include(r => r.Feedbacks).ThenInclude(f => f.Feedback)
-                .Include(r => r.ConflictExceptions)
+                .Include(r => r.ConflictExceptions).ThenInclude(ce => ce.ConflictExceptionFeedbacks)
                 .FirstOrDefault();
 
             if (report != null)
