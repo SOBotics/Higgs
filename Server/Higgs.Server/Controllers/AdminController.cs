@@ -112,7 +112,9 @@ namespace Higgs.Server.Controllers
                     LogoUrl = b.LogoUrl,
                     FavIcon = b.FavIcon,
                     TabTitle = b.TabTitle,
-                    OwnerAccountId = b.OwnerAccountId
+                    OwnerAccountId = b.OwnerAccountId,
+                    RequiredFeedback = b.RequiredFeedback,
+                    RequiredFeedbackConflicted = b.RequiredFeedbackConflicted
                 }).FirstOrDefault();
 
             if (bot == null)
@@ -138,6 +140,7 @@ namespace Higgs.Server.Controllers
                     Id = conflictExceptionGroup.Id,
                     IsConflict = conflictExceptionGroup.IsConflict,
                     RequiresAdmin = conflictExceptionGroup.RequiresAdmin,
+                    RequiredFeedback = conflictExceptionGroup.RequiredFeedback,
                     BotResponseConflictFeedbacks = conflictExceptionGroup.ConflictExceptionFeedbacks.Select(gg => gg.FeedbackId).ToList()
                 }).ToList();
 
@@ -214,7 +217,9 @@ namespace Higgs.Server.Controllers
             existingBot.Homepage = request.Homepage;
             existingBot.LogoUrl = request.LogoUrl;
             existingBot.TabTitle = request.TabTitle;
-
+            existingBot.RequiredFeedback = request.RequiredFeedback;
+            existingBot.RequiredFeedbackConflicted = request.RequiredFeedbackConflicted;
+            
             var createdFeedbacks = new Dictionary<int, DbFeedback>();
             CollectionUpdater.UpdateCollection(
                 existingBot.Feedbacks.ToDictionary(f => f.Id, f => f),
@@ -258,7 +263,8 @@ namespace Higgs.Server.Controllers
                     {
                         Bot = existingBot,
                         IsConflict = newConflict.IsConflict,
-                        RequiresAdmin = newConflict.RequiresAdmin
+                        RequiresAdmin = newConflict.RequiresAdmin,
+                        RequiredFeedback = newConflict.RequiredFeedback
                     };
 
                     foreach (var conflictFeedbackId in newConflict.BotResponseConflictFeedbacks)
@@ -289,6 +295,7 @@ namespace Higgs.Server.Controllers
                 {
                     existingConflict.IsConflict = newConflict.IsConflict;
                     existingConflict.RequiresAdmin = newConflict.RequiresAdmin;
+                    existingConflict.RequiredFeedback = newConflict.RequiredFeedback;
 
                     CollectionUpdater.UpdateCollection(
                         existingConflict.ConflictExceptionFeedbacks.ToDictionary(d => d.FeedbackId, d => d),

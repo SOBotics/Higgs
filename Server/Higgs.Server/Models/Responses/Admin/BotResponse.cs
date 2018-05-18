@@ -26,6 +26,9 @@ namespace Higgs.Server.Models.Responses.Admin
         public string FavIcon { get; set; }
         public string TabTitle { get; set; }
 
+        public int RequiredFeedback { get; set; }
+        public int RequiredFeedbackConflicted { get; set; }
+
         public List<BotResponseFeedback> Feedbacks { get; set; }
         public List<BotResponseConflictExceptions> ConflictExceptions { get; set; }
     }
@@ -45,6 +48,7 @@ namespace Higgs.Server.Models.Responses.Admin
         public int Id { get; set; }
         public bool IsConflict { get; set; }
         public bool RequiresAdmin { get; set; }
+        public int RequiredFeedback { get; set; }
         public List<int> BotResponseConflictFeedbacks { get; set; }
     }
 

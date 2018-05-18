@@ -11,9 +11,10 @@ using System;
 namespace Higgs.Server.Migrations
 {
     [DbContext(typeof(HiggsDbContext))]
-    partial class HiggsDbContextModelSnapshot : ModelSnapshot
+    [Migration("20180518131527_TrackRequiredFeedback")]
+    partial class TrackRequiredFeedback
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -182,8 +183,6 @@ namespace Higgs.Server.Migrations
 
                     b.Property<int>("BotId");
 
-                    b.Property<bool>("Conflicted");
-
                     b.Property<DateTime?>("ContentCreationDate");
 
                     b.Property<int?>("ContentId");
@@ -201,8 +200,6 @@ namespace Higgs.Server.Migrations
                     b.Property<int>("RequiredFeedback");
 
                     b.Property<int>("RequiredFeedbackConflicted");
-
-                    b.Property<bool>("RequiresReview");
 
                     b.Property<string>("Title");
 

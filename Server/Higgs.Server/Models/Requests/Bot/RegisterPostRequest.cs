@@ -80,6 +80,10 @@ namespace Higgs.Server.Models.Requests.Bot
         ///     Any custom attributes to be associated with the report
         /// </summary>
         public List<RegisterPostAttribute> Attributes { get; set; }
+
+        public int RequiredFeedback { get; set; }
+
+        public int RequiredFeedbackConflicted { get; set; }
     }
 
     public class RegisterPostContentFragment
@@ -125,5 +129,19 @@ namespace Higgs.Server.Models.Requests.Bot
     {
         [Required] public string Key { get; set; }
         [Required] public string Value { get; set; }
+    }
+
+    public class RegisterPostRequestExceptions
+    {
+        public bool IsConflict { get; set; }
+        public bool RequiresAdmin { get; set; }
+        public int RequiredFeedback { get; set; }
+        public List<int> BotResponseConflictFeedbacks { get; set; }
+    }
+
+    public class RegisterPostRequestConflictFeedback
+    {
+        public int FeedbackId { get; set; }
+        public string FeedbackName { get; set; }
     }
 }

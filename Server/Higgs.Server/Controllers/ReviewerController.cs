@@ -92,6 +92,7 @@ namespace Higgs.Server.Controllers
             var report = _dbContext.Reports.Where(r => r.Id == id)
                 .Select(r => new ReviewerReportResponse
                 {
+                    Id = r.Id,
                     Title = r.Title,
                     BotLogo = r.Bot.LogoUrl,
                     BotName = r.Bot.Name,
@@ -169,13 +170,31 @@ namespace Higgs.Server.Controllers
             return results;
         }
 
-        /// <summary>
-        ///     Lists all reviews
-        /// </summary>
-        [HttpGet("AllReviews")]
-        public IActionResult AllReviews()
+        [HttpGet("NextReview")]
+        [Authorize(Scopes.SCOPE_REVIEWER)]
+        public ReviewerReportResponse NextReview(int? lastId)
         {
-            return Ok(0);
+            var userId = User.GetUserId();
+            if (!userId.HasValue)
+                throw new HttpStatusException(HttpStatusCode.Unauthorized);
+
+            IQueryable<DbReport> reportQuery = _dbContext.Reports.Where(r => r.RequiresReview);
+            if (lastId.HasValue)
+                reportQuery = reportQuery.Where(r => r.Id > lastId);
+
+            var nextReportId = reportQuery
+                .GroupJoin(_dbContext.ReportFeedbacks.Where(rf => rf.UserId != userId), r => r.Id, rf => rf.ReportId,
+                    (report, group) => new
+                    {
+                        ReportId = (int?) report.Id,
+                        Group = group
+                    })
+                .SelectMany(gj => gj.Group.DefaultIfEmpty(), (report, feedback) => new {report.ReportId, FeedbackId = (int?)feedback.Id})
+                .Where(a => a.FeedbackId == null)
+                .Select(a => a.ReportId)
+                .FirstOrDefault();
+
+            return nextReportId.HasValue ? Report(nextReportId.Value) : null;
         }
 
         /// <summary>

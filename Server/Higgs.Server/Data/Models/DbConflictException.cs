@@ -11,6 +11,7 @@ namespace Higgs.Server.Data.Models
 
         public bool IsConflict { get; set; }
         public bool RequiresAdmin { get; set; }
+        public int RequiredFeedback { get; set; }
 
         [ForeignKey("Bot")]
         public int? BotId { get; set; }

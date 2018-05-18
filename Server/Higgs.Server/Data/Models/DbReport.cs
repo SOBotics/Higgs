@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using Higgs.Server.Models.Requests.Admin;
@@ -26,6 +27,12 @@ namespace Higgs.Server.Data.Models
         public int? AuthorReputation { get; set; }
         public DateTime? ContentCreationDate { get; set; }
         public DateTime? DetectedDate { get; set; }
+
+        public int RequiredFeedback { get; set; }
+        public int RequiredFeedbackConflicted { get; set; }
+
+        public bool RequiresReview { get; set; }
+        public bool Conflicted { get; set; }
 
         [InverseProperty("Report")]
         public List<DbReportReason> Reasons { get; set; }

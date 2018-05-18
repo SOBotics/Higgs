@@ -5,6 +5,7 @@ namespace Higgs.Server.Models.Responses.Reviewer
 {
     public class ReviewerReportResponse
     {
+        public int Id { get; set; }
         public string Title { get; set; }
         public string BotLogo { get; set; }
         public string BotName { get; set; }

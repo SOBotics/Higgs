@@ -19,6 +19,9 @@ namespace Higgs.Server.Data.Models
         public string FavIcon { get; set; }
         public string TabTitle { get; set; }
 
+        public int RequiredFeedback { get; set; }
+        public int RequiredFeedbackConflicted { get; set; }
+
         [ForeignKey("OwnerAccount")]
         public int OwnerAccountId { get; set; }
         public DbUser OwnerAccount { get; set; }
