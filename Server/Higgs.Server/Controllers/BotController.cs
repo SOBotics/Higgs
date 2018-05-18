@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Net;
 using System.Security.Claims;
@@ -155,7 +156,10 @@ namespace Higgs.Server.Controllers
                 ContentCreationDate = request.ContentCreationDate?.ToUniversalTime(),
                 ContentUrl = request.ContentUrl,
                 DetectedDate = request.DetectedDate?.ToUniversalTime(),
-                DetectionScore = request.DetectionScore
+                DetectionScore = request.DetectionScore,
+
+                Feedbacks = new List<DbReportFeedback>(),
+                ConflictExceptions = new List<DbConflictException>()
             };
 
             var contentFragments = request.ContentFragments ?? Enumerable.Empty<RegisterPostContentFragment>();
@@ -245,6 +249,8 @@ namespace Higgs.Server.Controllers
                     Report = report
                 });
             }
+
+            ReportProcessor.ProcessReport(report);
 
             _dbContext.SaveChanges();
 

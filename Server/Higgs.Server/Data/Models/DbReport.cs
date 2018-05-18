@@ -30,7 +30,7 @@ namespace Higgs.Server.Data.Models
 
         public int RequiredFeedback { get; set; }
         public int RequiredFeedbackConflicted { get; set; }
-
+        
         public bool RequiresReview { get; set; }
         public bool Conflicted { get; set; }
 

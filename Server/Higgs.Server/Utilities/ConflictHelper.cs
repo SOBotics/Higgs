@@ -20,8 +20,9 @@ namespace Higgs.Server.Utilities
                 throw new HttpStatusException(HttpStatusCode.BadRequest, "A pair of feedback ids cannot appear in two different conflicts");
         }
 
-        public static IEnumerable<FeedbackPair<T>> CreateFeedbackPairs<T>(IList<T> list)
+        public static IEnumerable<FeedbackPair<T>> CreateFeedbackPairs<T>(IEnumerable<T> collection)
         {
+            var list = collection.OrderBy(a => a).ToList();
             for (var i = 0; i < list.Count; i++)
             {
                 for (var j = i + 1; j < list.Count; j++)

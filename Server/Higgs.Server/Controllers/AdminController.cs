@@ -418,5 +418,20 @@ namespace Higgs.Server.Controllers
             _dbContext.SaveChanges();
             return Ok();
         }
+
+        [HttpPost("ForceProcessReports")]
+        [Authorize(Scopes.SCOPE_ADMIN)]
+        public IActionResult ForceProcessReports()
+        {
+            var reports = _dbContext.Reports
+                .Include(r => r.Feedbacks).ThenInclude(f => f.Feedback)
+                .Include(r => r.ConflictExceptions)
+                .ToList();
+            foreach (var report in reports)
+                ReportProcessor.ProcessReport(report);
+
+            _dbContext.SaveChanges();
+            return Ok();
+        }
     }
 }

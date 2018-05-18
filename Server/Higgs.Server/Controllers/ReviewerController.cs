@@ -2,16 +2,14 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Net;
-using System.Security.Cryptography;
 using Higgs.Server.Data;
 using Higgs.Server.Data.Models;
 using Higgs.Server.Models.Requests.Reviewer;
-using Higgs.Server.Models.Responses;
-using Higgs.Server.Models.Responses.Bot;
 using Higgs.Server.Models.Responses.Reviewer;
 using Higgs.Server.Utilities;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using Swashbuckle.AspNetCore.SwaggerGen;
 
 namespace Higgs.Server.Controllers
@@ -178,7 +176,7 @@ namespace Higgs.Server.Controllers
             if (!userId.HasValue)
                 throw new HttpStatusException(HttpStatusCode.Unauthorized);
 
-            IQueryable<DbReport> reportQuery = _dbContext.Reports.Where(r => r.RequiresReview);
+            var reportQuery = _dbContext.Reports.Where(r => r.RequiresReview);
             if (lastId.HasValue)
                 reportQuery = reportQuery.Where(r => r.Id > lastId);
 
@@ -186,10 +184,10 @@ namespace Higgs.Server.Controllers
                 .GroupJoin(_dbContext.ReportFeedbacks.Where(rf => rf.UserId != userId), r => r.Id, rf => rf.ReportId,
                     (report, group) => new
                     {
-                        ReportId = (int?) report.Id,
+                        ReportId = report.Id,
                         Group = group
                     })
-                .SelectMany(gj => gj.Group.DefaultIfEmpty(), (report, feedback) => new {report.ReportId, FeedbackId = (int?)feedback.Id})
+                .SelectMany(gj => gj.Group.DefaultIfEmpty(), (report, feedback) => new { ReportId = (int?)report.ReportId, FeedbackId = (int?)feedback.Id})
                 .Where(a => a.FeedbackId == null)
                 .Select(a => a.ReportId)
                 .FirstOrDefault();
@@ -233,6 +231,10 @@ namespace Higgs.Server.Controllers
             });
                 
             _dbContext.SaveChanges();
+
+            _dbContext.ProcessReport(request.ReportId);
+            _dbContext.SaveChanges();
+
             return Ok();
         }
 
@@ -254,6 +256,9 @@ namespace Higgs.Server.Controllers
             existingFeedback.InvalidatedDate = DateTime.UtcNow;
             existingFeedback.InvalidatedByUserId = userId.Value;
             existingFeedback.InvalidationReason = "Feedback cleared";
+            _dbContext.SaveChanges();
+
+            _dbContext.ProcessReport(existingFeedback.ReportId);
             _dbContext.SaveChanges();
 
             return Ok();
