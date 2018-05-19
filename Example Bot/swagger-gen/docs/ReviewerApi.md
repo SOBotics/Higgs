@@ -7,7 +7,7 @@ Method | HTTP request | Description
 [**ReviewerCheckGet**](ReviewerApi.md#reviewercheckget) | **GET** /Reviewer/Check | 
 [**ReviewerClearFeedbackPost**](ReviewerApi.md#reviewerclearfeedbackpost) | **POST** /Reviewer/ClearFeedback | 
 [**ReviewerNextReviewGet**](ReviewerApi.md#reviewernextreviewget) | **GET** /Reviewer/NextReview | 
-[**ReviewerPendingReviewsGet**](ReviewerApi.md#reviewerpendingreviewsget) | **GET** /Reviewer/PendingReviews | Lists all pending reviews
+[**ReviewerPendingReviewsGet**](ReviewerApi.md#reviewerpendingreviewsget) | **GET** /Reviewer/PendingReviews | 
 [**ReviewerReportGet**](ReviewerApi.md#reviewerreportget) | **GET** /Reviewer/Report | 
 [**ReviewerReportsGet**](ReviewerApi.md#reviewerreportsget) | **GET** /Reviewer/Reports | 
 [**ReviewerSendFeedbackPost**](ReviewerApi.md#reviewersendfeedbackpost) | **POST** /Reviewer/SendFeedback | Lists all pending review
@@ -194,9 +194,9 @@ Name | Type | Description  | Notes
 
 <a name="reviewerpendingreviewsget"></a>
 # **ReviewerPendingReviewsGet**
-> void ReviewerPendingReviewsGet ()
+> PagingResponseInt32 ReviewerPendingReviewsGet (string dashboardName = null, int? pageNumber = null, int? pageSize = null)
 
-Lists all pending reviews
+
 
 ### Example
 ```csharp
@@ -213,11 +213,14 @@ namespace Example
         public void main()
         {
             var apiInstance = new ReviewerApi();
+            var dashboardName = dashboardName_example;  // string |  (optional) 
+            var pageNumber = 56;  // int? |  (optional) 
+            var pageSize = 56;  // int? |  (optional) 
 
             try
             {
-                // Lists all pending reviews
-                apiInstance.ReviewerPendingReviewsGet();
+                PagingResponseInt32 result = apiInstance.ReviewerPendingReviewsGet(dashboardName, pageNumber, pageSize);
+                Debug.WriteLine(result);
             }
             catch (Exception e)
             {
@@ -229,11 +232,16 @@ namespace Example
 ```
 
 ### Parameters
-This endpoint does not need any parameter.
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **dashboardName** | **string**|  | [optional] 
+ **pageNumber** | **int?**|  | [optional] 
+ **pageSize** | **int?**|  | [optional] 
 
 ### Return type
 
-void (empty response body)
+[**PagingResponseInt32**](PagingResponseInt32.md)
 
 ### Authorization
 
@@ -242,7 +250,7 @@ No authorization required
 ### HTTP request headers
 
  - **Content-Type**: Not defined
- - **Accept**: Not defined
+ - **Accept**: text/plain, application/json, text/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
@@ -306,7 +314,7 @@ No authorization required
 
 <a name="reviewerreportsget"></a>
 # **ReviewerReportsGet**
-> List<ReviewerReportsResponse> ReviewerReportsGet ()
+> PagingResponseReviewerReportsResponse ReviewerReportsGet (int? pageNumber = null, int? pageSize = null)
 
 
 
@@ -325,10 +333,12 @@ namespace Example
         public void main()
         {
             var apiInstance = new ReviewerApi();
+            var pageNumber = 56;  // int? |  (optional) 
+            var pageSize = 56;  // int? |  (optional) 
 
             try
             {
-                List&lt;ReviewerReportsResponse&gt; result = apiInstance.ReviewerReportsGet();
+                PagingResponseReviewerReportsResponse result = apiInstance.ReviewerReportsGet(pageNumber, pageSize);
                 Debug.WriteLine(result);
             }
             catch (Exception e)
@@ -341,11 +351,15 @@ namespace Example
 ```
 
 ### Parameters
-This endpoint does not need any parameter.
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **pageNumber** | **int?**|  | [optional] 
+ **pageSize** | **int?**|  | [optional] 
 
 ### Return type
 
-[**List<ReviewerReportsResponse>**](ReviewerReportsResponse.md)
+[**PagingResponseReviewerReportsResponse**](PagingResponseReviewerReportsResponse.md)
 
 ### Authorization
 

@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ReviewerService, ReviewerReportsResponse } from '../../swagger-gen';
+import { ReviewerService, PagingResponseReviewerReportsResponse } from '../../swagger-gen';
 
 @Component({
   selector: 'app-reports',
@@ -8,11 +8,11 @@ import { ReviewerService, ReviewerReportsResponse } from '../../swagger-gen';
 })
 export class ReportsComponent implements OnInit {
 
-  public reportsResponse: ReviewerReportsResponse[] = [];
+  public reportsResponse: PagingResponseReviewerReportsResponse = null;
   constructor(private reviewerService: ReviewerService) { }
 
   ngOnInit() {
-    this.reviewerService.reviewerReportsGet()
+    this.reviewerService.reviewerReportsGet(1, 50)
       .subscribe(response => this.reportsResponse = response);
   }
 }

@@ -1,7 +1,9 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using Higgs.Server.Data;
 using Higgs.Server.Data.Models;
+using Higgs.Server.Models.Shared;
 using Microsoft.EntityFrameworkCore;
 
 namespace Higgs.Server.Utilities
@@ -34,6 +36,28 @@ namespace Higgs.Server.Utilities
                     });
             }
             return existingUser;
+        }
+
+        public static PagingResponse<T> Page<T>(this IQueryable<T> query, PagingRequest pagingRequest)
+        {
+            return query.Page(pagingRequest.PageNumber ?? 1, pagingRequest.PageSize ?? 50);
+        }
+        public static PagingResponse<T> Page<T>(this IQueryable<T> query, int pageNumber, int pageSize)
+        {
+            var count = query.Count();
+            var data =
+                query
+                    .Skip((pageNumber - 1) * pageSize)
+                    .Take(pageSize)
+                    .ToList();
+
+            return new PagingResponse<T>
+            {
+                PageNumber = pageNumber,
+                PageSize = pageSize,
+                TotalPages = (int) Math.Ceiling(1.0 * count / pageSize),
+                Data = data
+            };
         }
     }
 }

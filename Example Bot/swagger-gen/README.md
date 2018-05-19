@@ -124,7 +124,7 @@ Class | Method | HTTP request | Description
 *ReviewerApi* | [**ReviewerCheckGet**](docs/ReviewerApi.md#reviewercheckget) | **GET** /Reviewer/Check | 
 *ReviewerApi* | [**ReviewerClearFeedbackPost**](docs/ReviewerApi.md#reviewerclearfeedbackpost) | **POST** /Reviewer/ClearFeedback | 
 *ReviewerApi* | [**ReviewerNextReviewGet**](docs/ReviewerApi.md#reviewernextreviewget) | **GET** /Reviewer/NextReview | 
-*ReviewerApi* | [**ReviewerPendingReviewsGet**](docs/ReviewerApi.md#reviewerpendingreviewsget) | **GET** /Reviewer/PendingReviews | Lists all pending reviews
+*ReviewerApi* | [**ReviewerPendingReviewsGet**](docs/ReviewerApi.md#reviewerpendingreviewsget) | **GET** /Reviewer/PendingReviews | 
 *ReviewerApi* | [**ReviewerReportGet**](docs/ReviewerApi.md#reviewerreportget) | **GET** /Reviewer/Report | 
 *ReviewerApi* | [**ReviewerReportsGet**](docs/ReviewerApi.md#reviewerreportsget) | **GET** /Reviewer/Reports | 
 *ReviewerApi* | [**ReviewerSendFeedbackPost**](docs/ReviewerApi.md#reviewersendfeedbackpost) | **POST** /Reviewer/SendFeedback | Lists all pending review
@@ -148,6 +148,8 @@ Class | Method | HTTP request | Description
  - [Model.EditBotRequest](docs/EditBotRequest.md)
  - [Model.ErrorResponse](docs/ErrorResponse.md)
  - [Model.FeedbackByUserResponse](docs/FeedbackByUserResponse.md)
+ - [Model.PagingResponseInt32](docs/PagingResponseInt32.md)
+ - [Model.PagingResponseReviewerReportsResponse](docs/PagingResponseReviewerReportsResponse.md)
  - [Model.RegisterPostAttribute](docs/RegisterPostAttribute.md)
  - [Model.RegisterPostContentFragment](docs/RegisterPostContentFragment.md)
  - [Model.RegisterPostReason](docs/RegisterPostReason.md)

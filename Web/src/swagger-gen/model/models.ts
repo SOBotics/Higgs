@@ -13,6 +13,8 @@ export * from './deleteBotRequest';
 export * from './editBotRequest';
 export * from './errorResponse';
 export * from './feedbackByUserResponse';
+export * from './pagingResponseInt32';
+export * from './pagingResponseReviewerReportsResponse';
 export * from './registerPostAttribute';
 export * from './registerPostContentFragment';
 export * from './registerPostReason';

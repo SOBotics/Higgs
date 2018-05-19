@@ -6,6 +6,7 @@ using Higgs.Server.Data;
 using Higgs.Server.Data.Models;
 using Higgs.Server.Models.Requests.Reviewer;
 using Higgs.Server.Models.Responses.Reviewer;
+using Higgs.Server.Models.Shared;
 using Higgs.Server.Utilities;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -24,20 +25,22 @@ namespace Higgs.Server.Controllers
             _dbContext = dbContext;
         }
         
-        /// <summary>
-        ///     Lists all pending reviews
-        /// </summary>
         [HttpGet("PendingReviews")]
-        public IActionResult PendingReviews()
+        public PagingResponse<int> PendingReviews(string dashboardName, PagingRequest pagingRequest)
         {
-            return Ok(0);
+            var query = _dbContext.Reports.Where(r => r.RequiresReview);
+            if (!string.IsNullOrWhiteSpace(dashboardName))
+                query = query.Where(r => r.Bot.DashboardName.ToLower() == dashboardName.ToLower());
+
+            var result = query.Select(r => r.Id).Page(pagingRequest);
+            return result;
         }
 
         [HttpGet("Reports")]
-        public List<ReviewerReportsResponse> Reports()
+        public PagingResponse<ReviewerReportsResponse> Reports(PagingRequest request)
         {
             // We're writing two queries, otherwise EFCore hits the N+1 problem
-            var reports = _dbContext.Reports
+            var pagedReportData = _dbContext.Reports
                 .Select(r => new
                 {
                     r.Id,
@@ -45,8 +48,9 @@ namespace Higgs.Server.Controllers
                     r.Bot.DashboardName,
                     r.DetectionScore,
                 }).OrderByDescending(r => r.Id)
-                .Take(50)
-                .ToList();
+                .Page(request);
+
+            var reports = pagedReportData.Data;
 
             var reportIds = reports.Select(r => r.Id).ToList();
             var feedbacks = _dbContext.ReportFeedbacks.Where(rf => reportIds.Contains(rf.ReportId))
@@ -59,28 +63,34 @@ namespace Higgs.Server.Controllers
                     UserName = feedback.User.Name
                 }).GroupBy(r => r.ReportId)
                 .ToDictionary(r => r.Key, r => r.ToList());
-            
-            var result =
-                reports
-                    .Select(r => new ReviewerReportsResponse
-                    {
-                        Id = r.Id,
-                        Title = r.Title,
-                        DashboardName = r.DashboardName,
-                        DetectionScore = r.DetectionScore,
-                        Feedback = feedbacks.ContainsKey(r.Id)
-                            ? feedbacks[r.Id].Select(feedback => new ReviewerReportFeedbackResponse
-                            {
-                                Icon = feedback.Icon,
-                                Colour = feedback.Colour,
-                                FeedbackName = feedback.FeedbackName,
-                                UserName = feedback.UserName
-                            }).ToList()
-                            : new List<ReviewerReportFeedbackResponse>()
-                    })
-                    .OrderByDescending(r => r.Id)
-                    .ToList();
 
+            var result =
+                new PagingResponse<ReviewerReportsResponse>
+                {
+                    PageNumber = pagedReportData.PageNumber,
+                    PageSize = pagedReportData.PageSize,
+                    TotalPages = pagedReportData.TotalPages,
+                    Data = reports
+                        .Select(r => new ReviewerReportsResponse
+                        {
+                            Id = r.Id,
+                            Title = r.Title,
+                            DashboardName = r.DashboardName,
+                            DetectionScore = r.DetectionScore,
+                            Feedback = feedbacks.ContainsKey(r.Id)
+                                ? feedbacks[r.Id].Select(feedback => new ReviewerReportFeedbackResponse
+                                {
+                                    Icon = feedback.Icon,
+                                    Colour = feedback.Colour,
+                                    FeedbackName = feedback.FeedbackName,
+                                    UserName = feedback.UserName
+                                }).ToList()
+                                : new List<ReviewerReportFeedbackResponse>()
+                        })
+                        .OrderByDescending(r => r.Id)
+                        .ToList()
+                };
+            
             return result;
         }
 
@@ -194,6 +204,7 @@ namespace Higgs.Server.Controllers
 
             return nextReportId.HasValue ? Report(nextReportId.Value) : null;
         }
+
 
         /// <summary>
         ///     Lists all pending review

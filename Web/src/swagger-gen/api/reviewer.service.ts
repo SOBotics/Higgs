@@ -19,9 +19,10 @@ import { CustomHttpUrlEncodingCodec }                        from '../encoder';
 import { Observable }                                        from 'rxjs/Observable';
 
 import { ClearFeedbackRequest } from '../model/clearFeedbackRequest';
+import { PagingResponseInt32 } from '../model/pagingResponseInt32';
+import { PagingResponseReviewerReportsResponse } from '../model/pagingResponseReviewerReportsResponse';
 import { ReviewerCheckResponse } from '../model/reviewerCheckResponse';
 import { ReviewerReportResponse } from '../model/reviewerReportResponse';
-import { ReviewerReportsResponse } from '../model/reviewerReportsResponse';
 import { SendFeedbackRequest } from '../model/sendFeedbackRequest';
 
 import { BASE_PATH, COLLECTION_FORMATS }                     from '../variables';
@@ -212,20 +213,37 @@ export class ReviewerService {
     }
 
     /**
-     * Lists all pending reviews
      * 
+     * 
+     * @param dashboardName 
+     * @param pageNumber 
+     * @param pageSize 
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      */
-    public reviewerPendingReviewsGet(observe?: 'body', reportProgress?: boolean): Observable<any>;
-    public reviewerPendingReviewsGet(observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<any>>;
-    public reviewerPendingReviewsGet(observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<any>>;
-    public reviewerPendingReviewsGet(observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
+    public reviewerPendingReviewsGet(dashboardName?: string, pageNumber?: number, pageSize?: number, observe?: 'body', reportProgress?: boolean): Observable<PagingResponseInt32>;
+    public reviewerPendingReviewsGet(dashboardName?: string, pageNumber?: number, pageSize?: number, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<PagingResponseInt32>>;
+    public reviewerPendingReviewsGet(dashboardName?: string, pageNumber?: number, pageSize?: number, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<PagingResponseInt32>>;
+    public reviewerPendingReviewsGet(dashboardName?: string, pageNumber?: number, pageSize?: number, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
+
+        let queryParameters = new HttpParams({encoder: new CustomHttpUrlEncodingCodec()});
+        if (dashboardName !== undefined) {
+            queryParameters = queryParameters.set('dashboardName', <any>dashboardName);
+        }
+        if (pageNumber !== undefined) {
+            queryParameters = queryParameters.set('PageNumber', <any>pageNumber);
+        }
+        if (pageSize !== undefined) {
+            queryParameters = queryParameters.set('PageSize', <any>pageSize);
+        }
 
         let headers = this.defaultHeaders;
 
         // to determine the Accept header
         let httpHeaderAccepts: string[] = [
+            'text/plain',
+            'application/json',
+            'text/json'
         ];
         let httpHeaderAcceptSelected: string | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
         if (httpHeaderAcceptSelected != undefined) {
@@ -236,8 +254,9 @@ export class ReviewerService {
         let consumes: string[] = [
         ];
 
-        return this.httpClient.get<any>(`${this.basePath}/Reviewer/PendingReviews`,
+        return this.httpClient.get<PagingResponseInt32>(`${this.basePath}/Reviewer/PendingReviews`,
             {
+                params: queryParameters,
                 withCredentials: this.configuration.withCredentials,
                 headers: headers,
                 observe: observe,
@@ -297,13 +316,23 @@ export class ReviewerService {
     /**
      * 
      * 
+     * @param pageNumber 
+     * @param pageSize 
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      */
-    public reviewerReportsGet(observe?: 'body', reportProgress?: boolean): Observable<Array<ReviewerReportsResponse>>;
-    public reviewerReportsGet(observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<Array<ReviewerReportsResponse>>>;
-    public reviewerReportsGet(observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<Array<ReviewerReportsResponse>>>;
-    public reviewerReportsGet(observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
+    public reviewerReportsGet(pageNumber?: number, pageSize?: number, observe?: 'body', reportProgress?: boolean): Observable<PagingResponseReviewerReportsResponse>;
+    public reviewerReportsGet(pageNumber?: number, pageSize?: number, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<PagingResponseReviewerReportsResponse>>;
+    public reviewerReportsGet(pageNumber?: number, pageSize?: number, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<PagingResponseReviewerReportsResponse>>;
+    public reviewerReportsGet(pageNumber?: number, pageSize?: number, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
+
+        let queryParameters = new HttpParams({encoder: new CustomHttpUrlEncodingCodec()});
+        if (pageNumber !== undefined) {
+            queryParameters = queryParameters.set('PageNumber', <any>pageNumber);
+        }
+        if (pageSize !== undefined) {
+            queryParameters = queryParameters.set('PageSize', <any>pageSize);
+        }
 
         let headers = this.defaultHeaders;
 
@@ -322,8 +351,9 @@ export class ReviewerService {
         let consumes: string[] = [
         ];
 
-        return this.httpClient.get<Array<ReviewerReportsResponse>>(`${this.basePath}/Reviewer/Reports`,
+        return this.httpClient.get<PagingResponseReviewerReportsResponse>(`${this.basePath}/Reviewer/Reports`,
             {
+                params: queryParameters,
                 withCredentials: this.configuration.withCredentials,
                 headers: headers,
                 observe: observe,

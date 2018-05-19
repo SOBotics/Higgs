@@ -88,24 +88,30 @@ namespace IO.Swagger.Api
         /// <returns>ApiResponse of ReviewerReportResponse</returns>
         ApiResponse<ReviewerReportResponse> ReviewerNextReviewGetWithHttpInfo (int? lastId = null);
         /// <summary>
-        /// Lists all pending reviews
+        /// 
         /// </summary>
         /// <remarks>
         /// 
         /// </remarks>
         /// <exception cref="IO.Swagger.Client.ApiException">Thrown when fails to make API call</exception>
-        /// <returns></returns>
-        void ReviewerPendingReviewsGet ();
+        /// <param name="dashboardName"> (optional)</param>
+        /// <param name="pageNumber"> (optional)</param>
+        /// <param name="pageSize"> (optional)</param>
+        /// <returns>PagingResponseInt32</returns>
+        PagingResponseInt32 ReviewerPendingReviewsGet (string dashboardName = null, int? pageNumber = null, int? pageSize = null);
 
         /// <summary>
-        /// Lists all pending reviews
+        /// 
         /// </summary>
         /// <remarks>
         /// 
         /// </remarks>
         /// <exception cref="IO.Swagger.Client.ApiException">Thrown when fails to make API call</exception>
-        /// <returns>ApiResponse of Object(void)</returns>
-        ApiResponse<Object> ReviewerPendingReviewsGetWithHttpInfo ();
+        /// <param name="dashboardName"> (optional)</param>
+        /// <param name="pageNumber"> (optional)</param>
+        /// <param name="pageSize"> (optional)</param>
+        /// <returns>ApiResponse of PagingResponseInt32</returns>
+        ApiResponse<PagingResponseInt32> ReviewerPendingReviewsGetWithHttpInfo (string dashboardName = null, int? pageNumber = null, int? pageSize = null);
         /// <summary>
         /// 
         /// </summary>
@@ -134,8 +140,10 @@ namespace IO.Swagger.Api
         /// 
         /// </remarks>
         /// <exception cref="IO.Swagger.Client.ApiException">Thrown when fails to make API call</exception>
-        /// <returns>List&lt;ReviewerReportsResponse&gt;</returns>
-        List<ReviewerReportsResponse> ReviewerReportsGet ();
+        /// <param name="pageNumber"> (optional)</param>
+        /// <param name="pageSize"> (optional)</param>
+        /// <returns>PagingResponseReviewerReportsResponse</returns>
+        PagingResponseReviewerReportsResponse ReviewerReportsGet (int? pageNumber = null, int? pageSize = null);
 
         /// <summary>
         /// 
@@ -144,8 +152,10 @@ namespace IO.Swagger.Api
         /// 
         /// </remarks>
         /// <exception cref="IO.Swagger.Client.ApiException">Thrown when fails to make API call</exception>
-        /// <returns>ApiResponse of List&lt;ReviewerReportsResponse&gt;</returns>
-        ApiResponse<List<ReviewerReportsResponse>> ReviewerReportsGetWithHttpInfo ();
+        /// <param name="pageNumber"> (optional)</param>
+        /// <param name="pageSize"> (optional)</param>
+        /// <returns>ApiResponse of PagingResponseReviewerReportsResponse</returns>
+        ApiResponse<PagingResponseReviewerReportsResponse> ReviewerReportsGetWithHttpInfo (int? pageNumber = null, int? pageSize = null);
         /// <summary>
         /// Lists all pending review
         /// </summary>
@@ -233,24 +243,30 @@ namespace IO.Swagger.Api
         /// <returns>Task of ApiResponse (ReviewerReportResponse)</returns>
         System.Threading.Tasks.Task<ApiResponse<ReviewerReportResponse>> ReviewerNextReviewGetAsyncWithHttpInfo (int? lastId = null);
         /// <summary>
-        /// Lists all pending reviews
+        /// 
         /// </summary>
         /// <remarks>
         /// 
         /// </remarks>
         /// <exception cref="IO.Swagger.Client.ApiException">Thrown when fails to make API call</exception>
-        /// <returns>Task of void</returns>
-        System.Threading.Tasks.Task ReviewerPendingReviewsGetAsync ();
+        /// <param name="dashboardName"> (optional)</param>
+        /// <param name="pageNumber"> (optional)</param>
+        /// <param name="pageSize"> (optional)</param>
+        /// <returns>Task of PagingResponseInt32</returns>
+        System.Threading.Tasks.Task<PagingResponseInt32> ReviewerPendingReviewsGetAsync (string dashboardName = null, int? pageNumber = null, int? pageSize = null);
 
         /// <summary>
-        /// Lists all pending reviews
+        /// 
         /// </summary>
         /// <remarks>
         /// 
         /// </remarks>
         /// <exception cref="IO.Swagger.Client.ApiException">Thrown when fails to make API call</exception>
-        /// <returns>Task of ApiResponse</returns>
-        System.Threading.Tasks.Task<ApiResponse<Object>> ReviewerPendingReviewsGetAsyncWithHttpInfo ();
+        /// <param name="dashboardName"> (optional)</param>
+        /// <param name="pageNumber"> (optional)</param>
+        /// <param name="pageSize"> (optional)</param>
+        /// <returns>Task of ApiResponse (PagingResponseInt32)</returns>
+        System.Threading.Tasks.Task<ApiResponse<PagingResponseInt32>> ReviewerPendingReviewsGetAsyncWithHttpInfo (string dashboardName = null, int? pageNumber = null, int? pageSize = null);
         /// <summary>
         /// 
         /// </summary>
@@ -279,8 +295,10 @@ namespace IO.Swagger.Api
         /// 
         /// </remarks>
         /// <exception cref="IO.Swagger.Client.ApiException">Thrown when fails to make API call</exception>
-        /// <returns>Task of List&lt;ReviewerReportsResponse&gt;</returns>
-        System.Threading.Tasks.Task<List<ReviewerReportsResponse>> ReviewerReportsGetAsync ();
+        /// <param name="pageNumber"> (optional)</param>
+        /// <param name="pageSize"> (optional)</param>
+        /// <returns>Task of PagingResponseReviewerReportsResponse</returns>
+        System.Threading.Tasks.Task<PagingResponseReviewerReportsResponse> ReviewerReportsGetAsync (int? pageNumber = null, int? pageSize = null);
 
         /// <summary>
         /// 
@@ -289,8 +307,10 @@ namespace IO.Swagger.Api
         /// 
         /// </remarks>
         /// <exception cref="IO.Swagger.Client.ApiException">Thrown when fails to make API call</exception>
-        /// <returns>Task of ApiResponse (List&lt;ReviewerReportsResponse&gt;)</returns>
-        System.Threading.Tasks.Task<ApiResponse<List<ReviewerReportsResponse>>> ReviewerReportsGetAsyncWithHttpInfo ();
+        /// <param name="pageNumber"> (optional)</param>
+        /// <param name="pageSize"> (optional)</param>
+        /// <returns>Task of ApiResponse (PagingResponseReviewerReportsResponse)</returns>
+        System.Threading.Tasks.Task<ApiResponse<PagingResponseReviewerReportsResponse>> ReviewerReportsGetAsyncWithHttpInfo (int? pageNumber = null, int? pageSize = null);
         /// <summary>
         /// Lists all pending review
         /// </summary>
@@ -844,21 +864,28 @@ namespace IO.Swagger.Api
         }
 
         /// <summary>
-        /// Lists all pending reviews 
+        ///  
         /// </summary>
         /// <exception cref="IO.Swagger.Client.ApiException">Thrown when fails to make API call</exception>
-        /// <returns></returns>
-        public void ReviewerPendingReviewsGet ()
+        /// <param name="dashboardName"> (optional)</param>
+        /// <param name="pageNumber"> (optional)</param>
+        /// <param name="pageSize"> (optional)</param>
+        /// <returns>PagingResponseInt32</returns>
+        public PagingResponseInt32 ReviewerPendingReviewsGet (string dashboardName = null, int? pageNumber = null, int? pageSize = null)
         {
-             ReviewerPendingReviewsGetWithHttpInfo();
+             ApiResponse<PagingResponseInt32> localVarResponse = ReviewerPendingReviewsGetWithHttpInfo(dashboardName, pageNumber, pageSize);
+             return localVarResponse.Data;
         }
 
         /// <summary>
-        /// Lists all pending reviews 
+        ///  
         /// </summary>
         /// <exception cref="IO.Swagger.Client.ApiException">Thrown when fails to make API call</exception>
-        /// <returns>ApiResponse of Object(void)</returns>
-        public ApiResponse<Object> ReviewerPendingReviewsGetWithHttpInfo ()
+        /// <param name="dashboardName"> (optional)</param>
+        /// <param name="pageNumber"> (optional)</param>
+        /// <param name="pageSize"> (optional)</param>
+        /// <returns>ApiResponse of PagingResponseInt32</returns>
+        public ApiResponse< PagingResponseInt32 > ReviewerPendingReviewsGetWithHttpInfo (string dashboardName = null, int? pageNumber = null, int? pageSize = null)
         {
 
             var localVarPath = "/Reviewer/PendingReviews";
@@ -876,11 +903,17 @@ namespace IO.Swagger.Api
 
             // to determine the Accept header
             String[] localVarHttpHeaderAccepts = new String[] {
+                "text/plain",
+                "application/json",
+                "text/json"
             };
             String localVarHttpHeaderAccept = Configuration.ApiClient.SelectHeaderAccept(localVarHttpHeaderAccepts);
             if (localVarHttpHeaderAccept != null)
                 localVarHeaderParams.Add("Accept", localVarHttpHeaderAccept);
 
+            if (dashboardName != null) localVarQueryParams.AddRange(Configuration.ApiClient.ParameterToKeyValuePairs("", "dashboardName", dashboardName)); // query parameter
+            if (pageNumber != null) localVarQueryParams.AddRange(Configuration.ApiClient.ParameterToKeyValuePairs("", "PageNumber", pageNumber)); // query parameter
+            if (pageSize != null) localVarQueryParams.AddRange(Configuration.ApiClient.ParameterToKeyValuePairs("", "PageSize", pageSize)); // query parameter
 
 
             // make the HTTP request
@@ -896,28 +929,35 @@ namespace IO.Swagger.Api
                 if (exception != null) throw exception;
             }
 
-            return new ApiResponse<Object>(localVarStatusCode,
+            return new ApiResponse<PagingResponseInt32>(localVarStatusCode,
                 localVarResponse.Headers.ToDictionary(x => x.Name, x => x.Value.ToString()),
-                null);
+                (PagingResponseInt32) Configuration.ApiClient.Deserialize(localVarResponse, typeof(PagingResponseInt32)));
         }
 
         /// <summary>
-        /// Lists all pending reviews 
+        ///  
         /// </summary>
         /// <exception cref="IO.Swagger.Client.ApiException">Thrown when fails to make API call</exception>
-        /// <returns>Task of void</returns>
-        public async System.Threading.Tasks.Task ReviewerPendingReviewsGetAsync ()
+        /// <param name="dashboardName"> (optional)</param>
+        /// <param name="pageNumber"> (optional)</param>
+        /// <param name="pageSize"> (optional)</param>
+        /// <returns>Task of PagingResponseInt32</returns>
+        public async System.Threading.Tasks.Task<PagingResponseInt32> ReviewerPendingReviewsGetAsync (string dashboardName = null, int? pageNumber = null, int? pageSize = null)
         {
-             await ReviewerPendingReviewsGetAsyncWithHttpInfo();
+             ApiResponse<PagingResponseInt32> localVarResponse = await ReviewerPendingReviewsGetAsyncWithHttpInfo(dashboardName, pageNumber, pageSize);
+             return localVarResponse.Data;
 
         }
 
         /// <summary>
-        /// Lists all pending reviews 
+        ///  
         /// </summary>
         /// <exception cref="IO.Swagger.Client.ApiException">Thrown when fails to make API call</exception>
-        /// <returns>Task of ApiResponse</returns>
-        public async System.Threading.Tasks.Task<ApiResponse<Object>> ReviewerPendingReviewsGetAsyncWithHttpInfo ()
+        /// <param name="dashboardName"> (optional)</param>
+        /// <param name="pageNumber"> (optional)</param>
+        /// <param name="pageSize"> (optional)</param>
+        /// <returns>Task of ApiResponse (PagingResponseInt32)</returns>
+        public async System.Threading.Tasks.Task<ApiResponse<PagingResponseInt32>> ReviewerPendingReviewsGetAsyncWithHttpInfo (string dashboardName = null, int? pageNumber = null, int? pageSize = null)
         {
 
             var localVarPath = "/Reviewer/PendingReviews";
@@ -935,11 +975,17 @@ namespace IO.Swagger.Api
 
             // to determine the Accept header
             String[] localVarHttpHeaderAccepts = new String[] {
+                "text/plain",
+                "application/json",
+                "text/json"
             };
             String localVarHttpHeaderAccept = Configuration.ApiClient.SelectHeaderAccept(localVarHttpHeaderAccepts);
             if (localVarHttpHeaderAccept != null)
                 localVarHeaderParams.Add("Accept", localVarHttpHeaderAccept);
 
+            if (dashboardName != null) localVarQueryParams.AddRange(Configuration.ApiClient.ParameterToKeyValuePairs("", "dashboardName", dashboardName)); // query parameter
+            if (pageNumber != null) localVarQueryParams.AddRange(Configuration.ApiClient.ParameterToKeyValuePairs("", "PageNumber", pageNumber)); // query parameter
+            if (pageSize != null) localVarQueryParams.AddRange(Configuration.ApiClient.ParameterToKeyValuePairs("", "PageSize", pageSize)); // query parameter
 
 
             // make the HTTP request
@@ -955,9 +1001,9 @@ namespace IO.Swagger.Api
                 if (exception != null) throw exception;
             }
 
-            return new ApiResponse<Object>(localVarStatusCode,
+            return new ApiResponse<PagingResponseInt32>(localVarStatusCode,
                 localVarResponse.Headers.ToDictionary(x => x.Name, x => x.Value.ToString()),
-                null);
+                (PagingResponseInt32) Configuration.ApiClient.Deserialize(localVarResponse, typeof(PagingResponseInt32)));
         }
 
         /// <summary>
@@ -1101,10 +1147,12 @@ namespace IO.Swagger.Api
         ///  
         /// </summary>
         /// <exception cref="IO.Swagger.Client.ApiException">Thrown when fails to make API call</exception>
-        /// <returns>List&lt;ReviewerReportsResponse&gt;</returns>
-        public List<ReviewerReportsResponse> ReviewerReportsGet ()
+        /// <param name="pageNumber"> (optional)</param>
+        /// <param name="pageSize"> (optional)</param>
+        /// <returns>PagingResponseReviewerReportsResponse</returns>
+        public PagingResponseReviewerReportsResponse ReviewerReportsGet (int? pageNumber = null, int? pageSize = null)
         {
-             ApiResponse<List<ReviewerReportsResponse>> localVarResponse = ReviewerReportsGetWithHttpInfo();
+             ApiResponse<PagingResponseReviewerReportsResponse> localVarResponse = ReviewerReportsGetWithHttpInfo(pageNumber, pageSize);
              return localVarResponse.Data;
         }
 
@@ -1112,8 +1160,10 @@ namespace IO.Swagger.Api
         ///  
         /// </summary>
         /// <exception cref="IO.Swagger.Client.ApiException">Thrown when fails to make API call</exception>
-        /// <returns>ApiResponse of List&lt;ReviewerReportsResponse&gt;</returns>
-        public ApiResponse< List<ReviewerReportsResponse> > ReviewerReportsGetWithHttpInfo ()
+        /// <param name="pageNumber"> (optional)</param>
+        /// <param name="pageSize"> (optional)</param>
+        /// <returns>ApiResponse of PagingResponseReviewerReportsResponse</returns>
+        public ApiResponse< PagingResponseReviewerReportsResponse > ReviewerReportsGetWithHttpInfo (int? pageNumber = null, int? pageSize = null)
         {
 
             var localVarPath = "/Reviewer/Reports";
@@ -1139,6 +1189,8 @@ namespace IO.Swagger.Api
             if (localVarHttpHeaderAccept != null)
                 localVarHeaderParams.Add("Accept", localVarHttpHeaderAccept);
 
+            if (pageNumber != null) localVarQueryParams.AddRange(Configuration.ApiClient.ParameterToKeyValuePairs("", "PageNumber", pageNumber)); // query parameter
+            if (pageSize != null) localVarQueryParams.AddRange(Configuration.ApiClient.ParameterToKeyValuePairs("", "PageSize", pageSize)); // query parameter
 
 
             // make the HTTP request
@@ -1154,19 +1206,21 @@ namespace IO.Swagger.Api
                 if (exception != null) throw exception;
             }
 
-            return new ApiResponse<List<ReviewerReportsResponse>>(localVarStatusCode,
+            return new ApiResponse<PagingResponseReviewerReportsResponse>(localVarStatusCode,
                 localVarResponse.Headers.ToDictionary(x => x.Name, x => x.Value.ToString()),
-                (List<ReviewerReportsResponse>) Configuration.ApiClient.Deserialize(localVarResponse, typeof(List<ReviewerReportsResponse>)));
+                (PagingResponseReviewerReportsResponse) Configuration.ApiClient.Deserialize(localVarResponse, typeof(PagingResponseReviewerReportsResponse)));
         }
 
         /// <summary>
         ///  
         /// </summary>
         /// <exception cref="IO.Swagger.Client.ApiException">Thrown when fails to make API call</exception>
-        /// <returns>Task of List&lt;ReviewerReportsResponse&gt;</returns>
-        public async System.Threading.Tasks.Task<List<ReviewerReportsResponse>> ReviewerReportsGetAsync ()
+        /// <param name="pageNumber"> (optional)</param>
+        /// <param name="pageSize"> (optional)</param>
+        /// <returns>Task of PagingResponseReviewerReportsResponse</returns>
+        public async System.Threading.Tasks.Task<PagingResponseReviewerReportsResponse> ReviewerReportsGetAsync (int? pageNumber = null, int? pageSize = null)
         {
-             ApiResponse<List<ReviewerReportsResponse>> localVarResponse = await ReviewerReportsGetAsyncWithHttpInfo();
+             ApiResponse<PagingResponseReviewerReportsResponse> localVarResponse = await ReviewerReportsGetAsyncWithHttpInfo(pageNumber, pageSize);
              return localVarResponse.Data;
 
         }
@@ -1175,8 +1229,10 @@ namespace IO.Swagger.Api
         ///  
         /// </summary>
         /// <exception cref="IO.Swagger.Client.ApiException">Thrown when fails to make API call</exception>
-        /// <returns>Task of ApiResponse (List&lt;ReviewerReportsResponse&gt;)</returns>
-        public async System.Threading.Tasks.Task<ApiResponse<List<ReviewerReportsResponse>>> ReviewerReportsGetAsyncWithHttpInfo ()
+        /// <param name="pageNumber"> (optional)</param>
+        /// <param name="pageSize"> (optional)</param>
+        /// <returns>Task of ApiResponse (PagingResponseReviewerReportsResponse)</returns>
+        public async System.Threading.Tasks.Task<ApiResponse<PagingResponseReviewerReportsResponse>> ReviewerReportsGetAsyncWithHttpInfo (int? pageNumber = null, int? pageSize = null)
         {
 
             var localVarPath = "/Reviewer/Reports";
@@ -1202,6 +1258,8 @@ namespace IO.Swagger.Api
             if (localVarHttpHeaderAccept != null)
                 localVarHeaderParams.Add("Accept", localVarHttpHeaderAccept);
 
+            if (pageNumber != null) localVarQueryParams.AddRange(Configuration.ApiClient.ParameterToKeyValuePairs("", "PageNumber", pageNumber)); // query parameter
+            if (pageSize != null) localVarQueryParams.AddRange(Configuration.ApiClient.ParameterToKeyValuePairs("", "PageSize", pageSize)); // query parameter
 
 
             // make the HTTP request
@@ -1217,9 +1275,9 @@ namespace IO.Swagger.Api
                 if (exception != null) throw exception;
             }
 
-            return new ApiResponse<List<ReviewerReportsResponse>>(localVarStatusCode,
+            return new ApiResponse<PagingResponseReviewerReportsResponse>(localVarStatusCode,
                 localVarResponse.Headers.ToDictionary(x => x.Name, x => x.Value.ToString()),
-                (List<ReviewerReportsResponse>) Configuration.ApiClient.Deserialize(localVarResponse, typeof(List<ReviewerReportsResponse>)));
+                (PagingResponseReviewerReportsResponse) Configuration.ApiClient.Deserialize(localVarResponse, typeof(PagingResponseReviewerReportsResponse)));
         }
 
         /// <summary>
