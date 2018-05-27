@@ -71,7 +71,7 @@ export class AuthService {
     return {
       RawToken: accessToken,
       TokenData: payload,
-      IsAuthenticated: !!accessToken,
+      IsAuthenticated: !!payload,
       Scopes: scopes,
       Claims: claims,
       GetClaim: getClaim,
