@@ -10,6 +10,7 @@ namespace Higgs.Server.Utilities
         public static void ProcessReport(this HiggsDbContext dbContext, int reportId)
         {
             var report = dbContext.Reports.Where(r => r.Id == reportId)
+                .Include(r => r.AllowedFeedback)
                 .Include(r => r.Feedbacks).ThenInclude(f => f.Feedback)
                 .Include(r => r.ConflictExceptions).ThenInclude(ce => ce.ConflictExceptionFeedbacks)
                 .FirstOrDefault();
@@ -63,7 +64,7 @@ namespace Higgs.Server.Utilities
             }
 
             report.Conflicted = isConflicted;
-            report.RequiresReview = report.Feedbacks.Count(f => f.InvalidatedDate == null && f.Feedback.IsActionable) < actualRequiredReviews;
+            report.RequiresReview = report.AllowedFeedback.Any() && report.Feedbacks.Count(f => f.InvalidatedDate == null && f.Feedback.IsActionable) < actualRequiredReviews;
         }
     }
 }

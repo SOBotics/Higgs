@@ -424,6 +424,7 @@ namespace Higgs.Server.Controllers
         public IActionResult ForceProcessReports()
         {
             var reports = _dbContext.Reports
+                .Include(r => r.AllowedFeedback)
                 .Include(r => r.Feedbacks).ThenInclude(f => f.Feedback)
                 .Include(r => r.ConflictExceptions).ThenInclude(ce => ce.ConflictExceptionFeedbacks)
                 .ToList();

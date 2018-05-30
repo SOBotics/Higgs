@@ -249,8 +249,10 @@ namespace Higgs.Server.Controllers
                     Report = report
                 });
             }
+            
+            _dbContext.SaveChanges();
 
-            ReportProcessor.ProcessReport(report);
+            _dbContext.ProcessReport(report.Id);
 
             _dbContext.SaveChanges();
 
