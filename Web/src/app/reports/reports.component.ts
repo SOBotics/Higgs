@@ -53,8 +53,8 @@ export class ReportsComponent implements OnInit {
       this.filter.pageNumber = +params['pageNumber'] || 1;
       this.filter.content = params['content'];
       this.filter.dashboard = +params['dashboard'] || -1;
-      this.filter.hasFeedback = params['hasFeedback'];
-      this.filter.conflicted = params['conflicted'];
+      this.filter.hasFeedback = params['hasFeedback'] || 'any';
+      this.filter.conflicted = params['conflicted'] || 'any';
 
       const feedbacks = params['feedbacks'];
       this.filter.feedbacks = !feedbacks ? [] : typeof feedbacks === 'string' ? [parseInt(feedbacks, 10)] : feedbacks.map(f => parseInt(f, 10));
