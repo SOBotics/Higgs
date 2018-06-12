@@ -31,10 +31,10 @@ build web:
     paths:
       - Web/dist
 
-deploy server production:
+deploy production:
   environment: production
   stage: deploy
-  when: manual
+  image: node:latest
   only:
     - master
   variables:
@@ -45,11 +45,14 @@ deploy server production:
     - apt-get -qq -y install rsync
     - 'which ssh-agent || ( apt-get update -y && apt-get install openssh-client -y )'
     - eval $(ssh-agent -s)
-    - echo "$SSH_KEY_DEPLOY" > ~/tmpssh
     - mkdir -p ~/.ssh
+    - echo "$SSH_KEY_DEPLOY" > ~/.ssh/id_rsa
+    - chown 400 ~/.ssh/id_rsa
     - ls -la
     - '[[ -f /.dockerenv ]] && echo -e "Host *\n\tStrictHostKeyChecking no\n\n" > ~/.ssh/config'
-    - rsync -az --force --delete --progress -e "ssh -p22 -i ~/tmpssh" Server/Higgs.Server/bin/Release/netcoreapp2.0/publish/* deploy@$PRODUCTION_IP:/var/www/Higgs/Server
-    - "ssh deploy@$PRODUCTION_IP 'cp /var/www/Higgs/appsettings.Production.json /var/www/Higgs/Server/.'"
-    - "ssh deploy@$PRODUCTION_IP 'systemctl restart higgs.service'"
-    - rm tmpssh
+    - "ssh deploy@$PRODUCTION_IP 'mkdir -p /var/www/Higgs/Server'"
+    - rsync -az --force --delete --progress -e "ssh -p22" Server/Higgs.Server/bin/Release/netcoreapp2.0/publish/* deploy@$PRODUCTION_IP:/var/www/Higgs/Server
+    - "ssh deploy@$PRODUCTION_IP 'cp /var/www/Higgs/Configuration/appsettings.Production.json /var/www/Higgs/Server/.'"
+    - "ssh deploy@$PRODUCTION_IP 'sudo systemctl restart higgs.server.service'"
+    - rsync -az --force --delete --progress -e "ssh -p22" Web/dist/* deploy@$PRODUCTION_IP:/var/www/Higgs/Web/dist
+    - rm ~/.ssh/id_rsa

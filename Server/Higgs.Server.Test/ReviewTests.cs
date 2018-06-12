@@ -15,7 +15,8 @@ namespace Higgs.Server.Test
             var report = new DbReport
             {
                 RequiredFeedback = 2,
-                Feedbacks = new List<DbReportFeedback>()
+                Feedbacks = new List<DbReportFeedback>(),
+                AllowedFeedback = new List<DbReportAllowedFeedback> { new DbReportAllowedFeedback() }
             };
             ReportProcessor.ProcessReport(report);
             Assert.AreEqual(true, report.RequiresReview);
@@ -31,7 +32,8 @@ namespace Higgs.Server.Test
                 {
                     new DbReportFeedback { FeedbackId = 1, Feedback = new DbFeedback { IsActionable = true }}
                 },
-                RequiredFeedback = 2
+                RequiredFeedback = 2,
+                AllowedFeedback = new List<DbReportAllowedFeedback> { new DbReportAllowedFeedback() }
             };
             ReportProcessor.ProcessReport(report);
             Assert.AreEqual(true, report.RequiresReview);
@@ -48,7 +50,8 @@ namespace Higgs.Server.Test
                     new DbReportFeedback { FeedbackId = 1, Feedback = new DbFeedback { IsActionable = true } },
                     new DbReportFeedback { FeedbackId = 1, Feedback = new DbFeedback { IsActionable = true } }
                 },
-                RequiredFeedback = 2
+                RequiredFeedback = 2,
+                AllowedFeedback = new List<DbReportAllowedFeedback> { new DbReportAllowedFeedback() }
             };
             ReportProcessor.ProcessReport(report);
             Assert.AreEqual(false, report.RequiresReview);
@@ -65,7 +68,8 @@ namespace Higgs.Server.Test
                     new DbReportFeedback { FeedbackId = 1, Feedback = new DbFeedback { IsActionable = true } },
                     new DbReportFeedback { FeedbackId = 2, Feedback = new DbFeedback { IsActionable = false } },
                 },
-                RequiredFeedback = 2
+                RequiredFeedback = 2,
+                AllowedFeedback = new List<DbReportAllowedFeedback> { new DbReportAllowedFeedback() }
             };
             ReportProcessor.ProcessReport(report);
             Assert.AreEqual(true, report.RequiresReview);
@@ -84,7 +88,8 @@ namespace Higgs.Server.Test
                 },
                 ConflictExceptions = new List<DbConflictException>(),
                 RequiredFeedback = 2,
-                RequiredFeedbackConflicted = 4
+                RequiredFeedbackConflicted = 4,
+                AllowedFeedback = new List<DbReportAllowedFeedback> { new DbReportAllowedFeedback() }
             };
             ReportProcessor.ProcessReport(report);
             Assert.AreEqual(true, report.RequiresReview);
@@ -104,7 +109,8 @@ namespace Higgs.Server.Test
                 },
                 ConflictExceptions = new List<DbConflictException>(),
                 RequiredFeedback = 2,
-                RequiredFeedbackConflicted = 4
+                RequiredFeedbackConflicted = 4,
+                AllowedFeedback = new List<DbReportAllowedFeedback> { new DbReportAllowedFeedback() }
             };
             ReportProcessor.ProcessReport(report);
             Assert.AreEqual(true, report.RequiresReview);
@@ -125,7 +131,8 @@ namespace Higgs.Server.Test
                 },
                 ConflictExceptions = new List<DbConflictException>(),
                 RequiredFeedback = 2,
-                RequiredFeedbackConflicted = 4
+                RequiredFeedbackConflicted = 4,
+                AllowedFeedback = new List<DbReportAllowedFeedback> { new DbReportAllowedFeedback() }
             };
             ReportProcessor.ProcessReport(report);
             Assert.AreEqual(false, report.RequiresReview);
@@ -155,7 +162,8 @@ namespace Higgs.Server.Test
                     }
                 },
                 RequiredFeedback = 2,
-                RequiredFeedbackConflicted = 4
+                RequiredFeedbackConflicted = 4,
+                AllowedFeedback = new List<DbReportAllowedFeedback> { new DbReportAllowedFeedback() }
             };
             ReportProcessor.ProcessReport(report);
             Assert.AreEqual(false, report.RequiresReview);
@@ -188,7 +196,8 @@ namespace Higgs.Server.Test
                     }
                 },
                 RequiredFeedback = 2,
-                RequiredFeedbackConflicted = 4
+                RequiredFeedbackConflicted = 4,
+                AllowedFeedback = new List<DbReportAllowedFeedback> { new DbReportAllowedFeedback() }
             };
             ReportProcessor.ProcessReport(report);
             Assert.AreEqual(true, report.RequiresReview);
@@ -205,7 +214,8 @@ namespace Higgs.Server.Test
                     new DbReportFeedback { FeedbackId = 1, InvalidatedDate = DateTime.UtcNow, Feedback = new DbFeedback { IsActionable = true } },
                     new DbReportFeedback { FeedbackId = 1, Feedback = new DbFeedback { IsActionable = true } }
                 },
-                RequiredFeedback = 2
+                RequiredFeedback = 2,
+                AllowedFeedback = new List<DbReportAllowedFeedback> { new DbReportAllowedFeedback() }
             };
             ReportProcessor.ProcessReport(report);
             Assert.AreEqual(true, report.RequiresReview);
@@ -222,7 +232,8 @@ namespace Higgs.Server.Test
                     new DbReportFeedback { FeedbackId = 1, InvalidatedDate = DateTime.UtcNow, Feedback = new DbFeedback { IsActionable = true } },
                     new DbReportFeedback { FeedbackId = 2, Feedback = new DbFeedback { IsActionable = true } }
                 },
-                RequiredFeedback = 2
+                RequiredFeedback = 2,
+                AllowedFeedback = new List<DbReportAllowedFeedback> { new DbReportAllowedFeedback() }
             };
             ReportProcessor.ProcessReport(report);
             Assert.AreEqual(true, report.RequiresReview);
