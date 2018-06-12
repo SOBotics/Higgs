@@ -74,6 +74,8 @@ namespace Higgs.Server.Controllers
                 reportQuery = reportQuery.Where(r => r.Title.Contains(request.Content));
             if (request.BotId.HasValue) 
                 reportQuery = reportQuery.Where(r => r.BotId == request.BotId.Value);
+            if (request.HasFeedback.HasValue)
+                reportQuery = reportQuery.Where(r => r.Feedbacks.Any());
             if (request.Conflicted.HasValue)
                 reportQuery = reportQuery.Where(r => r.Conflicted == request.Conflicted);
             if (request.Reasons?.Any() ?? false)

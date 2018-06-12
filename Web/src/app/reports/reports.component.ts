@@ -24,6 +24,7 @@ export class ReportsComponent implements OnInit {
     pageNumber: 1,
     content: '' as string,
     dashboard: -1 as number,
+    hasFeedback: 'any' as 'any' | 'yes' | 'no',
     conflicted: 'any' as 'any' | 'yes' | 'no',
     feedbacks: [] as number[],
     reasons: [] as number[]
@@ -82,6 +83,11 @@ export class ReportsComponent implements OnInit {
     const conflicted =
       this.filter.conflicted === 'any' ? null
         : this.filter.conflicted === 'yes' ? true : false;
+
+    const hasFeedback =
+      this.filter.hasFeedback === 'any' ? null
+        : this.filter.hasFeedback === 'yes' ? true : false;
+
     const botId = this.filter.dashboard < 0 ? null : this.filter.dashboard;
 
     this.reviewerService.reviewerReportsGet(
