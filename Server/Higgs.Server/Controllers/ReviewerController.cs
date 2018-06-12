@@ -24,7 +24,7 @@ namespace Higgs.Server.Controllers
         {
             _dbContext = dbContext;
         }
-        
+
         [HttpGet("PendingReviews")]
         public PagingResponse<int> PendingReviews(string dashboardName, PagingRequest pagingRequest)
         {
@@ -34,6 +34,36 @@ namespace Higgs.Server.Controllers
 
             var result = query.Select(r => r.Id).Page(pagingRequest);
             return result;
+        }
+
+        [HttpGet("Dashboards")]
+        public List<ReviewerDashboardsResponse> GetDashboards()
+        {
+            var data =
+                _dbContext.Bots.Select(b => new ReviewerDashboardsResponse { Id = b.Id, Name = b.DashboardName })
+                .ToList();
+
+            return data;
+        }
+
+        [HttpGet("Feedbacks")]
+        public List<ReviewerFeedbacksResponse> GetFeedbacks()
+        {
+            var data =
+                _dbContext.Feedbacks.Select(b => new ReviewerFeedbacksResponse { Id = b.Id, Name = b.Name })
+                .ToList();
+
+            return data;
+        }
+
+        [HttpGet("Reasons")]
+        public List<ReviewerReasonsResponse> GetReasons()
+        {
+            var data =
+                _dbContext.Reasons.Select(b => new ReviewerReasonsResponse { Id = b.Id, Name = b.Name })
+                .ToList();
+
+            return data;
         }
 
         [HttpGet("Reports")]
@@ -90,7 +120,7 @@ namespace Higgs.Server.Controllers
                         .OrderByDescending(r => r.Id)
                         .ToList()
                 };
-            
+
             return result;
         }
 
@@ -197,7 +227,7 @@ namespace Higgs.Server.Controllers
                         ReportId = report.Id,
                         Group = group
                     })
-                .SelectMany(gj => gj.Group.DefaultIfEmpty(), (report, feedback) => new { ReportId = (int?)report.ReportId, FeedbackId = (int?)feedback.Id})
+                .SelectMany(gj => gj.Group.DefaultIfEmpty(), (report, feedback) => new { ReportId = (int?)report.ReportId, FeedbackId = (int?)feedback.Id })
                 .Where(a => a.FeedbackId == null)
                 .Select(a => a.ReportId)
                 .FirstOrDefault();
@@ -223,24 +253,24 @@ namespace Higgs.Server.Controllers
                 throw new HttpStatusException(HttpStatusCode.BadRequest, "Invalid feedback id");
 
             var existingFeedback = _dbContext.ReportFeedbacks.FirstOrDefault(rf => rf.UserId == userId && rf.ReportId == request.ReportId && rf.InvalidatedDate == null);
-            if (existingFeedback != null) 
+            if (existingFeedback != null)
             {
                 // No change
                 if (existingFeedback.FeedbackId == request.FeedbackId)
                     return Ok();
-                    
+
                 existingFeedback.InvalidatedByUserId = userId.Value;
                 existingFeedback.InvalidatedDate = DateTime.UtcNow;
                 existingFeedback.InvalidationReason = "Feedback changed";
             }
-                
+
             _dbContext.ReportFeedbacks.Add(new DbReportFeedback
             {
                 FeedbackId = request.FeedbackId,
                 ReportId = request.ReportId,
                 UserId = userId.Value
             });
-                
+
             _dbContext.SaveChanges();
 
             _dbContext.ProcessReport(request.ReportId);
@@ -259,7 +289,7 @@ namespace Higgs.Server.Controllers
 
             var existingFeedback = _dbContext.ReportFeedbacks.FirstOrDefault(rf => rf.Id == request.FeedbackId && rf.InvalidatedDate == null);
 
-            if (existingFeedback == null) 
+            if (existingFeedback == null)
                 return Ok();
             if (existingFeedback.UserId != userId && !User.HasClaim(Scopes.SCOPE_ROOM_OWNER))
                 throw new HttpStatusException(HttpStatusCode.Unauthorized);
