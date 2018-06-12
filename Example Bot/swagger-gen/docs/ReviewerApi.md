@@ -479,7 +479,7 @@ No authorization required
 
 <a name="reviewerreportsget"></a>
 # **ReviewerReportsGet**
-> PagingResponseReviewerReportsResponse ReviewerReportsGet (string content = null, int? botId = null, bool? conflicted = null, List<int?> feedbacks = null, List<int?> reasons = null, int? pageNumber = null, int? pageSize = null)
+> PagingResponseReviewerReportsResponse ReviewerReportsGet (string content = null, int? botId = null, bool? hasFeedback = null, bool? conflicted = null, List<int?> feedbacks = null, List<int?> reasons = null, int? pageNumber = null, int? pageSize = null)
 
 
 
@@ -500,6 +500,7 @@ namespace Example
             var apiInstance = new ReviewerApi();
             var content = content_example;  // string |  (optional) 
             var botId = 56;  // int? |  (optional) 
+            var hasFeedback = true;  // bool? |  (optional) 
             var conflicted = true;  // bool? |  (optional) 
             var feedbacks = new List<int?>(); // List<int?> |  (optional) 
             var reasons = new List<int?>(); // List<int?> |  (optional) 
@@ -508,7 +509,7 @@ namespace Example
 
             try
             {
-                PagingResponseReviewerReportsResponse result = apiInstance.ReviewerReportsGet(content, botId, conflicted, feedbacks, reasons, pageNumber, pageSize);
+                PagingResponseReviewerReportsResponse result = apiInstance.ReviewerReportsGet(content, botId, hasFeedback, conflicted, feedbacks, reasons, pageNumber, pageSize);
                 Debug.WriteLine(result);
             }
             catch (Exception e)
@@ -526,6 +527,7 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **content** | **string**|  | [optional] 
  **botId** | **int?**|  | [optional] 
+ **hasFeedback** | **bool?**|  | [optional] 
  **conflicted** | **bool?**|  | [optional] 
  **feedbacks** | [**List&lt;int?&gt;**](int?.md)|  | [optional] 
  **reasons** | [**List&lt;int?&gt;**](int?.md)|  | [optional] 

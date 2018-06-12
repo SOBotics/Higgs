@@ -93,6 +93,7 @@ export class ReportsComponent implements OnInit {
     this.reviewerService.reviewerReportsGet(
       this.filter.content,
       botId,
+      hasFeedback,
       conflicted,
       this.filter.feedbacks,
       this.filter.reasons,

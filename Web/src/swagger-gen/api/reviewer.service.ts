@@ -435,6 +435,7 @@ export class ReviewerService {
      * 
      * @param content 
      * @param botId 
+     * @param hasFeedback 
      * @param conflicted 
      * @param feedbacks 
      * @param reasons 
@@ -443,10 +444,10 @@ export class ReviewerService {
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      */
-    public reviewerReportsGet(content?: string, botId?: number, conflicted?: boolean, feedbacks?: Array<number>, reasons?: Array<number>, pageNumber?: number, pageSize?: number, observe?: 'body', reportProgress?: boolean): Observable<PagingResponseReviewerReportsResponse>;
-    public reviewerReportsGet(content?: string, botId?: number, conflicted?: boolean, feedbacks?: Array<number>, reasons?: Array<number>, pageNumber?: number, pageSize?: number, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<PagingResponseReviewerReportsResponse>>;
-    public reviewerReportsGet(content?: string, botId?: number, conflicted?: boolean, feedbacks?: Array<number>, reasons?: Array<number>, pageNumber?: number, pageSize?: number, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<PagingResponseReviewerReportsResponse>>;
-    public reviewerReportsGet(content?: string, botId?: number, conflicted?: boolean, feedbacks?: Array<number>, reasons?: Array<number>, pageNumber?: number, pageSize?: number, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
+    public reviewerReportsGet(content?: string, botId?: number, hasFeedback?: boolean, conflicted?: boolean, feedbacks?: Array<number>, reasons?: Array<number>, pageNumber?: number, pageSize?: number, observe?: 'body', reportProgress?: boolean): Observable<PagingResponseReviewerReportsResponse>;
+    public reviewerReportsGet(content?: string, botId?: number, hasFeedback?: boolean, conflicted?: boolean, feedbacks?: Array<number>, reasons?: Array<number>, pageNumber?: number, pageSize?: number, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<PagingResponseReviewerReportsResponse>>;
+    public reviewerReportsGet(content?: string, botId?: number, hasFeedback?: boolean, conflicted?: boolean, feedbacks?: Array<number>, reasons?: Array<number>, pageNumber?: number, pageSize?: number, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<PagingResponseReviewerReportsResponse>>;
+    public reviewerReportsGet(content?: string, botId?: number, hasFeedback?: boolean, conflicted?: boolean, feedbacks?: Array<number>, reasons?: Array<number>, pageNumber?: number, pageSize?: number, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
 
         let queryParameters = new HttpParams({encoder: new CustomHttpUrlEncodingCodec()});
         if (content !== undefined) {
@@ -454,6 +455,9 @@ export class ReviewerService {
         }
         if (botId !== undefined) {
             queryParameters = queryParameters.set('BotId', <any>botId);
+        }
+        if (hasFeedback !== undefined) {
+            queryParameters = queryParameters.set('HasFeedback', <any>hasFeedback);
         }
         if (conflicted !== undefined) {
             queryParameters = queryParameters.set('Conflicted', <any>conflicted);
