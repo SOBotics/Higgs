@@ -433,17 +433,41 @@ export class ReviewerService {
     /**
      * 
      * 
+     * @param content 
+     * @param botId 
+     * @param conflicted 
+     * @param feedbacks 
+     * @param reasons 
      * @param pageNumber 
      * @param pageSize 
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      */
-    public reviewerReportsGet(pageNumber?: number, pageSize?: number, observe?: 'body', reportProgress?: boolean): Observable<PagingResponseReviewerReportsResponse>;
-    public reviewerReportsGet(pageNumber?: number, pageSize?: number, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<PagingResponseReviewerReportsResponse>>;
-    public reviewerReportsGet(pageNumber?: number, pageSize?: number, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<PagingResponseReviewerReportsResponse>>;
-    public reviewerReportsGet(pageNumber?: number, pageSize?: number, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
+    public reviewerReportsGet(content?: string, botId?: number, conflicted?: boolean, feedbacks?: Array<number>, reasons?: Array<number>, pageNumber?: number, pageSize?: number, observe?: 'body', reportProgress?: boolean): Observable<PagingResponseReviewerReportsResponse>;
+    public reviewerReportsGet(content?: string, botId?: number, conflicted?: boolean, feedbacks?: Array<number>, reasons?: Array<number>, pageNumber?: number, pageSize?: number, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<PagingResponseReviewerReportsResponse>>;
+    public reviewerReportsGet(content?: string, botId?: number, conflicted?: boolean, feedbacks?: Array<number>, reasons?: Array<number>, pageNumber?: number, pageSize?: number, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<PagingResponseReviewerReportsResponse>>;
+    public reviewerReportsGet(content?: string, botId?: number, conflicted?: boolean, feedbacks?: Array<number>, reasons?: Array<number>, pageNumber?: number, pageSize?: number, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
 
         let queryParameters = new HttpParams({encoder: new CustomHttpUrlEncodingCodec()});
+        if (content !== undefined) {
+            queryParameters = queryParameters.set('Content', <any>content);
+        }
+        if (botId !== undefined) {
+            queryParameters = queryParameters.set('BotId', <any>botId);
+        }
+        if (conflicted !== undefined) {
+            queryParameters = queryParameters.set('Conflicted', <any>conflicted);
+        }
+        if (feedbacks) {
+            feedbacks.forEach((element) => {
+                queryParameters = queryParameters.append('Feedbacks', <any>element);
+            })
+        }
+        if (reasons) {
+            reasons.forEach((element) => {
+                queryParameters = queryParameters.append('Reasons', <any>element);
+            })
+        }
         if (pageNumber !== undefined) {
             queryParameters = queryParameters.set('PageNumber', <any>pageNumber);
         }

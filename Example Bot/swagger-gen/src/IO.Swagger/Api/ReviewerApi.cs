@@ -197,10 +197,15 @@ namespace IO.Swagger.Api
         /// 
         /// </remarks>
         /// <exception cref="IO.Swagger.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="content"> (optional)</param>
+        /// <param name="botId"> (optional)</param>
+        /// <param name="conflicted"> (optional)</param>
+        /// <param name="feedbacks"> (optional)</param>
+        /// <param name="reasons"> (optional)</param>
         /// <param name="pageNumber"> (optional)</param>
         /// <param name="pageSize"> (optional)</param>
         /// <returns>PagingResponseReviewerReportsResponse</returns>
-        PagingResponseReviewerReportsResponse ReviewerReportsGet (int? pageNumber = null, int? pageSize = null);
+        PagingResponseReviewerReportsResponse ReviewerReportsGet (string content = null, int? botId = null, bool? conflicted = null, List<int?> feedbacks = null, List<int?> reasons = null, int? pageNumber = null, int? pageSize = null);
 
         /// <summary>
         /// 
@@ -209,10 +214,15 @@ namespace IO.Swagger.Api
         /// 
         /// </remarks>
         /// <exception cref="IO.Swagger.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="content"> (optional)</param>
+        /// <param name="botId"> (optional)</param>
+        /// <param name="conflicted"> (optional)</param>
+        /// <param name="feedbacks"> (optional)</param>
+        /// <param name="reasons"> (optional)</param>
         /// <param name="pageNumber"> (optional)</param>
         /// <param name="pageSize"> (optional)</param>
         /// <returns>ApiResponse of PagingResponseReviewerReportsResponse</returns>
-        ApiResponse<PagingResponseReviewerReportsResponse> ReviewerReportsGetWithHttpInfo (int? pageNumber = null, int? pageSize = null);
+        ApiResponse<PagingResponseReviewerReportsResponse> ReviewerReportsGetWithHttpInfo (string content = null, int? botId = null, bool? conflicted = null, List<int?> feedbacks = null, List<int?> reasons = null, int? pageNumber = null, int? pageSize = null);
         /// <summary>
         /// Lists all pending review
         /// </summary>
@@ -409,10 +419,15 @@ namespace IO.Swagger.Api
         /// 
         /// </remarks>
         /// <exception cref="IO.Swagger.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="content"> (optional)</param>
+        /// <param name="botId"> (optional)</param>
+        /// <param name="conflicted"> (optional)</param>
+        /// <param name="feedbacks"> (optional)</param>
+        /// <param name="reasons"> (optional)</param>
         /// <param name="pageNumber"> (optional)</param>
         /// <param name="pageSize"> (optional)</param>
         /// <returns>Task of PagingResponseReviewerReportsResponse</returns>
-        System.Threading.Tasks.Task<PagingResponseReviewerReportsResponse> ReviewerReportsGetAsync (int? pageNumber = null, int? pageSize = null);
+        System.Threading.Tasks.Task<PagingResponseReviewerReportsResponse> ReviewerReportsGetAsync (string content = null, int? botId = null, bool? conflicted = null, List<int?> feedbacks = null, List<int?> reasons = null, int? pageNumber = null, int? pageSize = null);
 
         /// <summary>
         /// 
@@ -421,10 +436,15 @@ namespace IO.Swagger.Api
         /// 
         /// </remarks>
         /// <exception cref="IO.Swagger.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="content"> (optional)</param>
+        /// <param name="botId"> (optional)</param>
+        /// <param name="conflicted"> (optional)</param>
+        /// <param name="feedbacks"> (optional)</param>
+        /// <param name="reasons"> (optional)</param>
         /// <param name="pageNumber"> (optional)</param>
         /// <param name="pageSize"> (optional)</param>
         /// <returns>Task of ApiResponse (PagingResponseReviewerReportsResponse)</returns>
-        System.Threading.Tasks.Task<ApiResponse<PagingResponseReviewerReportsResponse>> ReviewerReportsGetAsyncWithHttpInfo (int? pageNumber = null, int? pageSize = null);
+        System.Threading.Tasks.Task<ApiResponse<PagingResponseReviewerReportsResponse>> ReviewerReportsGetAsyncWithHttpInfo (string content = null, int? botId = null, bool? conflicted = null, List<int?> feedbacks = null, List<int?> reasons = null, int? pageNumber = null, int? pageSize = null);
         /// <summary>
         /// Lists all pending review
         /// </summary>
@@ -1636,12 +1656,17 @@ namespace IO.Swagger.Api
         ///  
         /// </summary>
         /// <exception cref="IO.Swagger.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="content"> (optional)</param>
+        /// <param name="botId"> (optional)</param>
+        /// <param name="conflicted"> (optional)</param>
+        /// <param name="feedbacks"> (optional)</param>
+        /// <param name="reasons"> (optional)</param>
         /// <param name="pageNumber"> (optional)</param>
         /// <param name="pageSize"> (optional)</param>
         /// <returns>PagingResponseReviewerReportsResponse</returns>
-        public PagingResponseReviewerReportsResponse ReviewerReportsGet (int? pageNumber = null, int? pageSize = null)
+        public PagingResponseReviewerReportsResponse ReviewerReportsGet (string content = null, int? botId = null, bool? conflicted = null, List<int?> feedbacks = null, List<int?> reasons = null, int? pageNumber = null, int? pageSize = null)
         {
-             ApiResponse<PagingResponseReviewerReportsResponse> localVarResponse = ReviewerReportsGetWithHttpInfo(pageNumber, pageSize);
+             ApiResponse<PagingResponseReviewerReportsResponse> localVarResponse = ReviewerReportsGetWithHttpInfo(content, botId, conflicted, feedbacks, reasons, pageNumber, pageSize);
              return localVarResponse.Data;
         }
 
@@ -1649,10 +1674,15 @@ namespace IO.Swagger.Api
         ///  
         /// </summary>
         /// <exception cref="IO.Swagger.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="content"> (optional)</param>
+        /// <param name="botId"> (optional)</param>
+        /// <param name="conflicted"> (optional)</param>
+        /// <param name="feedbacks"> (optional)</param>
+        /// <param name="reasons"> (optional)</param>
         /// <param name="pageNumber"> (optional)</param>
         /// <param name="pageSize"> (optional)</param>
         /// <returns>ApiResponse of PagingResponseReviewerReportsResponse</returns>
-        public ApiResponse< PagingResponseReviewerReportsResponse > ReviewerReportsGetWithHttpInfo (int? pageNumber = null, int? pageSize = null)
+        public ApiResponse< PagingResponseReviewerReportsResponse > ReviewerReportsGetWithHttpInfo (string content = null, int? botId = null, bool? conflicted = null, List<int?> feedbacks = null, List<int?> reasons = null, int? pageNumber = null, int? pageSize = null)
         {
 
             var localVarPath = "/Reviewer/Reports";
@@ -1678,6 +1708,11 @@ namespace IO.Swagger.Api
             if (localVarHttpHeaderAccept != null)
                 localVarHeaderParams.Add("Accept", localVarHttpHeaderAccept);
 
+            if (content != null) localVarQueryParams.AddRange(Configuration.ApiClient.ParameterToKeyValuePairs("", "Content", content)); // query parameter
+            if (botId != null) localVarQueryParams.AddRange(Configuration.ApiClient.ParameterToKeyValuePairs("", "BotId", botId)); // query parameter
+            if (conflicted != null) localVarQueryParams.AddRange(Configuration.ApiClient.ParameterToKeyValuePairs("", "Conflicted", conflicted)); // query parameter
+            if (feedbacks != null) localVarQueryParams.AddRange(Configuration.ApiClient.ParameterToKeyValuePairs("multi", "Feedbacks", feedbacks)); // query parameter
+            if (reasons != null) localVarQueryParams.AddRange(Configuration.ApiClient.ParameterToKeyValuePairs("multi", "Reasons", reasons)); // query parameter
             if (pageNumber != null) localVarQueryParams.AddRange(Configuration.ApiClient.ParameterToKeyValuePairs("", "PageNumber", pageNumber)); // query parameter
             if (pageSize != null) localVarQueryParams.AddRange(Configuration.ApiClient.ParameterToKeyValuePairs("", "PageSize", pageSize)); // query parameter
 
@@ -1704,12 +1739,17 @@ namespace IO.Swagger.Api
         ///  
         /// </summary>
         /// <exception cref="IO.Swagger.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="content"> (optional)</param>
+        /// <param name="botId"> (optional)</param>
+        /// <param name="conflicted"> (optional)</param>
+        /// <param name="feedbacks"> (optional)</param>
+        /// <param name="reasons"> (optional)</param>
         /// <param name="pageNumber"> (optional)</param>
         /// <param name="pageSize"> (optional)</param>
         /// <returns>Task of PagingResponseReviewerReportsResponse</returns>
-        public async System.Threading.Tasks.Task<PagingResponseReviewerReportsResponse> ReviewerReportsGetAsync (int? pageNumber = null, int? pageSize = null)
+        public async System.Threading.Tasks.Task<PagingResponseReviewerReportsResponse> ReviewerReportsGetAsync (string content = null, int? botId = null, bool? conflicted = null, List<int?> feedbacks = null, List<int?> reasons = null, int? pageNumber = null, int? pageSize = null)
         {
-             ApiResponse<PagingResponseReviewerReportsResponse> localVarResponse = await ReviewerReportsGetAsyncWithHttpInfo(pageNumber, pageSize);
+             ApiResponse<PagingResponseReviewerReportsResponse> localVarResponse = await ReviewerReportsGetAsyncWithHttpInfo(content, botId, conflicted, feedbacks, reasons, pageNumber, pageSize);
              return localVarResponse.Data;
 
         }
@@ -1718,10 +1758,15 @@ namespace IO.Swagger.Api
         ///  
         /// </summary>
         /// <exception cref="IO.Swagger.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="content"> (optional)</param>
+        /// <param name="botId"> (optional)</param>
+        /// <param name="conflicted"> (optional)</param>
+        /// <param name="feedbacks"> (optional)</param>
+        /// <param name="reasons"> (optional)</param>
         /// <param name="pageNumber"> (optional)</param>
         /// <param name="pageSize"> (optional)</param>
         /// <returns>Task of ApiResponse (PagingResponseReviewerReportsResponse)</returns>
-        public async System.Threading.Tasks.Task<ApiResponse<PagingResponseReviewerReportsResponse>> ReviewerReportsGetAsyncWithHttpInfo (int? pageNumber = null, int? pageSize = null)
+        public async System.Threading.Tasks.Task<ApiResponse<PagingResponseReviewerReportsResponse>> ReviewerReportsGetAsyncWithHttpInfo (string content = null, int? botId = null, bool? conflicted = null, List<int?> feedbacks = null, List<int?> reasons = null, int? pageNumber = null, int? pageSize = null)
         {
 
             var localVarPath = "/Reviewer/Reports";
@@ -1747,6 +1792,11 @@ namespace IO.Swagger.Api
             if (localVarHttpHeaderAccept != null)
                 localVarHeaderParams.Add("Accept", localVarHttpHeaderAccept);
 
+            if (content != null) localVarQueryParams.AddRange(Configuration.ApiClient.ParameterToKeyValuePairs("", "Content", content)); // query parameter
+            if (botId != null) localVarQueryParams.AddRange(Configuration.ApiClient.ParameterToKeyValuePairs("", "BotId", botId)); // query parameter
+            if (conflicted != null) localVarQueryParams.AddRange(Configuration.ApiClient.ParameterToKeyValuePairs("", "Conflicted", conflicted)); // query parameter
+            if (feedbacks != null) localVarQueryParams.AddRange(Configuration.ApiClient.ParameterToKeyValuePairs("multi", "Feedbacks", feedbacks)); // query parameter
+            if (reasons != null) localVarQueryParams.AddRange(Configuration.ApiClient.ParameterToKeyValuePairs("multi", "Reasons", reasons)); // query parameter
             if (pageNumber != null) localVarQueryParams.AddRange(Configuration.ApiClient.ParameterToKeyValuePairs("", "PageNumber", pageNumber)); // query parameter
             if (pageSize != null) localVarQueryParams.AddRange(Configuration.ApiClient.ParameterToKeyValuePairs("", "PageSize", pageSize)); // query parameter
 

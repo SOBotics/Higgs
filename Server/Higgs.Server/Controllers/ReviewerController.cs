@@ -71,15 +71,15 @@ namespace Higgs.Server.Controllers
         {
             IQueryable<DbReport> reportQuery = _dbContext.Reports;
             if (!string.IsNullOrWhiteSpace(request.Content))
-                reportQuery = reportQuery.Where(r => request.Content.Contains(r.Title));
+                reportQuery = reportQuery.Where(r => r.Title.Contains(request.Content));
             if (request.BotId.HasValue) 
                 reportQuery = reportQuery.Where(r => r.BotId == request.BotId.Value);
             if (request.Conflicted.HasValue)
                 reportQuery = reportQuery.Where(r => r.Conflicted == request.Conflicted);
             if (request.Reasons?.Any() ?? false)
-                reportQuery = reportQuery.Where(r => r.Reasons.Any(reason => request.Reasons.Contains(reason.Id)));
+                reportQuery = reportQuery.Where(r => r.Reasons.Any(reportReason => request.Reasons.Contains(reportReason.ReasonId)));
             if (request.Feedbacks?.Any() ?? false)
-                reportQuery = reportQuery.Where(r => r.Feedbacks.Any(feedback => request.Feedbacks.Contains(feedback.Id)));
+                reportQuery = reportQuery.Where(r => r.Feedbacks.Any(reportFeedback => request.Feedbacks.Contains(reportFeedback.FeedbackId)));
                         
             var pagedReportData = reportQuery
                 .Select(r => new

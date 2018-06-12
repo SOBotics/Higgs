@@ -22,11 +22,11 @@ export class ReportsComponent implements OnInit {
 
   public filter = {
     pageNumber: 1,
-    content: 'hello' as string,
+    content: '' as string,
     dashboard: -1 as number,
     conflicted: 'any' as 'any' | 'yes' | 'no',
-    feedbacks: [31] as number[],
-    reasons: [3] as number[]
+    feedbacks: [] as number[],
+    reasons: [] as number[]
   };
 
   constructor(
@@ -79,7 +79,19 @@ export class ReportsComponent implements OnInit {
   }
 
   public reloadData() {
-    this.reviewerService.reviewerReportsGet(this.filter.pageNumber, 50)
-      .subscribe(response => this.reportsResponse = response);
+    const conflicted =
+      this.filter.conflicted === 'any' ? null
+        : this.filter.conflicted === 'yes' ? true : false;
+    const botId = this.filter.dashboard < 0 ? null : this.filter.dashboard;
+
+    this.reviewerService.reviewerReportsGet(
+      this.filter.content,
+      botId,
+      conflicted,
+      this.filter.feedbacks,
+      this.filter.reasons,
+      this.filter.pageNumber,
+      50
+    ).subscribe(response => this.reportsResponse = response);
   }
 }
