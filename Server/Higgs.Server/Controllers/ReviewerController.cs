@@ -76,12 +76,11 @@ namespace Higgs.Server.Controllers
                 reportQuery = reportQuery.Where(r => r.BotId == request.BotId.Value);
             if (request.Conflicted.HasValue)
                 reportQuery = reportQuery.Where(r => r.Conflicted == request.Conflicted);
-
-            // Todo: filter by reason/feedback
-
-            // if (request.Reasons?.Any() ?? false)
-            // if (request.Feedbacks?.Any() ?? false)
-            
+            if (request.Reasons?.Any() ?? false)
+                reportQuery = reportQuery.Where(r => r.Reasons.Any(reason => request.Reasons.Contains(reason.Id)));
+            if (request.Feedbacks?.Any() ?? false)
+                reportQuery = reportQuery.Where(r => r.Feedbacks.Any(feedback => request.Feedbacks.Contains(feedback.Id)));
+                        
             var pagedReportData = reportQuery
                 .Select(r => new
                 {
