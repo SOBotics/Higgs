@@ -2,3 +2,8 @@ body {
     position: relative;
     min-height: 100vh;
 }
+
+ss-multiselect-dropdown > div,
+ss-multiselect-dropdown > div > button, {
+    width: 100%;
+}

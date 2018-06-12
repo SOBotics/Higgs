@@ -22,6 +22,9 @@ import { ClearFeedbackRequest } from '../model/clearFeedbackRequest';
 import { PagingResponseInt32 } from '../model/pagingResponseInt32';
 import { PagingResponseReviewerReportsResponse } from '../model/pagingResponseReviewerReportsResponse';
 import { ReviewerCheckResponse } from '../model/reviewerCheckResponse';
+import { ReviewerDashboardsResponse } from '../model/reviewerDashboardsResponse';
+import { ReviewerFeedbacksResponse } from '../model/reviewerFeedbacksResponse';
+import { ReviewerReasonsResponse } from '../model/reviewerReasonsResponse';
 import { ReviewerReportResponse } from '../model/reviewerReportResponse';
 import { SendFeedbackRequest } from '../model/sendFeedbackRequest';
 
@@ -162,6 +165,82 @@ export class ReviewerService {
     /**
      * 
      * 
+     * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
+     * @param reportProgress flag to report request and response progress.
+     */
+    public reviewerDashboardsGet(observe?: 'body', reportProgress?: boolean): Observable<Array<ReviewerDashboardsResponse>>;
+    public reviewerDashboardsGet(observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<Array<ReviewerDashboardsResponse>>>;
+    public reviewerDashboardsGet(observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<Array<ReviewerDashboardsResponse>>>;
+    public reviewerDashboardsGet(observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
+
+        let headers = this.defaultHeaders;
+
+        // to determine the Accept header
+        let httpHeaderAccepts: string[] = [
+            'text/plain',
+            'application/json',
+            'text/json'
+        ];
+        let httpHeaderAcceptSelected: string | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
+        if (httpHeaderAcceptSelected != undefined) {
+            headers = headers.set("Accept", httpHeaderAcceptSelected);
+        }
+
+        // to determine the Content-Type header
+        let consumes: string[] = [
+        ];
+
+        return this.httpClient.get<Array<ReviewerDashboardsResponse>>(`${this.basePath}/Reviewer/Dashboards`,
+            {
+                withCredentials: this.configuration.withCredentials,
+                headers: headers,
+                observe: observe,
+                reportProgress: reportProgress
+            }
+        );
+    }
+
+    /**
+     * 
+     * 
+     * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
+     * @param reportProgress flag to report request and response progress.
+     */
+    public reviewerFeedbacksGet(observe?: 'body', reportProgress?: boolean): Observable<Array<ReviewerFeedbacksResponse>>;
+    public reviewerFeedbacksGet(observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<Array<ReviewerFeedbacksResponse>>>;
+    public reviewerFeedbacksGet(observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<Array<ReviewerFeedbacksResponse>>>;
+    public reviewerFeedbacksGet(observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
+
+        let headers = this.defaultHeaders;
+
+        // to determine the Accept header
+        let httpHeaderAccepts: string[] = [
+            'text/plain',
+            'application/json',
+            'text/json'
+        ];
+        let httpHeaderAcceptSelected: string | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
+        if (httpHeaderAcceptSelected != undefined) {
+            headers = headers.set("Accept", httpHeaderAcceptSelected);
+        }
+
+        // to determine the Content-Type header
+        let consumes: string[] = [
+        ];
+
+        return this.httpClient.get<Array<ReviewerFeedbacksResponse>>(`${this.basePath}/Reviewer/Feedbacks`,
+            {
+                withCredentials: this.configuration.withCredentials,
+                headers: headers,
+                observe: observe,
+                reportProgress: reportProgress
+            }
+        );
+    }
+
+    /**
+     * 
+     * 
      * @param lastId 
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
@@ -257,6 +336,44 @@ export class ReviewerService {
         return this.httpClient.get<PagingResponseInt32>(`${this.basePath}/Reviewer/PendingReviews`,
             {
                 params: queryParameters,
+                withCredentials: this.configuration.withCredentials,
+                headers: headers,
+                observe: observe,
+                reportProgress: reportProgress
+            }
+        );
+    }
+
+    /**
+     * 
+     * 
+     * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
+     * @param reportProgress flag to report request and response progress.
+     */
+    public reviewerReasonsGet(observe?: 'body', reportProgress?: boolean): Observable<Array<ReviewerReasonsResponse>>;
+    public reviewerReasonsGet(observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<Array<ReviewerReasonsResponse>>>;
+    public reviewerReasonsGet(observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<Array<ReviewerReasonsResponse>>>;
+    public reviewerReasonsGet(observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
+
+        let headers = this.defaultHeaders;
+
+        // to determine the Accept header
+        let httpHeaderAccepts: string[] = [
+            'text/plain',
+            'application/json',
+            'text/json'
+        ];
+        let httpHeaderAcceptSelected: string | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
+        if (httpHeaderAcceptSelected != undefined) {
+            headers = headers.set("Accept", httpHeaderAcceptSelected);
+        }
+
+        // to determine the Content-Type header
+        let consumes: string[] = [
+        ];
+
+        return this.httpClient.get<Array<ReviewerReasonsResponse>>(`${this.basePath}/Reviewer/Reasons`,
+            {
                 withCredentials: this.configuration.withCredentials,
                 headers: headers,
                 observe: observe,

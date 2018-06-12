@@ -67,10 +67,22 @@ namespace Higgs.Server.Controllers
         }
 
         [HttpGet("Reports")]
-        public PagingResponse<ReviewerReportsResponse> Reports(PagingRequest request)
+        public PagingResponse<ReviewerReportsResponse> Reports(ReportsRequest request)
         {
-            // We're writing two queries, otherwise EFCore hits the N+1 problem
-            var pagedReportData = _dbContext.Reports
+            IQueryable<DbReport> reportQuery = _dbContext.Reports;
+            if (!string.IsNullOrWhiteSpace(request.Content))
+                reportQuery = reportQuery.Where(r => request.Content.Contains(r.Title));
+            if (request.BotId.HasValue) 
+                reportQuery = reportQuery.Where(r => r.BotId == request.BotId.Value);
+            if (request.Conflicted.HasValue)
+                reportQuery = reportQuery.Where(r => r.Conflicted == request.Conflicted);
+
+            // Todo: filter by reason/feedback
+
+            // if (request.Reasons?.Any() ?? false)
+            // if (request.Feedbacks?.Any() ?? false)
+            
+            var pagedReportData = reportQuery
                 .Select(r => new
                 {
                     r.Id,

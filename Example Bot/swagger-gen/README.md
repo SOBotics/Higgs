@@ -123,8 +123,11 @@ Class | Method | HTTP request | Description
 *FileApi* | [**FilePost**](docs/FileApi.md#filepost) | **POST** /File | 
 *ReviewerApi* | [**ReviewerCheckGet**](docs/ReviewerApi.md#reviewercheckget) | **GET** /Reviewer/Check | 
 *ReviewerApi* | [**ReviewerClearFeedbackPost**](docs/ReviewerApi.md#reviewerclearfeedbackpost) | **POST** /Reviewer/ClearFeedback | 
+*ReviewerApi* | [**ReviewerDashboardsGet**](docs/ReviewerApi.md#reviewerdashboardsget) | **GET** /Reviewer/Dashboards | 
+*ReviewerApi* | [**ReviewerFeedbacksGet**](docs/ReviewerApi.md#reviewerfeedbacksget) | **GET** /Reviewer/Feedbacks | 
 *ReviewerApi* | [**ReviewerNextReviewGet**](docs/ReviewerApi.md#reviewernextreviewget) | **GET** /Reviewer/NextReview | 
 *ReviewerApi* | [**ReviewerPendingReviewsGet**](docs/ReviewerApi.md#reviewerpendingreviewsget) | **GET** /Reviewer/PendingReviews | 
+*ReviewerApi* | [**ReviewerReasonsGet**](docs/ReviewerApi.md#reviewerreasonsget) | **GET** /Reviewer/Reasons | 
 *ReviewerApi* | [**ReviewerReportGet**](docs/ReviewerApi.md#reviewerreportget) | **GET** /Reviewer/Report | 
 *ReviewerApi* | [**ReviewerReportsGet**](docs/ReviewerApi.md#reviewerreportsget) | **GET** /Reviewer/Reports | 
 *ReviewerApi* | [**ReviewerSendFeedbackPost**](docs/ReviewerApi.md#reviewersendfeedbackpost) | **POST** /Reviewer/SendFeedback | Lists all pending review
@@ -161,6 +164,9 @@ Class | Method | HTTP request | Description
  - [Model.ReportsOverTimeResponse](docs/ReportsOverTimeResponse.md)
  - [Model.ReportsTotalResponse](docs/ReportsTotalResponse.md)
  - [Model.ReviewerCheckResponse](docs/ReviewerCheckResponse.md)
+ - [Model.ReviewerDashboardsResponse](docs/ReviewerDashboardsResponse.md)
+ - [Model.ReviewerFeedbacksResponse](docs/ReviewerFeedbacksResponse.md)
+ - [Model.ReviewerReasonsResponse](docs/ReviewerReasonsResponse.md)
  - [Model.ReviewerReportAllowedFeedbackResponse](docs/ReviewerReportAllowedFeedbackResponse.md)
  - [Model.ReviewerReportContentFragmentResponse](docs/ReviewerReportContentFragmentResponse.md)
  - [Model.ReviewerReportFeedbackResponse](docs/ReviewerReportFeedbackResponse.md)
@@ -180,7 +186,7 @@ Class | Method | HTTP request | Description
 
 - **Type**: OAuth
 - **Flow**: implicit
-- **Authorization URL**: http://localhost:50192/Authentication/Login
+- **Authorization URL**: http://api.higgs.sobotics.org/Authentication/Login
 - **Scopes**: 
   - admin: Admin
   - room_owner: room_owner

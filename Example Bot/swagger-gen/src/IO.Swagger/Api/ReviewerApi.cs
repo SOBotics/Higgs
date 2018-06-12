@@ -73,6 +73,44 @@ namespace IO.Swagger.Api
         /// 
         /// </remarks>
         /// <exception cref="IO.Swagger.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <returns>List&lt;ReviewerDashboardsResponse&gt;</returns>
+        List<ReviewerDashboardsResponse> ReviewerDashboardsGet ();
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <remarks>
+        /// 
+        /// </remarks>
+        /// <exception cref="IO.Swagger.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <returns>ApiResponse of List&lt;ReviewerDashboardsResponse&gt;</returns>
+        ApiResponse<List<ReviewerDashboardsResponse>> ReviewerDashboardsGetWithHttpInfo ();
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <remarks>
+        /// 
+        /// </remarks>
+        /// <exception cref="IO.Swagger.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <returns>List&lt;ReviewerFeedbacksResponse&gt;</returns>
+        List<ReviewerFeedbacksResponse> ReviewerFeedbacksGet ();
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <remarks>
+        /// 
+        /// </remarks>
+        /// <exception cref="IO.Swagger.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <returns>ApiResponse of List&lt;ReviewerFeedbacksResponse&gt;</returns>
+        ApiResponse<List<ReviewerFeedbacksResponse>> ReviewerFeedbacksGetWithHttpInfo ();
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <remarks>
+        /// 
+        /// </remarks>
+        /// <exception cref="IO.Swagger.Client.ApiException">Thrown when fails to make API call</exception>
         /// <param name="lastId"> (optional)</param>
         /// <returns>ReviewerReportResponse</returns>
         ReviewerReportResponse ReviewerNextReviewGet (int? lastId = null);
@@ -112,6 +150,25 @@ namespace IO.Swagger.Api
         /// <param name="pageSize"> (optional)</param>
         /// <returns>ApiResponse of PagingResponseInt32</returns>
         ApiResponse<PagingResponseInt32> ReviewerPendingReviewsGetWithHttpInfo (string dashboardName = null, int? pageNumber = null, int? pageSize = null);
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <remarks>
+        /// 
+        /// </remarks>
+        /// <exception cref="IO.Swagger.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <returns>List&lt;ReviewerReasonsResponse&gt;</returns>
+        List<ReviewerReasonsResponse> ReviewerReasonsGet ();
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <remarks>
+        /// 
+        /// </remarks>
+        /// <exception cref="IO.Swagger.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <returns>ApiResponse of List&lt;ReviewerReasonsResponse&gt;</returns>
+        ApiResponse<List<ReviewerReasonsResponse>> ReviewerReasonsGetWithHttpInfo ();
         /// <summary>
         /// 
         /// </summary>
@@ -228,6 +285,44 @@ namespace IO.Swagger.Api
         /// 
         /// </remarks>
         /// <exception cref="IO.Swagger.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <returns>Task of List&lt;ReviewerDashboardsResponse&gt;</returns>
+        System.Threading.Tasks.Task<List<ReviewerDashboardsResponse>> ReviewerDashboardsGetAsync ();
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <remarks>
+        /// 
+        /// </remarks>
+        /// <exception cref="IO.Swagger.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <returns>Task of ApiResponse (List&lt;ReviewerDashboardsResponse&gt;)</returns>
+        System.Threading.Tasks.Task<ApiResponse<List<ReviewerDashboardsResponse>>> ReviewerDashboardsGetAsyncWithHttpInfo ();
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <remarks>
+        /// 
+        /// </remarks>
+        /// <exception cref="IO.Swagger.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <returns>Task of List&lt;ReviewerFeedbacksResponse&gt;</returns>
+        System.Threading.Tasks.Task<List<ReviewerFeedbacksResponse>> ReviewerFeedbacksGetAsync ();
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <remarks>
+        /// 
+        /// </remarks>
+        /// <exception cref="IO.Swagger.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <returns>Task of ApiResponse (List&lt;ReviewerFeedbacksResponse&gt;)</returns>
+        System.Threading.Tasks.Task<ApiResponse<List<ReviewerFeedbacksResponse>>> ReviewerFeedbacksGetAsyncWithHttpInfo ();
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <remarks>
+        /// 
+        /// </remarks>
+        /// <exception cref="IO.Swagger.Client.ApiException">Thrown when fails to make API call</exception>
         /// <param name="lastId"> (optional)</param>
         /// <returns>Task of ReviewerReportResponse</returns>
         System.Threading.Tasks.Task<ReviewerReportResponse> ReviewerNextReviewGetAsync (int? lastId = null);
@@ -267,6 +362,25 @@ namespace IO.Swagger.Api
         /// <param name="pageSize"> (optional)</param>
         /// <returns>Task of ApiResponse (PagingResponseInt32)</returns>
         System.Threading.Tasks.Task<ApiResponse<PagingResponseInt32>> ReviewerPendingReviewsGetAsyncWithHttpInfo (string dashboardName = null, int? pageNumber = null, int? pageSize = null);
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <remarks>
+        /// 
+        /// </remarks>
+        /// <exception cref="IO.Swagger.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <returns>Task of List&lt;ReviewerReasonsResponse&gt;</returns>
+        System.Threading.Tasks.Task<List<ReviewerReasonsResponse>> ReviewerReasonsGetAsync ();
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <remarks>
+        /// 
+        /// </remarks>
+        /// <exception cref="IO.Swagger.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <returns>Task of ApiResponse (List&lt;ReviewerReasonsResponse&gt;)</returns>
+        System.Threading.Tasks.Task<ApiResponse<List<ReviewerReasonsResponse>>> ReviewerReasonsGetAsyncWithHttpInfo ();
         /// <summary>
         /// 
         /// </summary>
@@ -724,6 +838,256 @@ namespace IO.Swagger.Api
         ///  
         /// </summary>
         /// <exception cref="IO.Swagger.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <returns>List&lt;ReviewerDashboardsResponse&gt;</returns>
+        public List<ReviewerDashboardsResponse> ReviewerDashboardsGet ()
+        {
+             ApiResponse<List<ReviewerDashboardsResponse>> localVarResponse = ReviewerDashboardsGetWithHttpInfo();
+             return localVarResponse.Data;
+        }
+
+        /// <summary>
+        ///  
+        /// </summary>
+        /// <exception cref="IO.Swagger.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <returns>ApiResponse of List&lt;ReviewerDashboardsResponse&gt;</returns>
+        public ApiResponse< List<ReviewerDashboardsResponse> > ReviewerDashboardsGetWithHttpInfo ()
+        {
+
+            var localVarPath = "/Reviewer/Dashboards";
+            var localVarPathParams = new Dictionary<String, String>();
+            var localVarQueryParams = new List<KeyValuePair<String, String>>();
+            var localVarHeaderParams = new Dictionary<String, String>(Configuration.DefaultHeader);
+            var localVarFormParams = new Dictionary<String, String>();
+            var localVarFileParams = new Dictionary<String, FileParameter>();
+            Object localVarPostBody = null;
+
+            // to determine the Content-Type header
+            String[] localVarHttpContentTypes = new String[] {
+            };
+            String localVarHttpContentType = Configuration.ApiClient.SelectHeaderContentType(localVarHttpContentTypes);
+
+            // to determine the Accept header
+            String[] localVarHttpHeaderAccepts = new String[] {
+                "text/plain",
+                "application/json",
+                "text/json"
+            };
+            String localVarHttpHeaderAccept = Configuration.ApiClient.SelectHeaderAccept(localVarHttpHeaderAccepts);
+            if (localVarHttpHeaderAccept != null)
+                localVarHeaderParams.Add("Accept", localVarHttpHeaderAccept);
+
+
+
+            // make the HTTP request
+            IRestResponse localVarResponse = (IRestResponse) Configuration.ApiClient.CallApi(localVarPath,
+                Method.GET, localVarQueryParams, localVarPostBody, localVarHeaderParams, localVarFormParams, localVarFileParams,
+                localVarPathParams, localVarHttpContentType);
+
+            int localVarStatusCode = (int) localVarResponse.StatusCode;
+
+            if (ExceptionFactory != null)
+            {
+                Exception exception = ExceptionFactory("ReviewerDashboardsGet", localVarResponse);
+                if (exception != null) throw exception;
+            }
+
+            return new ApiResponse<List<ReviewerDashboardsResponse>>(localVarStatusCode,
+                localVarResponse.Headers.ToDictionary(x => x.Name, x => x.Value.ToString()),
+                (List<ReviewerDashboardsResponse>) Configuration.ApiClient.Deserialize(localVarResponse, typeof(List<ReviewerDashboardsResponse>)));
+        }
+
+        /// <summary>
+        ///  
+        /// </summary>
+        /// <exception cref="IO.Swagger.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <returns>Task of List&lt;ReviewerDashboardsResponse&gt;</returns>
+        public async System.Threading.Tasks.Task<List<ReviewerDashboardsResponse>> ReviewerDashboardsGetAsync ()
+        {
+             ApiResponse<List<ReviewerDashboardsResponse>> localVarResponse = await ReviewerDashboardsGetAsyncWithHttpInfo();
+             return localVarResponse.Data;
+
+        }
+
+        /// <summary>
+        ///  
+        /// </summary>
+        /// <exception cref="IO.Swagger.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <returns>Task of ApiResponse (List&lt;ReviewerDashboardsResponse&gt;)</returns>
+        public async System.Threading.Tasks.Task<ApiResponse<List<ReviewerDashboardsResponse>>> ReviewerDashboardsGetAsyncWithHttpInfo ()
+        {
+
+            var localVarPath = "/Reviewer/Dashboards";
+            var localVarPathParams = new Dictionary<String, String>();
+            var localVarQueryParams = new List<KeyValuePair<String, String>>();
+            var localVarHeaderParams = new Dictionary<String, String>(Configuration.DefaultHeader);
+            var localVarFormParams = new Dictionary<String, String>();
+            var localVarFileParams = new Dictionary<String, FileParameter>();
+            Object localVarPostBody = null;
+
+            // to determine the Content-Type header
+            String[] localVarHttpContentTypes = new String[] {
+            };
+            String localVarHttpContentType = Configuration.ApiClient.SelectHeaderContentType(localVarHttpContentTypes);
+
+            // to determine the Accept header
+            String[] localVarHttpHeaderAccepts = new String[] {
+                "text/plain",
+                "application/json",
+                "text/json"
+            };
+            String localVarHttpHeaderAccept = Configuration.ApiClient.SelectHeaderAccept(localVarHttpHeaderAccepts);
+            if (localVarHttpHeaderAccept != null)
+                localVarHeaderParams.Add("Accept", localVarHttpHeaderAccept);
+
+
+
+            // make the HTTP request
+            IRestResponse localVarResponse = (IRestResponse) await Configuration.ApiClient.CallApiAsync(localVarPath,
+                Method.GET, localVarQueryParams, localVarPostBody, localVarHeaderParams, localVarFormParams, localVarFileParams,
+                localVarPathParams, localVarHttpContentType);
+
+            int localVarStatusCode = (int) localVarResponse.StatusCode;
+
+            if (ExceptionFactory != null)
+            {
+                Exception exception = ExceptionFactory("ReviewerDashboardsGet", localVarResponse);
+                if (exception != null) throw exception;
+            }
+
+            return new ApiResponse<List<ReviewerDashboardsResponse>>(localVarStatusCode,
+                localVarResponse.Headers.ToDictionary(x => x.Name, x => x.Value.ToString()),
+                (List<ReviewerDashboardsResponse>) Configuration.ApiClient.Deserialize(localVarResponse, typeof(List<ReviewerDashboardsResponse>)));
+        }
+
+        /// <summary>
+        ///  
+        /// </summary>
+        /// <exception cref="IO.Swagger.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <returns>List&lt;ReviewerFeedbacksResponse&gt;</returns>
+        public List<ReviewerFeedbacksResponse> ReviewerFeedbacksGet ()
+        {
+             ApiResponse<List<ReviewerFeedbacksResponse>> localVarResponse = ReviewerFeedbacksGetWithHttpInfo();
+             return localVarResponse.Data;
+        }
+
+        /// <summary>
+        ///  
+        /// </summary>
+        /// <exception cref="IO.Swagger.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <returns>ApiResponse of List&lt;ReviewerFeedbacksResponse&gt;</returns>
+        public ApiResponse< List<ReviewerFeedbacksResponse> > ReviewerFeedbacksGetWithHttpInfo ()
+        {
+
+            var localVarPath = "/Reviewer/Feedbacks";
+            var localVarPathParams = new Dictionary<String, String>();
+            var localVarQueryParams = new List<KeyValuePair<String, String>>();
+            var localVarHeaderParams = new Dictionary<String, String>(Configuration.DefaultHeader);
+            var localVarFormParams = new Dictionary<String, String>();
+            var localVarFileParams = new Dictionary<String, FileParameter>();
+            Object localVarPostBody = null;
+
+            // to determine the Content-Type header
+            String[] localVarHttpContentTypes = new String[] {
+            };
+            String localVarHttpContentType = Configuration.ApiClient.SelectHeaderContentType(localVarHttpContentTypes);
+
+            // to determine the Accept header
+            String[] localVarHttpHeaderAccepts = new String[] {
+                "text/plain",
+                "application/json",
+                "text/json"
+            };
+            String localVarHttpHeaderAccept = Configuration.ApiClient.SelectHeaderAccept(localVarHttpHeaderAccepts);
+            if (localVarHttpHeaderAccept != null)
+                localVarHeaderParams.Add("Accept", localVarHttpHeaderAccept);
+
+
+
+            // make the HTTP request
+            IRestResponse localVarResponse = (IRestResponse) Configuration.ApiClient.CallApi(localVarPath,
+                Method.GET, localVarQueryParams, localVarPostBody, localVarHeaderParams, localVarFormParams, localVarFileParams,
+                localVarPathParams, localVarHttpContentType);
+
+            int localVarStatusCode = (int) localVarResponse.StatusCode;
+
+            if (ExceptionFactory != null)
+            {
+                Exception exception = ExceptionFactory("ReviewerFeedbacksGet", localVarResponse);
+                if (exception != null) throw exception;
+            }
+
+            return new ApiResponse<List<ReviewerFeedbacksResponse>>(localVarStatusCode,
+                localVarResponse.Headers.ToDictionary(x => x.Name, x => x.Value.ToString()),
+                (List<ReviewerFeedbacksResponse>) Configuration.ApiClient.Deserialize(localVarResponse, typeof(List<ReviewerFeedbacksResponse>)));
+        }
+
+        /// <summary>
+        ///  
+        /// </summary>
+        /// <exception cref="IO.Swagger.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <returns>Task of List&lt;ReviewerFeedbacksResponse&gt;</returns>
+        public async System.Threading.Tasks.Task<List<ReviewerFeedbacksResponse>> ReviewerFeedbacksGetAsync ()
+        {
+             ApiResponse<List<ReviewerFeedbacksResponse>> localVarResponse = await ReviewerFeedbacksGetAsyncWithHttpInfo();
+             return localVarResponse.Data;
+
+        }
+
+        /// <summary>
+        ///  
+        /// </summary>
+        /// <exception cref="IO.Swagger.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <returns>Task of ApiResponse (List&lt;ReviewerFeedbacksResponse&gt;)</returns>
+        public async System.Threading.Tasks.Task<ApiResponse<List<ReviewerFeedbacksResponse>>> ReviewerFeedbacksGetAsyncWithHttpInfo ()
+        {
+
+            var localVarPath = "/Reviewer/Feedbacks";
+            var localVarPathParams = new Dictionary<String, String>();
+            var localVarQueryParams = new List<KeyValuePair<String, String>>();
+            var localVarHeaderParams = new Dictionary<String, String>(Configuration.DefaultHeader);
+            var localVarFormParams = new Dictionary<String, String>();
+            var localVarFileParams = new Dictionary<String, FileParameter>();
+            Object localVarPostBody = null;
+
+            // to determine the Content-Type header
+            String[] localVarHttpContentTypes = new String[] {
+            };
+            String localVarHttpContentType = Configuration.ApiClient.SelectHeaderContentType(localVarHttpContentTypes);
+
+            // to determine the Accept header
+            String[] localVarHttpHeaderAccepts = new String[] {
+                "text/plain",
+                "application/json",
+                "text/json"
+            };
+            String localVarHttpHeaderAccept = Configuration.ApiClient.SelectHeaderAccept(localVarHttpHeaderAccepts);
+            if (localVarHttpHeaderAccept != null)
+                localVarHeaderParams.Add("Accept", localVarHttpHeaderAccept);
+
+
+
+            // make the HTTP request
+            IRestResponse localVarResponse = (IRestResponse) await Configuration.ApiClient.CallApiAsync(localVarPath,
+                Method.GET, localVarQueryParams, localVarPostBody, localVarHeaderParams, localVarFormParams, localVarFileParams,
+                localVarPathParams, localVarHttpContentType);
+
+            int localVarStatusCode = (int) localVarResponse.StatusCode;
+
+            if (ExceptionFactory != null)
+            {
+                Exception exception = ExceptionFactory("ReviewerFeedbacksGet", localVarResponse);
+                if (exception != null) throw exception;
+            }
+
+            return new ApiResponse<List<ReviewerFeedbacksResponse>>(localVarStatusCode,
+                localVarResponse.Headers.ToDictionary(x => x.Name, x => x.Value.ToString()),
+                (List<ReviewerFeedbacksResponse>) Configuration.ApiClient.Deserialize(localVarResponse, typeof(List<ReviewerFeedbacksResponse>)));
+        }
+
+        /// <summary>
+        ///  
+        /// </summary>
+        /// <exception cref="IO.Swagger.Client.ApiException">Thrown when fails to make API call</exception>
         /// <param name="lastId"> (optional)</param>
         /// <returns>ReviewerReportResponse</returns>
         public ReviewerReportResponse ReviewerNextReviewGet (int? lastId = null)
@@ -1004,6 +1368,131 @@ namespace IO.Swagger.Api
             return new ApiResponse<PagingResponseInt32>(localVarStatusCode,
                 localVarResponse.Headers.ToDictionary(x => x.Name, x => x.Value.ToString()),
                 (PagingResponseInt32) Configuration.ApiClient.Deserialize(localVarResponse, typeof(PagingResponseInt32)));
+        }
+
+        /// <summary>
+        ///  
+        /// </summary>
+        /// <exception cref="IO.Swagger.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <returns>List&lt;ReviewerReasonsResponse&gt;</returns>
+        public List<ReviewerReasonsResponse> ReviewerReasonsGet ()
+        {
+             ApiResponse<List<ReviewerReasonsResponse>> localVarResponse = ReviewerReasonsGetWithHttpInfo();
+             return localVarResponse.Data;
+        }
+
+        /// <summary>
+        ///  
+        /// </summary>
+        /// <exception cref="IO.Swagger.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <returns>ApiResponse of List&lt;ReviewerReasonsResponse&gt;</returns>
+        public ApiResponse< List<ReviewerReasonsResponse> > ReviewerReasonsGetWithHttpInfo ()
+        {
+
+            var localVarPath = "/Reviewer/Reasons";
+            var localVarPathParams = new Dictionary<String, String>();
+            var localVarQueryParams = new List<KeyValuePair<String, String>>();
+            var localVarHeaderParams = new Dictionary<String, String>(Configuration.DefaultHeader);
+            var localVarFormParams = new Dictionary<String, String>();
+            var localVarFileParams = new Dictionary<String, FileParameter>();
+            Object localVarPostBody = null;
+
+            // to determine the Content-Type header
+            String[] localVarHttpContentTypes = new String[] {
+            };
+            String localVarHttpContentType = Configuration.ApiClient.SelectHeaderContentType(localVarHttpContentTypes);
+
+            // to determine the Accept header
+            String[] localVarHttpHeaderAccepts = new String[] {
+                "text/plain",
+                "application/json",
+                "text/json"
+            };
+            String localVarHttpHeaderAccept = Configuration.ApiClient.SelectHeaderAccept(localVarHttpHeaderAccepts);
+            if (localVarHttpHeaderAccept != null)
+                localVarHeaderParams.Add("Accept", localVarHttpHeaderAccept);
+
+
+
+            // make the HTTP request
+            IRestResponse localVarResponse = (IRestResponse) Configuration.ApiClient.CallApi(localVarPath,
+                Method.GET, localVarQueryParams, localVarPostBody, localVarHeaderParams, localVarFormParams, localVarFileParams,
+                localVarPathParams, localVarHttpContentType);
+
+            int localVarStatusCode = (int) localVarResponse.StatusCode;
+
+            if (ExceptionFactory != null)
+            {
+                Exception exception = ExceptionFactory("ReviewerReasonsGet", localVarResponse);
+                if (exception != null) throw exception;
+            }
+
+            return new ApiResponse<List<ReviewerReasonsResponse>>(localVarStatusCode,
+                localVarResponse.Headers.ToDictionary(x => x.Name, x => x.Value.ToString()),
+                (List<ReviewerReasonsResponse>) Configuration.ApiClient.Deserialize(localVarResponse, typeof(List<ReviewerReasonsResponse>)));
+        }
+
+        /// <summary>
+        ///  
+        /// </summary>
+        /// <exception cref="IO.Swagger.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <returns>Task of List&lt;ReviewerReasonsResponse&gt;</returns>
+        public async System.Threading.Tasks.Task<List<ReviewerReasonsResponse>> ReviewerReasonsGetAsync ()
+        {
+             ApiResponse<List<ReviewerReasonsResponse>> localVarResponse = await ReviewerReasonsGetAsyncWithHttpInfo();
+             return localVarResponse.Data;
+
+        }
+
+        /// <summary>
+        ///  
+        /// </summary>
+        /// <exception cref="IO.Swagger.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <returns>Task of ApiResponse (List&lt;ReviewerReasonsResponse&gt;)</returns>
+        public async System.Threading.Tasks.Task<ApiResponse<List<ReviewerReasonsResponse>>> ReviewerReasonsGetAsyncWithHttpInfo ()
+        {
+
+            var localVarPath = "/Reviewer/Reasons";
+            var localVarPathParams = new Dictionary<String, String>();
+            var localVarQueryParams = new List<KeyValuePair<String, String>>();
+            var localVarHeaderParams = new Dictionary<String, String>(Configuration.DefaultHeader);
+            var localVarFormParams = new Dictionary<String, String>();
+            var localVarFileParams = new Dictionary<String, FileParameter>();
+            Object localVarPostBody = null;
+
+            // to determine the Content-Type header
+            String[] localVarHttpContentTypes = new String[] {
+            };
+            String localVarHttpContentType = Configuration.ApiClient.SelectHeaderContentType(localVarHttpContentTypes);
+
+            // to determine the Accept header
+            String[] localVarHttpHeaderAccepts = new String[] {
+                "text/plain",
+                "application/json",
+                "text/json"
+            };
+            String localVarHttpHeaderAccept = Configuration.ApiClient.SelectHeaderAccept(localVarHttpHeaderAccepts);
+            if (localVarHttpHeaderAccept != null)
+                localVarHeaderParams.Add("Accept", localVarHttpHeaderAccept);
+
+
+
+            // make the HTTP request
+            IRestResponse localVarResponse = (IRestResponse) await Configuration.ApiClient.CallApiAsync(localVarPath,
+                Method.GET, localVarQueryParams, localVarPostBody, localVarHeaderParams, localVarFormParams, localVarFileParams,
+                localVarPathParams, localVarHttpContentType);
+
+            int localVarStatusCode = (int) localVarResponse.StatusCode;
+
+            if (ExceptionFactory != null)
+            {
+                Exception exception = ExceptionFactory("ReviewerReasonsGet", localVarResponse);
+                if (exception != null) throw exception;
+            }
+
+            return new ApiResponse<List<ReviewerReasonsResponse>>(localVarStatusCode,
+                localVarResponse.Headers.ToDictionary(x => x.Name, x => x.Value.ToString()),
+                (List<ReviewerReasonsResponse>) Configuration.ApiClient.Deserialize(localVarResponse, typeof(List<ReviewerReasonsResponse>)));
         }
 
         /// <summary>

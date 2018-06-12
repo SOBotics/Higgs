@@ -1,2 +1,2 @@
-java -jar Tools/swagger-codegen-cli-2.3.1.jar generate -i http://localhost:50192/swagger/v1/swagger.json -l typescript-angular -o Web\src\swagger-gen
-java -jar Tools/swagger-codegen-cli-2.3.1.jar generate -i http://localhost:50192/swagger/v1/swagger.json -l csharp -DmodelTests=false -o "Example Bot\swagger-gen"
+java -jar Tools/swagger-codegen-cli-2.3.1.jar generate -i https://api.higgs.sobotics.org/swagger/v1/swagger.json -l typescript-angular -o Web\src\swagger-gen
+java -jar Tools/swagger-codegen-cli-2.3.1.jar generate -i https://api.higgs.sobotics.org/swagger/v1/swagger.json -l csharp -DmodelTests=false -o "Example Bot\swagger-gen"

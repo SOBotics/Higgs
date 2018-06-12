@@ -6,8 +6,11 @@ Method | HTTP request | Description
 ------------- | ------------- | -------------
 [**ReviewerCheckGet**](ReviewerApi.md#reviewercheckget) | **GET** /Reviewer/Check | 
 [**ReviewerClearFeedbackPost**](ReviewerApi.md#reviewerclearfeedbackpost) | **POST** /Reviewer/ClearFeedback | 
+[**ReviewerDashboardsGet**](ReviewerApi.md#reviewerdashboardsget) | **GET** /Reviewer/Dashboards | 
+[**ReviewerFeedbacksGet**](ReviewerApi.md#reviewerfeedbacksget) | **GET** /Reviewer/Feedbacks | 
 [**ReviewerNextReviewGet**](ReviewerApi.md#reviewernextreviewget) | **GET** /Reviewer/NextReview | 
 [**ReviewerPendingReviewsGet**](ReviewerApi.md#reviewerpendingreviewsget) | **GET** /Reviewer/PendingReviews | 
+[**ReviewerReasonsGet**](ReviewerApi.md#reviewerreasonsget) | **GET** /Reviewer/Reasons | 
 [**ReviewerReportGet**](ReviewerApi.md#reviewerreportget) | **GET** /Reviewer/Report | 
 [**ReviewerReportsGet**](ReviewerApi.md#reviewerreportsget) | **GET** /Reviewer/Reports | 
 [**ReviewerSendFeedbackPost**](ReviewerApi.md#reviewersendfeedbackpost) | **POST** /Reviewer/SendFeedback | Lists all pending review
@@ -131,6 +134,114 @@ void (empty response body)
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
+<a name="reviewerdashboardsget"></a>
+# **ReviewerDashboardsGet**
+> List<ReviewerDashboardsResponse> ReviewerDashboardsGet ()
+
+
+
+### Example
+```csharp
+using System;
+using System.Diagnostics;
+using IO.Swagger.Api;
+using IO.Swagger.Client;
+using IO.Swagger.Model;
+
+namespace Example
+{
+    public class ReviewerDashboardsGetExample
+    {
+        public void main()
+        {
+            var apiInstance = new ReviewerApi();
+
+            try
+            {
+                List&lt;ReviewerDashboardsResponse&gt; result = apiInstance.ReviewerDashboardsGet();
+                Debug.WriteLine(result);
+            }
+            catch (Exception e)
+            {
+                Debug.Print("Exception when calling ReviewerApi.ReviewerDashboardsGet: " + e.Message );
+            }
+        }
+    }
+}
+```
+
+### Parameters
+This endpoint does not need any parameter.
+
+### Return type
+
+[**List<ReviewerDashboardsResponse>**](ReviewerDashboardsResponse.md)
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: text/plain, application/json, text/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+<a name="reviewerfeedbacksget"></a>
+# **ReviewerFeedbacksGet**
+> List<ReviewerFeedbacksResponse> ReviewerFeedbacksGet ()
+
+
+
+### Example
+```csharp
+using System;
+using System.Diagnostics;
+using IO.Swagger.Api;
+using IO.Swagger.Client;
+using IO.Swagger.Model;
+
+namespace Example
+{
+    public class ReviewerFeedbacksGetExample
+    {
+        public void main()
+        {
+            var apiInstance = new ReviewerApi();
+
+            try
+            {
+                List&lt;ReviewerFeedbacksResponse&gt; result = apiInstance.ReviewerFeedbacksGet();
+                Debug.WriteLine(result);
+            }
+            catch (Exception e)
+            {
+                Debug.Print("Exception when calling ReviewerApi.ReviewerFeedbacksGet: " + e.Message );
+            }
+        }
+    }
+}
+```
+
+### Parameters
+This endpoint does not need any parameter.
+
+### Return type
+
+[**List<ReviewerFeedbacksResponse>**](ReviewerFeedbacksResponse.md)
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: text/plain, application/json, text/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
 <a name="reviewernextreviewget"></a>
 # **ReviewerNextReviewGet**
 > ReviewerReportResponse ReviewerNextReviewGet (int? lastId = null)
@@ -242,6 +353,60 @@ Name | Type | Description  | Notes
 ### Return type
 
 [**PagingResponseInt32**](PagingResponseInt32.md)
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: text/plain, application/json, text/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+<a name="reviewerreasonsget"></a>
+# **ReviewerReasonsGet**
+> List<ReviewerReasonsResponse> ReviewerReasonsGet ()
+
+
+
+### Example
+```csharp
+using System;
+using System.Diagnostics;
+using IO.Swagger.Api;
+using IO.Swagger.Client;
+using IO.Swagger.Model;
+
+namespace Example
+{
+    public class ReviewerReasonsGetExample
+    {
+        public void main()
+        {
+            var apiInstance = new ReviewerApi();
+
+            try
+            {
+                List&lt;ReviewerReasonsResponse&gt; result = apiInstance.ReviewerReasonsGet();
+                Debug.WriteLine(result);
+            }
+            catch (Exception e)
+            {
+                Debug.Print("Exception when calling ReviewerApi.ReviewerReasonsGet: " + e.Message );
+            }
+        }
+    }
+}
+```
+
+### Parameters
+This endpoint does not need any parameter.
+
+### Return type
+
+[**List<ReviewerReasonsResponse>**](ReviewerReasonsResponse.md)
 
 ### Authorization
 
