@@ -52,7 +52,7 @@
       <ss-multiselect-dropdown [options]="reasons" [(ngModel)]="filter.reasons" [settings]="dropdownSettings" [texts]="reasonSelector"
         [ngModelOptions]="{standalone: true}"></ss-multiselect-dropdown>
     </div>
-    <button type="submit" class="btn btn-primary" (click)="reloadData()">Filter</button>
+    <button type="submit" class="btn btn-primary" (click)="applyFilter()">Filter</button>
   </div>
 </form>
 

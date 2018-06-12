@@ -50,8 +50,18 @@ export class ReportsComponent implements OnInit {
 
   ngOnInit() {
     this.route.queryParams.subscribe(params => {
-      const pageNumber = +params['pageNumber'] || 1;
-      this.filter.pageNumber = pageNumber;
+      this.filter.pageNumber = +params['pageNumber'] || 1;
+      this.filter.content = params['content'];
+      this.filter.dashboard = +params['dashboard'] || -1;
+      this.filter.hasFeedback = params['hasFeedback'];
+      this.filter.conflicted = params['conflicted'];
+
+      const feedbacks = params['feedbacks'];
+      this.filter.feedbacks = !feedbacks ? [] : typeof feedbacks === 'string' ? [parseInt(feedbacks, 10)] : feedbacks.map(f => parseInt(f, 10));
+
+      const reasons = params['reasons'];
+      this.filter.reasons = !reasons ? [] : typeof reasons === 'string' ? [parseInt(reasons, 10)] : reasons.map(f => parseInt(f, 10));
+
       this.reloadData();
     });
 
@@ -76,7 +86,12 @@ export class ReportsComponent implements OnInit {
   }
 
   public loadPage(pageNumber: number) {
-    this.router.navigateByUrl(`/reports?pageNumber=${pageNumber}`);
+    this.filter.pageNumber = pageNumber;
+    this.applyFilter();
+  }
+
+  public applyFilter() {
+    this.router.navigate(['/reports'], { queryParams: this.filter });
   }
 
   public reloadData() {
@@ -99,6 +114,13 @@ export class ReportsComponent implements OnInit {
       this.filter.reasons,
       this.filter.pageNumber,
       50
-    ).subscribe(response => this.reportsResponse = response);
+    ).subscribe(response => {
+      if (response.pageNumber > response.totalPages) {
+        this.filter.pageNumber = 1;
+        this.reloadData();
+      } else {
+        this.reportsResponse = response;
+      }
+    });
   }
 }
