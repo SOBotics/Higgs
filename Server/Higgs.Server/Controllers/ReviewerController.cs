@@ -52,7 +52,7 @@ namespace Higgs.Server.Controllers
             var data =
                 _dbContext.Feedbacks
                 .Where(f => f.IsEnabled)
-                .Select(b => new ReviewerFeedbacksResponse { Id = b.Id, Name = b.Name })
+                .Select(f => new ReviewerFeedbacksResponse { Id = f.Id, Name = f.Bot.DashboardName + " - " + f.Name })
                 .ToList();
 
             return data;
@@ -63,7 +63,7 @@ namespace Higgs.Server.Controllers
         {
             var data =
                 _dbContext.Reasons
-                .Select(b => new ReviewerReasonsResponse { Id = b.Id, Name = b.Name })
+                .Select(r => new ReviewerReasonsResponse { Id = r.Id, Name = r.Name })
                 .ToList();
 
             return data;
