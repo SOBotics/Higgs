@@ -5,6 +5,7 @@ import { GroupBy } from '../../utils/GroupBy';
 import { Chart } from 'angular-highcharts';
 import { GetPagingInfo } from '../../utils/PagingHelper';
 import { IMultiSelectTexts, IMultiSelectSettings } from 'angular-2-dropdown-multiselect';
+import Highcharts = require('highcharts');
 
 @Component({
   selector: 'app-dashboard',
@@ -128,8 +129,7 @@ export class DashboardComponent implements OnInit {
           const data = groupedData[key].map(gd => {
             const date = new Date(gd.date);
             // Why..?
-            const utcDate = Date.UTC(date.getUTCFullYear(), date.getUTCMonth(), date.getUTCDate(),
-              date.getUTCHours(), date.getUTCMinutes(), date.getUTCSeconds());
+            const utcDate = Date.UTC(date.getFullYear(), date.getMonth(), date.getDate(), date.getHours(), date.getMinutes(), date.getSeconds());
             return [utcDate, gd.count];
           });
           data.sort((left, right) => left[0] - right[0]);
@@ -150,6 +150,12 @@ export class DashboardComponent implements OnInit {
           type: 'datetime',
           labels: {
             format: '{value:%Y-%m-%d}'
+          }
+        },
+        tooltip: {
+          formatter: function () {
+            const date = new Date(this.x);
+            return `<b>${this.series.name}</b><br/>${Highcharts.dateFormat('%Y-%m-%d', this.x)} - ${this.y} seen`;
           }
         },
         yAxis: {

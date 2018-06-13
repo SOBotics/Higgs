@@ -4,6 +4,7 @@ import { environment } from '../../environments/environment';
 import { AuthService } from '../services/auth.service';
 import { Chart } from 'angular-highcharts';
 import { GroupBy } from '../../utils/GroupBy';
+import Highcharts = require('highcharts');
 
 @Component({
   selector: 'app-home',
@@ -64,8 +65,7 @@ export class HomeComponent implements OnInit {
           const data = groupedData[key].map(gd => {
             const date = new Date(gd.date);
             // Why..?
-            const utcDate = Date.UTC(date.getUTCFullYear(), date.getUTCMonth(), date.getUTCDate(),
-              date.getUTCHours(), date.getUTCMinutes(), date.getUTCSeconds());
+            const utcDate = Date.UTC(date.getFullYear(), date.getMonth(), date.getDate(), date.getHours(), date.getMinutes(), date.getSeconds());
             return [utcDate, gd.count];
           });
           data.sort((left, right) => left[0] - right[0]);
@@ -86,6 +86,12 @@ export class HomeComponent implements OnInit {
           type: 'datetime',
           labels: {
             format: '{value:%Y-%m-%d}'
+          }
+        },
+        tooltip: {
+          formatter: function () {
+            const date = new Date(this.x);
+            return `<b>${this.series.name}</b><br/>${Highcharts.dateFormat('%Y-%m-%d', this.x)} - ${this.y} seen`;
           }
         },
         yAxis: {
