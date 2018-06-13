@@ -5,7 +5,7 @@ import { GroupBy } from '../../utils/GroupBy';
 import { Chart } from 'angular-highcharts';
 import { GetPagingInfo } from '../../utils/PagingHelper';
 import { IMultiSelectTexts, IMultiSelectSettings } from 'angular-2-dropdown-multiselect';
-import Highcharts = require('highcharts');
+import * as Highcharts from 'highcharts';
 
 @Component({
   selector: 'app-dashboard',
