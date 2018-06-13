@@ -47,6 +47,28 @@ export class ReportComponent implements OnInit {
     });
   }
 
+  public sortedReasons() {
+    if (this.postDetails.reasons) {
+      const arr = this.postDetails.reasons.concat(); // Copy
+      arr.sort((left, right) => {
+        if (left.tripped && !right.tripped) {
+          return -1;
+        } else if (!left.tripped && right.tripped) {
+          return 1;
+        }
+
+        if (left.confidence && !right.confidence) {
+          return -1;
+        } else if (!left.confidence && right.confidence) {
+          return 1;
+        }
+        return right.confidence - left.confidence;
+      });
+
+      return arr;
+    }
+  }
+
   public clearFeedback(feedbackId: number) {
     this.reviewerService.reviewerClearFeedbackPost({ feedbackId: feedbackId })
     .subscribe(r => {

@@ -71,7 +71,7 @@
         </tr>
       </thead>
       <tbody>
-        <tr *ngFor="let reason of postDetails.reasons">
+        <tr *ngFor="let reason of sortedReasons()">
           <td>{{reason.name}}</td>
           <td>{{reason.tripped ? '✓' : '✗'}}</td>
           <td>{{reason.confidence}}</td>
