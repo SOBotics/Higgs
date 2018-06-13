@@ -4,7 +4,7 @@ import { environment } from '../../environments/environment';
 import { AuthService } from '../services/auth.service';
 import { Chart } from 'angular-highcharts';
 import { GroupBy } from '../../utils/GroupBy';
-import Highcharts = require('highcharts');
+import * as Highcharts from 'highcharts';
 
 @Component({
   selector: 'app-home',
