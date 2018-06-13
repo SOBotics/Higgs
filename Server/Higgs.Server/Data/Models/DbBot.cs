@@ -27,6 +27,9 @@ namespace Higgs.Server.Data.Models
         public DbUser OwnerAccount { get; set; }
 
         [InverseProperty("Bot")]
+        public List<DbReport> Reports { get; set; }
+
+        [InverseProperty("Bot")]
         public List<DbBotScope> BotScopes { get; set; }
 
         [InverseProperty("Bot")]

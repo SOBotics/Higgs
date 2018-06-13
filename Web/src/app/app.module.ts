@@ -31,6 +31,7 @@ import { ChartModule } from 'angular-highcharts';
 import { MultiselectDropdownModule } from 'angular-2-dropdown-multiselect';
 import { ReportPageComponent } from './report-page/report-page.component';
 import { ReviewComponent } from './review/review.component';
+import { DashboardComponent } from './dashboard/dashboard.component';
 
 @NgModule({
   declarations: [
@@ -49,7 +50,8 @@ import { ReviewComponent } from './review/review.component';
     UsersComponent,
     UserComponent,
     ReportPageComponent,
-    ReviewComponent
+    ReviewComponent,
+    DashboardComponent
   ],
   imports: [
     BrowserModule,

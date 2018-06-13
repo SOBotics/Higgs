@@ -121,6 +121,7 @@ Class | Method | HTTP request | Description
 *FileApi* | [**FileByIdGet**](docs/FileApi.md#filebyidget) | **GET** /File/{id} | 
 *FileApi* | [**FileGet**](docs/FileApi.md#fileget) | **GET** /File | 
 *FileApi* | [**FilePost**](docs/FileApi.md#filepost) | **POST** /File | 
+*ReviewerApi* | [**ReviewerBotByDashboardGet**](docs/ReviewerApi.md#reviewerbotbydashboardget) | **GET** /Reviewer/BotByDashboard | 
 *ReviewerApi* | [**ReviewerCheckGet**](docs/ReviewerApi.md#reviewercheckget) | **GET** /Reviewer/Check | 
 *ReviewerApi* | [**ReviewerClearFeedbackPost**](docs/ReviewerApi.md#reviewerclearfeedbackpost) | **POST** /Reviewer/ClearFeedback | 
 *ReviewerApi* | [**ReviewerDashboardsGet**](docs/ReviewerApi.md#reviewerdashboardsget) | **GET** /Reviewer/Dashboards | 
@@ -186,7 +187,7 @@ Class | Method | HTTP request | Description
 
 - **Type**: OAuth
 - **Flow**: implicit
-- **Authorization URL**: http://api.higgs.sobotics.org/Authentication/Login
+- **Authorization URL**: http://localhost:50192/Authentication/Login
 - **Scopes**: 
   - admin: Admin
   - room_owner: room_owner

@@ -13,7 +13,7 @@ Method | HTTP request | Description
 
 <a name="analyticsfeedbackbyuserget"></a>
 # **AnalyticsFeedbackByUserGet**
-> List<FeedbackByUserResponse> AnalyticsFeedbackByUserGet ()
+> List<FeedbackByUserResponse> AnalyticsFeedbackByUserGet (string dashboardName = null)
 
 
 
@@ -32,10 +32,11 @@ namespace Example
         public void main()
         {
             var apiInstance = new AnalyticsApi();
+            var dashboardName = dashboardName_example;  // string |  (optional) 
 
             try
             {
-                List&lt;FeedbackByUserResponse&gt; result = apiInstance.AnalyticsFeedbackByUserGet();
+                List&lt;FeedbackByUserResponse&gt; result = apiInstance.AnalyticsFeedbackByUserGet(dashboardName);
                 Debug.WriteLine(result);
             }
             catch (Exception e)
@@ -48,7 +49,10 @@ namespace Example
 ```
 
 ### Parameters
-This endpoint does not need any parameter.
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **dashboardName** | **string**|  | [optional] 
 
 ### Return type
 
@@ -67,7 +71,7 @@ No authorization required
 
 <a name="analyticsreportsbyfeedbackget"></a>
 # **AnalyticsReportsByFeedbackGet**
-> List<ReportsByFeedbackResponse> AnalyticsReportsByFeedbackGet ()
+> List<ReportsByFeedbackResponse> AnalyticsReportsByFeedbackGet (string dashboardName = null)
 
 
 
@@ -86,10 +90,11 @@ namespace Example
         public void main()
         {
             var apiInstance = new AnalyticsApi();
+            var dashboardName = dashboardName_example;  // string |  (optional) 
 
             try
             {
-                List&lt;ReportsByFeedbackResponse&gt; result = apiInstance.AnalyticsReportsByFeedbackGet();
+                List&lt;ReportsByFeedbackResponse&gt; result = apiInstance.AnalyticsReportsByFeedbackGet(dashboardName);
                 Debug.WriteLine(result);
             }
             catch (Exception e)
@@ -102,7 +107,10 @@ namespace Example
 ```
 
 ### Parameters
-This endpoint does not need any parameter.
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **dashboardName** | **string**|  | [optional] 
 
 ### Return type
 
@@ -121,7 +129,7 @@ No authorization required
 
 <a name="analyticsreportsbyreasonget"></a>
 # **AnalyticsReportsByReasonGet**
-> List<ReportsByReasonResponse> AnalyticsReportsByReasonGet ()
+> List<ReportsByReasonResponse> AnalyticsReportsByReasonGet (string dashboardName = null)
 
 
 
@@ -140,10 +148,11 @@ namespace Example
         public void main()
         {
             var apiInstance = new AnalyticsApi();
+            var dashboardName = dashboardName_example;  // string |  (optional) 
 
             try
             {
-                List&lt;ReportsByReasonResponse&gt; result = apiInstance.AnalyticsReportsByReasonGet();
+                List&lt;ReportsByReasonResponse&gt; result = apiInstance.AnalyticsReportsByReasonGet(dashboardName);
                 Debug.WriteLine(result);
             }
             catch (Exception e)
@@ -156,7 +165,10 @@ namespace Example
 ```
 
 ### Parameters
-This endpoint does not need any parameter.
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **dashboardName** | **string**|  | [optional] 
 
 ### Return type
 
@@ -175,7 +187,7 @@ No authorization required
 
 <a name="analyticsreportsovertimeget"></a>
 # **AnalyticsReportsOverTimeGet**
-> List<ReportsOverTimeResponse> AnalyticsReportsOverTimeGet ()
+> List<ReportsOverTimeResponse> AnalyticsReportsOverTimeGet (string dashboardName = null)
 
 
 
@@ -194,10 +206,11 @@ namespace Example
         public void main()
         {
             var apiInstance = new AnalyticsApi();
+            var dashboardName = dashboardName_example;  // string |  (optional) 
 
             try
             {
-                List&lt;ReportsOverTimeResponse&gt; result = apiInstance.AnalyticsReportsOverTimeGet();
+                List&lt;ReportsOverTimeResponse&gt; result = apiInstance.AnalyticsReportsOverTimeGet(dashboardName);
                 Debug.WriteLine(result);
             }
             catch (Exception e)
@@ -210,7 +223,10 @@ namespace Example
 ```
 
 ### Parameters
-This endpoint does not need any parameter.
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **dashboardName** | **string**|  | [optional] 
 
 ### Return type
 

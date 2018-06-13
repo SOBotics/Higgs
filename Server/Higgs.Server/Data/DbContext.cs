@@ -10,6 +10,23 @@ namespace Higgs.Server.Data
         {
         }
 
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            base.OnModelCreating(modelBuilder);
+
+            modelBuilder
+                .Entity<DbReportFeedback>()
+                .HasOne(r => r.User)
+                .WithMany(u => u.ReportFeedbacks)
+                .HasForeignKey(r => r.UserId);
+
+            modelBuilder
+                .Entity<DbReportFeedback>()
+                .HasOne(r => r.InvalidatedBy)
+                .WithMany(u => u.ReportInvalidations)
+                .HasForeignKey(r => r.InvalidatedByUserId);
+        }
+
         public DbSet<DbUser> Users { get; set; }
         public DbSet<DbBot> Bots { get; set; }
         public DbSet<DbFeedback> Feedbacks { get; set; }

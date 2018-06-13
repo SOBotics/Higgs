@@ -63,13 +63,19 @@ export class AnalyticsService {
     /**
      * 
      * 
+     * @param dashboardName 
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      */
-    public analyticsFeedbackByUserGet(observe?: 'body', reportProgress?: boolean): Observable<Array<FeedbackByUserResponse>>;
-    public analyticsFeedbackByUserGet(observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<Array<FeedbackByUserResponse>>>;
-    public analyticsFeedbackByUserGet(observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<Array<FeedbackByUserResponse>>>;
-    public analyticsFeedbackByUserGet(observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
+    public analyticsFeedbackByUserGet(dashboardName?: string, observe?: 'body', reportProgress?: boolean): Observable<Array<FeedbackByUserResponse>>;
+    public analyticsFeedbackByUserGet(dashboardName?: string, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<Array<FeedbackByUserResponse>>>;
+    public analyticsFeedbackByUserGet(dashboardName?: string, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<Array<FeedbackByUserResponse>>>;
+    public analyticsFeedbackByUserGet(dashboardName?: string, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
+
+        let queryParameters = new HttpParams({encoder: new CustomHttpUrlEncodingCodec()});
+        if (dashboardName !== undefined) {
+            queryParameters = queryParameters.set('dashboardName', <any>dashboardName);
+        }
 
         let headers = this.defaultHeaders;
 
@@ -90,6 +96,7 @@ export class AnalyticsService {
 
         return this.httpClient.get<Array<FeedbackByUserResponse>>(`${this.basePath}/Analytics/FeedbackByUser`,
             {
+                params: queryParameters,
                 withCredentials: this.configuration.withCredentials,
                 headers: headers,
                 observe: observe,
@@ -101,13 +108,19 @@ export class AnalyticsService {
     /**
      * 
      * 
+     * @param dashboardName 
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      */
-    public analyticsReportsByFeedbackGet(observe?: 'body', reportProgress?: boolean): Observable<Array<ReportsByFeedbackResponse>>;
-    public analyticsReportsByFeedbackGet(observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<Array<ReportsByFeedbackResponse>>>;
-    public analyticsReportsByFeedbackGet(observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<Array<ReportsByFeedbackResponse>>>;
-    public analyticsReportsByFeedbackGet(observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
+    public analyticsReportsByFeedbackGet(dashboardName?: string, observe?: 'body', reportProgress?: boolean): Observable<Array<ReportsByFeedbackResponse>>;
+    public analyticsReportsByFeedbackGet(dashboardName?: string, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<Array<ReportsByFeedbackResponse>>>;
+    public analyticsReportsByFeedbackGet(dashboardName?: string, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<Array<ReportsByFeedbackResponse>>>;
+    public analyticsReportsByFeedbackGet(dashboardName?: string, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
+
+        let queryParameters = new HttpParams({encoder: new CustomHttpUrlEncodingCodec()});
+        if (dashboardName !== undefined) {
+            queryParameters = queryParameters.set('dashboardName', <any>dashboardName);
+        }
 
         let headers = this.defaultHeaders;
 
@@ -128,6 +141,7 @@ export class AnalyticsService {
 
         return this.httpClient.get<Array<ReportsByFeedbackResponse>>(`${this.basePath}/Analytics/ReportsByFeedback`,
             {
+                params: queryParameters,
                 withCredentials: this.configuration.withCredentials,
                 headers: headers,
                 observe: observe,
@@ -139,13 +153,19 @@ export class AnalyticsService {
     /**
      * 
      * 
+     * @param dashboardName 
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      */
-    public analyticsReportsByReasonGet(observe?: 'body', reportProgress?: boolean): Observable<Array<ReportsByReasonResponse>>;
-    public analyticsReportsByReasonGet(observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<Array<ReportsByReasonResponse>>>;
-    public analyticsReportsByReasonGet(observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<Array<ReportsByReasonResponse>>>;
-    public analyticsReportsByReasonGet(observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
+    public analyticsReportsByReasonGet(dashboardName?: string, observe?: 'body', reportProgress?: boolean): Observable<Array<ReportsByReasonResponse>>;
+    public analyticsReportsByReasonGet(dashboardName?: string, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<Array<ReportsByReasonResponse>>>;
+    public analyticsReportsByReasonGet(dashboardName?: string, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<Array<ReportsByReasonResponse>>>;
+    public analyticsReportsByReasonGet(dashboardName?: string, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
+
+        let queryParameters = new HttpParams({encoder: new CustomHttpUrlEncodingCodec()});
+        if (dashboardName !== undefined) {
+            queryParameters = queryParameters.set('dashboardName', <any>dashboardName);
+        }
 
         let headers = this.defaultHeaders;
 
@@ -166,6 +186,7 @@ export class AnalyticsService {
 
         return this.httpClient.get<Array<ReportsByReasonResponse>>(`${this.basePath}/Analytics/ReportsByReason`,
             {
+                params: queryParameters,
                 withCredentials: this.configuration.withCredentials,
                 headers: headers,
                 observe: observe,
@@ -177,13 +198,19 @@ export class AnalyticsService {
     /**
      * 
      * 
+     * @param dashboardName 
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      */
-    public analyticsReportsOverTimeGet(observe?: 'body', reportProgress?: boolean): Observable<Array<ReportsOverTimeResponse>>;
-    public analyticsReportsOverTimeGet(observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<Array<ReportsOverTimeResponse>>>;
-    public analyticsReportsOverTimeGet(observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<Array<ReportsOverTimeResponse>>>;
-    public analyticsReportsOverTimeGet(observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
+    public analyticsReportsOverTimeGet(dashboardName?: string, observe?: 'body', reportProgress?: boolean): Observable<Array<ReportsOverTimeResponse>>;
+    public analyticsReportsOverTimeGet(dashboardName?: string, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<Array<ReportsOverTimeResponse>>>;
+    public analyticsReportsOverTimeGet(dashboardName?: string, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<Array<ReportsOverTimeResponse>>>;
+    public analyticsReportsOverTimeGet(dashboardName?: string, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
+
+        let queryParameters = new HttpParams({encoder: new CustomHttpUrlEncodingCodec()});
+        if (dashboardName !== undefined) {
+            queryParameters = queryParameters.set('dashboardName', <any>dashboardName);
+        }
 
         let headers = this.defaultHeaders;
 
@@ -204,6 +231,7 @@ export class AnalyticsService {
 
         return this.httpClient.get<Array<ReportsOverTimeResponse>>(`${this.basePath}/Analytics/ReportsOverTime`,
             {
+                params: queryParameters,
                 withCredentials: this.configuration.withCredentials,
                 headers: headers,
                 observe: observe,

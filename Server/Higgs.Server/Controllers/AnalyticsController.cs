@@ -1,8 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Linq.Expressions;
 using Dapper;
 using Higgs.Server.Data;
+using Higgs.Server.Data.Models;
 using Higgs.Server.Models.Responses.Analytics;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -20,7 +22,7 @@ namespace Higgs.Server.Controllers
         }
 
         [HttpGet("ReportsOverTime")]
-        public List<ReportsOverTimeResponse> ReportsOverTime()
+        public List<ReportsOverTimeResponse> ReportsOverTime(string dashboardName = null)
         {
             using (var connection = _dbContext.Database.GetDbConnection())
             {
@@ -29,11 +31,12 @@ namespace Higgs.Server.Controllers
 SELECT ""r0"".""BotId"" AS ""BotId"", ""r.Bot0"".""DashboardName"", DATE_TRUNC('day', ""r0"".""DetectedDate"") AS ""Date"", COUNT(1) as ""Count""
 FROM ""Reports"" AS ""r0""
 INNER JOIN ""Bots"" AS ""r.Bot0"" ON ""r0"".""BotId"" = ""r.Bot0"".""Id""
-WHERE ""r0"".""DetectedDate"" >= @dateFrom
+WHERE ""r0"".""DetectedDate"" >= @dateFrom AND (@dashboardName IS NULL OR @dashboardName = '' OR @dashboardName = ""r.Bot0"".""DashboardName"")
 GROUP BY ""r0"".""BotId"", ""r.Bot0"".""DashboardName"", DATE_TRUNC('day', ""r0"".""DetectedDate"")
 ", new
                 {
-                    dateFrom
+                    dateFrom,
+                    dashboardName
                 }).ToList();
 
                 return results;
@@ -43,72 +46,77 @@ GROUP BY ""r0"".""BotId"", ""r.Bot0"".""DashboardName"", DATE_TRUNC('day', ""r0"
         [HttpGet("ReportsTotal")]
         public List<ReportsTotalResponse> ReportsTotal()
         {
-            using (var connection = _dbContext.Database.GetDbConnection())
-            {
-                var results = connection.Query<ReportsTotalResponse>(@"
-SELECT ""r0"".""BotId"" AS ""BotId"", ""r.Bot0"".""DashboardName"", COUNT(1) as ""Count""
-FROM ""Reports"" AS ""r0""
-INNER JOIN ""Bots"" AS ""r.Bot0"" ON ""r0"".""BotId"" = ""r.Bot0"".""Id""
-GROUP BY ""r0"".""BotId"", ""r.Bot0"".""DashboardName""
-").ToList();
-
-                return results;
-            }
+            return _dbContext.Bots
+                .Select(b => new ReportsTotalResponse
+                {
+                    BotId = b.Id,
+                    DashboardName = b.DashboardName,
+                    Count = b.Reports.Count()
+                })
+                .OrderByDescending(f => f.Count)
+                .Take(15)
+                .ToList();
         }
 
         [HttpGet("ReportsByReason")]
-        public List<ReportsByReasonResponse> ReportsByReason()
+        public List<ReportsByReasonResponse> ReportsByReason(string dashboardName = null)
         {
-            using (var connection = _dbContext.Database.GetDbConnection())
-            {
-                var results = connection.Query<ReportsByReasonResponse>(@"
-SELECT ""Reasons"".""Name"", COUNT(1) as ""Count""
-	FROM public.""ReportReasons""
-	INNER JOIN public.""Reasons"" on ""ReportReasons"".""ReasonId"" = ""Reasons"".""Id""
-	WHERE ""ReportReasons"".""Tripped"" = true
-	GROUP BY ""Reasons"".""Name""
-	ORDER BY COUNT(1) DESC
-	LIMIT 15
-").ToList();
-
-                return results;
-            }
+            IQueryable<DbReason> reasons = _dbContext.Reasons;
+            if (!string.IsNullOrEmpty(dashboardName))
+                reasons = reasons.Where(r => r.Bot.DashboardName == dashboardName);
+            
+            return reasons
+                .Select(r => new ReportsByReasonResponse
+                {
+                    Name = r.Name,
+                    Count = r.ReportReasons.Count(rr => rr.Tripped)
+                })
+                .OrderByDescending(r => r.Count)
+                .Take(15)
+                .ToList();
         }
 
         [HttpGet("ReportsByFeedback")]
-        public List<ReportsByFeedbackResponse> ReportsByFeedback()
+        public List<ReportsByFeedbackResponse> ReportsByFeedback(string dashboardName = null)
         {
-            using (var connection = _dbContext.Database.GetDbConnection())
-            {
-                var results = connection.Query<ReportsByFeedbackResponse>(@"
-SELECT ""Feedbacks"".""Name"", COUNT(1) as ""Count""
-	FROM public.""ReportFeedbacks""
-	INNER JOIN public.""Feedbacks"" on ""ReportFeedbacks"".""FeedbackId"" = ""Feedbacks"".""Id""
-	GROUP BY ""Feedbacks"".""Name""
-	ORDER BY COUNT(1) DESC
-	LIMIT 15
-").ToList();
+            IQueryable<DbFeedback> feedbacks = _dbContext.Feedbacks;
+            if (!string.IsNullOrEmpty(dashboardName))
+                feedbacks = feedbacks.Where(f => f.Bot.DashboardName == dashboardName);
 
-                return results;
-            }
+            return feedbacks
+                .Select(f => new ReportsByFeedbackResponse
+                {
+                    Name = f.Name,
+                    Count = f.ReportFeedbacks.Count()
+                })
+                .OrderByDescending(f => f.Count)
+                .Take(15)
+                .ToList();
         }
 
         [HttpGet("FeedbackByUser")]
-        public List<FeedbackByUserResponse> FeedbackByUser()
+        public List<FeedbackByUserResponse> FeedbackByUser(string dashboardName = null)
         {
-            using (var connection = _dbContext.Database.GetDbConnection())
-            {
-                var results = connection.Query<FeedbackByUserResponse>(@"
-SELECT ""Users"".""Name"", COUNT(1) as ""Count""
-	FROM public.""ReportFeedbacks""
-	INNER JOIN public.""Users"" on ""ReportFeedbacks"".""UserId"" = ""Users"".""AccountId""
-	GROUP BY ""Users"".""AccountId"", ""Users"".""Name""
-	ORDER BY COUNT(1) DESC
-	LIMIT 15
-").ToList();
+            if (!string.IsNullOrWhiteSpace(dashboardName))
+                return _dbContext.Users
+                    .Select(u => new FeedbackByUserResponse
+                    {
+                        Name = u.Name,
+                        Count = u.ReportFeedbacks.Count(rf => rf.Feedback.Bot.DashboardName == dashboardName)
+                    })
+                    .OrderByDescending(f => f.Count)
+                    .Take(15)
+                    .ToList();
 
-                return results;
-            }
+            return _dbContext.Users
+                .Select(u => new FeedbackByUserResponse
+                {
+                    Name = u.Name,
+                    Count = u.ReportFeedbacks.Count()
+                })
+                .OrderByDescending(f => f.Count)
+                .Take(15)
+                .ToList();
         }
     }
 }

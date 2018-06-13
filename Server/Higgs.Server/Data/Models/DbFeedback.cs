@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Higgs.Server.Data.Models
@@ -21,5 +22,8 @@ namespace Higgs.Server.Data.Models
         public int BotId { get; set; }
         [ForeignKey("BotId")]
         public DbBot Bot { get; set; }
+
+        [InverseProperty("Feedback")]
+        public List<DbReportFeedback> ReportFeedbacks { get; set; }
     }
 }

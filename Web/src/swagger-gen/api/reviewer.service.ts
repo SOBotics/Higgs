@@ -67,6 +67,51 @@ export class ReviewerService {
     /**
      * 
      * 
+     * @param dashboardName 
+     * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
+     * @param reportProgress flag to report request and response progress.
+     */
+    public reviewerBotByDashboardGet(dashboardName?: string, observe?: 'body', reportProgress?: boolean): Observable<number>;
+    public reviewerBotByDashboardGet(dashboardName?: string, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<number>>;
+    public reviewerBotByDashboardGet(dashboardName?: string, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<number>>;
+    public reviewerBotByDashboardGet(dashboardName?: string, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
+
+        let queryParameters = new HttpParams({encoder: new CustomHttpUrlEncodingCodec()});
+        if (dashboardName !== undefined) {
+            queryParameters = queryParameters.set('dashboardName', <any>dashboardName);
+        }
+
+        let headers = this.defaultHeaders;
+
+        // to determine the Accept header
+        let httpHeaderAccepts: string[] = [
+            'text/plain',
+            'application/json',
+            'text/json'
+        ];
+        let httpHeaderAcceptSelected: string | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
+        if (httpHeaderAcceptSelected != undefined) {
+            headers = headers.set("Accept", httpHeaderAcceptSelected);
+        }
+
+        // to determine the Content-Type header
+        let consumes: string[] = [
+        ];
+
+        return this.httpClient.get<number>(`${this.basePath}/Reviewer/BotByDashboard`,
+            {
+                params: queryParameters,
+                withCredentials: this.configuration.withCredentials,
+                headers: headers,
+                observe: observe,
+                reportProgress: reportProgress
+            }
+        );
+    }
+
+    /**
+     * 
+     * 
      * @param contentUrl 
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
@@ -203,13 +248,19 @@ export class ReviewerService {
     /**
      * 
      * 
+     * @param dashboardName 
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      */
-    public reviewerFeedbacksGet(observe?: 'body', reportProgress?: boolean): Observable<Array<ReviewerFeedbacksResponse>>;
-    public reviewerFeedbacksGet(observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<Array<ReviewerFeedbacksResponse>>>;
-    public reviewerFeedbacksGet(observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<Array<ReviewerFeedbacksResponse>>>;
-    public reviewerFeedbacksGet(observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
+    public reviewerFeedbacksGet(dashboardName?: string, observe?: 'body', reportProgress?: boolean): Observable<Array<ReviewerFeedbacksResponse>>;
+    public reviewerFeedbacksGet(dashboardName?: string, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<Array<ReviewerFeedbacksResponse>>>;
+    public reviewerFeedbacksGet(dashboardName?: string, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<Array<ReviewerFeedbacksResponse>>>;
+    public reviewerFeedbacksGet(dashboardName?: string, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
+
+        let queryParameters = new HttpParams({encoder: new CustomHttpUrlEncodingCodec()});
+        if (dashboardName !== undefined) {
+            queryParameters = queryParameters.set('dashboardName', <any>dashboardName);
+        }
 
         let headers = this.defaultHeaders;
 
@@ -230,6 +281,7 @@ export class ReviewerService {
 
         return this.httpClient.get<Array<ReviewerFeedbacksResponse>>(`${this.basePath}/Reviewer/Feedbacks`,
             {
+                params: queryParameters,
                 withCredentials: this.configuration.withCredentials,
                 headers: headers,
                 observe: observe,
@@ -347,13 +399,19 @@ export class ReviewerService {
     /**
      * 
      * 
+     * @param dashboardName 
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      */
-    public reviewerReasonsGet(observe?: 'body', reportProgress?: boolean): Observable<Array<ReviewerReasonsResponse>>;
-    public reviewerReasonsGet(observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<Array<ReviewerReasonsResponse>>>;
-    public reviewerReasonsGet(observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<Array<ReviewerReasonsResponse>>>;
-    public reviewerReasonsGet(observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
+    public reviewerReasonsGet(dashboardName?: string, observe?: 'body', reportProgress?: boolean): Observable<Array<ReviewerReasonsResponse>>;
+    public reviewerReasonsGet(dashboardName?: string, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<Array<ReviewerReasonsResponse>>>;
+    public reviewerReasonsGet(dashboardName?: string, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<Array<ReviewerReasonsResponse>>>;
+    public reviewerReasonsGet(dashboardName?: string, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
+
+        let queryParameters = new HttpParams({encoder: new CustomHttpUrlEncodingCodec()});
+        if (dashboardName !== undefined) {
+            queryParameters = queryParameters.set('dashboardName', <any>dashboardName);
+        }
 
         let headers = this.defaultHeaders;
 
@@ -374,6 +432,7 @@ export class ReviewerService {
 
         return this.httpClient.get<Array<ReviewerReasonsResponse>>(`${this.basePath}/Reviewer/Reasons`,
             {
+                params: queryParameters,
                 withCredentials: this.configuration.withCredentials,
                 headers: headers,
                 observe: observe,

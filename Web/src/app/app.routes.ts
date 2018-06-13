@@ -10,6 +10,7 @@ import { UsersComponent } from './admin/users/users.component';
 import { UserComponent } from './admin/user/user.component';
 import { ReportPageComponent } from './report-page/report-page.component';
 import { ReviewComponent } from './review/review.component';
+import { DashboardComponent } from './dashboard/dashboard.component';
 
 export const appRoutes: Routes = [
     { path: '', component: HomeComponent },
@@ -27,6 +28,8 @@ export const appRoutes: Routes = [
     { path: 'report/:id', component: ReportPageComponent },
 
     { path: ':dashboardName/report/:id', component: ReportPageComponent },
+
+    { path: ':dashboardName', component: DashboardComponent },
 
     { path: '**', component: PageNotFoundComponent }
 ];

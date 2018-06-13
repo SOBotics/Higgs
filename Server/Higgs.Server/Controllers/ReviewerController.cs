@@ -47,11 +47,14 @@ namespace Higgs.Server.Controllers
         }
 
         [HttpGet("Feedbacks")]
-        public List<ReviewerFeedbacksResponse> GetFeedbacks()
+        public List<ReviewerFeedbacksResponse> GetFeedbacks(string dashboardName = null)
         {
+            var feedbacks = _dbContext.Feedbacks.Where(f => f.IsEnabled);
+            if (!string.IsNullOrEmpty(dashboardName))
+                feedbacks = feedbacks.Where(f => f.Bot.DashboardName == dashboardName);
+
             var data =
-                _dbContext.Feedbacks
-                .Where(f => f.IsEnabled)
+                feedbacks    
                 .Select(f => new ReviewerFeedbacksResponse { Id = f.Id, Name = f.Bot.DashboardName + " - " + f.Name })
                 .ToList();
 
@@ -59,14 +62,24 @@ namespace Higgs.Server.Controllers
         }
 
         [HttpGet("Reasons")]
-        public List<ReviewerReasonsResponse> GetReasons()
+        public List<ReviewerReasonsResponse> GetReasons(string dashboardName = null)
         {
+            IQueryable<DbReason> reasons = _dbContext.Reasons;
+            if (!string.IsNullOrEmpty(dashboardName))
+                reasons = reasons.Where(r => r.Bot.DashboardName == dashboardName);
+
             var data =
-                _dbContext.Reasons
+                reasons
                 .Select(r => new ReviewerReasonsResponse { Id = r.Id, Name = r.Name })
                 .ToList();
 
             return data;
+        }
+
+        [HttpGet("BotByDashboard")]
+        public int? BotByDashboard(string dashboardName)
+        {
+            return _dbContext.Bots.FirstOrDefault(b => b.DashboardName == dashboardName)?.Id;
         }
 
         [HttpGet("Reports")]

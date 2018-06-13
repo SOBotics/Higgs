@@ -4,6 +4,7 @@ All URIs are relative to *https://localhost*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
+[**ReviewerBotByDashboardGet**](ReviewerApi.md#reviewerbotbydashboardget) | **GET** /Reviewer/BotByDashboard | 
 [**ReviewerCheckGet**](ReviewerApi.md#reviewercheckget) | **GET** /Reviewer/Check | 
 [**ReviewerClearFeedbackPost**](ReviewerApi.md#reviewerclearfeedbackpost) | **POST** /Reviewer/ClearFeedback | 
 [**ReviewerDashboardsGet**](ReviewerApi.md#reviewerdashboardsget) | **GET** /Reviewer/Dashboards | 
@@ -15,6 +16,64 @@ Method | HTTP request | Description
 [**ReviewerReportsGet**](ReviewerApi.md#reviewerreportsget) | **GET** /Reviewer/Reports | 
 [**ReviewerSendFeedbackPost**](ReviewerApi.md#reviewersendfeedbackpost) | **POST** /Reviewer/SendFeedback | Lists all pending review
 
+
+<a name="reviewerbotbydashboardget"></a>
+# **ReviewerBotByDashboardGet**
+> int? ReviewerBotByDashboardGet (string dashboardName = null)
+
+
+
+### Example
+```csharp
+using System;
+using System.Diagnostics;
+using IO.Swagger.Api;
+using IO.Swagger.Client;
+using IO.Swagger.Model;
+
+namespace Example
+{
+    public class ReviewerBotByDashboardGetExample
+    {
+        public void main()
+        {
+            var apiInstance = new ReviewerApi();
+            var dashboardName = dashboardName_example;  // string |  (optional) 
+
+            try
+            {
+                int? result = apiInstance.ReviewerBotByDashboardGet(dashboardName);
+                Debug.WriteLine(result);
+            }
+            catch (Exception e)
+            {
+                Debug.Print("Exception when calling ReviewerApi.ReviewerBotByDashboardGet: " + e.Message );
+            }
+        }
+    }
+}
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **dashboardName** | **string**|  | [optional] 
+
+### Return type
+
+**int?**
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: text/plain, application/json, text/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 <a name="reviewercheckget"></a>
 # **ReviewerCheckGet**
@@ -190,7 +249,7 @@ No authorization required
 
 <a name="reviewerfeedbacksget"></a>
 # **ReviewerFeedbacksGet**
-> List<ReviewerFeedbacksResponse> ReviewerFeedbacksGet ()
+> List<ReviewerFeedbacksResponse> ReviewerFeedbacksGet (string dashboardName = null)
 
 
 
@@ -209,10 +268,11 @@ namespace Example
         public void main()
         {
             var apiInstance = new ReviewerApi();
+            var dashboardName = dashboardName_example;  // string |  (optional) 
 
             try
             {
-                List&lt;ReviewerFeedbacksResponse&gt; result = apiInstance.ReviewerFeedbacksGet();
+                List&lt;ReviewerFeedbacksResponse&gt; result = apiInstance.ReviewerFeedbacksGet(dashboardName);
                 Debug.WriteLine(result);
             }
             catch (Exception e)
@@ -225,7 +285,10 @@ namespace Example
 ```
 
 ### Parameters
-This endpoint does not need any parameter.
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **dashboardName** | **string**|  | [optional] 
 
 ### Return type
 
@@ -367,7 +430,7 @@ No authorization required
 
 <a name="reviewerreasonsget"></a>
 # **ReviewerReasonsGet**
-> List<ReviewerReasonsResponse> ReviewerReasonsGet ()
+> List<ReviewerReasonsResponse> ReviewerReasonsGet (string dashboardName = null)
 
 
 
@@ -386,10 +449,11 @@ namespace Example
         public void main()
         {
             var apiInstance = new ReviewerApi();
+            var dashboardName = dashboardName_example;  // string |  (optional) 
 
             try
             {
-                List&lt;ReviewerReasonsResponse&gt; result = apiInstance.ReviewerReasonsGet();
+                List&lt;ReviewerReasonsResponse&gt; result = apiInstance.ReviewerReasonsGet(dashboardName);
                 Debug.WriteLine(result);
             }
             catch (Exception e)
@@ -402,7 +466,10 @@ namespace Example
 ```
 
 ### Parameters
-This endpoint does not need any parameter.
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **dashboardName** | **string**|  | [optional] 
 
 ### Return type
 

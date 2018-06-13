@@ -1,6 +1,22 @@
 <div class="container">
     <div class="row">
-        <div class="col-md-12">
+        <div class="col-md-6">
+            <table class="table table-hover" *ngIf="reportsTotalData">
+                <thead>
+                    <tr class="table-primary">
+                        <td>Dashboard</td>
+                        <td>Reports</td>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let dashboard of reportsTotalData" (click)="onRowClick(dashboard.dashboardName)">
+                        <td>{{dashboard.dashboardName}}</td>
+                        <td>{{dashboard.count}}</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <div class="col-md-6">
             <div *ngIf="feedbackByUserChart" [chart]="feedbackByUserChart"></div>
         </div>
     </div>

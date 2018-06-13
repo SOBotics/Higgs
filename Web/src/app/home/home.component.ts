@@ -1,5 +1,5 @@
 import { Component, OnInit, Inject } from '@angular/core';
-import { BASE_PATH, AdminService, AnalyticsService } from '../../swagger-gen';
+import { BASE_PATH, AdminService, AnalyticsService, ReportsTotalResponse } from '../../swagger-gen';
 import { environment } from '../../environments/environment';
 import { AuthService } from '../services/auth.service';
 import { Chart } from 'angular-highcharts';
@@ -12,6 +12,8 @@ import { GroupBy } from '../../utils/GroupBy';
 })
 export class HomeComponent implements OnInit {
   public constructor(private analyticsService: AnalyticsService) { }
+
+  public reportsTotalData: ReportsTotalResponse[] = null;
 
   public feedbackByUserChart: Chart = null;
   public reportsOverTimeChart: Chart = null;
@@ -101,6 +103,7 @@ export class HomeComponent implements OnInit {
 
   private updateTotalChart() {
     this.analyticsService.analyticsReportsTotalGet().subscribe(totalData => {
+      this.reportsTotalData = totalData;
       const mappedData = totalData.map(points => ({ name: points.dashboardName, y: points.count }));
       this.reportsTotalChart = new Chart({
         chart: {
@@ -160,5 +163,9 @@ export class HomeComponent implements OnInit {
         },
       });
     });
+  }
+
+  public onRowClick(dashboardName: string) {
+    window.location.href = `/${dashboardName}/`;
   }
 }

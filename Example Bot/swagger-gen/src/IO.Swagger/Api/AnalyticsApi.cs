@@ -31,8 +31,9 @@ namespace IO.Swagger.Api
         /// 
         /// </remarks>
         /// <exception cref="IO.Swagger.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="dashboardName"> (optional)</param>
         /// <returns>List&lt;FeedbackByUserResponse&gt;</returns>
-        List<FeedbackByUserResponse> AnalyticsFeedbackByUserGet ();
+        List<FeedbackByUserResponse> AnalyticsFeedbackByUserGet (string dashboardName = null);
 
         /// <summary>
         /// 
@@ -41,8 +42,9 @@ namespace IO.Swagger.Api
         /// 
         /// </remarks>
         /// <exception cref="IO.Swagger.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="dashboardName"> (optional)</param>
         /// <returns>ApiResponse of List&lt;FeedbackByUserResponse&gt;</returns>
-        ApiResponse<List<FeedbackByUserResponse>> AnalyticsFeedbackByUserGetWithHttpInfo ();
+        ApiResponse<List<FeedbackByUserResponse>> AnalyticsFeedbackByUserGetWithHttpInfo (string dashboardName = null);
         /// <summary>
         /// 
         /// </summary>
@@ -50,8 +52,9 @@ namespace IO.Swagger.Api
         /// 
         /// </remarks>
         /// <exception cref="IO.Swagger.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="dashboardName"> (optional)</param>
         /// <returns>List&lt;ReportsByFeedbackResponse&gt;</returns>
-        List<ReportsByFeedbackResponse> AnalyticsReportsByFeedbackGet ();
+        List<ReportsByFeedbackResponse> AnalyticsReportsByFeedbackGet (string dashboardName = null);
 
         /// <summary>
         /// 
@@ -60,8 +63,9 @@ namespace IO.Swagger.Api
         /// 
         /// </remarks>
         /// <exception cref="IO.Swagger.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="dashboardName"> (optional)</param>
         /// <returns>ApiResponse of List&lt;ReportsByFeedbackResponse&gt;</returns>
-        ApiResponse<List<ReportsByFeedbackResponse>> AnalyticsReportsByFeedbackGetWithHttpInfo ();
+        ApiResponse<List<ReportsByFeedbackResponse>> AnalyticsReportsByFeedbackGetWithHttpInfo (string dashboardName = null);
         /// <summary>
         /// 
         /// </summary>
@@ -69,8 +73,9 @@ namespace IO.Swagger.Api
         /// 
         /// </remarks>
         /// <exception cref="IO.Swagger.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="dashboardName"> (optional)</param>
         /// <returns>List&lt;ReportsByReasonResponse&gt;</returns>
-        List<ReportsByReasonResponse> AnalyticsReportsByReasonGet ();
+        List<ReportsByReasonResponse> AnalyticsReportsByReasonGet (string dashboardName = null);
 
         /// <summary>
         /// 
@@ -79,8 +84,9 @@ namespace IO.Swagger.Api
         /// 
         /// </remarks>
         /// <exception cref="IO.Swagger.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="dashboardName"> (optional)</param>
         /// <returns>ApiResponse of List&lt;ReportsByReasonResponse&gt;</returns>
-        ApiResponse<List<ReportsByReasonResponse>> AnalyticsReportsByReasonGetWithHttpInfo ();
+        ApiResponse<List<ReportsByReasonResponse>> AnalyticsReportsByReasonGetWithHttpInfo (string dashboardName = null);
         /// <summary>
         /// 
         /// </summary>
@@ -88,8 +94,9 @@ namespace IO.Swagger.Api
         /// 
         /// </remarks>
         /// <exception cref="IO.Swagger.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="dashboardName"> (optional)</param>
         /// <returns>List&lt;ReportsOverTimeResponse&gt;</returns>
-        List<ReportsOverTimeResponse> AnalyticsReportsOverTimeGet ();
+        List<ReportsOverTimeResponse> AnalyticsReportsOverTimeGet (string dashboardName = null);
 
         /// <summary>
         /// 
@@ -98,8 +105,9 @@ namespace IO.Swagger.Api
         /// 
         /// </remarks>
         /// <exception cref="IO.Swagger.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="dashboardName"> (optional)</param>
         /// <returns>ApiResponse of List&lt;ReportsOverTimeResponse&gt;</returns>
-        ApiResponse<List<ReportsOverTimeResponse>> AnalyticsReportsOverTimeGetWithHttpInfo ();
+        ApiResponse<List<ReportsOverTimeResponse>> AnalyticsReportsOverTimeGetWithHttpInfo (string dashboardName = null);
         /// <summary>
         /// 
         /// </summary>
@@ -128,8 +136,9 @@ namespace IO.Swagger.Api
         /// 
         /// </remarks>
         /// <exception cref="IO.Swagger.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="dashboardName"> (optional)</param>
         /// <returns>Task of List&lt;FeedbackByUserResponse&gt;</returns>
-        System.Threading.Tasks.Task<List<FeedbackByUserResponse>> AnalyticsFeedbackByUserGetAsync ();
+        System.Threading.Tasks.Task<List<FeedbackByUserResponse>> AnalyticsFeedbackByUserGetAsync (string dashboardName = null);
 
         /// <summary>
         /// 
@@ -138,8 +147,9 @@ namespace IO.Swagger.Api
         /// 
         /// </remarks>
         /// <exception cref="IO.Swagger.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="dashboardName"> (optional)</param>
         /// <returns>Task of ApiResponse (List&lt;FeedbackByUserResponse&gt;)</returns>
-        System.Threading.Tasks.Task<ApiResponse<List<FeedbackByUserResponse>>> AnalyticsFeedbackByUserGetAsyncWithHttpInfo ();
+        System.Threading.Tasks.Task<ApiResponse<List<FeedbackByUserResponse>>> AnalyticsFeedbackByUserGetAsyncWithHttpInfo (string dashboardName = null);
         /// <summary>
         /// 
         /// </summary>
@@ -147,8 +157,9 @@ namespace IO.Swagger.Api
         /// 
         /// </remarks>
         /// <exception cref="IO.Swagger.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="dashboardName"> (optional)</param>
         /// <returns>Task of List&lt;ReportsByFeedbackResponse&gt;</returns>
-        System.Threading.Tasks.Task<List<ReportsByFeedbackResponse>> AnalyticsReportsByFeedbackGetAsync ();
+        System.Threading.Tasks.Task<List<ReportsByFeedbackResponse>> AnalyticsReportsByFeedbackGetAsync (string dashboardName = null);
 
         /// <summary>
         /// 
@@ -157,8 +168,9 @@ namespace IO.Swagger.Api
         /// 
         /// </remarks>
         /// <exception cref="IO.Swagger.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="dashboardName"> (optional)</param>
         /// <returns>Task of ApiResponse (List&lt;ReportsByFeedbackResponse&gt;)</returns>
-        System.Threading.Tasks.Task<ApiResponse<List<ReportsByFeedbackResponse>>> AnalyticsReportsByFeedbackGetAsyncWithHttpInfo ();
+        System.Threading.Tasks.Task<ApiResponse<List<ReportsByFeedbackResponse>>> AnalyticsReportsByFeedbackGetAsyncWithHttpInfo (string dashboardName = null);
         /// <summary>
         /// 
         /// </summary>
@@ -166,8 +178,9 @@ namespace IO.Swagger.Api
         /// 
         /// </remarks>
         /// <exception cref="IO.Swagger.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="dashboardName"> (optional)</param>
         /// <returns>Task of List&lt;ReportsByReasonResponse&gt;</returns>
-        System.Threading.Tasks.Task<List<ReportsByReasonResponse>> AnalyticsReportsByReasonGetAsync ();
+        System.Threading.Tasks.Task<List<ReportsByReasonResponse>> AnalyticsReportsByReasonGetAsync (string dashboardName = null);
 
         /// <summary>
         /// 
@@ -176,8 +189,9 @@ namespace IO.Swagger.Api
         /// 
         /// </remarks>
         /// <exception cref="IO.Swagger.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="dashboardName"> (optional)</param>
         /// <returns>Task of ApiResponse (List&lt;ReportsByReasonResponse&gt;)</returns>
-        System.Threading.Tasks.Task<ApiResponse<List<ReportsByReasonResponse>>> AnalyticsReportsByReasonGetAsyncWithHttpInfo ();
+        System.Threading.Tasks.Task<ApiResponse<List<ReportsByReasonResponse>>> AnalyticsReportsByReasonGetAsyncWithHttpInfo (string dashboardName = null);
         /// <summary>
         /// 
         /// </summary>
@@ -185,8 +199,9 @@ namespace IO.Swagger.Api
         /// 
         /// </remarks>
         /// <exception cref="IO.Swagger.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="dashboardName"> (optional)</param>
         /// <returns>Task of List&lt;ReportsOverTimeResponse&gt;</returns>
-        System.Threading.Tasks.Task<List<ReportsOverTimeResponse>> AnalyticsReportsOverTimeGetAsync ();
+        System.Threading.Tasks.Task<List<ReportsOverTimeResponse>> AnalyticsReportsOverTimeGetAsync (string dashboardName = null);
 
         /// <summary>
         /// 
@@ -195,8 +210,9 @@ namespace IO.Swagger.Api
         /// 
         /// </remarks>
         /// <exception cref="IO.Swagger.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="dashboardName"> (optional)</param>
         /// <returns>Task of ApiResponse (List&lt;ReportsOverTimeResponse&gt;)</returns>
-        System.Threading.Tasks.Task<ApiResponse<List<ReportsOverTimeResponse>>> AnalyticsReportsOverTimeGetAsyncWithHttpInfo ();
+        System.Threading.Tasks.Task<ApiResponse<List<ReportsOverTimeResponse>>> AnalyticsReportsOverTimeGetAsyncWithHttpInfo (string dashboardName = null);
         /// <summary>
         /// 
         /// </summary>
@@ -320,10 +336,11 @@ namespace IO.Swagger.Api
         ///  
         /// </summary>
         /// <exception cref="IO.Swagger.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="dashboardName"> (optional)</param>
         /// <returns>List&lt;FeedbackByUserResponse&gt;</returns>
-        public List<FeedbackByUserResponse> AnalyticsFeedbackByUserGet ()
+        public List<FeedbackByUserResponse> AnalyticsFeedbackByUserGet (string dashboardName = null)
         {
-             ApiResponse<List<FeedbackByUserResponse>> localVarResponse = AnalyticsFeedbackByUserGetWithHttpInfo();
+             ApiResponse<List<FeedbackByUserResponse>> localVarResponse = AnalyticsFeedbackByUserGetWithHttpInfo(dashboardName);
              return localVarResponse.Data;
         }
 
@@ -331,8 +348,9 @@ namespace IO.Swagger.Api
         ///  
         /// </summary>
         /// <exception cref="IO.Swagger.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="dashboardName"> (optional)</param>
         /// <returns>ApiResponse of List&lt;FeedbackByUserResponse&gt;</returns>
-        public ApiResponse< List<FeedbackByUserResponse> > AnalyticsFeedbackByUserGetWithHttpInfo ()
+        public ApiResponse< List<FeedbackByUserResponse> > AnalyticsFeedbackByUserGetWithHttpInfo (string dashboardName = null)
         {
 
             var localVarPath = "/Analytics/FeedbackByUser";
@@ -358,6 +376,7 @@ namespace IO.Swagger.Api
             if (localVarHttpHeaderAccept != null)
                 localVarHeaderParams.Add("Accept", localVarHttpHeaderAccept);
 
+            if (dashboardName != null) localVarQueryParams.AddRange(Configuration.ApiClient.ParameterToKeyValuePairs("", "dashboardName", dashboardName)); // query parameter
 
 
             // make the HTTP request
@@ -382,10 +401,11 @@ namespace IO.Swagger.Api
         ///  
         /// </summary>
         /// <exception cref="IO.Swagger.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="dashboardName"> (optional)</param>
         /// <returns>Task of List&lt;FeedbackByUserResponse&gt;</returns>
-        public async System.Threading.Tasks.Task<List<FeedbackByUserResponse>> AnalyticsFeedbackByUserGetAsync ()
+        public async System.Threading.Tasks.Task<List<FeedbackByUserResponse>> AnalyticsFeedbackByUserGetAsync (string dashboardName = null)
         {
-             ApiResponse<List<FeedbackByUserResponse>> localVarResponse = await AnalyticsFeedbackByUserGetAsyncWithHttpInfo();
+             ApiResponse<List<FeedbackByUserResponse>> localVarResponse = await AnalyticsFeedbackByUserGetAsyncWithHttpInfo(dashboardName);
              return localVarResponse.Data;
 
         }
@@ -394,8 +414,9 @@ namespace IO.Swagger.Api
         ///  
         /// </summary>
         /// <exception cref="IO.Swagger.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="dashboardName"> (optional)</param>
         /// <returns>Task of ApiResponse (List&lt;FeedbackByUserResponse&gt;)</returns>
-        public async System.Threading.Tasks.Task<ApiResponse<List<FeedbackByUserResponse>>> AnalyticsFeedbackByUserGetAsyncWithHttpInfo ()
+        public async System.Threading.Tasks.Task<ApiResponse<List<FeedbackByUserResponse>>> AnalyticsFeedbackByUserGetAsyncWithHttpInfo (string dashboardName = null)
         {
 
             var localVarPath = "/Analytics/FeedbackByUser";
@@ -421,6 +442,7 @@ namespace IO.Swagger.Api
             if (localVarHttpHeaderAccept != null)
                 localVarHeaderParams.Add("Accept", localVarHttpHeaderAccept);
 
+            if (dashboardName != null) localVarQueryParams.AddRange(Configuration.ApiClient.ParameterToKeyValuePairs("", "dashboardName", dashboardName)); // query parameter
 
 
             // make the HTTP request
@@ -445,10 +467,11 @@ namespace IO.Swagger.Api
         ///  
         /// </summary>
         /// <exception cref="IO.Swagger.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="dashboardName"> (optional)</param>
         /// <returns>List&lt;ReportsByFeedbackResponse&gt;</returns>
-        public List<ReportsByFeedbackResponse> AnalyticsReportsByFeedbackGet ()
+        public List<ReportsByFeedbackResponse> AnalyticsReportsByFeedbackGet (string dashboardName = null)
         {
-             ApiResponse<List<ReportsByFeedbackResponse>> localVarResponse = AnalyticsReportsByFeedbackGetWithHttpInfo();
+             ApiResponse<List<ReportsByFeedbackResponse>> localVarResponse = AnalyticsReportsByFeedbackGetWithHttpInfo(dashboardName);
              return localVarResponse.Data;
         }
 
@@ -456,8 +479,9 @@ namespace IO.Swagger.Api
         ///  
         /// </summary>
         /// <exception cref="IO.Swagger.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="dashboardName"> (optional)</param>
         /// <returns>ApiResponse of List&lt;ReportsByFeedbackResponse&gt;</returns>
-        public ApiResponse< List<ReportsByFeedbackResponse> > AnalyticsReportsByFeedbackGetWithHttpInfo ()
+        public ApiResponse< List<ReportsByFeedbackResponse> > AnalyticsReportsByFeedbackGetWithHttpInfo (string dashboardName = null)
         {
 
             var localVarPath = "/Analytics/ReportsByFeedback";
@@ -483,6 +507,7 @@ namespace IO.Swagger.Api
             if (localVarHttpHeaderAccept != null)
                 localVarHeaderParams.Add("Accept", localVarHttpHeaderAccept);
 
+            if (dashboardName != null) localVarQueryParams.AddRange(Configuration.ApiClient.ParameterToKeyValuePairs("", "dashboardName", dashboardName)); // query parameter
 
 
             // make the HTTP request
@@ -507,10 +532,11 @@ namespace IO.Swagger.Api
         ///  
         /// </summary>
         /// <exception cref="IO.Swagger.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="dashboardName"> (optional)</param>
         /// <returns>Task of List&lt;ReportsByFeedbackResponse&gt;</returns>
-        public async System.Threading.Tasks.Task<List<ReportsByFeedbackResponse>> AnalyticsReportsByFeedbackGetAsync ()
+        public async System.Threading.Tasks.Task<List<ReportsByFeedbackResponse>> AnalyticsReportsByFeedbackGetAsync (string dashboardName = null)
         {
-             ApiResponse<List<ReportsByFeedbackResponse>> localVarResponse = await AnalyticsReportsByFeedbackGetAsyncWithHttpInfo();
+             ApiResponse<List<ReportsByFeedbackResponse>> localVarResponse = await AnalyticsReportsByFeedbackGetAsyncWithHttpInfo(dashboardName);
              return localVarResponse.Data;
 
         }
@@ -519,8 +545,9 @@ namespace IO.Swagger.Api
         ///  
         /// </summary>
         /// <exception cref="IO.Swagger.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="dashboardName"> (optional)</param>
         /// <returns>Task of ApiResponse (List&lt;ReportsByFeedbackResponse&gt;)</returns>
-        public async System.Threading.Tasks.Task<ApiResponse<List<ReportsByFeedbackResponse>>> AnalyticsReportsByFeedbackGetAsyncWithHttpInfo ()
+        public async System.Threading.Tasks.Task<ApiResponse<List<ReportsByFeedbackResponse>>> AnalyticsReportsByFeedbackGetAsyncWithHttpInfo (string dashboardName = null)
         {
 
             var localVarPath = "/Analytics/ReportsByFeedback";
@@ -546,6 +573,7 @@ namespace IO.Swagger.Api
             if (localVarHttpHeaderAccept != null)
                 localVarHeaderParams.Add("Accept", localVarHttpHeaderAccept);
 
+            if (dashboardName != null) localVarQueryParams.AddRange(Configuration.ApiClient.ParameterToKeyValuePairs("", "dashboardName", dashboardName)); // query parameter
 
 
             // make the HTTP request
@@ -570,10 +598,11 @@ namespace IO.Swagger.Api
         ///  
         /// </summary>
         /// <exception cref="IO.Swagger.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="dashboardName"> (optional)</param>
         /// <returns>List&lt;ReportsByReasonResponse&gt;</returns>
-        public List<ReportsByReasonResponse> AnalyticsReportsByReasonGet ()
+        public List<ReportsByReasonResponse> AnalyticsReportsByReasonGet (string dashboardName = null)
         {
-             ApiResponse<List<ReportsByReasonResponse>> localVarResponse = AnalyticsReportsByReasonGetWithHttpInfo();
+             ApiResponse<List<ReportsByReasonResponse>> localVarResponse = AnalyticsReportsByReasonGetWithHttpInfo(dashboardName);
              return localVarResponse.Data;
         }
 
@@ -581,8 +610,9 @@ namespace IO.Swagger.Api
         ///  
         /// </summary>
         /// <exception cref="IO.Swagger.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="dashboardName"> (optional)</param>
         /// <returns>ApiResponse of List&lt;ReportsByReasonResponse&gt;</returns>
-        public ApiResponse< List<ReportsByReasonResponse> > AnalyticsReportsByReasonGetWithHttpInfo ()
+        public ApiResponse< List<ReportsByReasonResponse> > AnalyticsReportsByReasonGetWithHttpInfo (string dashboardName = null)
         {
 
             var localVarPath = "/Analytics/ReportsByReason";
@@ -608,6 +638,7 @@ namespace IO.Swagger.Api
             if (localVarHttpHeaderAccept != null)
                 localVarHeaderParams.Add("Accept", localVarHttpHeaderAccept);
 
+            if (dashboardName != null) localVarQueryParams.AddRange(Configuration.ApiClient.ParameterToKeyValuePairs("", "dashboardName", dashboardName)); // query parameter
 
 
             // make the HTTP request
@@ -632,10 +663,11 @@ namespace IO.Swagger.Api
         ///  
         /// </summary>
         /// <exception cref="IO.Swagger.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="dashboardName"> (optional)</param>
         /// <returns>Task of List&lt;ReportsByReasonResponse&gt;</returns>
-        public async System.Threading.Tasks.Task<List<ReportsByReasonResponse>> AnalyticsReportsByReasonGetAsync ()
+        public async System.Threading.Tasks.Task<List<ReportsByReasonResponse>> AnalyticsReportsByReasonGetAsync (string dashboardName = null)
         {
-             ApiResponse<List<ReportsByReasonResponse>> localVarResponse = await AnalyticsReportsByReasonGetAsyncWithHttpInfo();
+             ApiResponse<List<ReportsByReasonResponse>> localVarResponse = await AnalyticsReportsByReasonGetAsyncWithHttpInfo(dashboardName);
              return localVarResponse.Data;
 
         }
@@ -644,8 +676,9 @@ namespace IO.Swagger.Api
         ///  
         /// </summary>
         /// <exception cref="IO.Swagger.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="dashboardName"> (optional)</param>
         /// <returns>Task of ApiResponse (List&lt;ReportsByReasonResponse&gt;)</returns>
-        public async System.Threading.Tasks.Task<ApiResponse<List<ReportsByReasonResponse>>> AnalyticsReportsByReasonGetAsyncWithHttpInfo ()
+        public async System.Threading.Tasks.Task<ApiResponse<List<ReportsByReasonResponse>>> AnalyticsReportsByReasonGetAsyncWithHttpInfo (string dashboardName = null)
         {
 
             var localVarPath = "/Analytics/ReportsByReason";
@@ -671,6 +704,7 @@ namespace IO.Swagger.Api
             if (localVarHttpHeaderAccept != null)
                 localVarHeaderParams.Add("Accept", localVarHttpHeaderAccept);
 
+            if (dashboardName != null) localVarQueryParams.AddRange(Configuration.ApiClient.ParameterToKeyValuePairs("", "dashboardName", dashboardName)); // query parameter
 
 
             // make the HTTP request
@@ -695,10 +729,11 @@ namespace IO.Swagger.Api
         ///  
         /// </summary>
         /// <exception cref="IO.Swagger.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="dashboardName"> (optional)</param>
         /// <returns>List&lt;ReportsOverTimeResponse&gt;</returns>
-        public List<ReportsOverTimeResponse> AnalyticsReportsOverTimeGet ()
+        public List<ReportsOverTimeResponse> AnalyticsReportsOverTimeGet (string dashboardName = null)
         {
-             ApiResponse<List<ReportsOverTimeResponse>> localVarResponse = AnalyticsReportsOverTimeGetWithHttpInfo();
+             ApiResponse<List<ReportsOverTimeResponse>> localVarResponse = AnalyticsReportsOverTimeGetWithHttpInfo(dashboardName);
              return localVarResponse.Data;
         }
 
@@ -706,8 +741,9 @@ namespace IO.Swagger.Api
         ///  
         /// </summary>
         /// <exception cref="IO.Swagger.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="dashboardName"> (optional)</param>
         /// <returns>ApiResponse of List&lt;ReportsOverTimeResponse&gt;</returns>
-        public ApiResponse< List<ReportsOverTimeResponse> > AnalyticsReportsOverTimeGetWithHttpInfo ()
+        public ApiResponse< List<ReportsOverTimeResponse> > AnalyticsReportsOverTimeGetWithHttpInfo (string dashboardName = null)
         {
 
             var localVarPath = "/Analytics/ReportsOverTime";
@@ -733,6 +769,7 @@ namespace IO.Swagger.Api
             if (localVarHttpHeaderAccept != null)
                 localVarHeaderParams.Add("Accept", localVarHttpHeaderAccept);
 
+            if (dashboardName != null) localVarQueryParams.AddRange(Configuration.ApiClient.ParameterToKeyValuePairs("", "dashboardName", dashboardName)); // query parameter
 
 
             // make the HTTP request
@@ -757,10 +794,11 @@ namespace IO.Swagger.Api
         ///  
         /// </summary>
         /// <exception cref="IO.Swagger.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="dashboardName"> (optional)</param>
         /// <returns>Task of List&lt;ReportsOverTimeResponse&gt;</returns>
-        public async System.Threading.Tasks.Task<List<ReportsOverTimeResponse>> AnalyticsReportsOverTimeGetAsync ()
+        public async System.Threading.Tasks.Task<List<ReportsOverTimeResponse>> AnalyticsReportsOverTimeGetAsync (string dashboardName = null)
         {
-             ApiResponse<List<ReportsOverTimeResponse>> localVarResponse = await AnalyticsReportsOverTimeGetAsyncWithHttpInfo();
+             ApiResponse<List<ReportsOverTimeResponse>> localVarResponse = await AnalyticsReportsOverTimeGetAsyncWithHttpInfo(dashboardName);
              return localVarResponse.Data;
 
         }
@@ -769,8 +807,9 @@ namespace IO.Swagger.Api
         ///  
         /// </summary>
         /// <exception cref="IO.Swagger.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="dashboardName"> (optional)</param>
         /// <returns>Task of ApiResponse (List&lt;ReportsOverTimeResponse&gt;)</returns>
-        public async System.Threading.Tasks.Task<ApiResponse<List<ReportsOverTimeResponse>>> AnalyticsReportsOverTimeGetAsyncWithHttpInfo ()
+        public async System.Threading.Tasks.Task<ApiResponse<List<ReportsOverTimeResponse>>> AnalyticsReportsOverTimeGetAsyncWithHttpInfo (string dashboardName = null)
         {
 
             var localVarPath = "/Analytics/ReportsOverTime";
@@ -796,6 +835,7 @@ namespace IO.Swagger.Api
             if (localVarHttpHeaderAccept != null)
                 localVarHeaderParams.Add("Accept", localVarHttpHeaderAccept);
 
+            if (dashboardName != null) localVarQueryParams.AddRange(Configuration.ApiClient.ParameterToKeyValuePairs("", "dashboardName", dashboardName)); // query parameter
 
 
             // make the HTTP request
