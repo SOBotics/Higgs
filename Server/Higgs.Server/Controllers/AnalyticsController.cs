@@ -91,7 +91,7 @@ GROUP BY ""r0"".""BotId"", ""r.Bot0"".""DashboardName"", DATE_TRUNC('day', ""r0"
                 .Select(f => new ReportsByFeedbackResponse
                 {
                     Name = f.Name,
-                    Count = f.ReportFeedbacks.Count()
+                    Count = f.ReportFeedbacks.Count(rf => rf.InvalidatedDate == null)
                 })
                 .Where(f => f.Count > 0)
                 .OrderByDescending(f => f.Count)
@@ -107,7 +107,7 @@ GROUP BY ""r0"".""BotId"", ""r.Bot0"".""DashboardName"", DATE_TRUNC('day', ""r0"
                     .Select(u => new FeedbackByUserResponse
                     {
                         Name = u.Name,
-                        Count = u.ReportFeedbacks.Count(rf => rf.Feedback.Bot.DashboardName == dashboardName)
+                        Count = u.ReportFeedbacks.Count(rf => rf.InvalidatedDate == null && rf.Feedback.Bot.DashboardName == dashboardName)
                     })
                     .Where(f => f.Count > 0)
                     .OrderByDescending(f => f.Count)
@@ -118,7 +118,7 @@ GROUP BY ""r0"".""BotId"", ""r.Bot0"".""DashboardName"", DATE_TRUNC('day', ""r0"
                 .Select(u => new FeedbackByUserResponse
                 {
                     Name = u.Name,
-                    Count = u.ReportFeedbacks.Count()
+                    Count = u.ReportFeedbacks.Count(rf => rf.InvalidatedDate == null)
                 })
                 .Where(f => f.Count > 0)
                 .OrderByDescending(f => f.Count)
