@@ -106,6 +106,7 @@ GROUP BY ""r0"".""BotId"", ""r.Bot0"".""DashboardName"", DATE_TRUNC('day', ""r0"
                         Name = u.Name,
                         Count = u.ReportFeedbacks.Count(rf => rf.Feedback.Bot.DashboardName == dashboardName)
                     })
+                    .Where(f => f.Count > 0)
                     .OrderByDescending(f => f.Count)
                     .Take(15)
                     .ToList();
@@ -116,6 +117,7 @@ GROUP BY ""r0"".""BotId"", ""r.Bot0"".""DashboardName"", DATE_TRUNC('day', ""r0"
                     Name = u.Name,
                     Count = u.ReportFeedbacks.Count()
                 })
+                .Where(f => f.Count > 0)
                 .OrderByDescending(f => f.Count)
                 .Take(15)
                 .ToList();
