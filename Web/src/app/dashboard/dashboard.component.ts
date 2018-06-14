@@ -257,7 +257,7 @@ export class DashboardComponent implements OnInit {
       this.filter.pageNumber,
       50
     ).subscribe(response => {
-      if (response.pageNumber > response.totalPages) {
+      if (response.pageNumber > response.totalPages && response.totalPages > 0) {
         this.filter.pageNumber = 1;
         this.reloadData();
       } else {
