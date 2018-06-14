@@ -13,7 +13,7 @@
 
 export interface ReviewerBotByDashboardResponse {
     botId?: number;
-    dashboardName?: string;
     dashboardLogo?: string;
+    dashboardName?: string;
     dashboardDescription?: string;
 }

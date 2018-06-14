@@ -90,8 +90,7 @@ export class HomeComponent implements OnInit {
         },
         tooltip: {
           formatter: function () {
-            const date = new Date(this.x);
-            return `<b>${this.series.name}</b><br/>${Highcharts.dateFormat('%Y-%m-%d', this.x)} - ${this.y} seen`;
+            return `<b>${this.series.name}</b><br/>${this.y} reports (${Highcharts.dateFormat('%Y-%m-%d', this.x)})`;
           }
         },
         yAxis: {

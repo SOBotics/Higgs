@@ -34,11 +34,13 @@ namespace IO.Swagger.Model
         /// Initializes a new instance of the <see cref="ReviewerBotByDashboardResponse" /> class.
         /// </summary>
         /// <param name="BotId">BotId.</param>
+        /// <param name="DashboardLogo">DashboardLogo.</param>
         /// <param name="DashboardName">DashboardName.</param>
         /// <param name="DashboardDescription">DashboardDescription.</param>
-        public ReviewerBotByDashboardResponse(int? BotId = default(int?), string DashboardName = default(string), string DashboardDescription = default(string))
+        public ReviewerBotByDashboardResponse(int? BotId = default(int?), string DashboardLogo = default(string), string DashboardName = default(string), string DashboardDescription = default(string))
         {
             this.BotId = BotId;
+            this.DashboardLogo = DashboardLogo;
             this.DashboardName = DashboardName;
             this.DashboardDescription = DashboardDescription;
         }
@@ -48,6 +50,12 @@ namespace IO.Swagger.Model
         /// </summary>
         [DataMember(Name="botId", EmitDefaultValue=false)]
         public int? BotId { get; set; }
+
+        /// <summary>
+        /// Gets or Sets DashboardLogo
+        /// </summary>
+        [DataMember(Name="dashboardLogo", EmitDefaultValue=false)]
+        public string DashboardLogo { get; set; }
 
         /// <summary>
         /// Gets or Sets DashboardName
@@ -70,6 +78,7 @@ namespace IO.Swagger.Model
             var sb = new StringBuilder();
             sb.Append("class ReviewerBotByDashboardResponse {\n");
             sb.Append("  BotId: ").Append(BotId).Append("\n");
+            sb.Append("  DashboardLogo: ").Append(DashboardLogo).Append("\n");
             sb.Append("  DashboardName: ").Append(DashboardName).Append("\n");
             sb.Append("  DashboardDescription: ").Append(DashboardDescription).Append("\n");
             sb.Append("}\n");
@@ -112,6 +121,11 @@ namespace IO.Swagger.Model
                     this.BotId.Equals(input.BotId))
                 ) && 
                 (
+                    this.DashboardLogo == input.DashboardLogo ||
+                    (this.DashboardLogo != null &&
+                    this.DashboardLogo.Equals(input.DashboardLogo))
+                ) && 
+                (
                     this.DashboardName == input.DashboardName ||
                     (this.DashboardName != null &&
                     this.DashboardName.Equals(input.DashboardName))
@@ -134,6 +148,8 @@ namespace IO.Swagger.Model
                 int hashCode = 41;
                 if (this.BotId != null)
                     hashCode = hashCode * 59 + this.BotId.GetHashCode();
+                if (this.DashboardLogo != null)
+                    hashCode = hashCode * 59 + this.DashboardLogo.GetHashCode();
                 if (this.DashboardName != null)
                     hashCode = hashCode * 59 + this.DashboardName.GetHashCode();
                 if (this.DashboardDescription != null)

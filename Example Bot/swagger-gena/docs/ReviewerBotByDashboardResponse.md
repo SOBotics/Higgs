@@ -4,6 +4,7 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **BotId** | **int?** |  | [optional] 
+**DashboardLogo** | **string** |  | [optional] 
 **DashboardName** | **string** |  | [optional] 
 **DashboardDescription** | **string** |  | [optional] 
 

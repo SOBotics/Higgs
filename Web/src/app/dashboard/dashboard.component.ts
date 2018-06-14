@@ -73,11 +73,13 @@ export class DashboardComponent implements OnInit {
     this.initialized = false;
     this.validDashboard = false;
     this.reviewerService.reviewerBotByDashboardGet(this.dashboardName).subscribe(response => {
-      this.botId = response.botId;
-      this.validDashboard = response.botId > 0;
-      this.dashboardName = response.dashboardName;
-      this.dashboardDescription = response.dashboardDescription;
-      this.dashboardLogo = response.dashboardLogo;
+      this.validDashboard = !!response;
+      if (this.validDashboard) {
+        this.botId = response.botId;
+        this.dashboardName = response.dashboardName;
+        this.dashboardDescription = response.dashboardDescription;
+        this.dashboardLogo = response.dashboardLogo;
+      }
       this.initialized = true;
 
       this.reviewerService.reviewerFeedbacksGet(this.dashboardName)
@@ -149,7 +151,7 @@ export class DashboardComponent implements OnInit {
           type: 'line',
         },
         title: {
-          text: 'Reports per dashboard over time'
+          text: 'Reports over time'
         },
         xAxis: {
           type: 'datetime',
@@ -159,14 +161,16 @@ export class DashboardComponent implements OnInit {
         },
         tooltip: {
           formatter: function () {
-            const date = new Date(this.x);
-            return `<b>${this.series.name}</b><br/>${Highcharts.dateFormat('%Y-%m-%d', this.x)} - ${this.y} seen`;
+            return `${this.y} reports (${Highcharts.dateFormat('%Y-%m-%d', this.x)})`;
           }
         },
         yAxis: {
           title: {
             text: 'Number seen'
           }
+        },
+        legend: {
+          enabled: false
         },
         credits: {
           enabled: false
