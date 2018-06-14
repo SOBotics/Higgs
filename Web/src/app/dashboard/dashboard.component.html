@@ -2,8 +2,7 @@
   <ng-container *ngIf="validDashboard">
     <div class="container">
       <h1 class="display-4">
-        <img class="dashboard-logo" src="{{dashboardLogo}}" />
-        {{dashboardName}}
+        <img class="dashboard-logo" src="{{dashboardLogo}}" /> {{dashboardName}}
       </h1>
       <p class="lead">{{dashboardDescription}}</p>
       <hr />
@@ -107,9 +106,9 @@
       </tbody>
     </table>
 
-    <nav aria-label="Page navigation example">
+    <nav>
       <ul class="pagination">
-        <li class="page-item" [class.disabled]="page.Disabled" [class.active]="page.Active" *ngFor="let page of getPages()">
+        <li class="page-item" [class.disabled]="page.Disabled" [class.active]="page.Active" *ngFor="let page of pagingInfo">
           <a class="page-link" (click)="loadPage(page.Number)" href="javascript:void(0);">{{page.Name}}</a>
         </li>
       </ul>

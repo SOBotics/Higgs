@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ReviewerService, PagingResponseReviewerReportsResponse } from '../../swagger-gen';
 import { ActivatedRoute, Router } from '@angular/router';
-import { GetPagingInfo } from '../../utils/PagingHelper';
+import { GetPagingInfo, PagingInfo } from '../../utils/PagingHelper';
 import { IMultiSelectTexts, IMultiSelectSettings } from 'angular-2-dropdown-multiselect';
 
 @Component({
@@ -15,6 +15,7 @@ export class ReportsComponent implements OnInit {
   public reasonSelector: IMultiSelectTexts;
 
   public reportsResponse: PagingResponseReviewerReportsResponse = null;
+  public pagingInfo: PagingInfo[];
 
   public feedbacks: any[];
   public reasons: any[];
@@ -81,10 +82,6 @@ export class ReportsComponent implements OnInit {
       });
   }
 
-  public getPages() {
-    return GetPagingInfo(this.reportsResponse);
-  }
-
   public loadPage(pageNumber: number) {
     this.filter.pageNumber = pageNumber;
     this.applyFilter();
@@ -120,6 +117,7 @@ export class ReportsComponent implements OnInit {
         this.reloadData();
       } else {
         this.reportsResponse = response;
+        this.pagingInfo = GetPagingInfo(response);
       }
     });
   }

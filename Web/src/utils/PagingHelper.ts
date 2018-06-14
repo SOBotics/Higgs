@@ -1,4 +1,11 @@
-export function GetPagingInfo(pagedData: { pageNumber?: number, totalPages?: number }, numExtraPages = 2) {
+export interface PagingInfo {
+    Name: string;
+    Number: number;
+    Active: boolean;
+    Disabled: boolean;
+}
+
+export function GetPagingInfo(pagedData: { pageNumber?: number, totalPages?: number }, numExtraPages = 2): PagingInfo[] {
     if (!pagedData) {
         return [];
     }

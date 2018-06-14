@@ -3,7 +3,7 @@ import { ReviewerService, AnalyticsService, PagingResponseReviewerReportsRespons
 import { ActivatedRoute, Router } from '@angular/router';
 import { GroupBy } from '../../utils/GroupBy';
 import { Chart } from 'angular-highcharts';
-import { GetPagingInfo } from '../../utils/PagingHelper';
+import { GetPagingInfo, PagingInfo } from '../../utils/PagingHelper';
 import { IMultiSelectTexts, IMultiSelectSettings } from 'angular-2-dropdown-multiselect';
 import * as Highcharts from 'highcharts';
 
@@ -33,6 +33,7 @@ export class DashboardComponent implements OnInit {
   public reasons: any[];
 
   public reportsResponse: PagingResponseReviewerReportsResponse = null;
+  public pagingInfo: PagingInfo[];
 
   public filter = {
     pageNumber: 1,
@@ -63,6 +64,21 @@ export class DashboardComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.route.queryParams.subscribe(params => {
+      this.filter.pageNumber = +params['pageNumber'] || 1;
+      this.filter.content = params['content'];
+      this.filter.hasFeedback = params['hasFeedback'] || 'any';
+      this.filter.conflicted = params['conflicted'] || 'any';
+
+      const feedbacks = params['feedbacks'];
+      this.filter.feedbacks = !feedbacks ? [] : typeof feedbacks === 'string' ? [parseInt(feedbacks, 10)] : feedbacks.map(f => parseInt(f, 10));
+
+      const reasons = params['reasons'];
+      this.filter.reasons = !reasons ? [] : typeof reasons === 'string' ? [parseInt(reasons, 10)] : reasons.map(f => parseInt(f, 10));
+
+      this.reloadData();
+    });
+
     this.route.params.subscribe(params => {
       this.dashboardName = params['dashboardName'];
       this.refreshData();
@@ -222,18 +238,13 @@ export class DashboardComponent implements OnInit {
     });
   }
 
-
-  public getPages() {
-    return GetPagingInfo(this.reportsResponse);
-  }
-
   public loadPage(pageNumber: number) {
     this.filter.pageNumber = pageNumber;
     this.applyFilter();
   }
 
   public applyFilter() {
-    this.router.navigate(['/reports'], { queryParams: this.filter });
+    this.router.navigate(['/' + this.dashboardName], { queryParams: this.filter });
   }
 
   public reloadData() {
@@ -262,6 +273,7 @@ export class DashboardComponent implements OnInit {
         this.reloadData();
       } else {
         this.reportsResponse = response;
+        this.pagingInfo = GetPagingInfo(response);
       }
     });
   }
