@@ -55,6 +55,7 @@ GROUP BY ""r0"".""BotId"", ""r.Bot0"".""DashboardName"", DATE_TRUNC('day', ""r0"
                     DashboardName = b.DashboardName,
                     Count = b.Reports.Count()
                 })
+                .Where(f => f.Count > 0)
                 .OrderByDescending(f => f.Count)
                 .Take(15)
                 .ToList();
@@ -73,6 +74,7 @@ GROUP BY ""r0"".""BotId"", ""r.Bot0"".""DashboardName"", DATE_TRUNC('day', ""r0"
                     Name = r.Name,
                     Count = r.ReportReasons.Count(rr => rr.Tripped)
                 })
+                .Where(f => f.Count > 0)
                 .OrderByDescending(r => r.Count)
                 .Take(15)
                 .ToList();
@@ -91,6 +93,7 @@ GROUP BY ""r0"".""BotId"", ""r.Bot0"".""DashboardName"", DATE_TRUNC('day', ""r0"
                     Name = f.Name,
                     Count = f.ReportFeedbacks.Count()
                 })
+                .Where(f => f.Count > 0)
                 .OrderByDescending(f => f.Count)
                 .Take(15)
                 .ToList();
