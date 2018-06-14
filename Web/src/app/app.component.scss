@@ -17,7 +17,11 @@ header {
   background-color: #f7f7f7;
 }
 
-@media(max-width: 991px) {
+.footer.footer > div.container {
+  text-align: center;
+}
+
+@media(max-width: 1201px) {
   .footer {
     font-size: 9px;
   }

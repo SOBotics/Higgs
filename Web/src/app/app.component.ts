@@ -4,6 +4,7 @@ import { environment } from '../environments/environment';
 import { Params, ActivatedRoute, Router } from '@angular/router';
 import { MetaDataService } from './services/meta-data.service';
 import { ReportComponent } from './report/report.component';
+import { HttpClient } from '@angular/common/http';
 
 @Component({
   selector: 'app-root',
@@ -18,7 +19,9 @@ export class AppComponent implements OnInit {
   public isReviewer: boolean;
   public rawToken: string;
   private userName: string;
+  public revision: string;
   constructor(
+    private http: HttpClient,
     private authService: AuthService,
     private router: Router,
     private activatedRoute: ActivatedRoute,
@@ -40,6 +43,8 @@ export class AppComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.http.get('/assets/revision.txt', { responseType: 'text' }).subscribe(a => this.revision = a);
+
     // Watch for access token in the URL. If it's there, store the token and remove it from the URL.
     this.activatedRoute.queryParams.subscribe((params: Params) => {
       const accessToken = params['access_token'];

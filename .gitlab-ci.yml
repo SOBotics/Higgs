@@ -27,6 +27,7 @@ build web:
     - npm install --unsafe-perm -g --silent @angular/cli
     - npm install --unsafe-perm --silent
     - ng build -prod
+    - git rev-parse --verify HEAD > dist/assets/revision.txt
   artifacts:
     paths:
       - Web/dist
