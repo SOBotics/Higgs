@@ -95,7 +95,7 @@ namespace Higgs.Server.Controllers
             if (request.Conflicted.HasValue)
                 reportQuery = reportQuery.Where(r => r.Conflicted == request.Conflicted);
             if (request.Reasons?.Any() ?? false)
-                reportQuery = reportQuery.Where(r => r.Reasons.Any(reportReason => request.Reasons.Contains(reportReason.ReasonId)));
+                reportQuery = reportQuery.Where(r => r.Reasons.Any(reportReason => reportReason.Tripped && request.Reasons.Contains(reportReason.ReasonId)));
             if (request.Feedbacks?.Any() ?? false)
                 reportQuery = reportQuery.Where(r => r.Feedbacks.Any(reportFeedback => request.Feedbacks.Contains(reportFeedback.FeedbackId)));
                         
