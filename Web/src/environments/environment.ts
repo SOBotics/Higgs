@@ -6,9 +6,9 @@
 export const environment = {
   production: false,
 
-  // apiHost: 'https://api.higgs.sobotics.org',
+  apiHost: 'https://api.higgs.sobotics.org',
   // webHost: 'https://higgs.sobotics.org',
 
-  apiHost: 'http://localhost:50192',
+  // apiHost: 'http://localhost:50192',
   webHost: 'http://localhost:4200',
 };

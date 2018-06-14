@@ -21,6 +21,7 @@ import { Observable }                                        from 'rxjs/Observab
 import { ClearFeedbackRequest } from '../model/clearFeedbackRequest';
 import { PagingResponseInt32 } from '../model/pagingResponseInt32';
 import { PagingResponseReviewerReportsResponse } from '../model/pagingResponseReviewerReportsResponse';
+import { ReviewerBotByDashboardResponse } from '../model/reviewerBotByDashboardResponse';
 import { ReviewerCheckResponse } from '../model/reviewerCheckResponse';
 import { ReviewerDashboardsResponse } from '../model/reviewerDashboardsResponse';
 import { ReviewerFeedbacksResponse } from '../model/reviewerFeedbacksResponse';
@@ -71,9 +72,9 @@ export class ReviewerService {
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      */
-    public reviewerBotByDashboardGet(dashboardName?: string, observe?: 'body', reportProgress?: boolean): Observable<number>;
-    public reviewerBotByDashboardGet(dashboardName?: string, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<number>>;
-    public reviewerBotByDashboardGet(dashboardName?: string, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<number>>;
+    public reviewerBotByDashboardGet(dashboardName?: string, observe?: 'body', reportProgress?: boolean): Observable<ReviewerBotByDashboardResponse>;
+    public reviewerBotByDashboardGet(dashboardName?: string, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<ReviewerBotByDashboardResponse>>;
+    public reviewerBotByDashboardGet(dashboardName?: string, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<ReviewerBotByDashboardResponse>>;
     public reviewerBotByDashboardGet(dashboardName?: string, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
 
         let queryParameters = new HttpParams({encoder: new CustomHttpUrlEncodingCodec()});
@@ -98,7 +99,7 @@ export class ReviewerService {
         let consumes: string[] = [
         ];
 
-        return this.httpClient.get<number>(`${this.basePath}/Reviewer/BotByDashboard`,
+        return this.httpClient.get<ReviewerBotByDashboardResponse>(`${this.basePath}/Reviewer/BotByDashboard`,
             {
                 params: queryParameters,
                 withCredentials: this.configuration.withCredentials,

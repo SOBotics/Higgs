@@ -25,6 +25,7 @@ export * from './reportsByFeedbackResponse';
 export * from './reportsByReasonResponse';
 export * from './reportsOverTimeResponse';
 export * from './reportsTotalResponse';
+export * from './reviewerBotByDashboardResponse';
 export * from './reviewerCheckResponse';
 export * from './reviewerDashboardsResponse';
 export * from './reviewerFeedbacksResponse';

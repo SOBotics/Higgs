@@ -1,7 +1,12 @@
 <ng-container *ngIf="initialized">
   <ng-container *ngIf="validDashboard">
     <div class="container">
-      <h3>{{dashboardName}}</h3>
+      <h1 class="display-4">
+        <img class="dashboard-logo" src="{{dashboardLogo}}" />
+        {{dashboardName}}
+      </h1>
+      <p class="lead">{{dashboardDescription}}</p>
+      <hr />
       <div class="row">
         <div class="col-md-6">
           <div *ngIf="feedbackByUserChart" [chart]="feedbackByUserChart"></div>

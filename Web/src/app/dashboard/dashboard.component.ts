@@ -17,6 +17,8 @@ export class DashboardComponent implements OnInit {
   public initialized: boolean;
   public validDashboard: boolean;
   public dashboardName: string;
+  public dashboardDescription: string;
+  public dashboardLogo: string;
 
   public dropdownSettings: IMultiSelectSettings;
   public feedbackSelector: IMultiSelectTexts;
@@ -70,9 +72,12 @@ export class DashboardComponent implements OnInit {
   private refreshData() {
     this.initialized = false;
     this.validDashboard = false;
-    this.reviewerService.reviewerBotByDashboardGet(this.dashboardName).subscribe(botId => {
-      this.botId = botId;
-      this.validDashboard = botId > 0;
+    this.reviewerService.reviewerBotByDashboardGet(this.dashboardName).subscribe(response => {
+      this.botId = response.botId;
+      this.validDashboard = response.botId > 0;
+      this.dashboardName = response.dashboardName;
+      this.dashboardDescription = response.dashboardDescription;
+      this.dashboardLogo = response.dashboardLogo;
       this.initialized = true;
 
       this.reviewerService.reviewerFeedbacksGet(this.dashboardName)

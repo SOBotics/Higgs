@@ -84,6 +84,7 @@ namespace Higgs.Server.Controllers
                 {
                     BotId = b.Id,
                     DashboardName = b.DashboardName,
+                    DashboardLogo = b.LogoUrl,
                     DashboardDescription = b.Description
                 })
                 .FirstOrDefault();
