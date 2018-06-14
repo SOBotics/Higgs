@@ -27,15 +27,17 @@ namespace Higgs.Server.Controllers
             using (var connection = _dbContext.Database.GetDbConnection())
             {
                 var dateFrom = DateTime.UtcNow.AddMonths(-3);
+                var dateTo = DateTime.UtcNow.Date;
                 var results = connection.Query<ReportsOverTimeResponse>(@"
 SELECT ""r0"".""BotId"" AS ""BotId"", ""r.Bot0"".""DashboardName"", DATE_TRUNC('day', ""r0"".""DetectedDate"") AS ""Date"", COUNT(1) as ""Count""
 FROM ""Reports"" AS ""r0""
 INNER JOIN ""Bots"" AS ""r.Bot0"" ON ""r0"".""BotId"" = ""r.Bot0"".""Id""
-WHERE ""r0"".""DetectedDate"" >= @dateFrom AND (@dashboardName IS NULL OR @dashboardName = '' OR @dashboardName = ""r.Bot0"".""DashboardName"")
+WHERE ""r0"".""DetectedDate"" >= @dateFrom AND ""r0"".""DetectedDate"" < @dateTo AND (@dashboardName IS NULL OR @dashboardName = '' OR @dashboardName = ""r.Bot0"".""DashboardName"")
 GROUP BY ""r0"".""BotId"", ""r.Bot0"".""DashboardName"", DATE_TRUNC('day', ""r0"".""DetectedDate"")
 ", new
                 {
                     dateFrom,
+                    dateTo,
                     dashboardName
                 }).ToList();
 
