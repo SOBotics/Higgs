@@ -54,7 +54,7 @@ namespace Higgs.Server.Controllers
                 feedbacks = feedbacks.Where(f => f.Bot.DashboardName == dashboardName);
 
             var data =
-                feedbacks    
+                feedbacks
                 .Select(f => new ReviewerFeedbacksResponse { Id = f.Id, Name = f.Bot.DashboardName + " - " + f.Name })
                 .ToList();
 
@@ -77,9 +77,16 @@ namespace Higgs.Server.Controllers
         }
 
         [HttpGet("BotByDashboard")]
-        public int? BotByDashboard(string dashboardName)
+        public ReviewerBotByDashboardResponse BotByDashboard(string dashboardName)
         {
-            return _dbContext.Bots.FirstOrDefault(b => b.DashboardName == dashboardName)?.Id;
+            return _dbContext.Bots.Where(b => b.DashboardName == dashboardName)
+                .Select(b => new ReviewerBotByDashboardResponse
+                {
+                    BotId = b.Id,
+                    DashboardName = b.DashboardName,
+                    DashboardDescription = b.Description
+                })
+                .FirstOrDefault();
         }
 
         [HttpGet("Reports")]
@@ -88,7 +95,7 @@ namespace Higgs.Server.Controllers
             IQueryable<DbReport> reportQuery = _dbContext.Reports;
             if (!string.IsNullOrWhiteSpace(request.Content))
                 reportQuery = reportQuery.Where(r => r.Title.Contains(request.Content));
-            if (request.BotId.HasValue) 
+            if (request.BotId.HasValue)
                 reportQuery = reportQuery.Where(r => r.BotId == request.BotId.Value);
             if (request.HasFeedback.HasValue)
                 reportQuery = reportQuery.Where(r => r.Feedbacks.Any() == request.HasFeedback.Value);
@@ -98,7 +105,7 @@ namespace Higgs.Server.Controllers
                 reportQuery = reportQuery.Where(r => r.Reasons.Any(reportReason => reportReason.Tripped && request.Reasons.Contains(reportReason.ReasonId)));
             if (request.Feedbacks?.Any() ?? false)
                 reportQuery = reportQuery.Where(r => r.Feedbacks.Any(reportFeedback => request.Feedbacks.Contains(reportFeedback.FeedbackId)));
-                        
+
             var pagedReportData = reportQuery
                 .Select(r => new
                 {
