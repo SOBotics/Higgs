@@ -24,25 +24,25 @@ namespace Higgs.Server.Controllers
         [HttpGet("ReportsOverTime")]
         public List<ReportsOverTimeResponse> ReportsOverTime(string dashboardName = null)
         {
-            using (var connection = _dbContext.Database.GetDbConnection())
+            var dateFrom = DateTime.UtcNow.AddMonths(-3);
+            var dateTo = DateTime.UtcNow.Date;
+            
+            var reports = _dbContext.Reports.Where(r => r.DetectedDate >= dateFrom && r.DetectedDate < dateTo);
+            if (!string.IsNullOrWhiteSpace(dashboardName)) 
             {
-                var dateFrom = DateTime.UtcNow.AddMonths(-3);
-                var dateTo = DateTime.UtcNow.Date;
-                var results = connection.Query<ReportsOverTimeResponse>(@"
-SELECT ""r0"".""DashboardId"" AS ""DashboardId"", ""r.Bot0"".""DashboardName"", DATE_TRUNC('day', ""r0"".""DetectedDate"") AS ""Date"", COUNT(1) as ""Count""
-FROM ""Reports"" AS ""r0""
-INNER JOIN ""Bots"" AS ""r.Bot0"" ON ""r0"".""DashboardId"" = ""r.Bot0"".""Id""
-WHERE ""r0"".""DetectedDate"" >= @dateFrom AND ""r0"".""DetectedDate"" < @dateTo AND (@dashboardName IS NULL OR @dashboardName = '' OR @dashboardName = ""r.Bot0"".""DashboardName"")
-GROUP BY ""r0"".""DashboardId"", ""r.Bot0"".""DashboardName"", DATE_TRUNC('day', ""r0"".""DetectedDate"")
-", new
+                reports = reports.Where(r => r.Dashboard.DashboardName == dashboardName);
+            }
+            var results = reports
+                .GroupBy(r => new { r.DashboardId, r.Dashboard.DashboardName, r.DetectedDate.Value.Date })
+                .Select(g => new ReportsOverTimeResponse
                 {
-                    dateFrom,
-                    dateTo,
-                    dashboardName
+                    DashboardId = g.Key.DashboardId,
+                    DashboardName = g.Key.DashboardName,
+                    Date = g.Key.Date,
+                    Count = g.Count()
                 }).ToList();
 
-                return results;
-            }
+            return results;
         }
 
         [HttpGet("ReportsTotal")]
@@ -67,7 +67,7 @@ GROUP BY ""r0"".""DashboardId"", ""r.Bot0"".""DashboardName"", DATE_TRUNC('day',
             IQueryable<DbReason> reasons = _dbContext.Reasons;
             if (!string.IsNullOrEmpty(dashboardName))
                 reasons = reasons.Where(r => r.Dashboard.DashboardName == dashboardName);
-            
+
             return reasons
                 .Select(r => new ReportsByReasonResponse
                 {
