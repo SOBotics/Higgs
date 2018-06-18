@@ -37,7 +37,7 @@ namespace Higgs.Server.Controllers
         [SwaggerResponse((int) HttpStatusCode.BadRequest, typeof(ErrorResponse))]
         public IActionResult AquireToken([FromBody] AquireTokenRequest request)
         {
-            var bot = _dbContext.Dashboards.Where(b => b.Id == request.BotId)
+            var bot = _dbContext.Dashboards.Where(b => b.Id == request.DashboardId)
                 .Select(b => new
                 {
                     b.Id,
@@ -48,14 +48,14 @@ namespace Higgs.Server.Controllers
 
             
             if (bot == null)
-                throw new HttpStatusException(HttpStatusCode.BadRequest, "Bot with that id does not exist.");
+                throw new HttpStatusException(HttpStatusCode.BadRequest, "Dashboard with that id does not exist.");
 
             if (!BCrypt.Net.BCrypt.Verify(request.Secret, bot.Secret))
                 throw new HttpStatusException(HttpStatusCode.Unauthorized, "Invalid secret provided.");
 
             var claims = (request.RequestedScopes?.Intersect(bot.AllowedScopes, StringComparer.OrdinalIgnoreCase) ?? bot.AllowedScopes)
                 .Select(s => new Claim(s, string.Empty))
-                .Concat(new[] {new Claim(BOT_ID_CLAIM, request.BotId.ToString())})
+                .Concat(new[] {new Claim(BOT_ID_CLAIM, request.DashboardId.ToString())})
                 .ToList();
 
             var signingKey = Convert.FromBase64String(_configuration["JwtSigningKey"]);
