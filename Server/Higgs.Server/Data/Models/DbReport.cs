@@ -12,9 +12,9 @@ namespace Higgs.Server.Data.Models
         [Key]
         public int Id { get; set; }
 
-        public int BotId { get; set; }
-        [ForeignKey("BotId")]
-        public DbBot Bot { get; set; }
+        public int DashboardId { get; set; }
+        [ForeignKey("DashboardId")]
+        public DbDashboard Dashboard { get; set; }
 
         public string Title { get; set; }
         public string ContentUrl { get; set; }

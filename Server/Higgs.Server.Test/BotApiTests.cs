@@ -87,7 +87,7 @@ namespace Higgs.Server.Test
             {
                 dbContext.Feedbacks.Add(new Data.Models.DbFeedback()
                 {
-                    BotId = 1,
+                    DashboardId = 1,
                     Name = "tp"
                 });
                 dbContext.SaveChanges();
@@ -131,7 +131,7 @@ namespace Higgs.Server.Test
                 });
                 dbContext.Feedbacks.Add(new Data.Models.DbFeedback()
                 {
-                    BotId = 1,
+                    DashboardId = 1,
                     Name = "tp"
                 });
                 dbContext.SaveChanges();
@@ -172,7 +172,7 @@ namespace Higgs.Server.Test
                 });
                 dbContext.Feedbacks.Add(new Data.Models.DbFeedback()
                 {
-                    BotId = 1,
+                    DashboardId = 1,
                     Name = "tp"
                 });
                 dbContext.SaveChanges();
@@ -209,7 +209,7 @@ namespace Higgs.Server.Test
             {
                 dbContext.Feedbacks.Add(new Data.Models.DbFeedback()
                 {
-                    BotId = 1,
+                    DashboardId = 1,
                     Name = "tp"
                 });
                 dbContext.SaveChanges();

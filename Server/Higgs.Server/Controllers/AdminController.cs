@@ -33,7 +33,7 @@ namespace Higgs.Server.Controllers
         [SwaggerResponse((int) HttpStatusCode.OK, typeof(List<BotsResponse>), Description = "View bot details")]
         public List<BotsResponse> Bots()
         {
-            IQueryable<DbBot> bots = _dbContext.Bots;
+            IQueryable<DbDashboard> bots = _dbContext.Dashboards;
             if (!User.HasClaim(Scopes.SCOPE_ADMIN))
             {
                 var userId = User.GetUserId();
@@ -47,7 +47,7 @@ namespace Higgs.Server.Controllers
             {
                 BotId = b.Id,
                 Description = b.Description,
-                Name = b.Name,
+                Name = b.BotName,
             }).ToList();
         }
 
@@ -67,16 +67,16 @@ namespace Higgs.Server.Controllers
                 return BadRequest(new ErrorResponse("Description is required"));
             if (string.IsNullOrWhiteSpace(request.Secret))
                 return BadRequest(new ErrorResponse("Secret is required"));
-            if (_dbContext.Bots.Any(b => b.Name == request.Name))
+            if (_dbContext.Dashboards.Any(b => b.BotName == request.Name))
                 return BadRequest(new ErrorResponse($"Bot with name '{request.Name}' already exists"));
 
             var userId = User.GetUserId();
             if (!userId.HasValue)
                 throw new HttpStatusException(HttpStatusCode.Unauthorized);
 
-            var bot = new DbBot
+            var bot = new DbDashboard
             {
-                BotScopes = new List<DbBotScope>(),
+                Scopes = new List<DbDashboardScope>(),
                 Feedbacks = new List<DbFeedback>(),
                 ConflictExceptions = new List<DbConflictException>()
             };
@@ -86,10 +86,10 @@ namespace Higgs.Server.Controllers
             if (request.OwnerAccountId.HasValue && User.HasClaim(Scopes.SCOPE_ADMIN))
                 bot.OwnerAccountId = request.OwnerAccountId.Value;
 
-            _dbContext.Bots.Add(bot);
-            _dbContext.BotScopes.Add(new DbBotScope
+            _dbContext.Dashboards.Add(bot);
+            _dbContext.DashboardScopes.Add(new DbDashboardScope
             {
-                Bot = bot,
+                Dashboard = bot,
                 ScopeName = Scopes.SCOPE_BOT
             });
 
@@ -101,11 +101,11 @@ namespace Higgs.Server.Controllers
         [Authorize(Scopes.SCOPE_BOT_OWNER)]
         public BotResponse Bot(int botId)
         {
-            var bot = _dbContext.Bots.Where(b => b.Id == botId)
+            var bot = _dbContext.Dashboards.Where(b => b.Id == botId)
                 .Select(b => new BotResponse
                 {
                     Id = b.Id,
-                    Name = b.Name,
+                    Name = b.BotName,
                     DashboardName = b.DashboardName,
                     Description = b.Description,
                     Homepage = b.Homepage,
@@ -120,7 +120,7 @@ namespace Higgs.Server.Controllers
             if (bot == null)
                 throw new HttpStatusException(HttpStatusCode.BadRequest, "Bot not found");
             
-            var feedbacks = _dbContext.Feedbacks.Where(f => f.BotId == botId)
+            var feedbacks = _dbContext.Feedbacks.Where(f => f.DashboardId == botId)
                 .Select(f => new BotResponseFeedback
                 {
                     Id = f.Id,
@@ -132,7 +132,7 @@ namespace Higgs.Server.Controllers
                 }).ToList();
             bot.Feedbacks = feedbacks;
 
-            var conflictExceptions = _dbContext.ConflictExceptions.Where(bceg => bceg.BotId == botId)
+            var conflictExceptions = _dbContext.ConflictExceptions.Where(bceg => bceg.DashboardId == botId)
                 .Include(conflictExceptionGroup => conflictExceptionGroup.ConflictExceptionFeedbacks)
                 .ToList()
                 .Select(conflictExceptionGroup => new BotResponseConflictExceptions
@@ -169,8 +169,8 @@ namespace Higgs.Server.Controllers
         [SwaggerResponse((int) HttpStatusCode.BadRequest, typeof(ErrorResponse), Description = "Bot not found")]
         public IActionResult EditBot([FromBody] EditBotRequest request)
         {
-            var existingBot = _dbContext.Bots
-                .Include(b => b.BotScopes)
+            var existingBot = _dbContext.Dashboards
+                .Include(b => b.Scopes)
                 .Include(b => b.Feedbacks)
                 .Include(b => b.ConflictExceptions)
                 .ThenInclude(b => b.ConflictExceptionFeedbacks)
@@ -189,7 +189,7 @@ namespace Higgs.Server.Controllers
             return Ok();
         }
 
-        private void FillBotDetails(DbBot existingBot, CreateBotRequest request)
+        private void FillBotDetails(DbDashboard existingDashboard, CreateBotRequest request)
         {
             if (request.Feedbacks == null)
                 request.Feedbacks = new List<CreateBotRequestFeedback>();
@@ -203,39 +203,39 @@ namespace Higgs.Server.Controllers
 
             ConflictHelper.AssertUniqueConflictFeedbacks(request.ConflictExceptions.Select(c => c.BotResponseConflictFeedbacks));
 
-            existingBot.Name = request.Name;
-            existingBot.DashboardName = request.DashboardName;
-            existingBot.Description = request.Description;
+            existingDashboard.BotName = request.Name;
+            existingDashboard.DashboardName = request.DashboardName;
+            existingDashboard.Description = request.Description;
 
             if (!string.IsNullOrWhiteSpace(request.Secret))
-                existingBot.Secret = BCrypt.Net.BCrypt.HashPassword(request.Secret);
+                existingDashboard.Secret = BCrypt.Net.BCrypt.HashPassword(request.Secret);
 
             if (request.OwnerAccountId.HasValue && User.HasClaim(Scopes.SCOPE_ADMIN))
-                existingBot.OwnerAccountId = request.OwnerAccountId.Value;
+                existingDashboard.OwnerAccountId = request.OwnerAccountId.Value;
 
-            existingBot.FavIcon = request.FavIcon;
-            existingBot.Homepage = request.Homepage;
-            existingBot.LogoUrl = request.LogoUrl;
-            existingBot.TabTitle = request.TabTitle;
-            existingBot.RequiredFeedback = request.RequiredFeedback;
-            existingBot.RequiredFeedbackConflicted = request.RequiredFeedbackConflicted;
+            existingDashboard.FavIcon = request.FavIcon;
+            existingDashboard.Homepage = request.Homepage;
+            existingDashboard.LogoUrl = request.LogoUrl;
+            existingDashboard.TabTitle = request.TabTitle;
+            existingDashboard.RequiredFeedback = request.RequiredFeedback;
+            existingDashboard.RequiredFeedbackConflicted = request.RequiredFeedbackConflicted;
             
             var createdFeedbacks = new Dictionary<int, DbFeedback>();
             CollectionUpdater.UpdateCollection(
-                existingBot.Feedbacks.ToDictionary(f => f.Id, f => f),
+                existingDashboard.Feedbacks.ToDictionary(f => f.Id, f => f),
                 request.Feedbacks.ToDictionary(f => f.Id, f => f),
                 newFeedback =>
                 {
                     var dbFeedbackType = new DbFeedback
                     {
-                        Bot = existingBot,
+                        Dashboard = existingDashboard,
                         Name = newFeedback.Name,
                         Colour = newFeedback.Colour,
                         Icon = newFeedback.Icon,
                         IsActionable = newFeedback.IsActionable,
                         IsEnabled = newFeedback.IsEnabled
                     };
-                    existingBot.Feedbacks.Add(dbFeedbackType);
+                    existingDashboard.Feedbacks.Add(dbFeedbackType);
                     _dbContext.Feedbacks.Add(dbFeedbackType);
 
                     createdFeedbacks.Add(newFeedback.Id, dbFeedbackType);
@@ -251,17 +251,17 @@ namespace Higgs.Server.Controllers
                 existingFeedback => { }
             );
             
-            if (existingBot.Feedbacks.GroupBy(f => f.Name, StringComparer.OrdinalIgnoreCase).Any(g => g.Count() > 1))
+            if (existingDashboard.Feedbacks.GroupBy(f => f.Name, StringComparer.OrdinalIgnoreCase).Any(g => g.Count() > 1))
                 throw new HttpStatusException(HttpStatusCode.BadRequest, "Feedback names must be unique");
 
             CollectionUpdater.UpdateCollection(
-                existingBot.ConflictExceptions.ToDictionary(ce => ce.Id, ce => ce),
+                existingDashboard.ConflictExceptions.ToDictionary(ce => ce.Id, ce => ce),
                 request.ConflictExceptions.ToDictionary(ce => ce.Id, ce => ce),
                 newConflict =>
                 {
                     var dbConflictException = new DbConflictException
                     {
-                        Bot = existingBot,
+                        Dashboard = existingDashboard,
                         IsConflict = newConflict.IsConflict,
                         RequiresAdmin = newConflict.RequiresAdmin,
                         RequiredFeedback = newConflict.RequiredFeedback
@@ -288,7 +288,7 @@ namespace Higgs.Server.Controllers
                         _dbContext.ConflictExceptionFeedbacks.Add(newConflictException);
                     }
 
-                    existingBot.ConflictExceptions.Add(dbConflictException);
+                    existingDashboard.ConflictExceptions.Add(dbConflictException);
                     _dbContext.ConflictExceptions.Add(dbConflictException);
                 },
                 (existingConflict, newConflict) =>

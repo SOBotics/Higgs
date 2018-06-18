@@ -19,9 +19,9 @@ namespace Higgs.Server.Data.Models
 
         public bool IsEnabled { get; set; }
 
-        public int BotId { get; set; }
-        [ForeignKey("BotId")]
-        public DbBot Bot { get; set; }
+        public int DashboardId { get; set; }
+        [ForeignKey("DashboardId")]
+        public DbDashboard Dashboard { get; set; }
 
         [InverseProperty("Feedback")]
         public List<DbReportFeedback> ReportFeedbacks { get; set; }

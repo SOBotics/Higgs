@@ -3,14 +3,14 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Higgs.Server.Data.Models
 {
-    public class DbBotScope
+    public class DbDashboardScope
     {
         [Key]
         public int Id { get; set; }
 
-        public int BotId { get; set; }
-        [ForeignKey("BotId")]
-        public DbBot Bot { get; set; }
+        public int DashboardId { get; set; }
+        [ForeignKey("DashboardId")]
+        public DbDashboard Dashboard { get; set; }
 
         [Required]
         public string ScopeName { get; set; }

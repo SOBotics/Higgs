@@ -48,7 +48,7 @@ GROUP BY ""r0"".""BotId"", ""r.Bot0"".""DashboardName"", DATE_TRUNC('day', ""r0"
         [HttpGet("ReportsTotal")]
         public List<ReportsTotalResponse> ReportsTotal()
         {
-            return _dbContext.Bots
+            return _dbContext.Dashboards
                 .Select(b => new ReportsTotalResponse
                 {
                     BotId = b.Id,
@@ -85,7 +85,7 @@ GROUP BY ""r0"".""BotId"", ""r.Bot0"".""DashboardName"", DATE_TRUNC('day', ""r0"
         {
             IQueryable<DbFeedback> feedbacks = _dbContext.Feedbacks;
             if (!string.IsNullOrEmpty(dashboardName))
-                feedbacks = feedbacks.Where(f => f.Bot.DashboardName == dashboardName);
+                feedbacks = feedbacks.Where(f => f.Dashboard.DashboardName == dashboardName);
 
             return feedbacks
                 .Select(f => new ReportsByFeedbackResponse
@@ -107,7 +107,7 @@ GROUP BY ""r0"".""BotId"", ""r.Bot0"".""DashboardName"", DATE_TRUNC('day', ""r0"
                     .Select(u => new FeedbackByUserResponse
                     {
                         Name = u.Name,
-                        Count = u.ReportFeedbacks.Count(rf => rf.InvalidatedDate == null && rf.Feedback.Bot.DashboardName == dashboardName)
+                        Count = u.ReportFeedbacks.Count(rf => rf.InvalidatedDate == null && rf.Feedback.Dashboard.DashboardName == dashboardName)
                     })
                     .Where(f => f.Count > 0)
                     .OrderByDescending(f => f.Count)

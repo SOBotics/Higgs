@@ -13,9 +13,9 @@ namespace Higgs.Server.Data.Models
         public bool RequiresAdmin { get; set; }
         public int? RequiredFeedback { get; set; }
 
-        [ForeignKey("Bot")]
-        public int? BotId { get; set; }
-        public DbBot Bot { get; set; }
+        [ForeignKey("Dashboard")]
+        public int? DashboardId { get; set; }
+        public DbDashboard Dashboard { get; set; }
 
         [ForeignKey("Report")]
         public int? ReportId { get; set; }

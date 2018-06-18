@@ -13,7 +13,7 @@ namespace Higgs.Server.Data.Models
 
         public int BotId { get; set; }
         [ForeignKey("BotId")]
-        public DbBot Bot { get; set; }
+        public DbDashboard Bot { get; set; }
 
         [InverseProperty("Reason")]
         public List<DbReportReason> ReportReasons { get; set; }

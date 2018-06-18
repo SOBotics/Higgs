@@ -4,13 +4,13 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Higgs.Server.Data.Models
 {
-    public class DbBot
+    public class DbDashboard
     {
         [Key]
         public int Id { get; set; }
         public string Secret { get; set; }
 
-        public string Name { get; set; }
+        public string BotName { get; set; }
         public string DashboardName { get; set; }
         public string Description { get; set; }
         public string Homepage { get; set; }
@@ -26,16 +26,16 @@ namespace Higgs.Server.Data.Models
         public int OwnerAccountId { get; set; }
         public DbUser OwnerAccount { get; set; }
 
-        [InverseProperty("Bot")]
+        [InverseProperty("Dashboard")]
         public List<DbReport> Reports { get; set; }
 
-        [InverseProperty("Bot")]
-        public List<DbBotScope> BotScopes { get; set; }
+        [InverseProperty("Dashboard")]
+        public List<DbDashboardScope> Scopes { get; set; }
 
-        [InverseProperty("Bot")]
+        [InverseProperty("Dashboard")]
         public List<DbFeedback> Feedbacks { get; set; }
 
-        [InverseProperty("Bot")]
+        [InverseProperty("Dashboard")]
         public List<DbConflictException> ConflictExceptions { get; set; }
     }
 }

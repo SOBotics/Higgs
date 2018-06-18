@@ -37,12 +37,12 @@ namespace Higgs.Server.Controllers
         [SwaggerResponse((int) HttpStatusCode.BadRequest, typeof(ErrorResponse))]
         public IActionResult AquireToken([FromBody] AquireTokenRequest request)
         {
-            var bot = _dbContext.Bots.Where(b => b.Id == request.BotId)
+            var bot = _dbContext.Dashboards.Where(b => b.Id == request.BotId)
                 .Select(b => new
                 {
                     b.Id,
                     b.Secret,
-                    AllowedScopes = b.BotScopes.Select(bs => bs.ScopeName).ToList()
+                    AllowedScopes = b.Scopes.Select(bs => bs.ScopeName).ToList()
                 })
                 .FirstOrDefault();
 
@@ -88,7 +88,7 @@ namespace Higgs.Server.Controllers
                 throw new HttpStatusException(HttpStatusCode.BadRequest, "Invalid or missing botId in claim");
 
             var report = _dbContext.Reports.FirstOrDefault(r => r.Id == request.ReportId);
-            if (report?.BotId != botId)
+            if (report?.DashboardId != botId)
                 throw new HttpStatusException(HttpStatusCode.BadRequest, "Bot is not authorized to submit feedback to this report");
 
             if (string.IsNullOrWhiteSpace(request.Feedback))
@@ -149,7 +149,7 @@ namespace Higgs.Server.Controllers
             {
                 AuthorName = request.AuthorName,
                 AuthorReputation = request.AuthorReputation,
-                BotId = botId.Value,
+                DashboardId = botId.Value,
                 Title = request.Title,
                 ContentType = request.ContentType,
                 
@@ -198,7 +198,7 @@ namespace Higgs.Server.Controllers
             }
             _dbContext.Reports.Add(report);
 
-            var feedbackTypes = _dbContext.Feedbacks.Where(f => f.BotId == botId && request.AllowedFeedback.Contains(f.Name)).ToDictionary(f => f.Name, f => f.Id);
+            var feedbackTypes = _dbContext.Feedbacks.Where(f => f.DashboardId == botId && request.AllowedFeedback.Contains(f.Name)).ToDictionary(f => f.Name, f => f.Id);
             foreach (var allowedFeedback in request.AllowedFeedback)
             {
                 if (feedbackTypes.ContainsKey(allowedFeedback))

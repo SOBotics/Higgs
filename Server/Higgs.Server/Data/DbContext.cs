@@ -28,7 +28,7 @@ namespace Higgs.Server.Data
         }
 
         public DbSet<DbUser> Users { get; set; }
-        public DbSet<DbBot> Bots { get; set; }
+        public DbSet<DbDashboard> Dashboards { get; set; }
         public DbSet<DbFeedback> Feedbacks { get; set; }
         public DbSet<DbConflictException> ConflictExceptions { get; set; }
         public DbSet<DbConflictExceptionFeedback> ConflictExceptionFeedbacks { get; set; }
@@ -40,7 +40,7 @@ namespace Higgs.Server.Data
         public DbSet<DbReason> Reasons { get; set; }
         public DbSet<DbScope> Scopes { get; set; }
         public DbSet<DbUserScope> UserScopes { get; set; }
-        public DbSet<DbBotScope> BotScopes { get; set; }
+        public DbSet<DbDashboardScope> DashboardScopes { get; set; }
         public DbSet<DbReportFeedback> ReportFeedbacks { get; set; }
         public DbSet<DbFile> Files { get; set; }
     }

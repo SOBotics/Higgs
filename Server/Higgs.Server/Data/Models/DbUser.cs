@@ -24,6 +24,6 @@ namespace Higgs.Server.Data.Models
         public List<DbReportFeedback> ReportInvalidations { get; set; }
 
         [InverseProperty("OwnerAccount")]
-        public List<DbBot> OwnedBots { get; set; }
+        public List<DbDashboard> OwnedBots { get; set; }
     }
 }

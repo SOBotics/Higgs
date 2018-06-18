@@ -30,7 +30,7 @@ namespace Higgs.Server.Controllers
         {
             var query = _dbContext.Reports.Where(r => r.RequiresReview);
             if (!string.IsNullOrWhiteSpace(dashboardName))
-                query = query.Where(r => r.Bot.DashboardName.ToLower() == dashboardName.ToLower());
+                query = query.Where(r => r.Dashboard.DashboardName.ToLower() == dashboardName.ToLower());
 
             var result = query.Select(r => r.Id).Page(pagingRequest);
             return result;
@@ -40,7 +40,7 @@ namespace Higgs.Server.Controllers
         public List<ReviewerDashboardsResponse> GetDashboards()
         {
             var data =
-                _dbContext.Bots.Select(b => new ReviewerDashboardsResponse { Id = b.Id, Name = b.DashboardName })
+                _dbContext.Dashboards.Select(b => new ReviewerDashboardsResponse { Id = b.Id, Name = b.DashboardName })
                 .ToList();
 
             return data;
@@ -51,11 +51,11 @@ namespace Higgs.Server.Controllers
         {
             var feedbacks = _dbContext.Feedbacks.Where(f => f.IsEnabled);
             if (!string.IsNullOrEmpty(dashboardName))
-                feedbacks = feedbacks.Where(f => f.Bot.DashboardName == dashboardName);
+                feedbacks = feedbacks.Where(f => f.Dashboard.DashboardName == dashboardName);
 
             var data =
                 feedbacks
-                .Select(f => new ReviewerFeedbacksResponse { Id = f.Id, Name = f.Bot.DashboardName + " - " + f.Name })
+                .Select(f => new ReviewerFeedbacksResponse { Id = f.Id, Name = f.Dashboard.DashboardName + " - " + f.Name })
                 .ToList();
 
             return data;
@@ -79,7 +79,7 @@ namespace Higgs.Server.Controllers
         [HttpGet("BotByDashboard")]
         public ReviewerBotByDashboardResponse BotByDashboard(string dashboardName)
         {
-            return _dbContext.Bots.Where(b => b.DashboardName == dashboardName)
+            return _dbContext.Dashboards.Where(b => b.DashboardName == dashboardName)
                 .Select(b => new ReviewerBotByDashboardResponse
                 {
                     BotId = b.Id,
@@ -97,7 +97,7 @@ namespace Higgs.Server.Controllers
             if (!string.IsNullOrWhiteSpace(request.Content))
                 reportQuery = reportQuery.Where(r => r.Title.Contains(request.Content));
             if (request.BotId.HasValue)
-                reportQuery = reportQuery.Where(r => r.BotId == request.BotId.Value);
+                reportQuery = reportQuery.Where(r => r.DashboardId == request.BotId.Value);
             if (request.HasFeedback.HasValue)
                 reportQuery = reportQuery.Where(r => r.Feedbacks.Any() == request.HasFeedback.Value);
             if (request.Conflicted.HasValue)
@@ -112,7 +112,7 @@ namespace Higgs.Server.Controllers
                 {
                     r.Id,
                     r.Title,
-                    r.Bot.DashboardName,
+                    r.Dashboard.DashboardName,
                     r.DetectionScore,
                 }).OrderByDescending(r => r.Id)
                 .Page(request);
@@ -169,12 +169,12 @@ namespace Higgs.Server.Controllers
                 {
                     Id = r.Id,
                     Title = r.Title,
-                    BotLogo = r.Bot.LogoUrl,
-                    BotName = r.Bot.Name,
-                    DashboardName = r.Bot.DashboardName,
-                    FavIcon = r.Bot.FavIcon,
-                    TabTitle = r.Bot.TabTitle,
-                    BotHomePage = r.Bot.Homepage,
+                    BotLogo = r.Dashboard.LogoUrl,
+                    BotName = r.Dashboard.BotName,
+                    DashboardName = r.Dashboard.DashboardName,
+                    FavIcon = r.Dashboard.FavIcon,
+                    TabTitle = r.Dashboard.TabTitle,
+                    BotHomePage = r.Dashboard.Homepage,
                     ContentUrl = r.ContentUrl,
                     ContentSite = r.ContentSite,
                     ContentType = r.ContentType,
@@ -238,8 +238,8 @@ namespace Higgs.Server.Controllers
             var results = _dbContext.Reports.Where(r => r.ContentUrl == contentUrl)
                 .Select(r => new ReviewerCheckResponse
                 {
-                    Dashboard = r.Bot.DashboardName,
-                    Bot = r.Bot.Name,
+                    Dashboard = r.Dashboard.DashboardName,
+                    Bot = r.Dashboard.BotName,
                     ReportId = r.Id
                 }).ToList();
             return results;
