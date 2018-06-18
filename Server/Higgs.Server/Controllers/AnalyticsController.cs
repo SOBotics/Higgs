@@ -51,7 +51,7 @@ GROUP BY ""r0"".""BotId"", ""r.Bot0"".""DashboardName"", DATE_TRUNC('day', ""r0"
             return _dbContext.Dashboards
                 .Select(b => new ReportsTotalResponse
                 {
-                    BotId = b.Id,
+                    DashboardId = b.Id,
                     DashboardName = b.DashboardName,
                     Count = b.Reports.Count()
                 })
@@ -66,7 +66,7 @@ GROUP BY ""r0"".""BotId"", ""r.Bot0"".""DashboardName"", DATE_TRUNC('day', ""r0"
         {
             IQueryable<DbReason> reasons = _dbContext.Reasons;
             if (!string.IsNullOrEmpty(dashboardName))
-                reasons = reasons.Where(r => r.Bot.DashboardName == dashboardName);
+                reasons = reasons.Where(r => r.Dashboard.DashboardName == dashboardName);
             
             return reasons
                 .Select(r => new ReportsByReasonResponse

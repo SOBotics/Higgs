@@ -2,9 +2,9 @@
 
 namespace Higgs.Server.Models.Requests.Admin
 {
-    public class EditBotRequest : CreateBotRequest
+    public class EditDashboardRequest : CreateDashboardRequest
     {
         [Required]
-        public int BotId { get; set; }
+        public int DashboardId { get; set; }
     }
 }

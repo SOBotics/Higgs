@@ -3,7 +3,7 @@ using System.ComponentModel.DataAnnotations;
 
 namespace Higgs.Server.Models.Requests.Admin
 {
-    public class CreateBotRequest
+    public class CreateDashboardRequest
     {
         public int? OwnerAccountId { get; set; }
 
@@ -13,7 +13,7 @@ namespace Higgs.Server.Models.Requests.Admin
         ///     Name of the bot
         /// </summary>
         [Required]
-        public string Name { get; set; }
+        public string BotName { get; set; }
 
         /// <summary>
         ///     Name of the dashboard

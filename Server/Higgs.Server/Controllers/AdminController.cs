@@ -26,86 +26,60 @@ namespace Higgs.Server.Controllers
         }
 
         /// <summary>
-        ///     Lists all bots
+        ///     Register a dashboard
         /// </summary>
-        [HttpGet("Bots")]
+        /// <returns>The ID of the created dashboard</returns>
+        [HttpPost("RegisterDashboard")]
         [Authorize(Scopes.SCOPE_BOT_OWNER)]
-        [SwaggerResponse((int) HttpStatusCode.OK, typeof(List<BotsResponse>), Description = "View bot details")]
-        public List<BotsResponse> Bots()
-        {
-            IQueryable<DbDashboard> bots = _dbContext.Dashboards;
-            if (!User.HasClaim(Scopes.SCOPE_ADMIN))
-            {
-                var userId = User.GetUserId();
-                if (!userId.HasValue)
-                    throw new HttpStatusException(HttpStatusCode.Unauthorized);
-
-                bots = bots.Where(b => b.OwnerAccountId == userId);
-            }
-                
-            return bots.Select(b => new BotsResponse
-            {
-                BotId = b.Id,
-                Description = b.Description,
-                Name = b.BotName,
-            }).ToList();
-        }
-
-        /// <summary>
-        ///     Register a bot
-        /// </summary>
-        /// <returns>The ID of the created bot</returns>
-        [HttpPost("RegisterBot")]
-        [Authorize(Scopes.SCOPE_BOT_OWNER)]
-        [SwaggerResponse((int) HttpStatusCode.OK, typeof(int), "Successfully registered bot")]
+        [SwaggerResponse((int) HttpStatusCode.OK, typeof(int), "Successfully registered dashboard")]
         [SwaggerResponse((int) HttpStatusCode.BadRequest, typeof(ErrorResponse))]
-        public IActionResult RegisterBot([FromBody] CreateBotRequest request)
+        public IActionResult RegisterDashboard([FromBody] CreateDashboardRequest request)
         {
-            if (string.IsNullOrWhiteSpace(request.Name))
+            if (string.IsNullOrWhiteSpace(request.BotName))
                 return BadRequest(new ErrorResponse("Name is required"));
             if (string.IsNullOrWhiteSpace(request.Description))
                 return BadRequest(new ErrorResponse("Description is required"));
             if (string.IsNullOrWhiteSpace(request.Secret))
                 return BadRequest(new ErrorResponse("Secret is required"));
-            if (_dbContext.Dashboards.Any(b => b.BotName == request.Name))
-                return BadRequest(new ErrorResponse($"Bot with name '{request.Name}' already exists"));
+            if (_dbContext.Dashboards.Any(b => b.DashboardName == request.DashboardName))
+                return BadRequest(new ErrorResponse($"Dashboard with name '{request.DashboardName}' already exists"));
 
             var userId = User.GetUserId();
             if (!userId.HasValue)
                 throw new HttpStatusException(HttpStatusCode.Unauthorized);
 
-            var bot = new DbDashboard
+            var dashboard = new DbDashboard
             {
                 Scopes = new List<DbDashboardScope>(),
                 Feedbacks = new List<DbFeedback>(),
                 ConflictExceptions = new List<DbConflictException>()
             };
 
-            FillBotDetails(bot, request);
+            FillDashboardDetails(dashboard, request);
 
             if (request.OwnerAccountId.HasValue && User.HasClaim(Scopes.SCOPE_ADMIN))
-                bot.OwnerAccountId = request.OwnerAccountId.Value;
+                dashboard.OwnerAccountId = request.OwnerAccountId.Value;
 
-            _dbContext.Dashboards.Add(bot);
+            _dbContext.Dashboards.Add(dashboard);
             _dbContext.DashboardScopes.Add(new DbDashboardScope
             {
-                Dashboard = bot,
+                Dashboard = dashboard,
                 ScopeName = Scopes.SCOPE_BOT
             });
 
             _dbContext.SaveChanges();
-            return Json(bot.Id);
+            return Json(dashboard.Id);
         }
         
-        [HttpGet("Bot")]
+        [HttpGet("Dashboard")]
         [Authorize(Scopes.SCOPE_BOT_OWNER)]
-        public BotResponse Bot(int botId)
+        public DashboardResponse Dashboard(int dashboardId)
         {
-            var bot = _dbContext.Dashboards.Where(b => b.Id == botId)
-                .Select(b => new BotResponse
+            var dasboard = _dbContext.Dashboards.Where(b => b.Id == dashboardId)
+                .Select(b => new DashboardResponse
                 {
                     Id = b.Id,
-                    Name = b.BotName,
+                    BotName = b.BotName,
                     DashboardName = b.DashboardName,
                     Description = b.Description,
                     Homepage = b.Homepage,
@@ -117,10 +91,10 @@ namespace Higgs.Server.Controllers
                     RequiredFeedbackConflicted = b.RequiredFeedbackConflicted
                 }).FirstOrDefault();
 
-            if (bot == null)
+            if (dasboard == null)
                 throw new HttpStatusException(HttpStatusCode.BadRequest, "Bot not found");
             
-            var feedbacks = _dbContext.Feedbacks.Where(f => f.DashboardId == botId)
+            var feedbacks = _dbContext.Feedbacks.Where(f => f.DashboardId == dashboardId)
                 .Select(f => new BotResponseFeedback
                 {
                     Id = f.Id,
@@ -130,9 +104,9 @@ namespace Higgs.Server.Controllers
                     IsActionable = f.IsActionable,
                     IsEnabled = f.IsEnabled
                 }).ToList();
-            bot.Feedbacks = feedbacks;
+            dasboard.Feedbacks = feedbacks;
 
-            var conflictExceptions = _dbContext.ConflictExceptions.Where(bceg => bceg.DashboardId == botId)
+            var conflictExceptions = _dbContext.ConflictExceptions.Where(bceg => bceg.DashboardId == dashboardId)
                 .Include(conflictExceptionGroup => conflictExceptionGroup.ConflictExceptionFeedbacks)
                 .ToList()
                 .Select(conflictExceptionGroup => new BotResponseConflictExceptions
@@ -144,10 +118,10 @@ namespace Higgs.Server.Controllers
                     BotResponseConflictFeedbacks = conflictExceptionGroup.ConflictExceptionFeedbacks.Select(gg => gg.FeedbackId).ToList()
                 }).ToList();
 
-            bot.ConflictExceptions = conflictExceptions;
+            dasboard.ConflictExceptions = conflictExceptions;
             
-            if (User.HasClaim(Scopes.SCOPE_ADMIN) || bot.OwnerAccountId == User.GetUserId())
-                return bot;
+            if (User.HasClaim(Scopes.SCOPE_ADMIN) || dasboard.OwnerAccountId == User.GetUserId())
+                return dasboard;
             
             throw new HttpStatusException(HttpStatusCode.Unauthorized);
         }
@@ -161,35 +135,35 @@ namespace Higgs.Server.Controllers
         }
        
         /// <summary>
-        ///     Update a bots details
+        ///     Update a dashboard's details
         /// </summary>
-        [HttpPost("EditBot")]
+        [HttpPost("EditDashboard")]
         [Authorize(Scopes.SCOPE_BOT_OWNER)]
         [SwaggerResponse((int) HttpStatusCode.OK, Description = "Successfully edited bot")]
         [SwaggerResponse((int) HttpStatusCode.BadRequest, typeof(ErrorResponse), Description = "Bot not found")]
-        public IActionResult EditBot([FromBody] EditBotRequest request)
+        public IActionResult EditDashboard([FromBody] EditDashboardRequest request)
         {
-            var existingBot = _dbContext.Dashboards
+            var existingDashboard = _dbContext.Dashboards
                 .Include(b => b.Scopes)
                 .Include(b => b.Feedbacks)
                 .Include(b => b.ConflictExceptions)
                 .ThenInclude(b => b.ConflictExceptionFeedbacks)
-                .FirstOrDefault(b => b.Id == request.BotId);
+                .FirstOrDefault(b => b.Id == request.DashboardId);
 
-            if (existingBot == null)
-                return BadRequest(new ErrorResponse($"Bot with id {request.BotId} not found."));
+            if (existingDashboard == null)
+                return BadRequest(new ErrorResponse($"Dashboard with id {request.DashboardId} not found."));
 
-            if (!User.HasClaim(Scopes.SCOPE_ADMIN) && existingBot.OwnerAccountId != User.GetUserId())
+            if (!User.HasClaim(Scopes.SCOPE_ADMIN) && existingDashboard.OwnerAccountId != User.GetUserId())
                 throw new HttpStatusException(HttpStatusCode.Unauthorized);
 
-            FillBotDetails(existingBot, request);
+            FillDashboardDetails(existingDashboard, request);
 
             _dbContext.SaveChanges();
 
             return Ok();
         }
 
-        private void FillBotDetails(DbDashboard existingDashboard, CreateBotRequest request)
+        private void FillDashboardDetails(DbDashboard existingDashboard, CreateDashboardRequest request)
         {
             if (request.Feedbacks == null)
                 request.Feedbacks = new List<CreateBotRequestFeedback>();
@@ -203,7 +177,7 @@ namespace Higgs.Server.Controllers
 
             ConflictHelper.AssertUniqueConflictFeedbacks(request.ConflictExceptions.Select(c => c.BotResponseConflictFeedbacks));
 
-            existingDashboard.BotName = request.Name;
+            existingDashboard.BotName = request.BotName;
             existingDashboard.DashboardName = request.DashboardName;
             existingDashboard.Description = request.Description;
 
@@ -333,18 +307,6 @@ namespace Higgs.Server.Controllers
             );
         }
         
-        /// <summary>
-        ///     Deactivates a bot
-        /// </summary>
-        [HttpPost("DeactiveateBot")]
-        [Authorize(Scopes.SCOPE_BOT_OWNER)]
-        [SwaggerResponse((int) HttpStatusCode.OK, Description = "Successfully deactivated bot")]
-        [SwaggerResponse((int) HttpStatusCode.BadRequest, typeof(ErrorResponse))]
-        public IActionResult DeactiveateBot([FromBody] DeleteBotRequest request)
-        {
-            return Ok();
-        }
-
         /// <summary>
         ///     Lists all users
         /// </summary>

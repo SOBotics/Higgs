@@ -3,7 +3,7 @@
     public class ReviewerCheckResponse
     {
         public string Dashboard { get; set; }
-        public string Bot { get; set; }
+        public string BotName { get; set; }
         public int ReportId { get; set; }
     }
 }

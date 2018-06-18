@@ -20,9 +20,9 @@ namespace Higgs.Server.Test
                 Scopes.SCOPE_BOT_OWNER
             );
 
-            var request = new CreateBotRequest
+            var request = new CreateDashboardRequest
             {
-                Name = "asd",
+                BotName = "asd",
                 DashboardName = "da",
                 Description = "ds",
                 Secret = "abc",
@@ -37,7 +37,7 @@ namespace Higgs.Server.Test
                 }
             };
 
-            var response = await Client.PostAsync("/Admin/RegisterBot", request);
+            var response = await Client.PostAsync("/Admin/RegisterDashboard", request);
             response.AssertSuccess();
             WithDatabase(dbContext =>
                 {
@@ -58,9 +58,9 @@ namespace Higgs.Server.Test
                 Scopes.SCOPE_BOT_OWNER
             );
 
-            var request = new CreateBotRequest
+            var request = new CreateDashboardRequest
             {
-                Name = "asd",
+                BotName = "asd",
                 DashboardName = "da",
                 Description = "ds",
                 Secret = "abc",
@@ -75,7 +75,7 @@ namespace Higgs.Server.Test
                 }
             };
 
-            var response = await Client.PostAsync("/Admin/RegisterBot", request);
+            var response = await Client.PostAsync("/Admin/RegisterDashboard", request);
             await response.AssertError(HttpStatusCode.BadRequest, "Invalid FeedbackId for conflict");
         }
 
@@ -87,9 +87,9 @@ namespace Higgs.Server.Test
                 Scopes.SCOPE_BOT_OWNER
             );
 
-            var request = new CreateBotRequest
+            var request = new CreateDashboardRequest
             {
-                Name = "asd",
+                BotName = "asd",
                 DashboardName = "da",
                 Description = "ds",
                 Secret = "abc",
@@ -100,7 +100,7 @@ namespace Higgs.Server.Test
                 }
             };
 
-            var response = await Client.PostAsync("/Admin/RegisterBot", request);
+            var response = await Client.PostAsync("/Admin/RegisterDashboard", request);
             await response.AssertError(HttpStatusCode.BadRequest, "Feedback names must be unique");
         }
 
@@ -113,9 +113,9 @@ namespace Higgs.Server.Test
                 Scopes.SCOPE_BOT_OWNER
             );
 
-            var request = new CreateBotRequest
+            var request = new CreateDashboardRequest
             {
-                Name = "asd",
+                BotName = "asd",
                 DashboardName = "da",
                 Description = "ds",
                 Secret = "abc",
@@ -126,7 +126,7 @@ namespace Higgs.Server.Test
                 }
             };
 
-            var response = await Client.PostAsync("/Admin/RegisterBot", request);
+            var response = await Client.PostAsync("/Admin/RegisterDashboard", request);
             await response.AssertError(HttpStatusCode.BadRequest, "Duplicate feedback ids");
         }
 
@@ -138,9 +138,9 @@ namespace Higgs.Server.Test
                 Scopes.SCOPE_BOT_OWNER
             );
 
-            var request = new CreateBotRequest
+            var request = new CreateDashboardRequest
             {
-                Name = "asd",
+                BotName = "asd",
                 DashboardName = "da",
                 Description = "ds",
                 Secret = "abc",
@@ -156,7 +156,7 @@ namespace Higgs.Server.Test
                 }
             };
 
-            var response = await Client.PostAsync("/Admin/RegisterBot", request);
+            var response = await Client.PostAsync("/Admin/RegisterDashboard", request);
             await response.AssertError(HttpStatusCode.BadRequest, "Duplicate conflict exception ids");
         }
 
@@ -168,9 +168,9 @@ namespace Higgs.Server.Test
                 Scopes.SCOPE_BOT_OWNER
             );
 
-            var request = new CreateBotRequest
+            var request = new CreateDashboardRequest
             {
-                Name = "asd",
+                BotName = "asd",
                 DashboardName = "da",
                 Description = "ds",
                 Secret = "abc",
@@ -186,7 +186,7 @@ namespace Higgs.Server.Test
                 }
             };
 
-            var response = await Client.PostAsync("/Admin/RegisterBot", request);
+            var response = await Client.PostAsync("/Admin/RegisterDashboard", request);
             await response.AssertError(HttpStatusCode.BadRequest, "A pair of feedback ids cannot appear in two different conflicts");
         }
 
@@ -198,9 +198,9 @@ namespace Higgs.Server.Test
                 Scopes.SCOPE_BOT_OWNER
             );
 
-            var request = new CreateBotRequest
+            var request = new CreateDashboardRequest
             {
-                Name = "asd",
+                BotName = "asd",
                 DashboardName = "da",
                 Description = "ds",
                 Secret = "abc",
@@ -217,7 +217,7 @@ namespace Higgs.Server.Test
                 }
             };
 
-            var response = await Client.PostAsync("/Admin/RegisterBot", request);
+            var response = await Client.PostAsync("/Admin/RegisterDashboard", request);
             await response.AssertError(HttpStatusCode.BadRequest, "A pair of feedback ids cannot appear in two different conflicts");
         }
 
@@ -229,9 +229,9 @@ namespace Higgs.Server.Test
                 Scopes.SCOPE_BOT_OWNER
             );
 
-            var request = new CreateBotRequest
+            var request = new CreateDashboardRequest
             {
-                Name = "asd",
+                BotName = "asd",
                 DashboardName = "da",
                 Description = "ds",
                 Secret = "abc",
@@ -248,7 +248,7 @@ namespace Higgs.Server.Test
                 }
             };
 
-            var response = await Client.PostAsync("/Admin/RegisterBot", request);
+            var response = await Client.PostAsync("/Admin/RegisterDashboard", request);
             response.AssertSuccess();
         }
 
@@ -260,9 +260,9 @@ namespace Higgs.Server.Test
                 Scopes.SCOPE_BOT_OWNER
             );
 
-            var request = new CreateBotRequest
+            var request = new CreateDashboardRequest
             {
-                Name = "asd",
+                BotName = "asd",
                 DashboardName = "da",
                 Description = "ds",
                 Secret = "abc",
@@ -281,7 +281,7 @@ namespace Higgs.Server.Test
                 }
             };
 
-            var response = await Client.PostAsync("/Admin/RegisterBot", request);
+            var response = await Client.PostAsync("/Admin/RegisterDashboard", request);
             response.AssertSuccess();
         }
 
@@ -293,9 +293,9 @@ namespace Higgs.Server.Test
                 Scopes.SCOPE_BOT_OWNER
             );
 
-            var request = new CreateBotRequest
+            var request = new CreateDashboardRequest
             {
-                Name = "asd",
+                BotName = "asd",
                 DashboardName = "da",
                 Description = "ds",
                 Secret = "abc",
@@ -310,7 +310,7 @@ namespace Higgs.Server.Test
                 }
             };
 
-            var response = await Client.PostAsync("/Admin/RegisterBot", request);
+            var response = await Client.PostAsync("/Admin/RegisterDashboard", request);
             await response.AssertError(HttpStatusCode.BadRequest, "Conflicts must contain at least two feedback types");
         }
 
@@ -323,9 +323,9 @@ namespace Higgs.Server.Test
                 Scopes.SCOPE_BOT_OWNER
             );
 
-            var request = new CreateBotRequest
+            var request = new CreateDashboardRequest
             {
-                Name = "asd",
+                BotName = "asd",
                 DashboardName = "da",
                 Description = "ds",
                 Secret = "abc",
@@ -340,7 +340,7 @@ namespace Higgs.Server.Test
                 }
             };
 
-            var response = await Client.PostAsync("/Admin/RegisterBot", request);
+            var response = await Client.PostAsync("/Admin/RegisterDashboard", request);
             await response.AssertError(HttpStatusCode.BadRequest, "Conflicts must contain at least two feedback types");
         }
 
@@ -352,9 +352,9 @@ namespace Higgs.Server.Test
                 Scopes.SCOPE_BOT_OWNER
             );
 
-            var request = new CreateBotRequest
+            var request = new CreateDashboardRequest
             {
-                Name = "asd",
+                BotName = "asd",
                 DashboardName = "da",
                 Description = "ds",
                 Secret = "abc",
@@ -370,7 +370,7 @@ namespace Higgs.Server.Test
                 }
             };
 
-            var response = await Client.PostAsync("/Admin/RegisterBot", request);
+            var response = await Client.PostAsync("/Admin/RegisterDashboard", request);
             await response.AssertError(HttpStatusCode.BadRequest, "Conflicts must contain at least two feedback types");
         }
 
@@ -383,9 +383,9 @@ namespace Higgs.Server.Test
                 Scopes.SCOPE_BOT_OWNER
             );
 
-            var request = new CreateBotRequest
+            var request = new CreateDashboardRequest
             {
-                Name = "asd",
+                BotName = "asd",
                 DashboardName = "da",
                 Description = "ds",
                 Secret = "abc",
@@ -401,7 +401,7 @@ namespace Higgs.Server.Test
                 }
             };
 
-            var response = await Client.PostAsync("/Admin/RegisterBot", request);
+            var response = await Client.PostAsync("/Admin/RegisterDashboard", request);
             await response.AssertError(HttpStatusCode.BadRequest, "Conflicts must contain at least two feedback types");
         }
     }

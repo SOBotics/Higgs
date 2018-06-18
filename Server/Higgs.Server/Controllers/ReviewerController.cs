@@ -66,7 +66,7 @@ namespace Higgs.Server.Controllers
         {
             IQueryable<DbReason> reasons = _dbContext.Reasons;
             if (!string.IsNullOrEmpty(dashboardName))
-                reasons = reasons.Where(r => r.Bot.DashboardName == dashboardName);
+                reasons = reasons.Where(r => r.Dashboard.DashboardName == dashboardName);
 
             var data =
                 reasons
@@ -76,13 +76,13 @@ namespace Higgs.Server.Controllers
             return data;
         }
 
-        [HttpGet("BotByDashboard")]
-        public ReviewerBotByDashboardResponse BotByDashboard(string dashboardName)
+        [HttpGet("Dashboard")]
+        public ReviewerDashboardResponse Dashboad(string dashboardName)
         {
             return _dbContext.Dashboards.Where(b => b.DashboardName == dashboardName)
-                .Select(b => new ReviewerBotByDashboardResponse
+                .Select(b => new ReviewerDashboardResponse
                 {
-                    BotId = b.Id,
+                    DashboardId = b.Id,
                     DashboardName = b.DashboardName,
                     DashboardLogo = b.LogoUrl,
                     DashboardDescription = b.Description
@@ -96,8 +96,8 @@ namespace Higgs.Server.Controllers
             IQueryable<DbReport> reportQuery = _dbContext.Reports;
             if (!string.IsNullOrWhiteSpace(request.Content))
                 reportQuery = reportQuery.Where(r => r.Title.Contains(request.Content));
-            if (request.BotId.HasValue)
-                reportQuery = reportQuery.Where(r => r.DashboardId == request.BotId.Value);
+            if (request.DashboardId.HasValue)
+                reportQuery = reportQuery.Where(r => r.DashboardId == request.DashboardId.Value);
             if (request.HasFeedback.HasValue)
                 reportQuery = reportQuery.Where(r => r.Feedbacks.Any() == request.HasFeedback.Value);
             if (request.Conflicted.HasValue)
@@ -169,7 +169,7 @@ namespace Higgs.Server.Controllers
                 {
                     Id = r.Id,
                     Title = r.Title,
-                    BotLogo = r.Dashboard.LogoUrl,
+                    DashboardLogo = r.Dashboard.LogoUrl,
                     BotName = r.Dashboard.BotName,
                     DashboardName = r.Dashboard.DashboardName,
                     FavIcon = r.Dashboard.FavIcon,
@@ -239,7 +239,7 @@ namespace Higgs.Server.Controllers
                 .Select(r => new ReviewerCheckResponse
                 {
                     Dashboard = r.Dashboard.DashboardName,
-                    Bot = r.Dashboard.BotName,
+                    BotName = r.Dashboard.BotName,
                     ReportId = r.Id
                 }).ToList();
             return results;

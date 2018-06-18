@@ -6,7 +6,7 @@ namespace Higgs.Server.Models.Requests.Reviewer
     public class ReportsRequest : PagingRequest
     {
         public string Content { get; set; }
-        public int? BotId { get; set; }
+        public int? DashboardId { get; set; }
         public bool? HasFeedback { get; set; }
         public bool? Conflicted { get; set; }
         public List<int> Feedbacks { get; set; }

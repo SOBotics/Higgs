@@ -2,7 +2,7 @@
 {
     public class ReportsTotalResponse
     {
-        public int BotId { get; set; }
+        public int DashboardId { get; set; }
         public string DashboardName { get; set; }
         public int Count { get; set; }
     }

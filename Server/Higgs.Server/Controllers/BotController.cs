@@ -212,7 +212,7 @@ namespace Higgs.Server.Controllers
                     throw new HttpStatusException(HttpStatusCode.BadRequest, $"Feedback '{allowedFeedback}' not registered for bot");
                 }
             }
-            var reasons = _dbContext.Reasons.Where(f => f.BotId == botId).ToDictionary(f => f.Name, f => f);
+            var reasons = _dbContext.Reasons.Where(f => f.DashboardId == botId).ToDictionary(f => f.Name, f => f);
             foreach (var reason in request.Reasons ?? Enumerable.Empty<RegisterPostReason>())
             {
                 DbReason dbReason;
@@ -226,7 +226,7 @@ namespace Higgs.Server.Controllers
                     dbReason = new DbReason
                     {
                         Name = reason.ReasonName,
-                        BotId = botId.Value
+                        DashboardId = botId.Value
                     };
                     _dbContext.Reasons.Add(dbReason);
                 }

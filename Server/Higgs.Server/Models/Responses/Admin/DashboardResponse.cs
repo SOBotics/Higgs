@@ -4,12 +4,12 @@ using System.ComponentModel.DataAnnotations;
 
 namespace Higgs.Server.Models.Responses.Admin
 {
-    public class BotResponse
+    public class DashboardResponse
     {
         [Required]
         public int Id { get; set; }
         [Required]
-        public string Name { get; set; }
+        public string BotName { get; set; }
         [Required]
         public string DashboardName { get; set; }
         [Required]
