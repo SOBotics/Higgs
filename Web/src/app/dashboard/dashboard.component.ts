@@ -17,6 +17,7 @@ export class DashboardComponent implements OnInit {
   public initialized: boolean;
   public validDashboard: boolean;
   public dashboardName: string;
+  public dashboardHomepage: string;
   public dashboardDescription: string;
   public dashboardLogo: string;
 
@@ -95,6 +96,7 @@ export class DashboardComponent implements OnInit {
         this.dashboardName = response.dashboardName;
         this.dashboardDescription = response.dashboardDescription;
         this.dashboardLogo = response.dashboardLogo;
+        this.dashboardHomepage = response.dashboardHomepage;
       }
       this.initialized = true;
 

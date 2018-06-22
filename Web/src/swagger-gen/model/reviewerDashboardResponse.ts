@@ -14,6 +14,7 @@
 export interface ReviewerDashboardResponse {
     dashboardId?: number;
     dashboardLogo?: string;
+    dashboardHomepage?: string;
     dashboardName?: string;
     dashboardDescription?: string;
 }

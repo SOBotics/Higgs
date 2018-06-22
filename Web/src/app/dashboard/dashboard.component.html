@@ -4,7 +4,13 @@
       <h1 class="display-4">
         <img class="dashboard-logo" src="{{dashboardLogo}}" /> {{dashboardName}}
       </h1>
-      <p class="lead">{{dashboardDescription}}</p>
+      <p class="lead">
+        <ng-container *ngIf="dashboardHomepage && dashboardHomepage.length">
+          <a href="{{dashboardHomepage}}" class="icon-link">
+            <i class="fa fa-home"></i>
+          </a> -
+        </ng-container>{{dashboardDescription}}
+      </p>
       <hr />
       <div class="row">
         <div class="col-md-6">

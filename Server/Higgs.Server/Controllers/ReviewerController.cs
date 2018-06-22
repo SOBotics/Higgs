@@ -77,13 +77,14 @@ namespace Higgs.Server.Controllers
         }
 
         [HttpGet("Dashboard")]
-        public ReviewerDashboardResponse Dashboad(string dashboardName)
+        public ReviewerDashboardResponse Dashboard(string dashboardName)
         {
             return _dbContext.Dashboards.Where(b => b.DashboardName == dashboardName)
                 .Select(b => new ReviewerDashboardResponse
                 {
                     DashboardId = b.Id,
                     DashboardName = b.DashboardName,
+                    DashboardHomepage = b.Homepage,
                     DashboardLogo = b.LogoUrl,
                     DashboardDescription = b.Description
                 })
