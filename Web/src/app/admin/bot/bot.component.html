@@ -22,19 +22,18 @@
               Required
             </div>
           </div>
-
-          <div class="form-group">
-            <label for="name">Name</label>
-            <input type="text" class="form-control" id="name" required [(ngModel)]="botDetails.name" name="name" #name="ngModel">
-            <div [hidden]="name.valid || name.untouched" class="alert alert-danger">
-              Required
-            </div>
-          </div>
           <div class="form-group">
             <label for="name">Dashboard Name</label>
             <input type="text" class="form-control" id="dashboardName" required [(ngModel)]="botDetails.dashboardName" name="dashboardName"
               #dashboardName="ngModel">
             <div [hidden]="dashboardName.valid || dashboardName.untouched" class="alert alert-danger">
+              Required
+            </div>
+          </div>
+          <div class="form-group">
+            <label for="name">Bot Name</label>
+            <input type="text" class="form-control" id="name" required [(ngModel)]="botDetails.botName" name="botName" #botName="ngModel">
+            <div [hidden]="botName.valid || botName.untouched" class="alert alert-danger">
               Required
             </div>
           </div>
@@ -56,14 +55,16 @@
           </div>
           <div class="form-group">
             <label for="name">Required feedback</label>
-            <input type="number" class="form-control" id="requiredFeedback" required [(ngModel)]="botDetails.requiredFeedback" name="requiredFeedback" #requiredFeedback="ngModel">
+            <input type="number" class="form-control" id="requiredFeedback" required [(ngModel)]="botDetails.requiredFeedback" name="requiredFeedback"
+              #requiredFeedback="ngModel">
             <div [hidden]="requiredFeedback.valid || requiredFeedback.untouched" class="alert alert-danger">
               Required
             </div>
           </div>
           <div class="form-group">
             <label for="name">Required feedback when conflicted</label>
-            <input type="number" class="form-control" id="requiredFeedbackConflicted" required [(ngModel)]="botDetails.requiredFeedbackConflicted" name="requiredFeedbackConflicted" #requiredFeedbackConflicted="ngModel">
+            <input type="number" class="form-control" id="requiredFeedbackConflicted" required [(ngModel)]="botDetails.requiredFeedbackConflicted"
+              name="requiredFeedbackConflicted" #requiredFeedbackConflicted="ngModel">
             <div [hidden]="requiredFeedbackConflicted.valid || requiredFeedbackConflicted.untouched" class="alert alert-danger">
               Required
             </div>
