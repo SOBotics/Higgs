@@ -5,7 +5,7 @@ Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **Id** | **int?** |  | [optional] 
 **Title** | **string** |  | [optional] 
-**BotLogo** | **string** |  | [optional] 
+**DashboardLogo** | **string** |  | [optional] 
 **BotName** | **string** |  | [optional] 
 **DashboardName** | **string** |  | [optional] 
 **TabTitle** | **string** |  | [optional] 

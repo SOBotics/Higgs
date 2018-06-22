@@ -13,6 +13,6 @@
 
 export interface ReviewerCheckResponse {
     dashboard?: string;
-    bot?: string;
+    botName?: string;
     reportId?: number;
 }

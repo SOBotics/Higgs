@@ -3,7 +3,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**BotId** | **int?** |  | 
+**DashboardId** | **int?** |  | 
 **Secret** | **string** |  | 
 **RequestedScopes** | **List&lt;string&gt;** |  | [optional] 
 

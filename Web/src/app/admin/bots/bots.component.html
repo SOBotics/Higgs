@@ -8,9 +8,9 @@
     </tr>
   </thead>
   <tbody>
-    <tr *ngFor="let bot of botsResponse | orderBy: 'botId'">
+    <tr *ngFor="let bot of dashboardsResponse | orderBy: 'id'">
       <td>{{bot.name}}</td>
-      <td><a routerLink="/admin/bot/{{bot.botId}}">Edit</a></td>
+      <td><a routerLink="/admin/bot/{{bot.id}}">Edit</a></td>
     </tr>
   </tbody>
 </table>

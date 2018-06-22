@@ -74,16 +74,16 @@ namespace Example
             Configuration.Default.AccessToken = "YOUR_ACCESS_TOKEN";
 
             var apiInstance = new AdminApi();
-            var botId = 56;  // int? | 
+            var dashboardId = 56;  // int? | 
 
             try
             {
-                BotResponse result = apiInstance.AdminBotGet(botId);
+                DashboardResponse result = apiInstance.AdminDashboardGet(dashboardId);
                 Debug.WriteLine(result);
             }
             catch (Exception e)
             {
-                Debug.Print("Exception when calling AdminApi.AdminBotGet: " + e.Message );
+                Debug.Print("Exception when calling AdminApi.AdminDashboardGet: " + e.Message );
             }
 
         }
@@ -98,12 +98,10 @@ All URIs are relative to *https://localhost*
 
 Class | Method | HTTP request | Description
 ------------ | ------------- | ------------- | -------------
-*AdminApi* | [**AdminBotGet**](docs/AdminApi.md#adminbotget) | **GET** /Admin/Bot | 
-*AdminApi* | [**AdminBotsGet**](docs/AdminApi.md#adminbotsget) | **GET** /Admin/Bots | Lists all bots
-*AdminApi* | [**AdminDeactiveateBotPost**](docs/AdminApi.md#admindeactiveatebotpost) | **POST** /Admin/DeactiveateBot | Deactivates a bot
-*AdminApi* | [**AdminEditBotPost**](docs/AdminApi.md#admineditbotpost) | **POST** /Admin/EditBot | Update a bots details
+*AdminApi* | [**AdminDashboardGet**](docs/AdminApi.md#admindashboardget) | **GET** /Admin/Dashboard | 
+*AdminApi* | [**AdminEditDashboardPost**](docs/AdminApi.md#admineditdashboardpost) | **POST** /Admin/EditDashboard | Update a dashboard's details
 *AdminApi* | [**AdminForceProcessReportsPost**](docs/AdminApi.md#adminforceprocessreportspost) | **POST** /Admin/ForceProcessReports | 
-*AdminApi* | [**AdminRegisterBotPost**](docs/AdminApi.md#adminregisterbotpost) | **POST** /Admin/RegisterBot | Register a bot
+*AdminApi* | [**AdminRegisterDashboardPost**](docs/AdminApi.md#adminregisterdashboardpost) | **POST** /Admin/RegisterDashboard | Register a dashboard
 *AdminApi* | [**AdminScopesGet**](docs/AdminApi.md#adminscopesget) | **GET** /Admin/Scopes | 
 *AdminApi* | [**AdminUserGet**](docs/AdminApi.md#adminuserget) | **GET** /Admin/User | Lists all users
 *AdminApi* | [**AdminUserPost**](docs/AdminApi.md#adminuserpost) | **POST** /Admin/User | Lists all users
@@ -121,9 +119,9 @@ Class | Method | HTTP request | Description
 *FileApi* | [**FileByIdGet**](docs/FileApi.md#filebyidget) | **GET** /File/{id} | 
 *FileApi* | [**FileGet**](docs/FileApi.md#fileget) | **GET** /File | 
 *FileApi* | [**FilePost**](docs/FileApi.md#filepost) | **POST** /File | 
-*ReviewerApi* | [**ReviewerBotByDashboardGet**](docs/ReviewerApi.md#reviewerbotbydashboardget) | **GET** /Reviewer/BotByDashboard | 
 *ReviewerApi* | [**ReviewerCheckGet**](docs/ReviewerApi.md#reviewercheckget) | **GET** /Reviewer/Check | 
 *ReviewerApi* | [**ReviewerClearFeedbackPost**](docs/ReviewerApi.md#reviewerclearfeedbackpost) | **POST** /Reviewer/ClearFeedback | 
+*ReviewerApi* | [**ReviewerDashboardGet**](docs/ReviewerApi.md#reviewerdashboardget) | **GET** /Reviewer/Dashboard | 
 *ReviewerApi* | [**ReviewerDashboardsGet**](docs/ReviewerApi.md#reviewerdashboardsget) | **GET** /Reviewer/Dashboards | 
 *ReviewerApi* | [**ReviewerFeedbacksGet**](docs/ReviewerApi.md#reviewerfeedbacksget) | **GET** /Reviewer/Feedbacks | 
 *ReviewerApi* | [**ReviewerNextReviewGet**](docs/ReviewerApi.md#reviewernextreviewget) | **GET** /Reviewer/NextReview | 
@@ -140,16 +138,14 @@ Class | Method | HTTP request | Description
  - [Model.AddFileRequest](docs/AddFileRequest.md)
  - [Model.AquireTokenRequest](docs/AquireTokenRequest.md)
  - [Model.AquireTokenResponse](docs/AquireTokenResponse.md)
- - [Model.BotResponse](docs/BotResponse.md)
  - [Model.BotResponseConflictExceptions](docs/BotResponseConflictExceptions.md)
  - [Model.BotResponseFeedback](docs/BotResponseFeedback.md)
- - [Model.BotsResponse](docs/BotsResponse.md)
  - [Model.ClearFeedbackRequest](docs/ClearFeedbackRequest.md)
- - [Model.CreateBotRequest](docs/CreateBotRequest.md)
  - [Model.CreateBotRequestExceptions](docs/CreateBotRequestExceptions.md)
  - [Model.CreateBotRequestFeedback](docs/CreateBotRequestFeedback.md)
- - [Model.DeleteBotRequest](docs/DeleteBotRequest.md)
- - [Model.EditBotRequest](docs/EditBotRequest.md)
+ - [Model.CreateDashboardRequest](docs/CreateDashboardRequest.md)
+ - [Model.DashboardResponse](docs/DashboardResponse.md)
+ - [Model.EditDashboardRequest](docs/EditDashboardRequest.md)
  - [Model.ErrorResponse](docs/ErrorResponse.md)
  - [Model.FeedbackByUserResponse](docs/FeedbackByUserResponse.md)
  - [Model.PagingResponseInt32](docs/PagingResponseInt32.md)
@@ -165,6 +161,7 @@ Class | Method | HTTP request | Description
  - [Model.ReportsOverTimeResponse](docs/ReportsOverTimeResponse.md)
  - [Model.ReportsTotalResponse](docs/ReportsTotalResponse.md)
  - [Model.ReviewerCheckResponse](docs/ReviewerCheckResponse.md)
+ - [Model.ReviewerDashboardResponse](docs/ReviewerDashboardResponse.md)
  - [Model.ReviewerDashboardsResponse](docs/ReviewerDashboardsResponse.md)
  - [Model.ReviewerFeedbacksResponse](docs/ReviewerFeedbacksResponse.md)
  - [Model.ReviewerReasonsResponse](docs/ReviewerReasonsResponse.md)
@@ -187,7 +184,7 @@ Class | Method | HTTP request | Description
 
 - **Type**: OAuth
 - **Flow**: implicit
-- **Authorization URL**: http://localhost:50192/Authentication/Login
+- **Authorization URL**: http://api.higgs.sobotics.org/Authentication/Login
 - **Scopes**: 
   - admin: Admin
   - room_owner: room_owner

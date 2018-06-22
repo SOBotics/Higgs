@@ -11,8 +11,9 @@
  */
 
 
-export interface ReportsTotalResponse {
+export interface ReviewerDashboardResponse {
     dashboardId?: number;
+    dashboardLogo?: string;
     dashboardName?: string;
-    count?: number;
+    dashboardDescription?: string;
 }

@@ -4,9 +4,9 @@ All URIs are relative to *https://localhost*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**ReviewerBotByDashboardGet**](ReviewerApi.md#reviewerbotbydashboardget) | **GET** /Reviewer/BotByDashboard | 
 [**ReviewerCheckGet**](ReviewerApi.md#reviewercheckget) | **GET** /Reviewer/Check | 
 [**ReviewerClearFeedbackPost**](ReviewerApi.md#reviewerclearfeedbackpost) | **POST** /Reviewer/ClearFeedback | 
+[**ReviewerDashboardGet**](ReviewerApi.md#reviewerdashboardget) | **GET** /Reviewer/Dashboard | 
 [**ReviewerDashboardsGet**](ReviewerApi.md#reviewerdashboardsget) | **GET** /Reviewer/Dashboards | 
 [**ReviewerFeedbacksGet**](ReviewerApi.md#reviewerfeedbacksget) | **GET** /Reviewer/Feedbacks | 
 [**ReviewerNextReviewGet**](ReviewerApi.md#reviewernextreviewget) | **GET** /Reviewer/NextReview | 
@@ -16,64 +16,6 @@ Method | HTTP request | Description
 [**ReviewerReportsGet**](ReviewerApi.md#reviewerreportsget) | **GET** /Reviewer/Reports | 
 [**ReviewerSendFeedbackPost**](ReviewerApi.md#reviewersendfeedbackpost) | **POST** /Reviewer/SendFeedback | Lists all pending review
 
-
-<a name="reviewerbotbydashboardget"></a>
-# **ReviewerBotByDashboardGet**
-> int? ReviewerBotByDashboardGet (string dashboardName = null)
-
-
-
-### Example
-```csharp
-using System;
-using System.Diagnostics;
-using IO.Swagger.Api;
-using IO.Swagger.Client;
-using IO.Swagger.Model;
-
-namespace Example
-{
-    public class ReviewerBotByDashboardGetExample
-    {
-        public void main()
-        {
-            var apiInstance = new ReviewerApi();
-            var dashboardName = dashboardName_example;  // string |  (optional) 
-
-            try
-            {
-                int? result = apiInstance.ReviewerBotByDashboardGet(dashboardName);
-                Debug.WriteLine(result);
-            }
-            catch (Exception e)
-            {
-                Debug.Print("Exception when calling ReviewerApi.ReviewerBotByDashboardGet: " + e.Message );
-            }
-        }
-    }
-}
-```
-
-### Parameters
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **dashboardName** | **string**|  | [optional] 
-
-### Return type
-
-**int?**
-
-### Authorization
-
-No authorization required
-
-### HTTP request headers
-
- - **Content-Type**: Not defined
- - **Accept**: text/plain, application/json, text/json
-
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 <a name="reviewercheckget"></a>
 # **ReviewerCheckGet**
@@ -190,6 +132,64 @@ void (empty response body)
 
  - **Content-Type**: application/json-patch+json, application/json, text/json, application/_*+json
  - **Accept**: Not defined
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+<a name="reviewerdashboardget"></a>
+# **ReviewerDashboardGet**
+> ReviewerDashboardResponse ReviewerDashboardGet (string dashboardName = null)
+
+
+
+### Example
+```csharp
+using System;
+using System.Diagnostics;
+using IO.Swagger.Api;
+using IO.Swagger.Client;
+using IO.Swagger.Model;
+
+namespace Example
+{
+    public class ReviewerDashboardGetExample
+    {
+        public void main()
+        {
+            var apiInstance = new ReviewerApi();
+            var dashboardName = dashboardName_example;  // string |  (optional) 
+
+            try
+            {
+                ReviewerDashboardResponse result = apiInstance.ReviewerDashboardGet(dashboardName);
+                Debug.WriteLine(result);
+            }
+            catch (Exception e)
+            {
+                Debug.Print("Exception when calling ReviewerApi.ReviewerDashboardGet: " + e.Message );
+            }
+        }
+    }
+}
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **dashboardName** | **string**|  | [optional] 
+
+### Return type
+
+[**ReviewerDashboardResponse**](ReviewerDashboardResponse.md)
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: text/plain, application/json, text/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
@@ -546,7 +546,7 @@ No authorization required
 
 <a name="reviewerreportsget"></a>
 # **ReviewerReportsGet**
-> PagingResponseReviewerReportsResponse ReviewerReportsGet (string content = null, int? botId = null, bool? hasFeedback = null, bool? conflicted = null, List<int?> feedbacks = null, List<int?> reasons = null, int? pageNumber = null, int? pageSize = null)
+> PagingResponseReviewerReportsResponse ReviewerReportsGet (string content = null, int? dashboardId = null, bool? hasFeedback = null, bool? conflicted = null, List<int?> feedbacks = null, List<int?> reasons = null, int? pageNumber = null, int? pageSize = null)
 
 
 
@@ -566,7 +566,7 @@ namespace Example
         {
             var apiInstance = new ReviewerApi();
             var content = content_example;  // string |  (optional) 
-            var botId = 56;  // int? |  (optional) 
+            var dashboardId = 56;  // int? |  (optional) 
             var hasFeedback = true;  // bool? |  (optional) 
             var conflicted = true;  // bool? |  (optional) 
             var feedbacks = new List<int?>(); // List<int?> |  (optional) 
@@ -576,7 +576,7 @@ namespace Example
 
             try
             {
-                PagingResponseReviewerReportsResponse result = apiInstance.ReviewerReportsGet(content, botId, hasFeedback, conflicted, feedbacks, reasons, pageNumber, pageSize);
+                PagingResponseReviewerReportsResponse result = apiInstance.ReviewerReportsGet(content, dashboardId, hasFeedback, conflicted, feedbacks, reasons, pageNumber, pageSize);
                 Debug.WriteLine(result);
             }
             catch (Exception e)
@@ -593,7 +593,7 @@ namespace Example
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **content** | **string**|  | [optional] 
- **botId** | **int?**|  | [optional] 
+ **dashboardId** | **int?**|  | [optional] 
  **hasFeedback** | **bool?**|  | [optional] 
  **conflicted** | **bool?**|  | [optional] 
  **feedbacks** | [**List&lt;int?&gt;**](int?.md)|  | [optional] 

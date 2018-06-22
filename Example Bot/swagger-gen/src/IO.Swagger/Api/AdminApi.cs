@@ -31,9 +31,9 @@ namespace IO.Swagger.Api
         /// 
         /// </remarks>
         /// <exception cref="IO.Swagger.Client.ApiException">Thrown when fails to make API call</exception>
-        /// <param name="botId"></param>
-        /// <returns>BotResponse</returns>
-        BotResponse AdminBotGet (int? botId);
+        /// <param name="dashboardId"></param>
+        /// <returns>DashboardResponse</returns>
+        DashboardResponse AdminDashboardGet (int? dashboardId);
 
         /// <summary>
         /// 
@@ -42,30 +42,11 @@ namespace IO.Swagger.Api
         /// 
         /// </remarks>
         /// <exception cref="IO.Swagger.Client.ApiException">Thrown when fails to make API call</exception>
-        /// <param name="botId"></param>
-        /// <returns>ApiResponse of BotResponse</returns>
-        ApiResponse<BotResponse> AdminBotGetWithHttpInfo (int? botId);
+        /// <param name="dashboardId"></param>
+        /// <returns>ApiResponse of DashboardResponse</returns>
+        ApiResponse<DashboardResponse> AdminDashboardGetWithHttpInfo (int? dashboardId);
         /// <summary>
-        /// Lists all bots
-        /// </summary>
-        /// <remarks>
-        /// 
-        /// </remarks>
-        /// <exception cref="IO.Swagger.Client.ApiException">Thrown when fails to make API call</exception>
-        /// <returns>List&lt;BotsResponse&gt;</returns>
-        List<BotsResponse> AdminBotsGet ();
-
-        /// <summary>
-        /// Lists all bots
-        /// </summary>
-        /// <remarks>
-        /// 
-        /// </remarks>
-        /// <exception cref="IO.Swagger.Client.ApiException">Thrown when fails to make API call</exception>
-        /// <returns>ApiResponse of List&lt;BotsResponse&gt;</returns>
-        ApiResponse<List<BotsResponse>> AdminBotsGetWithHttpInfo ();
-        /// <summary>
-        /// Deactivates a bot
+        /// Update a dashboard&#39;s details
         /// </summary>
         /// <remarks>
         /// 
@@ -73,10 +54,10 @@ namespace IO.Swagger.Api
         /// <exception cref="IO.Swagger.Client.ApiException">Thrown when fails to make API call</exception>
         /// <param name="request"> (optional)</param>
         /// <returns></returns>
-        void AdminDeactiveateBotPost (DeleteBotRequest request = null);
+        void AdminEditDashboardPost (EditDashboardRequest request = null);
 
         /// <summary>
-        /// Deactivates a bot
+        /// Update a dashboard&#39;s details
         /// </summary>
         /// <remarks>
         /// 
@@ -84,28 +65,7 @@ namespace IO.Swagger.Api
         /// <exception cref="IO.Swagger.Client.ApiException">Thrown when fails to make API call</exception>
         /// <param name="request"> (optional)</param>
         /// <returns>ApiResponse of Object(void)</returns>
-        ApiResponse<Object> AdminDeactiveateBotPostWithHttpInfo (DeleteBotRequest request = null);
-        /// <summary>
-        /// Update a bots details
-        /// </summary>
-        /// <remarks>
-        /// 
-        /// </remarks>
-        /// <exception cref="IO.Swagger.Client.ApiException">Thrown when fails to make API call</exception>
-        /// <param name="request"> (optional)</param>
-        /// <returns></returns>
-        void AdminEditBotPost (EditBotRequest request = null);
-
-        /// <summary>
-        /// Update a bots details
-        /// </summary>
-        /// <remarks>
-        /// 
-        /// </remarks>
-        /// <exception cref="IO.Swagger.Client.ApiException">Thrown when fails to make API call</exception>
-        /// <param name="request"> (optional)</param>
-        /// <returns>ApiResponse of Object(void)</returns>
-        ApiResponse<Object> AdminEditBotPostWithHttpInfo (EditBotRequest request = null);
+        ApiResponse<Object> AdminEditDashboardPostWithHttpInfo (EditDashboardRequest request = null);
         /// <summary>
         /// 
         /// </summary>
@@ -126,7 +86,7 @@ namespace IO.Swagger.Api
         /// <returns>ApiResponse of Object(void)</returns>
         ApiResponse<Object> AdminForceProcessReportsPostWithHttpInfo ();
         /// <summary>
-        /// Register a bot
+        /// Register a dashboard
         /// </summary>
         /// <remarks>
         /// 
@@ -134,10 +94,10 @@ namespace IO.Swagger.Api
         /// <exception cref="IO.Swagger.Client.ApiException">Thrown when fails to make API call</exception>
         /// <param name="request"> (optional)</param>
         /// <returns>int?</returns>
-        int? AdminRegisterBotPost (CreateBotRequest request = null);
+        int? AdminRegisterDashboardPost (CreateDashboardRequest request = null);
 
         /// <summary>
-        /// Register a bot
+        /// Register a dashboard
         /// </summary>
         /// <remarks>
         /// 
@@ -145,7 +105,7 @@ namespace IO.Swagger.Api
         /// <exception cref="IO.Swagger.Client.ApiException">Thrown when fails to make API call</exception>
         /// <param name="request"> (optional)</param>
         /// <returns>ApiResponse of int?</returns>
-        ApiResponse<int?> AdminRegisterBotPostWithHttpInfo (CreateBotRequest request = null);
+        ApiResponse<int?> AdminRegisterDashboardPostWithHttpInfo (CreateDashboardRequest request = null);
         /// <summary>
         /// 
         /// </summary>
@@ -235,9 +195,9 @@ namespace IO.Swagger.Api
         /// 
         /// </remarks>
         /// <exception cref="IO.Swagger.Client.ApiException">Thrown when fails to make API call</exception>
-        /// <param name="botId"></param>
-        /// <returns>Task of BotResponse</returns>
-        System.Threading.Tasks.Task<BotResponse> AdminBotGetAsync (int? botId);
+        /// <param name="dashboardId"></param>
+        /// <returns>Task of DashboardResponse</returns>
+        System.Threading.Tasks.Task<DashboardResponse> AdminDashboardGetAsync (int? dashboardId);
 
         /// <summary>
         /// 
@@ -246,30 +206,11 @@ namespace IO.Swagger.Api
         /// 
         /// </remarks>
         /// <exception cref="IO.Swagger.Client.ApiException">Thrown when fails to make API call</exception>
-        /// <param name="botId"></param>
-        /// <returns>Task of ApiResponse (BotResponse)</returns>
-        System.Threading.Tasks.Task<ApiResponse<BotResponse>> AdminBotGetAsyncWithHttpInfo (int? botId);
+        /// <param name="dashboardId"></param>
+        /// <returns>Task of ApiResponse (DashboardResponse)</returns>
+        System.Threading.Tasks.Task<ApiResponse<DashboardResponse>> AdminDashboardGetAsyncWithHttpInfo (int? dashboardId);
         /// <summary>
-        /// Lists all bots
-        /// </summary>
-        /// <remarks>
-        /// 
-        /// </remarks>
-        /// <exception cref="IO.Swagger.Client.ApiException">Thrown when fails to make API call</exception>
-        /// <returns>Task of List&lt;BotsResponse&gt;</returns>
-        System.Threading.Tasks.Task<List<BotsResponse>> AdminBotsGetAsync ();
-
-        /// <summary>
-        /// Lists all bots
-        /// </summary>
-        /// <remarks>
-        /// 
-        /// </remarks>
-        /// <exception cref="IO.Swagger.Client.ApiException">Thrown when fails to make API call</exception>
-        /// <returns>Task of ApiResponse (List&lt;BotsResponse&gt;)</returns>
-        System.Threading.Tasks.Task<ApiResponse<List<BotsResponse>>> AdminBotsGetAsyncWithHttpInfo ();
-        /// <summary>
-        /// Deactivates a bot
+        /// Update a dashboard&#39;s details
         /// </summary>
         /// <remarks>
         /// 
@@ -277,10 +218,10 @@ namespace IO.Swagger.Api
         /// <exception cref="IO.Swagger.Client.ApiException">Thrown when fails to make API call</exception>
         /// <param name="request"> (optional)</param>
         /// <returns>Task of void</returns>
-        System.Threading.Tasks.Task AdminDeactiveateBotPostAsync (DeleteBotRequest request = null);
+        System.Threading.Tasks.Task AdminEditDashboardPostAsync (EditDashboardRequest request = null);
 
         /// <summary>
-        /// Deactivates a bot
+        /// Update a dashboard&#39;s details
         /// </summary>
         /// <remarks>
         /// 
@@ -288,28 +229,7 @@ namespace IO.Swagger.Api
         /// <exception cref="IO.Swagger.Client.ApiException">Thrown when fails to make API call</exception>
         /// <param name="request"> (optional)</param>
         /// <returns>Task of ApiResponse</returns>
-        System.Threading.Tasks.Task<ApiResponse<Object>> AdminDeactiveateBotPostAsyncWithHttpInfo (DeleteBotRequest request = null);
-        /// <summary>
-        /// Update a bots details
-        /// </summary>
-        /// <remarks>
-        /// 
-        /// </remarks>
-        /// <exception cref="IO.Swagger.Client.ApiException">Thrown when fails to make API call</exception>
-        /// <param name="request"> (optional)</param>
-        /// <returns>Task of void</returns>
-        System.Threading.Tasks.Task AdminEditBotPostAsync (EditBotRequest request = null);
-
-        /// <summary>
-        /// Update a bots details
-        /// </summary>
-        /// <remarks>
-        /// 
-        /// </remarks>
-        /// <exception cref="IO.Swagger.Client.ApiException">Thrown when fails to make API call</exception>
-        /// <param name="request"> (optional)</param>
-        /// <returns>Task of ApiResponse</returns>
-        System.Threading.Tasks.Task<ApiResponse<Object>> AdminEditBotPostAsyncWithHttpInfo (EditBotRequest request = null);
+        System.Threading.Tasks.Task<ApiResponse<Object>> AdminEditDashboardPostAsyncWithHttpInfo (EditDashboardRequest request = null);
         /// <summary>
         /// 
         /// </summary>
@@ -330,7 +250,7 @@ namespace IO.Swagger.Api
         /// <returns>Task of ApiResponse</returns>
         System.Threading.Tasks.Task<ApiResponse<Object>> AdminForceProcessReportsPostAsyncWithHttpInfo ();
         /// <summary>
-        /// Register a bot
+        /// Register a dashboard
         /// </summary>
         /// <remarks>
         /// 
@@ -338,10 +258,10 @@ namespace IO.Swagger.Api
         /// <exception cref="IO.Swagger.Client.ApiException">Thrown when fails to make API call</exception>
         /// <param name="request"> (optional)</param>
         /// <returns>Task of int?</returns>
-        System.Threading.Tasks.Task<int?> AdminRegisterBotPostAsync (CreateBotRequest request = null);
+        System.Threading.Tasks.Task<int?> AdminRegisterDashboardPostAsync (CreateDashboardRequest request = null);
 
         /// <summary>
-        /// Register a bot
+        /// Register a dashboard
         /// </summary>
         /// <remarks>
         /// 
@@ -349,7 +269,7 @@ namespace IO.Swagger.Api
         /// <exception cref="IO.Swagger.Client.ApiException">Thrown when fails to make API call</exception>
         /// <param name="request"> (optional)</param>
         /// <returns>Task of ApiResponse (int?)</returns>
-        System.Threading.Tasks.Task<ApiResponse<int?>> AdminRegisterBotPostAsyncWithHttpInfo (CreateBotRequest request = null);
+        System.Threading.Tasks.Task<ApiResponse<int?>> AdminRegisterDashboardPostAsyncWithHttpInfo (CreateDashboardRequest request = null);
         /// <summary>
         /// 
         /// </summary>
@@ -534,11 +454,11 @@ namespace IO.Swagger.Api
         ///  
         /// </summary>
         /// <exception cref="IO.Swagger.Client.ApiException">Thrown when fails to make API call</exception>
-        /// <param name="botId"></param>
-        /// <returns>BotResponse</returns>
-        public BotResponse AdminBotGet (int? botId)
+        /// <param name="dashboardId"></param>
+        /// <returns>DashboardResponse</returns>
+        public DashboardResponse AdminDashboardGet (int? dashboardId)
         {
-             ApiResponse<BotResponse> localVarResponse = AdminBotGetWithHttpInfo(botId);
+             ApiResponse<DashboardResponse> localVarResponse = AdminDashboardGetWithHttpInfo(dashboardId);
              return localVarResponse.Data;
         }
 
@@ -546,15 +466,15 @@ namespace IO.Swagger.Api
         ///  
         /// </summary>
         /// <exception cref="IO.Swagger.Client.ApiException">Thrown when fails to make API call</exception>
-        /// <param name="botId"></param>
-        /// <returns>ApiResponse of BotResponse</returns>
-        public ApiResponse< BotResponse > AdminBotGetWithHttpInfo (int? botId)
+        /// <param name="dashboardId"></param>
+        /// <returns>ApiResponse of DashboardResponse</returns>
+        public ApiResponse< DashboardResponse > AdminDashboardGetWithHttpInfo (int? dashboardId)
         {
-            // verify the required parameter 'botId' is set
-            if (botId == null)
-                throw new ApiException(400, "Missing required parameter 'botId' when calling AdminApi->AdminBotGet");
+            // verify the required parameter 'dashboardId' is set
+            if (dashboardId == null)
+                throw new ApiException(400, "Missing required parameter 'dashboardId' when calling AdminApi->AdminDashboardGet");
 
-            var localVarPath = "/Admin/Bot";
+            var localVarPath = "/Admin/Dashboard";
             var localVarPathParams = new Dictionary<String, String>();
             var localVarQueryParams = new List<KeyValuePair<String, String>>();
             var localVarHeaderParams = new Dictionary<String, String>(Configuration.DefaultHeader);
@@ -577,7 +497,7 @@ namespace IO.Swagger.Api
             if (localVarHttpHeaderAccept != null)
                 localVarHeaderParams.Add("Accept", localVarHttpHeaderAccept);
 
-            if (botId != null) localVarQueryParams.AddRange(Configuration.ApiClient.ParameterToKeyValuePairs("", "botId", botId)); // query parameter
+            if (dashboardId != null) localVarQueryParams.AddRange(Configuration.ApiClient.ParameterToKeyValuePairs("", "dashboardId", dashboardId)); // query parameter
 
             // authentication (oauth2) required
             // oauth required
@@ -595,24 +515,24 @@ namespace IO.Swagger.Api
 
             if (ExceptionFactory != null)
             {
-                Exception exception = ExceptionFactory("AdminBotGet", localVarResponse);
+                Exception exception = ExceptionFactory("AdminDashboardGet", localVarResponse);
                 if (exception != null) throw exception;
             }
 
-            return new ApiResponse<BotResponse>(localVarStatusCode,
+            return new ApiResponse<DashboardResponse>(localVarStatusCode,
                 localVarResponse.Headers.ToDictionary(x => x.Name, x => x.Value.ToString()),
-                (BotResponse) Configuration.ApiClient.Deserialize(localVarResponse, typeof(BotResponse)));
+                (DashboardResponse) Configuration.ApiClient.Deserialize(localVarResponse, typeof(DashboardResponse)));
         }
 
         /// <summary>
         ///  
         /// </summary>
         /// <exception cref="IO.Swagger.Client.ApiException">Thrown when fails to make API call</exception>
-        /// <param name="botId"></param>
-        /// <returns>Task of BotResponse</returns>
-        public async System.Threading.Tasks.Task<BotResponse> AdminBotGetAsync (int? botId)
+        /// <param name="dashboardId"></param>
+        /// <returns>Task of DashboardResponse</returns>
+        public async System.Threading.Tasks.Task<DashboardResponse> AdminDashboardGetAsync (int? dashboardId)
         {
-             ApiResponse<BotResponse> localVarResponse = await AdminBotGetAsyncWithHttpInfo(botId);
+             ApiResponse<DashboardResponse> localVarResponse = await AdminDashboardGetAsyncWithHttpInfo(dashboardId);
              return localVarResponse.Data;
 
         }
@@ -621,15 +541,15 @@ namespace IO.Swagger.Api
         ///  
         /// </summary>
         /// <exception cref="IO.Swagger.Client.ApiException">Thrown when fails to make API call</exception>
-        /// <param name="botId"></param>
-        /// <returns>Task of ApiResponse (BotResponse)</returns>
-        public async System.Threading.Tasks.Task<ApiResponse<BotResponse>> AdminBotGetAsyncWithHttpInfo (int? botId)
+        /// <param name="dashboardId"></param>
+        /// <returns>Task of ApiResponse (DashboardResponse)</returns>
+        public async System.Threading.Tasks.Task<ApiResponse<DashboardResponse>> AdminDashboardGetAsyncWithHttpInfo (int? dashboardId)
         {
-            // verify the required parameter 'botId' is set
-            if (botId == null)
-                throw new ApiException(400, "Missing required parameter 'botId' when calling AdminApi->AdminBotGet");
+            // verify the required parameter 'dashboardId' is set
+            if (dashboardId == null)
+                throw new ApiException(400, "Missing required parameter 'dashboardId' when calling AdminApi->AdminDashboardGet");
 
-            var localVarPath = "/Admin/Bot";
+            var localVarPath = "/Admin/Dashboard";
             var localVarPathParams = new Dictionary<String, String>();
             var localVarQueryParams = new List<KeyValuePair<String, String>>();
             var localVarHeaderParams = new Dictionary<String, String>(Configuration.DefaultHeader);
@@ -652,7 +572,7 @@ namespace IO.Swagger.Api
             if (localVarHttpHeaderAccept != null)
                 localVarHeaderParams.Add("Accept", localVarHttpHeaderAccept);
 
-            if (botId != null) localVarQueryParams.AddRange(Configuration.ApiClient.ParameterToKeyValuePairs("", "botId", botId)); // query parameter
+            if (dashboardId != null) localVarQueryParams.AddRange(Configuration.ApiClient.ParameterToKeyValuePairs("", "dashboardId", dashboardId)); // query parameter
 
             // authentication (oauth2) required
             // oauth required
@@ -670,173 +590,36 @@ namespace IO.Swagger.Api
 
             if (ExceptionFactory != null)
             {
-                Exception exception = ExceptionFactory("AdminBotGet", localVarResponse);
+                Exception exception = ExceptionFactory("AdminDashboardGet", localVarResponse);
                 if (exception != null) throw exception;
             }
 
-            return new ApiResponse<BotResponse>(localVarStatusCode,
+            return new ApiResponse<DashboardResponse>(localVarStatusCode,
                 localVarResponse.Headers.ToDictionary(x => x.Name, x => x.Value.ToString()),
-                (BotResponse) Configuration.ApiClient.Deserialize(localVarResponse, typeof(BotResponse)));
+                (DashboardResponse) Configuration.ApiClient.Deserialize(localVarResponse, typeof(DashboardResponse)));
         }
 
         /// <summary>
-        /// Lists all bots 
-        /// </summary>
-        /// <exception cref="IO.Swagger.Client.ApiException">Thrown when fails to make API call</exception>
-        /// <returns>List&lt;BotsResponse&gt;</returns>
-        public List<BotsResponse> AdminBotsGet ()
-        {
-             ApiResponse<List<BotsResponse>> localVarResponse = AdminBotsGetWithHttpInfo();
-             return localVarResponse.Data;
-        }
-
-        /// <summary>
-        /// Lists all bots 
-        /// </summary>
-        /// <exception cref="IO.Swagger.Client.ApiException">Thrown when fails to make API call</exception>
-        /// <returns>ApiResponse of List&lt;BotsResponse&gt;</returns>
-        public ApiResponse< List<BotsResponse> > AdminBotsGetWithHttpInfo ()
-        {
-
-            var localVarPath = "/Admin/Bots";
-            var localVarPathParams = new Dictionary<String, String>();
-            var localVarQueryParams = new List<KeyValuePair<String, String>>();
-            var localVarHeaderParams = new Dictionary<String, String>(Configuration.DefaultHeader);
-            var localVarFormParams = new Dictionary<String, String>();
-            var localVarFileParams = new Dictionary<String, FileParameter>();
-            Object localVarPostBody = null;
-
-            // to determine the Content-Type header
-            String[] localVarHttpContentTypes = new String[] {
-            };
-            String localVarHttpContentType = Configuration.ApiClient.SelectHeaderContentType(localVarHttpContentTypes);
-
-            // to determine the Accept header
-            String[] localVarHttpHeaderAccepts = new String[] {
-                "text/plain",
-                "application/json",
-                "text/json"
-            };
-            String localVarHttpHeaderAccept = Configuration.ApiClient.SelectHeaderAccept(localVarHttpHeaderAccepts);
-            if (localVarHttpHeaderAccept != null)
-                localVarHeaderParams.Add("Accept", localVarHttpHeaderAccept);
-
-
-            // authentication (oauth2) required
-            // oauth required
-            if (!String.IsNullOrEmpty(Configuration.AccessToken))
-            {
-                localVarHeaderParams["Authorization"] = "Bearer " + Configuration.AccessToken;
-            }
-
-            // make the HTTP request
-            IRestResponse localVarResponse = (IRestResponse) Configuration.ApiClient.CallApi(localVarPath,
-                Method.GET, localVarQueryParams, localVarPostBody, localVarHeaderParams, localVarFormParams, localVarFileParams,
-                localVarPathParams, localVarHttpContentType);
-
-            int localVarStatusCode = (int) localVarResponse.StatusCode;
-
-            if (ExceptionFactory != null)
-            {
-                Exception exception = ExceptionFactory("AdminBotsGet", localVarResponse);
-                if (exception != null) throw exception;
-            }
-
-            return new ApiResponse<List<BotsResponse>>(localVarStatusCode,
-                localVarResponse.Headers.ToDictionary(x => x.Name, x => x.Value.ToString()),
-                (List<BotsResponse>) Configuration.ApiClient.Deserialize(localVarResponse, typeof(List<BotsResponse>)));
-        }
-
-        /// <summary>
-        /// Lists all bots 
-        /// </summary>
-        /// <exception cref="IO.Swagger.Client.ApiException">Thrown when fails to make API call</exception>
-        /// <returns>Task of List&lt;BotsResponse&gt;</returns>
-        public async System.Threading.Tasks.Task<List<BotsResponse>> AdminBotsGetAsync ()
-        {
-             ApiResponse<List<BotsResponse>> localVarResponse = await AdminBotsGetAsyncWithHttpInfo();
-             return localVarResponse.Data;
-
-        }
-
-        /// <summary>
-        /// Lists all bots 
-        /// </summary>
-        /// <exception cref="IO.Swagger.Client.ApiException">Thrown when fails to make API call</exception>
-        /// <returns>Task of ApiResponse (List&lt;BotsResponse&gt;)</returns>
-        public async System.Threading.Tasks.Task<ApiResponse<List<BotsResponse>>> AdminBotsGetAsyncWithHttpInfo ()
-        {
-
-            var localVarPath = "/Admin/Bots";
-            var localVarPathParams = new Dictionary<String, String>();
-            var localVarQueryParams = new List<KeyValuePair<String, String>>();
-            var localVarHeaderParams = new Dictionary<String, String>(Configuration.DefaultHeader);
-            var localVarFormParams = new Dictionary<String, String>();
-            var localVarFileParams = new Dictionary<String, FileParameter>();
-            Object localVarPostBody = null;
-
-            // to determine the Content-Type header
-            String[] localVarHttpContentTypes = new String[] {
-            };
-            String localVarHttpContentType = Configuration.ApiClient.SelectHeaderContentType(localVarHttpContentTypes);
-
-            // to determine the Accept header
-            String[] localVarHttpHeaderAccepts = new String[] {
-                "text/plain",
-                "application/json",
-                "text/json"
-            };
-            String localVarHttpHeaderAccept = Configuration.ApiClient.SelectHeaderAccept(localVarHttpHeaderAccepts);
-            if (localVarHttpHeaderAccept != null)
-                localVarHeaderParams.Add("Accept", localVarHttpHeaderAccept);
-
-
-            // authentication (oauth2) required
-            // oauth required
-            if (!String.IsNullOrEmpty(Configuration.AccessToken))
-            {
-                localVarHeaderParams["Authorization"] = "Bearer " + Configuration.AccessToken;
-            }
-
-            // make the HTTP request
-            IRestResponse localVarResponse = (IRestResponse) await Configuration.ApiClient.CallApiAsync(localVarPath,
-                Method.GET, localVarQueryParams, localVarPostBody, localVarHeaderParams, localVarFormParams, localVarFileParams,
-                localVarPathParams, localVarHttpContentType);
-
-            int localVarStatusCode = (int) localVarResponse.StatusCode;
-
-            if (ExceptionFactory != null)
-            {
-                Exception exception = ExceptionFactory("AdminBotsGet", localVarResponse);
-                if (exception != null) throw exception;
-            }
-
-            return new ApiResponse<List<BotsResponse>>(localVarStatusCode,
-                localVarResponse.Headers.ToDictionary(x => x.Name, x => x.Value.ToString()),
-                (List<BotsResponse>) Configuration.ApiClient.Deserialize(localVarResponse, typeof(List<BotsResponse>)));
-        }
-
-        /// <summary>
-        /// Deactivates a bot 
+        /// Update a dashboard&#39;s details 
         /// </summary>
         /// <exception cref="IO.Swagger.Client.ApiException">Thrown when fails to make API call</exception>
         /// <param name="request"> (optional)</param>
         /// <returns></returns>
-        public void AdminDeactiveateBotPost (DeleteBotRequest request = null)
+        public void AdminEditDashboardPost (EditDashboardRequest request = null)
         {
-             AdminDeactiveateBotPostWithHttpInfo(request);
+             AdminEditDashboardPostWithHttpInfo(request);
         }
 
         /// <summary>
-        /// Deactivates a bot 
+        /// Update a dashboard&#39;s details 
         /// </summary>
         /// <exception cref="IO.Swagger.Client.ApiException">Thrown when fails to make API call</exception>
         /// <param name="request"> (optional)</param>
         /// <returns>ApiResponse of Object(void)</returns>
-        public ApiResponse<Object> AdminDeactiveateBotPostWithHttpInfo (DeleteBotRequest request = null)
+        public ApiResponse<Object> AdminEditDashboardPostWithHttpInfo (EditDashboardRequest request = null)
         {
 
-            var localVarPath = "/Admin/DeactiveateBot";
+            var localVarPath = "/Admin/EditDashboard";
             var localVarPathParams = new Dictionary<String, String>();
             var localVarQueryParams = new List<KeyValuePair<String, String>>();
             var localVarHeaderParams = new Dictionary<String, String>(Configuration.DefaultHeader);
@@ -888,7 +671,7 @@ namespace IO.Swagger.Api
 
             if (ExceptionFactory != null)
             {
-                Exception exception = ExceptionFactory("AdminDeactiveateBotPost", localVarResponse);
+                Exception exception = ExceptionFactory("AdminEditDashboardPost", localVarResponse);
                 if (exception != null) throw exception;
             }
 
@@ -898,27 +681,27 @@ namespace IO.Swagger.Api
         }
 
         /// <summary>
-        /// Deactivates a bot 
+        /// Update a dashboard&#39;s details 
         /// </summary>
         /// <exception cref="IO.Swagger.Client.ApiException">Thrown when fails to make API call</exception>
         /// <param name="request"> (optional)</param>
         /// <returns>Task of void</returns>
-        public async System.Threading.Tasks.Task AdminDeactiveateBotPostAsync (DeleteBotRequest request = null)
+        public async System.Threading.Tasks.Task AdminEditDashboardPostAsync (EditDashboardRequest request = null)
         {
-             await AdminDeactiveateBotPostAsyncWithHttpInfo(request);
+             await AdminEditDashboardPostAsyncWithHttpInfo(request);
 
         }
 
         /// <summary>
-        /// Deactivates a bot 
+        /// Update a dashboard&#39;s details 
         /// </summary>
         /// <exception cref="IO.Swagger.Client.ApiException">Thrown when fails to make API call</exception>
         /// <param name="request"> (optional)</param>
         /// <returns>Task of ApiResponse</returns>
-        public async System.Threading.Tasks.Task<ApiResponse<Object>> AdminDeactiveateBotPostAsyncWithHttpInfo (DeleteBotRequest request = null)
+        public async System.Threading.Tasks.Task<ApiResponse<Object>> AdminEditDashboardPostAsyncWithHttpInfo (EditDashboardRequest request = null)
         {
 
-            var localVarPath = "/Admin/DeactiveateBot";
+            var localVarPath = "/Admin/EditDashboard";
             var localVarPathParams = new Dictionary<String, String>();
             var localVarQueryParams = new List<KeyValuePair<String, String>>();
             var localVarHeaderParams = new Dictionary<String, String>(Configuration.DefaultHeader);
@@ -970,170 +753,7 @@ namespace IO.Swagger.Api
 
             if (ExceptionFactory != null)
             {
-                Exception exception = ExceptionFactory("AdminDeactiveateBotPost", localVarResponse);
-                if (exception != null) throw exception;
-            }
-
-            return new ApiResponse<Object>(localVarStatusCode,
-                localVarResponse.Headers.ToDictionary(x => x.Name, x => x.Value.ToString()),
-                null);
-        }
-
-        /// <summary>
-        /// Update a bots details 
-        /// </summary>
-        /// <exception cref="IO.Swagger.Client.ApiException">Thrown when fails to make API call</exception>
-        /// <param name="request"> (optional)</param>
-        /// <returns></returns>
-        public void AdminEditBotPost (EditBotRequest request = null)
-        {
-             AdminEditBotPostWithHttpInfo(request);
-        }
-
-        /// <summary>
-        /// Update a bots details 
-        /// </summary>
-        /// <exception cref="IO.Swagger.Client.ApiException">Thrown when fails to make API call</exception>
-        /// <param name="request"> (optional)</param>
-        /// <returns>ApiResponse of Object(void)</returns>
-        public ApiResponse<Object> AdminEditBotPostWithHttpInfo (EditBotRequest request = null)
-        {
-
-            var localVarPath = "/Admin/EditBot";
-            var localVarPathParams = new Dictionary<String, String>();
-            var localVarQueryParams = new List<KeyValuePair<String, String>>();
-            var localVarHeaderParams = new Dictionary<String, String>(Configuration.DefaultHeader);
-            var localVarFormParams = new Dictionary<String, String>();
-            var localVarFileParams = new Dictionary<String, FileParameter>();
-            Object localVarPostBody = null;
-
-            // to determine the Content-Type header
-            String[] localVarHttpContentTypes = new String[] {
-                "application/json-patch+json", 
-                "application/json", 
-                "text/json", 
-                "application/_*+json"
-            };
-            String localVarHttpContentType = Configuration.ApiClient.SelectHeaderContentType(localVarHttpContentTypes);
-
-            // to determine the Accept header
-            String[] localVarHttpHeaderAccepts = new String[] {
-                "text/plain",
-                "application/json",
-                "text/json"
-            };
-            String localVarHttpHeaderAccept = Configuration.ApiClient.SelectHeaderAccept(localVarHttpHeaderAccepts);
-            if (localVarHttpHeaderAccept != null)
-                localVarHeaderParams.Add("Accept", localVarHttpHeaderAccept);
-
-            if (request != null && request.GetType() != typeof(byte[]))
-            {
-                localVarPostBody = Configuration.ApiClient.Serialize(request); // http body (model) parameter
-            }
-            else
-            {
-                localVarPostBody = request; // byte array
-            }
-
-            // authentication (oauth2) required
-            // oauth required
-            if (!String.IsNullOrEmpty(Configuration.AccessToken))
-            {
-                localVarHeaderParams["Authorization"] = "Bearer " + Configuration.AccessToken;
-            }
-
-            // make the HTTP request
-            IRestResponse localVarResponse = (IRestResponse) Configuration.ApiClient.CallApi(localVarPath,
-                Method.POST, localVarQueryParams, localVarPostBody, localVarHeaderParams, localVarFormParams, localVarFileParams,
-                localVarPathParams, localVarHttpContentType);
-
-            int localVarStatusCode = (int) localVarResponse.StatusCode;
-
-            if (ExceptionFactory != null)
-            {
-                Exception exception = ExceptionFactory("AdminEditBotPost", localVarResponse);
-                if (exception != null) throw exception;
-            }
-
-            return new ApiResponse<Object>(localVarStatusCode,
-                localVarResponse.Headers.ToDictionary(x => x.Name, x => x.Value.ToString()),
-                null);
-        }
-
-        /// <summary>
-        /// Update a bots details 
-        /// </summary>
-        /// <exception cref="IO.Swagger.Client.ApiException">Thrown when fails to make API call</exception>
-        /// <param name="request"> (optional)</param>
-        /// <returns>Task of void</returns>
-        public async System.Threading.Tasks.Task AdminEditBotPostAsync (EditBotRequest request = null)
-        {
-             await AdminEditBotPostAsyncWithHttpInfo(request);
-
-        }
-
-        /// <summary>
-        /// Update a bots details 
-        /// </summary>
-        /// <exception cref="IO.Swagger.Client.ApiException">Thrown when fails to make API call</exception>
-        /// <param name="request"> (optional)</param>
-        /// <returns>Task of ApiResponse</returns>
-        public async System.Threading.Tasks.Task<ApiResponse<Object>> AdminEditBotPostAsyncWithHttpInfo (EditBotRequest request = null)
-        {
-
-            var localVarPath = "/Admin/EditBot";
-            var localVarPathParams = new Dictionary<String, String>();
-            var localVarQueryParams = new List<KeyValuePair<String, String>>();
-            var localVarHeaderParams = new Dictionary<String, String>(Configuration.DefaultHeader);
-            var localVarFormParams = new Dictionary<String, String>();
-            var localVarFileParams = new Dictionary<String, FileParameter>();
-            Object localVarPostBody = null;
-
-            // to determine the Content-Type header
-            String[] localVarHttpContentTypes = new String[] {
-                "application/json-patch+json", 
-                "application/json", 
-                "text/json", 
-                "application/_*+json"
-            };
-            String localVarHttpContentType = Configuration.ApiClient.SelectHeaderContentType(localVarHttpContentTypes);
-
-            // to determine the Accept header
-            String[] localVarHttpHeaderAccepts = new String[] {
-                "text/plain",
-                "application/json",
-                "text/json"
-            };
-            String localVarHttpHeaderAccept = Configuration.ApiClient.SelectHeaderAccept(localVarHttpHeaderAccepts);
-            if (localVarHttpHeaderAccept != null)
-                localVarHeaderParams.Add("Accept", localVarHttpHeaderAccept);
-
-            if (request != null && request.GetType() != typeof(byte[]))
-            {
-                localVarPostBody = Configuration.ApiClient.Serialize(request); // http body (model) parameter
-            }
-            else
-            {
-                localVarPostBody = request; // byte array
-            }
-
-            // authentication (oauth2) required
-            // oauth required
-            if (!String.IsNullOrEmpty(Configuration.AccessToken))
-            {
-                localVarHeaderParams["Authorization"] = "Bearer " + Configuration.AccessToken;
-            }
-
-            // make the HTTP request
-            IRestResponse localVarResponse = (IRestResponse) await Configuration.ApiClient.CallApiAsync(localVarPath,
-                Method.POST, localVarQueryParams, localVarPostBody, localVarHeaderParams, localVarFormParams, localVarFileParams,
-                localVarPathParams, localVarHttpContentType);
-
-            int localVarStatusCode = (int) localVarResponse.StatusCode;
-
-            if (ExceptionFactory != null)
-            {
-                Exception exception = ExceptionFactory("AdminEditBotPost", localVarResponse);
+                Exception exception = ExceptionFactory("AdminEditDashboardPost", localVarResponse);
                 if (exception != null) throw exception;
             }
 
@@ -1272,27 +892,27 @@ namespace IO.Swagger.Api
         }
 
         /// <summary>
-        /// Register a bot 
+        /// Register a dashboard 
         /// </summary>
         /// <exception cref="IO.Swagger.Client.ApiException">Thrown when fails to make API call</exception>
         /// <param name="request"> (optional)</param>
         /// <returns>int?</returns>
-        public int? AdminRegisterBotPost (CreateBotRequest request = null)
+        public int? AdminRegisterDashboardPost (CreateDashboardRequest request = null)
         {
-             ApiResponse<int?> localVarResponse = AdminRegisterBotPostWithHttpInfo(request);
+             ApiResponse<int?> localVarResponse = AdminRegisterDashboardPostWithHttpInfo(request);
              return localVarResponse.Data;
         }
 
         /// <summary>
-        /// Register a bot 
+        /// Register a dashboard 
         /// </summary>
         /// <exception cref="IO.Swagger.Client.ApiException">Thrown when fails to make API call</exception>
         /// <param name="request"> (optional)</param>
         /// <returns>ApiResponse of int?</returns>
-        public ApiResponse< int? > AdminRegisterBotPostWithHttpInfo (CreateBotRequest request = null)
+        public ApiResponse< int? > AdminRegisterDashboardPostWithHttpInfo (CreateDashboardRequest request = null)
         {
 
-            var localVarPath = "/Admin/RegisterBot";
+            var localVarPath = "/Admin/RegisterDashboard";
             var localVarPathParams = new Dictionary<String, String>();
             var localVarQueryParams = new List<KeyValuePair<String, String>>();
             var localVarHeaderParams = new Dictionary<String, String>(Configuration.DefaultHeader);
@@ -1344,7 +964,7 @@ namespace IO.Swagger.Api
 
             if (ExceptionFactory != null)
             {
-                Exception exception = ExceptionFactory("AdminRegisterBotPost", localVarResponse);
+                Exception exception = ExceptionFactory("AdminRegisterDashboardPost", localVarResponse);
                 if (exception != null) throw exception;
             }
 
@@ -1354,28 +974,28 @@ namespace IO.Swagger.Api
         }
 
         /// <summary>
-        /// Register a bot 
+        /// Register a dashboard 
         /// </summary>
         /// <exception cref="IO.Swagger.Client.ApiException">Thrown when fails to make API call</exception>
         /// <param name="request"> (optional)</param>
         /// <returns>Task of int?</returns>
-        public async System.Threading.Tasks.Task<int?> AdminRegisterBotPostAsync (CreateBotRequest request = null)
+        public async System.Threading.Tasks.Task<int?> AdminRegisterDashboardPostAsync (CreateDashboardRequest request = null)
         {
-             ApiResponse<int?> localVarResponse = await AdminRegisterBotPostAsyncWithHttpInfo(request);
+             ApiResponse<int?> localVarResponse = await AdminRegisterDashboardPostAsyncWithHttpInfo(request);
              return localVarResponse.Data;
 
         }
 
         /// <summary>
-        /// Register a bot 
+        /// Register a dashboard 
         /// </summary>
         /// <exception cref="IO.Swagger.Client.ApiException">Thrown when fails to make API call</exception>
         /// <param name="request"> (optional)</param>
         /// <returns>Task of ApiResponse (int?)</returns>
-        public async System.Threading.Tasks.Task<ApiResponse<int?>> AdminRegisterBotPostAsyncWithHttpInfo (CreateBotRequest request = null)
+        public async System.Threading.Tasks.Task<ApiResponse<int?>> AdminRegisterDashboardPostAsyncWithHttpInfo (CreateDashboardRequest request = null)
         {
 
-            var localVarPath = "/Admin/RegisterBot";
+            var localVarPath = "/Admin/RegisterDashboard";
             var localVarPathParams = new Dictionary<String, String>();
             var localVarQueryParams = new List<KeyValuePair<String, String>>();
             var localVarHeaderParams = new Dictionary<String, String>(Configuration.DefaultHeader);
@@ -1427,7 +1047,7 @@ namespace IO.Swagger.Api
 
             if (ExceptionFactory != null)
             {
-                Exception exception = ExceptionFactory("AdminRegisterBotPost", localVarResponse);
+                Exception exception = ExceptionFactory("AdminRegisterDashboardPost", localVarResponse);
                 if (exception != null) throw exception;
             }
 

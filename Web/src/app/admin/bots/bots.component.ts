@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { AdminService, BotsResponse } from '../../../swagger-gen';
+import {  ReviewerService, ReviewerDashboardsResponse } from '../../../swagger-gen';
 
 @Component({
   selector: 'app-bots',
@@ -7,11 +7,11 @@ import { AdminService, BotsResponse } from '../../../swagger-gen';
   styleUrls: ['./bots.component.scss']
 })
 export class BotsComponent implements OnInit {
-  public botsResponse: BotsResponse[] = [];
-  constructor(private adminService: AdminService) { }
+  public botsResponse: ReviewerDashboardsResponse[] = [];
+  constructor(private reviewerService: ReviewerService) { }
 
   ngOnInit() {
-    this.adminService.adminBotsGet()
+    this.reviewerService.reviewerDashboardsGet()
       .subscribe(response => this.botsResponse = response);
   }
 }

@@ -25,24 +25,24 @@ using SwaggerDateConverter = IO.Swagger.Client.SwaggerDateConverter;
 namespace IO.Swagger.Model
 {
     /// <summary>
-    /// ReportsOverTimeResponse
+    /// ReviewerDashboardResponse
     /// </summary>
     [DataContract]
-    public partial class ReportsOverTimeResponse :  IEquatable<ReportsOverTimeResponse>, IValidatableObject
+    public partial class ReviewerDashboardResponse :  IEquatable<ReviewerDashboardResponse>, IValidatableObject
     {
         /// <summary>
-        /// Initializes a new instance of the <see cref="ReportsOverTimeResponse" /> class.
+        /// Initializes a new instance of the <see cref="ReviewerDashboardResponse" /> class.
         /// </summary>
         /// <param name="DashboardId">DashboardId.</param>
+        /// <param name="DashboardLogo">DashboardLogo.</param>
         /// <param name="DashboardName">DashboardName.</param>
-        /// <param name="Date">Date.</param>
-        /// <param name="Count">Count.</param>
-        public ReportsOverTimeResponse(int? DashboardId = default(int?), string DashboardName = default(string), DateTime? Date = default(DateTime?), int? Count = default(int?))
+        /// <param name="DashboardDescription">DashboardDescription.</param>
+        public ReviewerDashboardResponse(int? DashboardId = default(int?), string DashboardLogo = default(string), string DashboardName = default(string), string DashboardDescription = default(string))
         {
             this.DashboardId = DashboardId;
+            this.DashboardLogo = DashboardLogo;
             this.DashboardName = DashboardName;
-            this.Date = Date;
-            this.Count = Count;
+            this.DashboardDescription = DashboardDescription;
         }
         
         /// <summary>
@@ -52,22 +52,22 @@ namespace IO.Swagger.Model
         public int? DashboardId { get; set; }
 
         /// <summary>
+        /// Gets or Sets DashboardLogo
+        /// </summary>
+        [DataMember(Name="dashboardLogo", EmitDefaultValue=false)]
+        public string DashboardLogo { get; set; }
+
+        /// <summary>
         /// Gets or Sets DashboardName
         /// </summary>
         [DataMember(Name="dashboardName", EmitDefaultValue=false)]
         public string DashboardName { get; set; }
 
         /// <summary>
-        /// Gets or Sets Date
+        /// Gets or Sets DashboardDescription
         /// </summary>
-        [DataMember(Name="date", EmitDefaultValue=false)]
-        public DateTime? Date { get; set; }
-
-        /// <summary>
-        /// Gets or Sets Count
-        /// </summary>
-        [DataMember(Name="count", EmitDefaultValue=false)]
-        public int? Count { get; set; }
+        [DataMember(Name="dashboardDescription", EmitDefaultValue=false)]
+        public string DashboardDescription { get; set; }
 
         /// <summary>
         /// Returns the string presentation of the object
@@ -76,11 +76,11 @@ namespace IO.Swagger.Model
         public override string ToString()
         {
             var sb = new StringBuilder();
-            sb.Append("class ReportsOverTimeResponse {\n");
+            sb.Append("class ReviewerDashboardResponse {\n");
             sb.Append("  DashboardId: ").Append(DashboardId).Append("\n");
+            sb.Append("  DashboardLogo: ").Append(DashboardLogo).Append("\n");
             sb.Append("  DashboardName: ").Append(DashboardName).Append("\n");
-            sb.Append("  Date: ").Append(Date).Append("\n");
-            sb.Append("  Count: ").Append(Count).Append("\n");
+            sb.Append("  DashboardDescription: ").Append(DashboardDescription).Append("\n");
             sb.Append("}\n");
             return sb.ToString();
         }
@@ -101,15 +101,15 @@ namespace IO.Swagger.Model
         /// <returns>Boolean</returns>
         public override bool Equals(object input)
         {
-            return this.Equals(input as ReportsOverTimeResponse);
+            return this.Equals(input as ReviewerDashboardResponse);
         }
 
         /// <summary>
-        /// Returns true if ReportsOverTimeResponse instances are equal
+        /// Returns true if ReviewerDashboardResponse instances are equal
         /// </summary>
-        /// <param name="input">Instance of ReportsOverTimeResponse to be compared</param>
+        /// <param name="input">Instance of ReviewerDashboardResponse to be compared</param>
         /// <returns>Boolean</returns>
-        public bool Equals(ReportsOverTimeResponse input)
+        public bool Equals(ReviewerDashboardResponse input)
         {
             if (input == null)
                 return false;
@@ -121,19 +121,19 @@ namespace IO.Swagger.Model
                     this.DashboardId.Equals(input.DashboardId))
                 ) && 
                 (
+                    this.DashboardLogo == input.DashboardLogo ||
+                    (this.DashboardLogo != null &&
+                    this.DashboardLogo.Equals(input.DashboardLogo))
+                ) && 
+                (
                     this.DashboardName == input.DashboardName ||
                     (this.DashboardName != null &&
                     this.DashboardName.Equals(input.DashboardName))
                 ) && 
                 (
-                    this.Date == input.Date ||
-                    (this.Date != null &&
-                    this.Date.Equals(input.Date))
-                ) && 
-                (
-                    this.Count == input.Count ||
-                    (this.Count != null &&
-                    this.Count.Equals(input.Count))
+                    this.DashboardDescription == input.DashboardDescription ||
+                    (this.DashboardDescription != null &&
+                    this.DashboardDescription.Equals(input.DashboardDescription))
                 );
         }
 
@@ -148,12 +148,12 @@ namespace IO.Swagger.Model
                 int hashCode = 41;
                 if (this.DashboardId != null)
                     hashCode = hashCode * 59 + this.DashboardId.GetHashCode();
+                if (this.DashboardLogo != null)
+                    hashCode = hashCode * 59 + this.DashboardLogo.GetHashCode();
                 if (this.DashboardName != null)
                     hashCode = hashCode * 59 + this.DashboardName.GetHashCode();
-                if (this.Date != null)
-                    hashCode = hashCode * 59 + this.Date.GetHashCode();
-                if (this.Count != null)
-                    hashCode = hashCode * 59 + this.Count.GetHashCode();
+                if (this.DashboardDescription != null)
+                    hashCode = hashCode * 59 + this.DashboardDescription.GetHashCode();
                 return hashCode;
             }
         }

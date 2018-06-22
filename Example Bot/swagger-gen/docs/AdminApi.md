@@ -4,21 +4,19 @@ All URIs are relative to *https://localhost*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**AdminBotGet**](AdminApi.md#adminbotget) | **GET** /Admin/Bot | 
-[**AdminBotsGet**](AdminApi.md#adminbotsget) | **GET** /Admin/Bots | Lists all bots
-[**AdminDeactiveateBotPost**](AdminApi.md#admindeactiveatebotpost) | **POST** /Admin/DeactiveateBot | Deactivates a bot
-[**AdminEditBotPost**](AdminApi.md#admineditbotpost) | **POST** /Admin/EditBot | Update a bots details
+[**AdminDashboardGet**](AdminApi.md#admindashboardget) | **GET** /Admin/Dashboard | 
+[**AdminEditDashboardPost**](AdminApi.md#admineditdashboardpost) | **POST** /Admin/EditDashboard | Update a dashboard&#39;s details
 [**AdminForceProcessReportsPost**](AdminApi.md#adminforceprocessreportspost) | **POST** /Admin/ForceProcessReports | 
-[**AdminRegisterBotPost**](AdminApi.md#adminregisterbotpost) | **POST** /Admin/RegisterBot | Register a bot
+[**AdminRegisterDashboardPost**](AdminApi.md#adminregisterdashboardpost) | **POST** /Admin/RegisterDashboard | Register a dashboard
 [**AdminScopesGet**](AdminApi.md#adminscopesget) | **GET** /Admin/Scopes | 
 [**AdminUserGet**](AdminApi.md#adminuserget) | **GET** /Admin/User | Lists all users
 [**AdminUserPost**](AdminApi.md#adminuserpost) | **POST** /Admin/User | Lists all users
 [**AdminUsersGet**](AdminApi.md#adminusersget) | **GET** /Admin/Users | Lists all users
 
 
-<a name="adminbotget"></a>
-# **AdminBotGet**
-> BotResponse AdminBotGet (int? botId)
+<a name="admindashboardget"></a>
+# **AdminDashboardGet**
+> DashboardResponse AdminDashboardGet (int? dashboardId)
 
 
 
@@ -32,7 +30,7 @@ using IO.Swagger.Model;
 
 namespace Example
 {
-    public class AdminBotGetExample
+    public class AdminDashboardGetExample
     {
         public void main()
         {
@@ -40,16 +38,16 @@ namespace Example
             Configuration.Default.AccessToken = "YOUR_ACCESS_TOKEN";
 
             var apiInstance = new AdminApi();
-            var botId = 56;  // int? | 
+            var dashboardId = 56;  // int? | 
 
             try
             {
-                BotResponse result = apiInstance.AdminBotGet(botId);
+                DashboardResponse result = apiInstance.AdminDashboardGet(dashboardId);
                 Debug.WriteLine(result);
             }
             catch (Exception e)
             {
-                Debug.Print("Exception when calling AdminApi.AdminBotGet: " + e.Message );
+                Debug.Print("Exception when calling AdminApi.AdminDashboardGet: " + e.Message );
             }
         }
     }
@@ -60,11 +58,11 @@ namespace Example
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **botId** | **int?**|  | 
+ **dashboardId** | **int?**|  | 
 
 ### Return type
 
-[**BotResponse**](BotResponse.md)
+[**DashboardResponse**](DashboardResponse.md)
 
 ### Authorization
 
@@ -77,69 +75,11 @@ Name | Type | Description  | Notes
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
-<a name="adminbotsget"></a>
-# **AdminBotsGet**
-> List<BotsResponse> AdminBotsGet ()
+<a name="admineditdashboardpost"></a>
+# **AdminEditDashboardPost**
+> void AdminEditDashboardPost (EditDashboardRequest request = null)
 
-Lists all bots
-
-### Example
-```csharp
-using System;
-using System.Diagnostics;
-using IO.Swagger.Api;
-using IO.Swagger.Client;
-using IO.Swagger.Model;
-
-namespace Example
-{
-    public class AdminBotsGetExample
-    {
-        public void main()
-        {
-            // Configure OAuth2 access token for authorization: oauth2
-            Configuration.Default.AccessToken = "YOUR_ACCESS_TOKEN";
-
-            var apiInstance = new AdminApi();
-
-            try
-            {
-                // Lists all bots
-                List&lt;BotsResponse&gt; result = apiInstance.AdminBotsGet();
-                Debug.WriteLine(result);
-            }
-            catch (Exception e)
-            {
-                Debug.Print("Exception when calling AdminApi.AdminBotsGet: " + e.Message );
-            }
-        }
-    }
-}
-```
-
-### Parameters
-This endpoint does not need any parameter.
-
-### Return type
-
-[**List<BotsResponse>**](BotsResponse.md)
-
-### Authorization
-
-[oauth2](../README.md#oauth2)
-
-### HTTP request headers
-
- - **Content-Type**: Not defined
- - **Accept**: text/plain, application/json, text/json
-
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
-
-<a name="admindeactiveatebotpost"></a>
-# **AdminDeactiveateBotPost**
-> void AdminDeactiveateBotPost (DeleteBotRequest request = null)
-
-Deactivates a bot
+Update a dashboard's details
 
 ### Example
 ```csharp
@@ -151,7 +91,7 @@ using IO.Swagger.Model;
 
 namespace Example
 {
-    public class AdminDeactiveateBotPostExample
+    public class AdminEditDashboardPostExample
     {
         public void main()
         {
@@ -159,16 +99,16 @@ namespace Example
             Configuration.Default.AccessToken = "YOUR_ACCESS_TOKEN";
 
             var apiInstance = new AdminApi();
-            var request = new DeleteBotRequest(); // DeleteBotRequest |  (optional) 
+            var request = new EditDashboardRequest(); // EditDashboardRequest |  (optional) 
 
             try
             {
-                // Deactivates a bot
-                apiInstance.AdminDeactiveateBotPost(request);
+                // Update a dashboard's details
+                apiInstance.AdminEditDashboardPost(request);
             }
             catch (Exception e)
             {
-                Debug.Print("Exception when calling AdminApi.AdminDeactiveateBotPost: " + e.Message );
+                Debug.Print("Exception when calling AdminApi.AdminEditDashboardPost: " + e.Message );
             }
         }
     }
@@ -179,68 +119,7 @@ namespace Example
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **request** | [**DeleteBotRequest**](DeleteBotRequest.md)|  | [optional] 
-
-### Return type
-
-void (empty response body)
-
-### Authorization
-
-[oauth2](../README.md#oauth2)
-
-### HTTP request headers
-
- - **Content-Type**: application/json-patch+json, application/json, text/json, application/_*+json
- - **Accept**: text/plain, application/json, text/json
-
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
-
-<a name="admineditbotpost"></a>
-# **AdminEditBotPost**
-> void AdminEditBotPost (EditBotRequest request = null)
-
-Update a bots details
-
-### Example
-```csharp
-using System;
-using System.Diagnostics;
-using IO.Swagger.Api;
-using IO.Swagger.Client;
-using IO.Swagger.Model;
-
-namespace Example
-{
-    public class AdminEditBotPostExample
-    {
-        public void main()
-        {
-            // Configure OAuth2 access token for authorization: oauth2
-            Configuration.Default.AccessToken = "YOUR_ACCESS_TOKEN";
-
-            var apiInstance = new AdminApi();
-            var request = new EditBotRequest(); // EditBotRequest |  (optional) 
-
-            try
-            {
-                // Update a bots details
-                apiInstance.AdminEditBotPost(request);
-            }
-            catch (Exception e)
-            {
-                Debug.Print("Exception when calling AdminApi.AdminEditBotPost: " + e.Message );
-            }
-        }
-    }
-}
-```
-
-### Parameters
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **request** | [**EditBotRequest**](EditBotRequest.md)|  | [optional] 
+ **request** | [**EditDashboardRequest**](EditDashboardRequest.md)|  | [optional] 
 
 ### Return type
 
@@ -313,11 +192,11 @@ void (empty response body)
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
-<a name="adminregisterbotpost"></a>
-# **AdminRegisterBotPost**
-> int? AdminRegisterBotPost (CreateBotRequest request = null)
+<a name="adminregisterdashboardpost"></a>
+# **AdminRegisterDashboardPost**
+> int? AdminRegisterDashboardPost (CreateDashboardRequest request = null)
 
-Register a bot
+Register a dashboard
 
 ### Example
 ```csharp
@@ -329,7 +208,7 @@ using IO.Swagger.Model;
 
 namespace Example
 {
-    public class AdminRegisterBotPostExample
+    public class AdminRegisterDashboardPostExample
     {
         public void main()
         {
@@ -337,17 +216,17 @@ namespace Example
             Configuration.Default.AccessToken = "YOUR_ACCESS_TOKEN";
 
             var apiInstance = new AdminApi();
-            var request = new CreateBotRequest(); // CreateBotRequest |  (optional) 
+            var request = new CreateDashboardRequest(); // CreateDashboardRequest |  (optional) 
 
             try
             {
-                // Register a bot
-                int? result = apiInstance.AdminRegisterBotPost(request);
+                // Register a dashboard
+                int? result = apiInstance.AdminRegisterDashboardPost(request);
                 Debug.WriteLine(result);
             }
             catch (Exception e)
             {
-                Debug.Print("Exception when calling AdminApi.AdminRegisterBotPost: " + e.Message );
+                Debug.Print("Exception when calling AdminApi.AdminRegisterDashboardPost: " + e.Message );
             }
         }
     }
@@ -358,7 +237,7 @@ namespace Example
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **request** | [**CreateBotRequest**](CreateBotRequest.md)|  | [optional] 
+ **request** | [**CreateDashboardRequest**](CreateDashboardRequest.md)|  | [optional] 
 
 ### Return type
 

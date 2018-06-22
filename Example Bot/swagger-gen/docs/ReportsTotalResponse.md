@@ -3,7 +3,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**BotId** | **int?** |  | [optional] 
+**DashboardId** | **int?** |  | [optional] 
 **DashboardName** | **string** |  | [optional] 
 **Count** | **int?** |  | [optional] 
 

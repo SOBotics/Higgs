@@ -12,7 +12,7 @@
 
 
 export interface ReportsOverTimeResponse {
-    botId?: number;
+    dashboardId?: number;
     dashboardName?: string;
     date?: Date;
     count?: number;

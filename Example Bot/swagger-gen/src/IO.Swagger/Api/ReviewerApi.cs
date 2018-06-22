@@ -31,27 +31,6 @@ namespace IO.Swagger.Api
         /// 
         /// </remarks>
         /// <exception cref="IO.Swagger.Client.ApiException">Thrown when fails to make API call</exception>
-        /// <param name="dashboardName"> (optional)</param>
-        /// <returns>int?</returns>
-        int? ReviewerBotByDashboardGet (string dashboardName = null);
-
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <remarks>
-        /// 
-        /// </remarks>
-        /// <exception cref="IO.Swagger.Client.ApiException">Thrown when fails to make API call</exception>
-        /// <param name="dashboardName"> (optional)</param>
-        /// <returns>ApiResponse of int?</returns>
-        ApiResponse<int?> ReviewerBotByDashboardGetWithHttpInfo (string dashboardName = null);
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <remarks>
-        /// 
-        /// </remarks>
-        /// <exception cref="IO.Swagger.Client.ApiException">Thrown when fails to make API call</exception>
         /// <param name="contentUrl"> (optional)</param>
         /// <returns>List&lt;ReviewerCheckResponse&gt;</returns>
         List<ReviewerCheckResponse> ReviewerCheckGet (string contentUrl = null);
@@ -87,6 +66,27 @@ namespace IO.Swagger.Api
         /// <param name="request"> (optional)</param>
         /// <returns>ApiResponse of Object(void)</returns>
         ApiResponse<Object> ReviewerClearFeedbackPostWithHttpInfo (ClearFeedbackRequest request = null);
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <remarks>
+        /// 
+        /// </remarks>
+        /// <exception cref="IO.Swagger.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="dashboardName"> (optional)</param>
+        /// <returns>ReviewerDashboardResponse</returns>
+        ReviewerDashboardResponse ReviewerDashboardGet (string dashboardName = null);
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <remarks>
+        /// 
+        /// </remarks>
+        /// <exception cref="IO.Swagger.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="dashboardName"> (optional)</param>
+        /// <returns>ApiResponse of ReviewerDashboardResponse</returns>
+        ApiResponse<ReviewerDashboardResponse> ReviewerDashboardGetWithHttpInfo (string dashboardName = null);
         /// <summary>
         /// 
         /// </summary>
@@ -223,7 +223,7 @@ namespace IO.Swagger.Api
         /// </remarks>
         /// <exception cref="IO.Swagger.Client.ApiException">Thrown when fails to make API call</exception>
         /// <param name="content"> (optional)</param>
-        /// <param name="botId"> (optional)</param>
+        /// <param name="dashboardId"> (optional)</param>
         /// <param name="hasFeedback"> (optional)</param>
         /// <param name="conflicted"> (optional)</param>
         /// <param name="feedbacks"> (optional)</param>
@@ -231,7 +231,7 @@ namespace IO.Swagger.Api
         /// <param name="pageNumber"> (optional)</param>
         /// <param name="pageSize"> (optional)</param>
         /// <returns>PagingResponseReviewerReportsResponse</returns>
-        PagingResponseReviewerReportsResponse ReviewerReportsGet (string content = null, int? botId = null, bool? hasFeedback = null, bool? conflicted = null, List<int?> feedbacks = null, List<int?> reasons = null, int? pageNumber = null, int? pageSize = null);
+        PagingResponseReviewerReportsResponse ReviewerReportsGet (string content = null, int? dashboardId = null, bool? hasFeedback = null, bool? conflicted = null, List<int?> feedbacks = null, List<int?> reasons = null, int? pageNumber = null, int? pageSize = null);
 
         /// <summary>
         /// 
@@ -241,7 +241,7 @@ namespace IO.Swagger.Api
         /// </remarks>
         /// <exception cref="IO.Swagger.Client.ApiException">Thrown when fails to make API call</exception>
         /// <param name="content"> (optional)</param>
-        /// <param name="botId"> (optional)</param>
+        /// <param name="dashboardId"> (optional)</param>
         /// <param name="hasFeedback"> (optional)</param>
         /// <param name="conflicted"> (optional)</param>
         /// <param name="feedbacks"> (optional)</param>
@@ -249,7 +249,7 @@ namespace IO.Swagger.Api
         /// <param name="pageNumber"> (optional)</param>
         /// <param name="pageSize"> (optional)</param>
         /// <returns>ApiResponse of PagingResponseReviewerReportsResponse</returns>
-        ApiResponse<PagingResponseReviewerReportsResponse> ReviewerReportsGetWithHttpInfo (string content = null, int? botId = null, bool? hasFeedback = null, bool? conflicted = null, List<int?> feedbacks = null, List<int?> reasons = null, int? pageNumber = null, int? pageSize = null);
+        ApiResponse<PagingResponseReviewerReportsResponse> ReviewerReportsGetWithHttpInfo (string content = null, int? dashboardId = null, bool? hasFeedback = null, bool? conflicted = null, List<int?> feedbacks = null, List<int?> reasons = null, int? pageNumber = null, int? pageSize = null);
         /// <summary>
         /// Lists all pending review
         /// </summary>
@@ -273,27 +273,6 @@ namespace IO.Swagger.Api
         ApiResponse<Object> ReviewerSendFeedbackPostWithHttpInfo (SendFeedbackRequest request = null);
         #endregion Synchronous Operations
         #region Asynchronous Operations
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <remarks>
-        /// 
-        /// </remarks>
-        /// <exception cref="IO.Swagger.Client.ApiException">Thrown when fails to make API call</exception>
-        /// <param name="dashboardName"> (optional)</param>
-        /// <returns>Task of int?</returns>
-        System.Threading.Tasks.Task<int?> ReviewerBotByDashboardGetAsync (string dashboardName = null);
-
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <remarks>
-        /// 
-        /// </remarks>
-        /// <exception cref="IO.Swagger.Client.ApiException">Thrown when fails to make API call</exception>
-        /// <param name="dashboardName"> (optional)</param>
-        /// <returns>Task of ApiResponse (int?)</returns>
-        System.Threading.Tasks.Task<ApiResponse<int?>> ReviewerBotByDashboardGetAsyncWithHttpInfo (string dashboardName = null);
         /// <summary>
         /// 
         /// </summary>
@@ -336,6 +315,27 @@ namespace IO.Swagger.Api
         /// <param name="request"> (optional)</param>
         /// <returns>Task of ApiResponse</returns>
         System.Threading.Tasks.Task<ApiResponse<Object>> ReviewerClearFeedbackPostAsyncWithHttpInfo (ClearFeedbackRequest request = null);
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <remarks>
+        /// 
+        /// </remarks>
+        /// <exception cref="IO.Swagger.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="dashboardName"> (optional)</param>
+        /// <returns>Task of ReviewerDashboardResponse</returns>
+        System.Threading.Tasks.Task<ReviewerDashboardResponse> ReviewerDashboardGetAsync (string dashboardName = null);
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <remarks>
+        /// 
+        /// </remarks>
+        /// <exception cref="IO.Swagger.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="dashboardName"> (optional)</param>
+        /// <returns>Task of ApiResponse (ReviewerDashboardResponse)</returns>
+        System.Threading.Tasks.Task<ApiResponse<ReviewerDashboardResponse>> ReviewerDashboardGetAsyncWithHttpInfo (string dashboardName = null);
         /// <summary>
         /// 
         /// </summary>
@@ -472,7 +472,7 @@ namespace IO.Swagger.Api
         /// </remarks>
         /// <exception cref="IO.Swagger.Client.ApiException">Thrown when fails to make API call</exception>
         /// <param name="content"> (optional)</param>
-        /// <param name="botId"> (optional)</param>
+        /// <param name="dashboardId"> (optional)</param>
         /// <param name="hasFeedback"> (optional)</param>
         /// <param name="conflicted"> (optional)</param>
         /// <param name="feedbacks"> (optional)</param>
@@ -480,7 +480,7 @@ namespace IO.Swagger.Api
         /// <param name="pageNumber"> (optional)</param>
         /// <param name="pageSize"> (optional)</param>
         /// <returns>Task of PagingResponseReviewerReportsResponse</returns>
-        System.Threading.Tasks.Task<PagingResponseReviewerReportsResponse> ReviewerReportsGetAsync (string content = null, int? botId = null, bool? hasFeedback = null, bool? conflicted = null, List<int?> feedbacks = null, List<int?> reasons = null, int? pageNumber = null, int? pageSize = null);
+        System.Threading.Tasks.Task<PagingResponseReviewerReportsResponse> ReviewerReportsGetAsync (string content = null, int? dashboardId = null, bool? hasFeedback = null, bool? conflicted = null, List<int?> feedbacks = null, List<int?> reasons = null, int? pageNumber = null, int? pageSize = null);
 
         /// <summary>
         /// 
@@ -490,7 +490,7 @@ namespace IO.Swagger.Api
         /// </remarks>
         /// <exception cref="IO.Swagger.Client.ApiException">Thrown when fails to make API call</exception>
         /// <param name="content"> (optional)</param>
-        /// <param name="botId"> (optional)</param>
+        /// <param name="dashboardId"> (optional)</param>
         /// <param name="hasFeedback"> (optional)</param>
         /// <param name="conflicted"> (optional)</param>
         /// <param name="feedbacks"> (optional)</param>
@@ -498,7 +498,7 @@ namespace IO.Swagger.Api
         /// <param name="pageNumber"> (optional)</param>
         /// <param name="pageSize"> (optional)</param>
         /// <returns>Task of ApiResponse (PagingResponseReviewerReportsResponse)</returns>
-        System.Threading.Tasks.Task<ApiResponse<PagingResponseReviewerReportsResponse>> ReviewerReportsGetAsyncWithHttpInfo (string content = null, int? botId = null, bool? hasFeedback = null, bool? conflicted = null, List<int?> feedbacks = null, List<int?> reasons = null, int? pageNumber = null, int? pageSize = null);
+        System.Threading.Tasks.Task<ApiResponse<PagingResponseReviewerReportsResponse>> ReviewerReportsGetAsyncWithHttpInfo (string content = null, int? dashboardId = null, bool? hasFeedback = null, bool? conflicted = null, List<int?> feedbacks = null, List<int?> reasons = null, int? pageNumber = null, int? pageSize = null);
         /// <summary>
         /// Lists all pending review
         /// </summary>
@@ -618,137 +618,6 @@ namespace IO.Swagger.Api
         public void AddDefaultHeader(string key, string value)
         {
             this.Configuration.AddDefaultHeader(key, value);
-        }
-
-        /// <summary>
-        ///  
-        /// </summary>
-        /// <exception cref="IO.Swagger.Client.ApiException">Thrown when fails to make API call</exception>
-        /// <param name="dashboardName"> (optional)</param>
-        /// <returns>int?</returns>
-        public int? ReviewerBotByDashboardGet (string dashboardName = null)
-        {
-             ApiResponse<int?> localVarResponse = ReviewerBotByDashboardGetWithHttpInfo(dashboardName);
-             return localVarResponse.Data;
-        }
-
-        /// <summary>
-        ///  
-        /// </summary>
-        /// <exception cref="IO.Swagger.Client.ApiException">Thrown when fails to make API call</exception>
-        /// <param name="dashboardName"> (optional)</param>
-        /// <returns>ApiResponse of int?</returns>
-        public ApiResponse< int? > ReviewerBotByDashboardGetWithHttpInfo (string dashboardName = null)
-        {
-
-            var localVarPath = "/Reviewer/BotByDashboard";
-            var localVarPathParams = new Dictionary<String, String>();
-            var localVarQueryParams = new List<KeyValuePair<String, String>>();
-            var localVarHeaderParams = new Dictionary<String, String>(Configuration.DefaultHeader);
-            var localVarFormParams = new Dictionary<String, String>();
-            var localVarFileParams = new Dictionary<String, FileParameter>();
-            Object localVarPostBody = null;
-
-            // to determine the Content-Type header
-            String[] localVarHttpContentTypes = new String[] {
-            };
-            String localVarHttpContentType = Configuration.ApiClient.SelectHeaderContentType(localVarHttpContentTypes);
-
-            // to determine the Accept header
-            String[] localVarHttpHeaderAccepts = new String[] {
-                "text/plain",
-                "application/json",
-                "text/json"
-            };
-            String localVarHttpHeaderAccept = Configuration.ApiClient.SelectHeaderAccept(localVarHttpHeaderAccepts);
-            if (localVarHttpHeaderAccept != null)
-                localVarHeaderParams.Add("Accept", localVarHttpHeaderAccept);
-
-            if (dashboardName != null) localVarQueryParams.AddRange(Configuration.ApiClient.ParameterToKeyValuePairs("", "dashboardName", dashboardName)); // query parameter
-
-
-            // make the HTTP request
-            IRestResponse localVarResponse = (IRestResponse) Configuration.ApiClient.CallApi(localVarPath,
-                Method.GET, localVarQueryParams, localVarPostBody, localVarHeaderParams, localVarFormParams, localVarFileParams,
-                localVarPathParams, localVarHttpContentType);
-
-            int localVarStatusCode = (int) localVarResponse.StatusCode;
-
-            if (ExceptionFactory != null)
-            {
-                Exception exception = ExceptionFactory("ReviewerBotByDashboardGet", localVarResponse);
-                if (exception != null) throw exception;
-            }
-
-            return new ApiResponse<int?>(localVarStatusCode,
-                localVarResponse.Headers.ToDictionary(x => x.Name, x => x.Value.ToString()),
-                (int?) Configuration.ApiClient.Deserialize(localVarResponse, typeof(int?)));
-        }
-
-        /// <summary>
-        ///  
-        /// </summary>
-        /// <exception cref="IO.Swagger.Client.ApiException">Thrown when fails to make API call</exception>
-        /// <param name="dashboardName"> (optional)</param>
-        /// <returns>Task of int?</returns>
-        public async System.Threading.Tasks.Task<int?> ReviewerBotByDashboardGetAsync (string dashboardName = null)
-        {
-             ApiResponse<int?> localVarResponse = await ReviewerBotByDashboardGetAsyncWithHttpInfo(dashboardName);
-             return localVarResponse.Data;
-
-        }
-
-        /// <summary>
-        ///  
-        /// </summary>
-        /// <exception cref="IO.Swagger.Client.ApiException">Thrown when fails to make API call</exception>
-        /// <param name="dashboardName"> (optional)</param>
-        /// <returns>Task of ApiResponse (int?)</returns>
-        public async System.Threading.Tasks.Task<ApiResponse<int?>> ReviewerBotByDashboardGetAsyncWithHttpInfo (string dashboardName = null)
-        {
-
-            var localVarPath = "/Reviewer/BotByDashboard";
-            var localVarPathParams = new Dictionary<String, String>();
-            var localVarQueryParams = new List<KeyValuePair<String, String>>();
-            var localVarHeaderParams = new Dictionary<String, String>(Configuration.DefaultHeader);
-            var localVarFormParams = new Dictionary<String, String>();
-            var localVarFileParams = new Dictionary<String, FileParameter>();
-            Object localVarPostBody = null;
-
-            // to determine the Content-Type header
-            String[] localVarHttpContentTypes = new String[] {
-            };
-            String localVarHttpContentType = Configuration.ApiClient.SelectHeaderContentType(localVarHttpContentTypes);
-
-            // to determine the Accept header
-            String[] localVarHttpHeaderAccepts = new String[] {
-                "text/plain",
-                "application/json",
-                "text/json"
-            };
-            String localVarHttpHeaderAccept = Configuration.ApiClient.SelectHeaderAccept(localVarHttpHeaderAccepts);
-            if (localVarHttpHeaderAccept != null)
-                localVarHeaderParams.Add("Accept", localVarHttpHeaderAccept);
-
-            if (dashboardName != null) localVarQueryParams.AddRange(Configuration.ApiClient.ParameterToKeyValuePairs("", "dashboardName", dashboardName)); // query parameter
-
-
-            // make the HTTP request
-            IRestResponse localVarResponse = (IRestResponse) await Configuration.ApiClient.CallApiAsync(localVarPath,
-                Method.GET, localVarQueryParams, localVarPostBody, localVarHeaderParams, localVarFormParams, localVarFileParams,
-                localVarPathParams, localVarHttpContentType);
-
-            int localVarStatusCode = (int) localVarResponse.StatusCode;
-
-            if (ExceptionFactory != null)
-            {
-                Exception exception = ExceptionFactory("ReviewerBotByDashboardGet", localVarResponse);
-                if (exception != null) throw exception;
-            }
-
-            return new ApiResponse<int?>(localVarStatusCode,
-                localVarResponse.Headers.ToDictionary(x => x.Name, x => x.Value.ToString()),
-                (int?) Configuration.ApiClient.Deserialize(localVarResponse, typeof(int?)));
         }
 
         /// <summary>
@@ -1037,6 +906,137 @@ namespace IO.Swagger.Api
             return new ApiResponse<Object>(localVarStatusCode,
                 localVarResponse.Headers.ToDictionary(x => x.Name, x => x.Value.ToString()),
                 null);
+        }
+
+        /// <summary>
+        ///  
+        /// </summary>
+        /// <exception cref="IO.Swagger.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="dashboardName"> (optional)</param>
+        /// <returns>ReviewerDashboardResponse</returns>
+        public ReviewerDashboardResponse ReviewerDashboardGet (string dashboardName = null)
+        {
+             ApiResponse<ReviewerDashboardResponse> localVarResponse = ReviewerDashboardGetWithHttpInfo(dashboardName);
+             return localVarResponse.Data;
+        }
+
+        /// <summary>
+        ///  
+        /// </summary>
+        /// <exception cref="IO.Swagger.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="dashboardName"> (optional)</param>
+        /// <returns>ApiResponse of ReviewerDashboardResponse</returns>
+        public ApiResponse< ReviewerDashboardResponse > ReviewerDashboardGetWithHttpInfo (string dashboardName = null)
+        {
+
+            var localVarPath = "/Reviewer/Dashboard";
+            var localVarPathParams = new Dictionary<String, String>();
+            var localVarQueryParams = new List<KeyValuePair<String, String>>();
+            var localVarHeaderParams = new Dictionary<String, String>(Configuration.DefaultHeader);
+            var localVarFormParams = new Dictionary<String, String>();
+            var localVarFileParams = new Dictionary<String, FileParameter>();
+            Object localVarPostBody = null;
+
+            // to determine the Content-Type header
+            String[] localVarHttpContentTypes = new String[] {
+            };
+            String localVarHttpContentType = Configuration.ApiClient.SelectHeaderContentType(localVarHttpContentTypes);
+
+            // to determine the Accept header
+            String[] localVarHttpHeaderAccepts = new String[] {
+                "text/plain",
+                "application/json",
+                "text/json"
+            };
+            String localVarHttpHeaderAccept = Configuration.ApiClient.SelectHeaderAccept(localVarHttpHeaderAccepts);
+            if (localVarHttpHeaderAccept != null)
+                localVarHeaderParams.Add("Accept", localVarHttpHeaderAccept);
+
+            if (dashboardName != null) localVarQueryParams.AddRange(Configuration.ApiClient.ParameterToKeyValuePairs("", "dashboardName", dashboardName)); // query parameter
+
+
+            // make the HTTP request
+            IRestResponse localVarResponse = (IRestResponse) Configuration.ApiClient.CallApi(localVarPath,
+                Method.GET, localVarQueryParams, localVarPostBody, localVarHeaderParams, localVarFormParams, localVarFileParams,
+                localVarPathParams, localVarHttpContentType);
+
+            int localVarStatusCode = (int) localVarResponse.StatusCode;
+
+            if (ExceptionFactory != null)
+            {
+                Exception exception = ExceptionFactory("ReviewerDashboardGet", localVarResponse);
+                if (exception != null) throw exception;
+            }
+
+            return new ApiResponse<ReviewerDashboardResponse>(localVarStatusCode,
+                localVarResponse.Headers.ToDictionary(x => x.Name, x => x.Value.ToString()),
+                (ReviewerDashboardResponse) Configuration.ApiClient.Deserialize(localVarResponse, typeof(ReviewerDashboardResponse)));
+        }
+
+        /// <summary>
+        ///  
+        /// </summary>
+        /// <exception cref="IO.Swagger.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="dashboardName"> (optional)</param>
+        /// <returns>Task of ReviewerDashboardResponse</returns>
+        public async System.Threading.Tasks.Task<ReviewerDashboardResponse> ReviewerDashboardGetAsync (string dashboardName = null)
+        {
+             ApiResponse<ReviewerDashboardResponse> localVarResponse = await ReviewerDashboardGetAsyncWithHttpInfo(dashboardName);
+             return localVarResponse.Data;
+
+        }
+
+        /// <summary>
+        ///  
+        /// </summary>
+        /// <exception cref="IO.Swagger.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="dashboardName"> (optional)</param>
+        /// <returns>Task of ApiResponse (ReviewerDashboardResponse)</returns>
+        public async System.Threading.Tasks.Task<ApiResponse<ReviewerDashboardResponse>> ReviewerDashboardGetAsyncWithHttpInfo (string dashboardName = null)
+        {
+
+            var localVarPath = "/Reviewer/Dashboard";
+            var localVarPathParams = new Dictionary<String, String>();
+            var localVarQueryParams = new List<KeyValuePair<String, String>>();
+            var localVarHeaderParams = new Dictionary<String, String>(Configuration.DefaultHeader);
+            var localVarFormParams = new Dictionary<String, String>();
+            var localVarFileParams = new Dictionary<String, FileParameter>();
+            Object localVarPostBody = null;
+
+            // to determine the Content-Type header
+            String[] localVarHttpContentTypes = new String[] {
+            };
+            String localVarHttpContentType = Configuration.ApiClient.SelectHeaderContentType(localVarHttpContentTypes);
+
+            // to determine the Accept header
+            String[] localVarHttpHeaderAccepts = new String[] {
+                "text/plain",
+                "application/json",
+                "text/json"
+            };
+            String localVarHttpHeaderAccept = Configuration.ApiClient.SelectHeaderAccept(localVarHttpHeaderAccepts);
+            if (localVarHttpHeaderAccept != null)
+                localVarHeaderParams.Add("Accept", localVarHttpHeaderAccept);
+
+            if (dashboardName != null) localVarQueryParams.AddRange(Configuration.ApiClient.ParameterToKeyValuePairs("", "dashboardName", dashboardName)); // query parameter
+
+
+            // make the HTTP request
+            IRestResponse localVarResponse = (IRestResponse) await Configuration.ApiClient.CallApiAsync(localVarPath,
+                Method.GET, localVarQueryParams, localVarPostBody, localVarHeaderParams, localVarFormParams, localVarFileParams,
+                localVarPathParams, localVarHttpContentType);
+
+            int localVarStatusCode = (int) localVarResponse.StatusCode;
+
+            if (ExceptionFactory != null)
+            {
+                Exception exception = ExceptionFactory("ReviewerDashboardGet", localVarResponse);
+                if (exception != null) throw exception;
+            }
+
+            return new ApiResponse<ReviewerDashboardResponse>(localVarStatusCode,
+                localVarResponse.Headers.ToDictionary(x => x.Name, x => x.Value.ToString()),
+                (ReviewerDashboardResponse) Configuration.ApiClient.Deserialize(localVarResponse, typeof(ReviewerDashboardResponse)));
         }
 
         /// <summary>
@@ -1854,7 +1854,7 @@ namespace IO.Swagger.Api
         /// </summary>
         /// <exception cref="IO.Swagger.Client.ApiException">Thrown when fails to make API call</exception>
         /// <param name="content"> (optional)</param>
-        /// <param name="botId"> (optional)</param>
+        /// <param name="dashboardId"> (optional)</param>
         /// <param name="hasFeedback"> (optional)</param>
         /// <param name="conflicted"> (optional)</param>
         /// <param name="feedbacks"> (optional)</param>
@@ -1862,9 +1862,9 @@ namespace IO.Swagger.Api
         /// <param name="pageNumber"> (optional)</param>
         /// <param name="pageSize"> (optional)</param>
         /// <returns>PagingResponseReviewerReportsResponse</returns>
-        public PagingResponseReviewerReportsResponse ReviewerReportsGet (string content = null, int? botId = null, bool? hasFeedback = null, bool? conflicted = null, List<int?> feedbacks = null, List<int?> reasons = null, int? pageNumber = null, int? pageSize = null)
+        public PagingResponseReviewerReportsResponse ReviewerReportsGet (string content = null, int? dashboardId = null, bool? hasFeedback = null, bool? conflicted = null, List<int?> feedbacks = null, List<int?> reasons = null, int? pageNumber = null, int? pageSize = null)
         {
-             ApiResponse<PagingResponseReviewerReportsResponse> localVarResponse = ReviewerReportsGetWithHttpInfo(content, botId, hasFeedback, conflicted, feedbacks, reasons, pageNumber, pageSize);
+             ApiResponse<PagingResponseReviewerReportsResponse> localVarResponse = ReviewerReportsGetWithHttpInfo(content, dashboardId, hasFeedback, conflicted, feedbacks, reasons, pageNumber, pageSize);
              return localVarResponse.Data;
         }
 
@@ -1873,7 +1873,7 @@ namespace IO.Swagger.Api
         /// </summary>
         /// <exception cref="IO.Swagger.Client.ApiException">Thrown when fails to make API call</exception>
         /// <param name="content"> (optional)</param>
-        /// <param name="botId"> (optional)</param>
+        /// <param name="dashboardId"> (optional)</param>
         /// <param name="hasFeedback"> (optional)</param>
         /// <param name="conflicted"> (optional)</param>
         /// <param name="feedbacks"> (optional)</param>
@@ -1881,7 +1881,7 @@ namespace IO.Swagger.Api
         /// <param name="pageNumber"> (optional)</param>
         /// <param name="pageSize"> (optional)</param>
         /// <returns>ApiResponse of PagingResponseReviewerReportsResponse</returns>
-        public ApiResponse< PagingResponseReviewerReportsResponse > ReviewerReportsGetWithHttpInfo (string content = null, int? botId = null, bool? hasFeedback = null, bool? conflicted = null, List<int?> feedbacks = null, List<int?> reasons = null, int? pageNumber = null, int? pageSize = null)
+        public ApiResponse< PagingResponseReviewerReportsResponse > ReviewerReportsGetWithHttpInfo (string content = null, int? dashboardId = null, bool? hasFeedback = null, bool? conflicted = null, List<int?> feedbacks = null, List<int?> reasons = null, int? pageNumber = null, int? pageSize = null)
         {
 
             var localVarPath = "/Reviewer/Reports";
@@ -1908,7 +1908,7 @@ namespace IO.Swagger.Api
                 localVarHeaderParams.Add("Accept", localVarHttpHeaderAccept);
 
             if (content != null) localVarQueryParams.AddRange(Configuration.ApiClient.ParameterToKeyValuePairs("", "Content", content)); // query parameter
-            if (botId != null) localVarQueryParams.AddRange(Configuration.ApiClient.ParameterToKeyValuePairs("", "BotId", botId)); // query parameter
+            if (dashboardId != null) localVarQueryParams.AddRange(Configuration.ApiClient.ParameterToKeyValuePairs("", "DashboardId", dashboardId)); // query parameter
             if (hasFeedback != null) localVarQueryParams.AddRange(Configuration.ApiClient.ParameterToKeyValuePairs("", "HasFeedback", hasFeedback)); // query parameter
             if (conflicted != null) localVarQueryParams.AddRange(Configuration.ApiClient.ParameterToKeyValuePairs("", "Conflicted", conflicted)); // query parameter
             if (feedbacks != null) localVarQueryParams.AddRange(Configuration.ApiClient.ParameterToKeyValuePairs("multi", "Feedbacks", feedbacks)); // query parameter
@@ -1940,7 +1940,7 @@ namespace IO.Swagger.Api
         /// </summary>
         /// <exception cref="IO.Swagger.Client.ApiException">Thrown when fails to make API call</exception>
         /// <param name="content"> (optional)</param>
-        /// <param name="botId"> (optional)</param>
+        /// <param name="dashboardId"> (optional)</param>
         /// <param name="hasFeedback"> (optional)</param>
         /// <param name="conflicted"> (optional)</param>
         /// <param name="feedbacks"> (optional)</param>
@@ -1948,9 +1948,9 @@ namespace IO.Swagger.Api
         /// <param name="pageNumber"> (optional)</param>
         /// <param name="pageSize"> (optional)</param>
         /// <returns>Task of PagingResponseReviewerReportsResponse</returns>
-        public async System.Threading.Tasks.Task<PagingResponseReviewerReportsResponse> ReviewerReportsGetAsync (string content = null, int? botId = null, bool? hasFeedback = null, bool? conflicted = null, List<int?> feedbacks = null, List<int?> reasons = null, int? pageNumber = null, int? pageSize = null)
+        public async System.Threading.Tasks.Task<PagingResponseReviewerReportsResponse> ReviewerReportsGetAsync (string content = null, int? dashboardId = null, bool? hasFeedback = null, bool? conflicted = null, List<int?> feedbacks = null, List<int?> reasons = null, int? pageNumber = null, int? pageSize = null)
         {
-             ApiResponse<PagingResponseReviewerReportsResponse> localVarResponse = await ReviewerReportsGetAsyncWithHttpInfo(content, botId, hasFeedback, conflicted, feedbacks, reasons, pageNumber, pageSize);
+             ApiResponse<PagingResponseReviewerReportsResponse> localVarResponse = await ReviewerReportsGetAsyncWithHttpInfo(content, dashboardId, hasFeedback, conflicted, feedbacks, reasons, pageNumber, pageSize);
              return localVarResponse.Data;
 
         }
@@ -1960,7 +1960,7 @@ namespace IO.Swagger.Api
         /// </summary>
         /// <exception cref="IO.Swagger.Client.ApiException">Thrown when fails to make API call</exception>
         /// <param name="content"> (optional)</param>
-        /// <param name="botId"> (optional)</param>
+        /// <param name="dashboardId"> (optional)</param>
         /// <param name="hasFeedback"> (optional)</param>
         /// <param name="conflicted"> (optional)</param>
         /// <param name="feedbacks"> (optional)</param>
@@ -1968,7 +1968,7 @@ namespace IO.Swagger.Api
         /// <param name="pageNumber"> (optional)</param>
         /// <param name="pageSize"> (optional)</param>
         /// <returns>Task of ApiResponse (PagingResponseReviewerReportsResponse)</returns>
-        public async System.Threading.Tasks.Task<ApiResponse<PagingResponseReviewerReportsResponse>> ReviewerReportsGetAsyncWithHttpInfo (string content = null, int? botId = null, bool? hasFeedback = null, bool? conflicted = null, List<int?> feedbacks = null, List<int?> reasons = null, int? pageNumber = null, int? pageSize = null)
+        public async System.Threading.Tasks.Task<ApiResponse<PagingResponseReviewerReportsResponse>> ReviewerReportsGetAsyncWithHttpInfo (string content = null, int? dashboardId = null, bool? hasFeedback = null, bool? conflicted = null, List<int?> feedbacks = null, List<int?> reasons = null, int? pageNumber = null, int? pageSize = null)
         {
 
             var localVarPath = "/Reviewer/Reports";
@@ -1995,7 +1995,7 @@ namespace IO.Swagger.Api
                 localVarHeaderParams.Add("Accept", localVarHttpHeaderAccept);
 
             if (content != null) localVarQueryParams.AddRange(Configuration.ApiClient.ParameterToKeyValuePairs("", "Content", content)); // query parameter
-            if (botId != null) localVarQueryParams.AddRange(Configuration.ApiClient.ParameterToKeyValuePairs("", "BotId", botId)); // query parameter
+            if (dashboardId != null) localVarQueryParams.AddRange(Configuration.ApiClient.ParameterToKeyValuePairs("", "DashboardId", dashboardId)); // query parameter
             if (hasFeedback != null) localVarQueryParams.AddRange(Configuration.ApiClient.ParameterToKeyValuePairs("", "HasFeedback", hasFeedback)); // query parameter
             if (conflicted != null) localVarQueryParams.AddRange(Configuration.ApiClient.ParameterToKeyValuePairs("", "Conflicted", conflicted)); // query parameter
             if (feedbacks != null) localVarQueryParams.AddRange(Configuration.ApiClient.ParameterToKeyValuePairs("multi", "Feedbacks", feedbacks)); // query parameter

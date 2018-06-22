@@ -13,7 +13,7 @@ import * as Highcharts from 'highcharts';
   styleUrls: ['./dashboard.component.scss']
 })
 export class DashboardComponent implements OnInit {
-  public botId: number;
+  public dashboardId: number;
   public initialized: boolean;
   public validDashboard: boolean;
   public dashboardName: string;
@@ -88,10 +88,10 @@ export class DashboardComponent implements OnInit {
   private refreshData() {
     this.initialized = false;
     this.validDashboard = false;
-    this.reviewerService.reviewerBotByDashboardGet(this.dashboardName).subscribe(response => {
+    this.reviewerService.reviewerDashboardGet(this.dashboardName).subscribe(response => {
       this.validDashboard = !!response;
       if (this.validDashboard) {
-        this.botId = response.botId;
+        this.dashboardId = response.dashboardId;
         this.dashboardName = response.dashboardName;
         this.dashboardDescription = response.dashboardDescription;
         this.dashboardLogo = response.dashboardLogo;
@@ -260,7 +260,7 @@ export class DashboardComponent implements OnInit {
 
     this.reviewerService.reviewerReportsGet(
       this.filter.content,
-      this.botId,
+      this.dashboardId,
       hasFeedback,
       conflicted,
       this.filter.feedbacks,

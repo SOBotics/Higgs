@@ -12,7 +12,7 @@
 
 
 export interface AquireTokenRequest {
-    botId: number;
+    dashboardId: number;
     secret: string;
     requestedScopes?: Array<string>;
 }

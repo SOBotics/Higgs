@@ -33,21 +33,21 @@ namespace IO.Swagger.Model
         /// <summary>
         /// Initializes a new instance of the <see cref="ReportsTotalResponse" /> class.
         /// </summary>
-        /// <param name="BotId">BotId.</param>
+        /// <param name="DashboardId">DashboardId.</param>
         /// <param name="DashboardName">DashboardName.</param>
         /// <param name="Count">Count.</param>
-        public ReportsTotalResponse(int? BotId = default(int?), string DashboardName = default(string), int? Count = default(int?))
+        public ReportsTotalResponse(int? DashboardId = default(int?), string DashboardName = default(string), int? Count = default(int?))
         {
-            this.BotId = BotId;
+            this.DashboardId = DashboardId;
             this.DashboardName = DashboardName;
             this.Count = Count;
         }
         
         /// <summary>
-        /// Gets or Sets BotId
+        /// Gets or Sets DashboardId
         /// </summary>
-        [DataMember(Name="botId", EmitDefaultValue=false)]
-        public int? BotId { get; set; }
+        [DataMember(Name="dashboardId", EmitDefaultValue=false)]
+        public int? DashboardId { get; set; }
 
         /// <summary>
         /// Gets or Sets DashboardName
@@ -69,7 +69,7 @@ namespace IO.Swagger.Model
         {
             var sb = new StringBuilder();
             sb.Append("class ReportsTotalResponse {\n");
-            sb.Append("  BotId: ").Append(BotId).Append("\n");
+            sb.Append("  DashboardId: ").Append(DashboardId).Append("\n");
             sb.Append("  DashboardName: ").Append(DashboardName).Append("\n");
             sb.Append("  Count: ").Append(Count).Append("\n");
             sb.Append("}\n");
@@ -107,9 +107,9 @@ namespace IO.Swagger.Model
 
             return 
                 (
-                    this.BotId == input.BotId ||
-                    (this.BotId != null &&
-                    this.BotId.Equals(input.BotId))
+                    this.DashboardId == input.DashboardId ||
+                    (this.DashboardId != null &&
+                    this.DashboardId.Equals(input.DashboardId))
                 ) && 
                 (
                     this.DashboardName == input.DashboardName ||
@@ -132,8 +132,8 @@ namespace IO.Swagger.Model
             unchecked // Overflow is fine, just wrap
             {
                 int hashCode = 41;
-                if (this.BotId != null)
-                    hashCode = hashCode * 59 + this.BotId.GetHashCode();
+                if (this.DashboardId != null)
+                    hashCode = hashCode * 59 + this.DashboardId.GetHashCode();
                 if (this.DashboardName != null)
                     hashCode = hashCode * 59 + this.DashboardName.GetHashCode();
                 if (this.Count != null)

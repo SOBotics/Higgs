@@ -21,8 +21,8 @@ import { Observable }                                        from 'rxjs/Observab
 import { ClearFeedbackRequest } from '../model/clearFeedbackRequest';
 import { PagingResponseInt32 } from '../model/pagingResponseInt32';
 import { PagingResponseReviewerReportsResponse } from '../model/pagingResponseReviewerReportsResponse';
-import { ReviewerBotByDashboardResponse } from '../model/reviewerBotByDashboardResponse';
 import { ReviewerCheckResponse } from '../model/reviewerCheckResponse';
+import { ReviewerDashboardResponse } from '../model/reviewerDashboardResponse';
 import { ReviewerDashboardsResponse } from '../model/reviewerDashboardsResponse';
 import { ReviewerFeedbacksResponse } from '../model/reviewerFeedbacksResponse';
 import { ReviewerReasonsResponse } from '../model/reviewerReasonsResponse';
@@ -64,51 +64,6 @@ export class ReviewerService {
         return false;
     }
 
-
-    /**
-     * 
-     * 
-     * @param dashboardName 
-     * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
-     * @param reportProgress flag to report request and response progress.
-     */
-    public reviewerBotByDashboardGet(dashboardName?: string, observe?: 'body', reportProgress?: boolean): Observable<ReviewerBotByDashboardResponse>;
-    public reviewerBotByDashboardGet(dashboardName?: string, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<ReviewerBotByDashboardResponse>>;
-    public reviewerBotByDashboardGet(dashboardName?: string, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<ReviewerBotByDashboardResponse>>;
-    public reviewerBotByDashboardGet(dashboardName?: string, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
-
-        let queryParameters = new HttpParams({encoder: new CustomHttpUrlEncodingCodec()});
-        if (dashboardName !== undefined) {
-            queryParameters = queryParameters.set('dashboardName', <any>dashboardName);
-        }
-
-        let headers = this.defaultHeaders;
-
-        // to determine the Accept header
-        let httpHeaderAccepts: string[] = [
-            'text/plain',
-            'application/json',
-            'text/json'
-        ];
-        let httpHeaderAcceptSelected: string | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
-        if (httpHeaderAcceptSelected != undefined) {
-            headers = headers.set("Accept", httpHeaderAcceptSelected);
-        }
-
-        // to determine the Content-Type header
-        let consumes: string[] = [
-        ];
-
-        return this.httpClient.get<ReviewerBotByDashboardResponse>(`${this.basePath}/Reviewer/BotByDashboard`,
-            {
-                params: queryParameters,
-                withCredentials: this.configuration.withCredentials,
-                headers: headers,
-                observe: observe,
-                reportProgress: reportProgress
-            }
-        );
-    }
 
     /**
      * 
@@ -200,6 +155,51 @@ export class ReviewerService {
         return this.httpClient.post<any>(`${this.basePath}/Reviewer/ClearFeedback`,
             request,
             {
+                withCredentials: this.configuration.withCredentials,
+                headers: headers,
+                observe: observe,
+                reportProgress: reportProgress
+            }
+        );
+    }
+
+    /**
+     * 
+     * 
+     * @param dashboardName 
+     * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
+     * @param reportProgress flag to report request and response progress.
+     */
+    public reviewerDashboardGet(dashboardName?: string, observe?: 'body', reportProgress?: boolean): Observable<ReviewerDashboardResponse>;
+    public reviewerDashboardGet(dashboardName?: string, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<ReviewerDashboardResponse>>;
+    public reviewerDashboardGet(dashboardName?: string, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<ReviewerDashboardResponse>>;
+    public reviewerDashboardGet(dashboardName?: string, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
+
+        let queryParameters = new HttpParams({encoder: new CustomHttpUrlEncodingCodec()});
+        if (dashboardName !== undefined) {
+            queryParameters = queryParameters.set('dashboardName', <any>dashboardName);
+        }
+
+        let headers = this.defaultHeaders;
+
+        // to determine the Accept header
+        let httpHeaderAccepts: string[] = [
+            'text/plain',
+            'application/json',
+            'text/json'
+        ];
+        let httpHeaderAcceptSelected: string | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
+        if (httpHeaderAcceptSelected != undefined) {
+            headers = headers.set("Accept", httpHeaderAcceptSelected);
+        }
+
+        // to determine the Content-Type header
+        let consumes: string[] = [
+        ];
+
+        return this.httpClient.get<ReviewerDashboardResponse>(`${this.basePath}/Reviewer/Dashboard`,
+            {
+                params: queryParameters,
                 withCredentials: this.configuration.withCredentials,
                 headers: headers,
                 observe: observe,
@@ -494,7 +494,7 @@ export class ReviewerService {
      * 
      * 
      * @param content 
-     * @param botId 
+     * @param dashboardId 
      * @param hasFeedback 
      * @param conflicted 
      * @param feedbacks 
@@ -504,17 +504,17 @@ export class ReviewerService {
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      */
-    public reviewerReportsGet(content?: string, botId?: number, hasFeedback?: boolean, conflicted?: boolean, feedbacks?: Array<number>, reasons?: Array<number>, pageNumber?: number, pageSize?: number, observe?: 'body', reportProgress?: boolean): Observable<PagingResponseReviewerReportsResponse>;
-    public reviewerReportsGet(content?: string, botId?: number, hasFeedback?: boolean, conflicted?: boolean, feedbacks?: Array<number>, reasons?: Array<number>, pageNumber?: number, pageSize?: number, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<PagingResponseReviewerReportsResponse>>;
-    public reviewerReportsGet(content?: string, botId?: number, hasFeedback?: boolean, conflicted?: boolean, feedbacks?: Array<number>, reasons?: Array<number>, pageNumber?: number, pageSize?: number, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<PagingResponseReviewerReportsResponse>>;
-    public reviewerReportsGet(content?: string, botId?: number, hasFeedback?: boolean, conflicted?: boolean, feedbacks?: Array<number>, reasons?: Array<number>, pageNumber?: number, pageSize?: number, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
+    public reviewerReportsGet(content?: string, dashboardId?: number, hasFeedback?: boolean, conflicted?: boolean, feedbacks?: Array<number>, reasons?: Array<number>, pageNumber?: number, pageSize?: number, observe?: 'body', reportProgress?: boolean): Observable<PagingResponseReviewerReportsResponse>;
+    public reviewerReportsGet(content?: string, dashboardId?: number, hasFeedback?: boolean, conflicted?: boolean, feedbacks?: Array<number>, reasons?: Array<number>, pageNumber?: number, pageSize?: number, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<PagingResponseReviewerReportsResponse>>;
+    public reviewerReportsGet(content?: string, dashboardId?: number, hasFeedback?: boolean, conflicted?: boolean, feedbacks?: Array<number>, reasons?: Array<number>, pageNumber?: number, pageSize?: number, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<PagingResponseReviewerReportsResponse>>;
+    public reviewerReportsGet(content?: string, dashboardId?: number, hasFeedback?: boolean, conflicted?: boolean, feedbacks?: Array<number>, reasons?: Array<number>, pageNumber?: number, pageSize?: number, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
 
         let queryParameters = new HttpParams({encoder: new CustomHttpUrlEncodingCodec()});
         if (content !== undefined) {
             queryParameters = queryParameters.set('Content', <any>content);
         }
-        if (botId !== undefined) {
-            queryParameters = queryParameters.set('BotId', <any>botId);
+        if (dashboardId !== undefined) {
+            queryParameters = queryParameters.set('DashboardId', <any>dashboardId);
         }
         if (hasFeedback !== undefined) {
             queryParameters = queryParameters.set('HasFeedback', <any>hasFeedback);

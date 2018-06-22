@@ -34,12 +34,12 @@ namespace IO.Swagger.Model
         /// Initializes a new instance of the <see cref="ReviewerCheckResponse" /> class.
         /// </summary>
         /// <param name="Dashboard">Dashboard.</param>
-        /// <param name="Bot">Bot.</param>
+        /// <param name="BotName">BotName.</param>
         /// <param name="ReportId">ReportId.</param>
-        public ReviewerCheckResponse(string Dashboard = default(string), string Bot = default(string), int? ReportId = default(int?))
+        public ReviewerCheckResponse(string Dashboard = default(string), string BotName = default(string), int? ReportId = default(int?))
         {
             this.Dashboard = Dashboard;
-            this.Bot = Bot;
+            this.BotName = BotName;
             this.ReportId = ReportId;
         }
         
@@ -50,10 +50,10 @@ namespace IO.Swagger.Model
         public string Dashboard { get; set; }
 
         /// <summary>
-        /// Gets or Sets Bot
+        /// Gets or Sets BotName
         /// </summary>
-        [DataMember(Name="bot", EmitDefaultValue=false)]
-        public string Bot { get; set; }
+        [DataMember(Name="botName", EmitDefaultValue=false)]
+        public string BotName { get; set; }
 
         /// <summary>
         /// Gets or Sets ReportId
@@ -70,7 +70,7 @@ namespace IO.Swagger.Model
             var sb = new StringBuilder();
             sb.Append("class ReviewerCheckResponse {\n");
             sb.Append("  Dashboard: ").Append(Dashboard).Append("\n");
-            sb.Append("  Bot: ").Append(Bot).Append("\n");
+            sb.Append("  BotName: ").Append(BotName).Append("\n");
             sb.Append("  ReportId: ").Append(ReportId).Append("\n");
             sb.Append("}\n");
             return sb.ToString();
@@ -112,9 +112,9 @@ namespace IO.Swagger.Model
                     this.Dashboard.Equals(input.Dashboard))
                 ) && 
                 (
-                    this.Bot == input.Bot ||
-                    (this.Bot != null &&
-                    this.Bot.Equals(input.Bot))
+                    this.BotName == input.BotName ||
+                    (this.BotName != null &&
+                    this.BotName.Equals(input.BotName))
                 ) && 
                 (
                     this.ReportId == input.ReportId ||
@@ -134,8 +134,8 @@ namespace IO.Swagger.Model
                 int hashCode = 41;
                 if (this.Dashboard != null)
                     hashCode = hashCode * 59 + this.Dashboard.GetHashCode();
-                if (this.Bot != null)
-                    hashCode = hashCode * 59 + this.Bot.GetHashCode();
+                if (this.BotName != null)
+                    hashCode = hashCode * 59 + this.BotName.GetHashCode();
                 if (this.ReportId != null)
                     hashCode = hashCode * 59 + this.ReportId.GetHashCode();
                 return hashCode;

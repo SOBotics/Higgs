@@ -38,19 +38,19 @@ namespace IO.Swagger.Model
         /// <summary>
         /// Initializes a new instance of the <see cref="AquireTokenRequest" /> class.
         /// </summary>
-        /// <param name="BotId">BotId (required).</param>
+        /// <param name="DashboardId">DashboardId (required).</param>
         /// <param name="Secret">Secret (required).</param>
         /// <param name="RequestedScopes">RequestedScopes.</param>
-        public AquireTokenRequest(int? BotId = default(int?), string Secret = default(string), List<string> RequestedScopes = default(List<string>))
+        public AquireTokenRequest(int? DashboardId = default(int?), string Secret = default(string), List<string> RequestedScopes = default(List<string>))
         {
-            // to ensure "BotId" is required (not null)
-            if (BotId == null)
+            // to ensure "DashboardId" is required (not null)
+            if (DashboardId == null)
             {
-                throw new InvalidDataException("BotId is a required property for AquireTokenRequest and cannot be null");
+                throw new InvalidDataException("DashboardId is a required property for AquireTokenRequest and cannot be null");
             }
             else
             {
-                this.BotId = BotId;
+                this.DashboardId = DashboardId;
             }
             // to ensure "Secret" is required (not null)
             if (Secret == null)
@@ -65,10 +65,10 @@ namespace IO.Swagger.Model
         }
         
         /// <summary>
-        /// Gets or Sets BotId
+        /// Gets or Sets DashboardId
         /// </summary>
-        [DataMember(Name="botId", EmitDefaultValue=false)]
-        public int? BotId { get; set; }
+        [DataMember(Name="dashboardId", EmitDefaultValue=false)]
+        public int? DashboardId { get; set; }
 
         /// <summary>
         /// Gets or Sets Secret
@@ -90,7 +90,7 @@ namespace IO.Swagger.Model
         {
             var sb = new StringBuilder();
             sb.Append("class AquireTokenRequest {\n");
-            sb.Append("  BotId: ").Append(BotId).Append("\n");
+            sb.Append("  DashboardId: ").Append(DashboardId).Append("\n");
             sb.Append("  Secret: ").Append(Secret).Append("\n");
             sb.Append("  RequestedScopes: ").Append(RequestedScopes).Append("\n");
             sb.Append("}\n");
@@ -128,9 +128,9 @@ namespace IO.Swagger.Model
 
             return 
                 (
-                    this.BotId == input.BotId ||
-                    (this.BotId != null &&
-                    this.BotId.Equals(input.BotId))
+                    this.DashboardId == input.DashboardId ||
+                    (this.DashboardId != null &&
+                    this.DashboardId.Equals(input.DashboardId))
                 ) && 
                 (
                     this.Secret == input.Secret ||
@@ -153,8 +153,8 @@ namespace IO.Swagger.Model
             unchecked // Overflow is fine, just wrap
             {
                 int hashCode = 41;
-                if (this.BotId != null)
-                    hashCode = hashCode * 59 + this.BotId.GetHashCode();
+                if (this.DashboardId != null)
+                    hashCode = hashCode * 59 + this.DashboardId.GetHashCode();
                 if (this.Secret != null)
                     hashCode = hashCode * 59 + this.Secret.GetHashCode();
                 if (this.RequestedScopes != null)

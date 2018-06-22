@@ -35,7 +35,7 @@ namespace IO.Swagger.Model
         /// </summary>
         /// <param name="Id">Id.</param>
         /// <param name="Title">Title.</param>
-        /// <param name="BotLogo">BotLogo.</param>
+        /// <param name="DashboardLogo">DashboardLogo.</param>
         /// <param name="BotName">BotName.</param>
         /// <param name="DashboardName">DashboardName.</param>
         /// <param name="TabTitle">TabTitle.</param>
@@ -54,11 +54,11 @@ namespace IO.Swagger.Model
         /// <param name="Reasons">Reasons.</param>
         /// <param name="AllowedFeedback">AllowedFeedback.</param>
         /// <param name="Feedback">Feedback.</param>
-        public ReviewerReportResponse(int? Id = default(int?), string Title = default(string), string BotLogo = default(string), string BotName = default(string), string DashboardName = default(string), string TabTitle = default(string), string FavIcon = default(string), string BotHomePage = default(string), string ContentUrl = default(string), string ContentSite = default(string), string ContentType = default(string), int? ContentId = default(int?), double? DetectionScore = default(double?), List<ReviewerReportContentFragmentResponse> ContentFragments = default(List<ReviewerReportContentFragmentResponse>), string AuthorName = default(string), int? AuthorReputation = default(int?), DateTime? ContentCreationDate = default(DateTime?), DateTime? DetectedDate = default(DateTime?), List<ReviewerReportReasonResponse> Reasons = default(List<ReviewerReportReasonResponse>), List<ReviewerReportAllowedFeedbackResponse> AllowedFeedback = default(List<ReviewerReportAllowedFeedbackResponse>), List<ReviewerReportFeedbackResponse> Feedback = default(List<ReviewerReportFeedbackResponse>))
+        public ReviewerReportResponse(int? Id = default(int?), string Title = default(string), string DashboardLogo = default(string), string BotName = default(string), string DashboardName = default(string), string TabTitle = default(string), string FavIcon = default(string), string BotHomePage = default(string), string ContentUrl = default(string), string ContentSite = default(string), string ContentType = default(string), int? ContentId = default(int?), double? DetectionScore = default(double?), List<ReviewerReportContentFragmentResponse> ContentFragments = default(List<ReviewerReportContentFragmentResponse>), string AuthorName = default(string), int? AuthorReputation = default(int?), DateTime? ContentCreationDate = default(DateTime?), DateTime? DetectedDate = default(DateTime?), List<ReviewerReportReasonResponse> Reasons = default(List<ReviewerReportReasonResponse>), List<ReviewerReportAllowedFeedbackResponse> AllowedFeedback = default(List<ReviewerReportAllowedFeedbackResponse>), List<ReviewerReportFeedbackResponse> Feedback = default(List<ReviewerReportFeedbackResponse>))
         {
             this.Id = Id;
             this.Title = Title;
-            this.BotLogo = BotLogo;
+            this.DashboardLogo = DashboardLogo;
             this.BotName = BotName;
             this.DashboardName = DashboardName;
             this.TabTitle = TabTitle;
@@ -92,10 +92,10 @@ namespace IO.Swagger.Model
         public string Title { get; set; }
 
         /// <summary>
-        /// Gets or Sets BotLogo
+        /// Gets or Sets DashboardLogo
         /// </summary>
-        [DataMember(Name="botLogo", EmitDefaultValue=false)]
-        public string BotLogo { get; set; }
+        [DataMember(Name="dashboardLogo", EmitDefaultValue=false)]
+        public string DashboardLogo { get; set; }
 
         /// <summary>
         /// Gets or Sets BotName
@@ -215,7 +215,7 @@ namespace IO.Swagger.Model
             sb.Append("class ReviewerReportResponse {\n");
             sb.Append("  Id: ").Append(Id).Append("\n");
             sb.Append("  Title: ").Append(Title).Append("\n");
-            sb.Append("  BotLogo: ").Append(BotLogo).Append("\n");
+            sb.Append("  DashboardLogo: ").Append(DashboardLogo).Append("\n");
             sb.Append("  BotName: ").Append(BotName).Append("\n");
             sb.Append("  DashboardName: ").Append(DashboardName).Append("\n");
             sb.Append("  TabTitle: ").Append(TabTitle).Append("\n");
@@ -279,9 +279,9 @@ namespace IO.Swagger.Model
                     this.Title.Equals(input.Title))
                 ) && 
                 (
-                    this.BotLogo == input.BotLogo ||
-                    (this.BotLogo != null &&
-                    this.BotLogo.Equals(input.BotLogo))
+                    this.DashboardLogo == input.DashboardLogo ||
+                    (this.DashboardLogo != null &&
+                    this.DashboardLogo.Equals(input.DashboardLogo))
                 ) && 
                 (
                     this.BotName == input.BotName ||
@@ -388,8 +388,8 @@ namespace IO.Swagger.Model
                     hashCode = hashCode * 59 + this.Id.GetHashCode();
                 if (this.Title != null)
                     hashCode = hashCode * 59 + this.Title.GetHashCode();
-                if (this.BotLogo != null)
-                    hashCode = hashCode * 59 + this.BotLogo.GetHashCode();
+                if (this.DashboardLogo != null)
+                    hashCode = hashCode * 59 + this.DashboardLogo.GetHashCode();
                 if (this.BotName != null)
                     hashCode = hashCode * 59 + this.BotName.GetHashCode();
                 if (this.DashboardName != null)

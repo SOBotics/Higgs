@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { AdminService, BotResponse } from '../../../swagger-gen';
+import { AdminService, DashboardResponse } from '../../../swagger-gen';
 import { ActivatedRoute, Router } from '@angular/router';
 import { AuthService } from '../../services/auth.service';
 import { IMultiSelectTexts, IMultiSelectSettings } from 'angular-2-dropdown-multiselect';
@@ -27,17 +27,17 @@ export class BotComponent implements OnInit {
     private authService: AuthService,
     private router: Router) { }
 
-  public botDetails: Partial<BotResponse>;
+  public botDetails: Partial<DashboardResponse>;
 
   public onSubmit() {
     this.submitted = true;
     if (this.isNew) {
-      const createBotDetails = { ...this.botDetails as BotResponse, secret: (this.botDetails as any).secret };
-      this.adminService.adminRegisterBotPost(createBotDetails)
+      const createBotDetails = { ...this.botDetails as DashboardResponse, secret: (this.botDetails as any).secret };
+      this.adminService.adminRegisterDashboardPost(createBotDetails)
         .subscribe(a => this.router.navigateByUrl('/admin/bots'));
     } else {
-      const updatedDetails = { ...this.botDetails as BotResponse, botId: this.botId as number };
-      this.adminService.adminEditBotPost(updatedDetails)
+      const updatedDetails = { ...this.botDetails as DashboardResponse, botId: this.botId as number };
+      this.adminService.adminRegisterDashboardPost(updatedDetails)
         .subscribe(a => this.router.navigateByUrl('/admin/bots'));
     }
   }
@@ -69,7 +69,7 @@ export class BotComponent implements OnInit {
       } else {
         this.botId = +id;
         this.isNew = false;
-        this.adminService.adminBotGet(this.botId).subscribe(response => {
+        this.adminService.adminDashboardGet(this.botId).subscribe(response => {
           this.botDetails = response;
         });
       }
