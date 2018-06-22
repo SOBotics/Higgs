@@ -7,11 +7,11 @@ import {  ReviewerService, ReviewerDashboardsResponse } from '../../../swagger-g
   styleUrls: ['./bots.component.scss']
 })
 export class BotsComponent implements OnInit {
-  public botsResponse: ReviewerDashboardsResponse[] = [];
+  public dashboardsResponse: ReviewerDashboardsResponse[] = [];
   constructor(private reviewerService: ReviewerService) { }
 
   ngOnInit() {
     this.reviewerService.reviewerDashboardsGet()
-      .subscribe(response => this.botsResponse = response);
+      .subscribe(response => this.dashboardsResponse = response);
   }
 }
