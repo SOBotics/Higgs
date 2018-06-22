@@ -36,8 +36,8 @@ export class BotComponent implements OnInit {
       this.adminService.adminRegisterDashboardPost(createBotDetails)
         .subscribe(a => this.router.navigateByUrl('/admin/bots'));
     } else {
-      const updatedDetails = { ...this.botDetails as DashboardResponse, botId: this.botId as number };
-      this.adminService.adminRegisterDashboardPost(updatedDetails)
+      const updatedDetails = { ...this.botDetails as DashboardResponse, dashboardId: this.botId as number };
+      this.adminService.adminEditDashboardPost(updatedDetails)
         .subscribe(a => this.router.navigateByUrl('/admin/bots'));
     }
   }
