@@ -56,7 +56,7 @@ namespace Higgs.Server.Test
                 ReportId = 1,
                 FeedbackId = 1,
             });
-            intialFeedbackRequest.AssertSuccess();
+            await intialFeedbackRequest.AssertSuccess();
             WithDatabase(dbContext =>
             {
                 Assert.AreEqual(1, dbContext.ReportFeedbacks.Count());
@@ -68,7 +68,7 @@ namespace Higgs.Server.Test
                 ReportId = 1,
                 FeedbackId = 2,
             });
-            changeFeedbackRequest.AssertSuccess();
+            await changeFeedbackRequest.AssertSuccess();
             WithDatabase(dbContext =>
             {
                 Assert.AreEqual(2, dbContext.ReportFeedbacks.Count());
@@ -123,7 +123,7 @@ namespace Higgs.Server.Test
                 ReportId = 1,
                 FeedbackId = 1,
             });
-            sendFeedbackRequest.AssertSuccess();
+            await sendFeedbackRequest.AssertSuccess();
             WithDatabase(dbContext =>
             {
                 Assert.AreEqual(1, dbContext.ReportFeedbacks.Count());
@@ -134,7 +134,7 @@ namespace Higgs.Server.Test
             {
                 FeedbackId = 1
             });
-            clearFeedbackRequest.AssertSuccess();
+            await clearFeedbackRequest.AssertSuccess();
             WithDatabase(dbContext =>
             {
                 Assert.AreEqual(1, dbContext.ReportFeedbacks.Count());
@@ -181,7 +181,7 @@ namespace Higgs.Server.Test
                 ReportId = 1,
                 FeedbackId = 1,
             });
-            sendFeedbackRequest.AssertSuccess();
+            await sendFeedbackRequest.AssertSuccess();
             WithDatabase(dbContext =>
             {
                 Assert.AreEqual(1, dbContext.ReportFeedbacks.Count());
@@ -234,7 +234,7 @@ namespace Higgs.Server.Test
                 ReportId = 1,
                 FeedbackId = 1,
             });
-            sendFeedbackRequest.AssertSuccess();
+            await sendFeedbackRequest.AssertSuccess();
             WithDatabase(dbContext =>
             {
                 Assert.AreEqual(1, dbContext.ReportFeedbacks.Count());
@@ -250,7 +250,7 @@ namespace Higgs.Server.Test
             {
                 FeedbackId = 1
             });
-            clearFeedbackRequest.AssertSuccess();
+            await clearFeedbackRequest.AssertSuccess();
             WithDatabase(dbContext =>
             {
                 Assert.AreEqual(1, dbContext.ReportFeedbacks.Count());

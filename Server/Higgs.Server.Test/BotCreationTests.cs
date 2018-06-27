@@ -38,7 +38,7 @@ namespace Higgs.Server.Test
             };
 
             var response = await Client.PostAsync("/Admin/RegisterDashboard", request);
-            response.AssertSuccess();
+            await response.AssertSuccess();
             WithDatabase(dbContext =>
                 {
                     var tpFeedback = dbContext.Feedbacks.FirstOrDefault(f => f.Name == "tp");
@@ -249,7 +249,7 @@ namespace Higgs.Server.Test
             };
 
             var response = await Client.PostAsync("/Admin/RegisterDashboard", request);
-            response.AssertSuccess();
+            await response.AssertSuccess();
         }
 
         [Test]
@@ -282,7 +282,7 @@ namespace Higgs.Server.Test
             };
 
             var response = await Client.PostAsync("/Admin/RegisterDashboard", request);
-            response.AssertSuccess();
+            await response.AssertSuccess();
         }
 
         [Test]

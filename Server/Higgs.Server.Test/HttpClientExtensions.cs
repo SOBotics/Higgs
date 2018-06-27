@@ -15,9 +15,14 @@ namespace Higgs.Server.Test
             return client.PostAsync(url, stringContent);
         }
 
-        public static void AssertSuccess(this HttpResponseMessage message) 
+        public static async Task AssertSuccess(this HttpResponseMessage message) 
         {
-            Assert.AreEqual(HttpStatusCode.OK, message.StatusCode);
+            if (message.StatusCode != HttpStatusCode.OK)
+            {
+                var payloadStr = await message.Content.ReadAsStringAsync();
+                var payload = JsonConvert.DeserializeObject<ErrorWrapper>(payloadStr);
+                Assert.Fail($"Expected status '{HttpStatusCode.OK}', but recieved '{message.StatusCode}'. Error message: {payload.Error}");
+            }
         }
 
         public static async Task AssertError(this HttpResponseMessage message, HttpStatusCode code, string errorMessage = null)

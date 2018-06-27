@@ -64,6 +64,13 @@ namespace Higgs.Server.Test
                 Scopes.SCOPE_BOT
             );
 
+            WithDatabase(dbContext =>
+            {
+                dbContext.Dashboards.Add(new DbDashboard { Id = 1 });
+                dbContext.SaveChanges();
+            });
+
+
             var request = new RegisterPostRequest
             {
                 Title = "My Title",
@@ -85,6 +92,7 @@ namespace Higgs.Server.Test
 
             WithDatabase(dbContext =>
             {
+                dbContext.Dashboards.Add(new DbDashboard {Id = 1});
                 dbContext.Feedbacks.Add(new Data.Models.DbFeedback()
                 {
                     DashboardId = 1,
@@ -100,6 +108,8 @@ namespace Higgs.Server.Test
                 AllowedFeedback = new List<string> { "tp" }
             };
             var result = await Client.PostAsync("/Bot/RegisterPost", registerPostRequest);
+            await result.AssertSuccess();
+
             var reportId = JsonConvert.DeserializeObject<int>(await result.Content.ReadAsStringAsync());
 
             var feedbackResult = await Client.PostAsync("/Bot/RegisterUserFeedback", new RegisterUserFeedbackRequest
@@ -109,7 +119,7 @@ namespace Higgs.Server.Test
                 Feedback = "tp"
             });
 
-            feedbackResult.AssertSuccess();
+            await feedbackResult.AssertSuccess();
         }
 
         [Test]
@@ -122,6 +132,7 @@ namespace Higgs.Server.Test
 
             WithDatabase(dbContext =>
             {
+                dbContext.Dashboards.Add(new DbDashboard { Id = 1 });
                 dbContext.Users.Add(new Data.Models.DbUser()
                 {
                     AccountId = 1,
@@ -144,6 +155,8 @@ namespace Higgs.Server.Test
                 AllowedFeedback = new List<string> { "tp" }
             };
             var result = await Client.PostAsync("/Bot/RegisterPost", registerPostRequest);
+            await result.AssertSuccess();
+
             var reportId = JsonConvert.DeserializeObject<int>(await result.Content.ReadAsStringAsync());
 
             var feedbackResult = await Client.PostAsync("/Bot/RegisterUserFeedback", new RegisterUserFeedbackRequest
@@ -153,7 +166,7 @@ namespace Higgs.Server.Test
                 Feedback = "tp"
             });
 
-            feedbackResult.AssertSuccess();
+            await feedbackResult.AssertSuccess();
         }
 
         [Test]
@@ -166,6 +179,7 @@ namespace Higgs.Server.Test
 
             WithDatabase(dbContext =>
             {
+                dbContext.Dashboards.Add(new DbDashboard { Id = 1 });
                 dbContext.Users.Add(new Data.Models.DbUser()
                 {
                     AccountId = 1
@@ -185,6 +199,7 @@ namespace Higgs.Server.Test
                 AllowedFeedback = new List<string> { "tp" }
             };
             var result = await Client.PostAsync("/Bot/RegisterPost", registerPostRequest);
+            await result.AssertSuccess();
             var reportId = JsonConvert.DeserializeObject<int>(await result.Content.ReadAsStringAsync());
 
             var userFeedbackResult = await Client.PostAsync("/Bot/RegisterUserFeedback", new RegisterUserFeedbackRequest
@@ -207,6 +222,7 @@ namespace Higgs.Server.Test
 
             WithDatabase(dbContext =>
             {
+                dbContext.Dashboards.Add(new DbDashboard { Id = 1 });
                 dbContext.Feedbacks.Add(new Data.Models.DbFeedback()
                 {
                     DashboardId = 1,
@@ -222,6 +238,7 @@ namespace Higgs.Server.Test
                 AllowedFeedback = new List<string> { "tp" }
             };
             var result = await Client.PostAsync("/Bot/RegisterPost", registerPostRequest);
+            await result.AssertSuccess();
             var reportId = JsonConvert.DeserializeObject<int>(await result.Content.ReadAsStringAsync());
 
             var userFeedbackResult = await Client.PostAsync("/Bot/RegisterUserFeedback", new RegisterUserFeedbackRequest
