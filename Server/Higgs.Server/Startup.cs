@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Logging;
 using Microsoft.IdentityModel.Tokens;
 using Swashbuckle.AspNetCore.Swagger;
 
@@ -87,6 +88,12 @@ namespace Higgs.Server
                 options.ResultsListAuthorize = request => request.HttpContext.User.HasClaim(Scopes.SCOPE_DEV);
                 options.TrackConnectionOpenClose = false;
             }).AddEntityFramework();
+
+            services.AddLogging(c =>
+            {
+                c.AddConsole();
+                c.AddConfiguration(Configuration.GetSection("Logging"));
+            });
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

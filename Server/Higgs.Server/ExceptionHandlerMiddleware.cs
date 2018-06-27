@@ -2,6 +2,7 @@
 using System.Net;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
+using Microsoft.Extensions.Logging;
 using Newtonsoft.Json;
 
 namespace Higgs.Server
@@ -9,18 +10,20 @@ namespace Higgs.Server
     // https://stackoverflow.com/a/38935583/563532
     public class ExceptionHandlerMiddleware
     {
-        private readonly RequestDelegate next;
+        private readonly RequestDelegate _next;
+        private readonly ILogger<ExceptionHandlerMiddleware> _logger;
 
-        public ExceptionHandlerMiddleware(RequestDelegate next)
+        public ExceptionHandlerMiddleware(RequestDelegate next, ILogger<ExceptionHandlerMiddleware> logger)
         {
-            this.next = next;
+            _next = next;
+            _logger = logger;
         }
 
         public async Task Invoke(HttpContext context)
         {
             try
             {
-                await next(context);
+                await _next(context);
             }
             catch (Exception ex)
             {
@@ -28,11 +31,13 @@ namespace Higgs.Server
             }
         }
 
-        private static Task HandleExceptionAsync(HttpContext context, Exception exception)
+        private Task HandleExceptionAsync(HttpContext context, Exception exception)
         {
             var code = (int)HttpStatusCode.InternalServerError;
             if (exception is HttpStatusException requestException)
                 code = (int)requestException.StatusCode;
+
+            _logger.LogError($"{context.Request?.Path.Value} - {code} - {exception.Message}");
 
             var result = JsonConvert.SerializeObject(new ErrorWrapper { Error = exception.Message });
             context.Response.ContentType = "application/json";
