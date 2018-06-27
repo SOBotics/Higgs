@@ -81,9 +81,9 @@ namespace Higgs.Server.Models.Requests.Bot
         /// </summary>
         public List<RegisterPostAttribute> Attributes { get; set; }
 
-        public int RequiredFeedback { get; set; }
+        public int? RequiredFeedback { get; set; }
 
-        public int RequiredFeedbackConflicted { get; set; }
+        public int? RequiredFeedbackConflicted { get; set; }
     }
 
     public class RegisterPostContentFragment

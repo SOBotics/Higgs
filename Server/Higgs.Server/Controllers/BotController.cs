@@ -162,6 +162,14 @@ namespace Higgs.Server.Controllers
                 ConflictExceptions = new List<DbConflictException>()
             };
 
+
+            var dashboard = _dbContext.Dashboards.FirstOrDefault(d => d.Id == botId);
+            if (dashboard == null)
+                throw new HttpStatusException(HttpStatusCode.BadRequest, $"Dashboard with id {botId} does not exist");
+
+            report.RequiredFeedback = request.RequiredFeedback ?? dashboard.RequiredFeedback;
+            report.RequiredFeedbackConflicted = request.RequiredFeedbackConflicted ?? dashboard.RequiredFeedbackConflicted;
+
             var contentFragments = request.ContentFragments ?? Enumerable.Empty<RegisterPostContentFragment>();
             var fragments =
                 string.IsNullOrWhiteSpace(request.Content)
