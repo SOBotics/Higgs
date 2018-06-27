@@ -108,7 +108,7 @@ namespace Higgs.Server
             app.UseMvc();
             app.UseSwagger();
             app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "Higgs API V1"));
-            loggerFactory.AddFile("Logs/Higgs-{Date}.txt");
+            loggerFactory.AddFile("../Logs/Higgs-{Date}.txt", LogLevel.Error);
 
             using (var serviceScope = app.ApplicationServices.GetRequiredService<IServiceScopeFactory>().CreateScope())
             {
