@@ -91,13 +91,13 @@ namespace Higgs.Server
 
             services.AddLogging(c =>
             {
-                c.AddConsole();
                 c.AddConfiguration(Configuration.GetSection("Logging"));
             });
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public virtual void Configure(IApplicationBuilder app, IHostingEnvironment env)
+        public virtual void Configure(IApplicationBuilder app, IHostingEnvironment env,
+            ILoggerFactory loggerFactory)
         {
             if (env.IsDevelopment()) app.UseDeveloperExceptionPage();
 
@@ -108,7 +108,8 @@ namespace Higgs.Server
             app.UseMvc();
             app.UseSwagger();
             app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "Higgs API V1"));
-            
+            loggerFactory.AddFile("Logs/Higgs-{Date}.txt");
+
             using (var serviceScope = app.ApplicationServices.GetRequiredService<IServiceScopeFactory>().CreateScope())
             {
                 var context = serviceScope.ServiceProvider.GetService<HiggsDbContext>();
