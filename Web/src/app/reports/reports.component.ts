@@ -112,7 +112,7 @@ export class ReportsComponent implements OnInit {
       this.filter.pageNumber,
       50
     ).subscribe(response => {
-      if (response.pageNumber > response.totalPages) {
+      if (response.totalPages > 0 && response.pageNumber > response.totalPages) {
         this.filter.pageNumber = 1;
         this.reloadData();
       } else {
