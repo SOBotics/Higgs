@@ -22,9 +22,13 @@ pre code {
     border-radius: 0;
 }
 
-.botLogo {
+.dashboard-logo {
     width: 45px;
     height: 45px;
+}
+
+.logo-link:hover {
+    text-decoration: none;
 }
 
 button {
