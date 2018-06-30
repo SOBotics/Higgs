@@ -86,7 +86,9 @@ namespace Higgs.Server.Controllers
                     DashboardName = b.DashboardName,
                     DashboardHomepage = b.Homepage,
                     DashboardLogo = b.LogoUrl,
-                    DashboardDescription = b.Description
+                    DashboardDescription = b.Description,
+                    TabTitle = b.TabTitle,
+                    FavIcon = b.FavIcon
                 })
                 .FirstOrDefault();
         }

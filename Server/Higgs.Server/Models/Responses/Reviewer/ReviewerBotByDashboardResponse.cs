@@ -7,5 +7,7 @@ namespace Higgs.Server.Models.Responses.Reviewer
         public string DashboardHomepage { get; set; }
         public string DashboardLogo { get; set; }
         public string DashboardDescription { get; set; }
+        public string TabTitle { get; set; }
+        public string FavIcon { get; set; }
     }
 }

@@ -2,14 +2,14 @@
   <ng-container *ngIf="validDashboard">
     <div class="container">
       <h1 class="display-4">
-        <img class="dashboard-logo" src="{{dashboardLogo}}" /> {{dashboardName}}
+        <img class="dashboard-logo" src="{{dashboard.dashboardLogo}}" /> {{dashboard.dashboardName}}
       </h1>
       <p class="lead">
-        <ng-container *ngIf="dashboardHomepage && dashboardHomepage.length">
-          <a href="{{dashboardHomepage}}" class="icon-link">
+        <ng-container *ngIf="dashboard.dashboardHomepage && dashboard.dashboardHomepage.length">
+          <a href="{{dashboard.dashboardHomepage}}" class="icon-link">
             <i class="fa fa-home"></i>
           </a> -
-        </ng-container>{{dashboardDescription}}
+        </ng-container>{{dashboard.dashboardDescription}}
       </p>
       <hr />
       <div class="row chart-row">

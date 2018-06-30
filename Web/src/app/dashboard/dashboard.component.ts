@@ -1,11 +1,12 @@
 import { Component, OnInit } from '@angular/core';
-import { ReviewerService, AnalyticsService, PagingResponseReviewerReportsResponse } from '../../swagger-gen';
+import { ReviewerService, AnalyticsService, PagingResponseReviewerReportsResponse, ReviewerDashboardResponse } from '../../swagger-gen';
 import { ActivatedRoute, Router } from '@angular/router';
 import { GroupBy } from '../../utils/GroupBy';
 import { Chart } from 'angular-highcharts';
 import { GetPagingInfo, PagingInfo } from '../../utils/PagingHelper';
 import { IMultiSelectTexts, IMultiSelectSettings } from 'angular-2-dropdown-multiselect';
 import * as Highcharts from 'highcharts';
+import { MetaDataService } from '../services/meta-data.service';
 
 @Component({
   selector: 'app-dashboard',
@@ -13,13 +14,10 @@ import * as Highcharts from 'highcharts';
   styleUrls: ['./dashboard.component.scss']
 })
 export class DashboardComponent implements OnInit {
-  public dashboardId: number;
   public initialized: boolean;
   public validDashboard: boolean;
-  public dashboardName: string;
-  public dashboardHomepage: string;
-  public dashboardDescription: string;
-  public dashboardLogo: string;
+
+  public dashboard: ReviewerDashboardResponse;
 
   public dropdownSettings: IMultiSelectSettings;
   public feedbackSelector: IMultiSelectTexts;
@@ -30,8 +28,8 @@ export class DashboardComponent implements OnInit {
   public reportsReasonsChart: Chart = null;
   public reportsFeedbackChart: Chart = null;
 
-  public feedbacks: any[];
-  public reasons: any[];
+  public feedbacks: { id: number; name: string }[];
+  public reasons: { id: number; name: string }[];
 
   public reportsResponse: PagingResponseReviewerReportsResponse = null;
   public pagingInfo: PagingInfo[];
@@ -49,7 +47,8 @@ export class DashboardComponent implements OnInit {
     private reviewerService: ReviewerService,
     private analyticsService: AnalyticsService,
     private route: ActivatedRoute,
-    private router: Router) {
+    private router: Router,
+    private metaDataService: MetaDataService) {
 
     this.dropdownSettings = {
       checkedStyle: 'fontawesome',
@@ -81,31 +80,34 @@ export class DashboardComponent implements OnInit {
     });
 
     this.route.params.subscribe(params => {
-      this.dashboardName = params['dashboardName'];
-      this.refreshData();
+      const dashboardName = params['dashboardName'];
+      this.refreshData(dashboardName);
     });
   }
 
-  private refreshData() {
+  private refreshData(dashboardName: string) {
     this.initialized = false;
     this.validDashboard = false;
-    this.reviewerService.reviewerDashboardGet(this.dashboardName).subscribe(response => {
+    this.reviewerService.reviewerDashboardGet(dashboardName).subscribe(response => {
       this.validDashboard = !!response;
       if (this.validDashboard) {
-        this.dashboardId = response.dashboardId;
-        this.dashboardName = response.dashboardName;
-        this.dashboardDescription = response.dashboardDescription;
-        this.dashboardLogo = response.dashboardLogo;
-        this.dashboardHomepage = response.dashboardHomepage;
+        this.dashboard = response;
+
+        if (this.dashboard.tabTitle && this.dashboard.tabTitle !== '') {
+          this.metaDataService.setTitle(this.dashboard.tabTitle);
+        }
+        if (this.dashboard.favIcon && this.dashboard.favIcon !== '') {
+          this.metaDataService.setFavIcon(this.dashboard.favIcon);
+        }
       }
       this.initialized = true;
 
-      this.reviewerService.reviewerFeedbacksGet(this.dashboardName)
+      this.reviewerService.reviewerFeedbacksGet(dashboardName)
         .subscribe(feedbacks => {
           this.feedbacks = feedbacks.map(feedback => ({ id: feedback.id, name: feedback.name }));
         });
 
-      this.reviewerService.reviewerReasonsGet(this.dashboardName)
+      this.reviewerService.reviewerReasonsGet(dashboardName)
         .subscribe(reasons => {
           this.reasons = reasons.map(reason => ({ id: reason.id, name: reason.name }));
         });
@@ -124,7 +126,7 @@ export class DashboardComponent implements OnInit {
   }
 
   private updateFeedbackByUserChart() {
-    this.analyticsService.analyticsFeedbackByUserGet(this.dashboardName).subscribe(totalData => {
+    this.analyticsService.analyticsFeedbackByUserGet(this.dashboard.dashboardName).subscribe(totalData => {
       const mappedData = totalData.map(points => ({ name: points.name, y: points.count }));
       this.feedbackByUserChart = new Chart({
         chart: {
@@ -146,7 +148,7 @@ export class DashboardComponent implements OnInit {
 
 
   private updateOverTimeChart() {
-    this.analyticsService.analyticsReportsOverTimeGet(this.dashboardName).subscribe(overTimeData => {
+    this.analyticsService.analyticsReportsOverTimeGet(this.dashboard.dashboardName).subscribe(overTimeData => {
       const groupedData = GroupBy(overTimeData, 'dashboardName');
       const series: { name: string, data: [number, number][] }[] = [];
       for (const key in groupedData) {
@@ -199,7 +201,7 @@ export class DashboardComponent implements OnInit {
   }
 
   private updateReasonsChart() {
-    this.analyticsService.analyticsReportsByReasonGet(this.dashboardName).subscribe(totalData => {
+    this.analyticsService.analyticsReportsByReasonGet(this.dashboard.dashboardName).subscribe(totalData => {
       const mappedData = totalData.map(points => ({ name: points.name, y: points.count }));
       this.reportsReasonsChart = new Chart({
         chart: {
@@ -220,7 +222,7 @@ export class DashboardComponent implements OnInit {
   }
 
   private updateFeedbackChart() {
-    this.analyticsService.analyticsReportsByFeedbackGet(this.dashboardName).subscribe(totalData => {
+    this.analyticsService.analyticsReportsByFeedbackGet(this.dashboard.dashboardName).subscribe(totalData => {
       const mappedData = totalData.map(points => ({ name: points.name, y: points.count }));
       this.reportsFeedbackChart = new Chart({
         chart: {
@@ -246,10 +248,14 @@ export class DashboardComponent implements OnInit {
   }
 
   public applyFilter() {
-    this.router.navigate(['/' + this.dashboardName], { queryParams: this.filter });
+    this.router.navigate(['/' + this.dashboard.dashboardName], { queryParams: this.filter });
   }
 
   public reloadData() {
+    if (!this.dashboard) {
+      return;
+    }
+
     const conflicted =
       this.filter.conflicted === 'any' ? null
         : this.filter.conflicted === 'yes' ? true : false;
@@ -258,11 +264,9 @@ export class DashboardComponent implements OnInit {
       this.filter.hasFeedback === 'any' ? null
         : this.filter.hasFeedback === 'yes' ? true : false;
 
-    // const botId = this.filter.dashboard < 0 ? null : this.filter.dashboard;
-
     this.reviewerService.reviewerReportsGet(
       this.filter.content,
-      this.dashboardId,
+      this.dashboard.dashboardId,
       hasFeedback,
       conflicted,
       this.filter.feedbacks,
