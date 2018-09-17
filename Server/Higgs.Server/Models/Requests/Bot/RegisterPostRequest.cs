@@ -19,18 +19,21 @@ namespace Higgs.Server.Models.Requests.Bot
         public string ContentUrl { get; set; }
 
         /// <summary>
-        /// The site on which the content was detected
+        /// The Id of the content
         /// </summary>
+        [Required]
+        public long? ContentId { get; set; }
+
+        /// <summary>
+        /// The domain of the site on which the content was detected
+        /// </summary>
+        [Required]
         public string ContentSite { get; set; }
         /// <summary>
         /// The type of content (question, answer, comment, etc)
         /// </summary>
+        [Required]
         public string ContentType { get; set; }
-        /// <summary>
-        /// The Id of the content
-        /// </summary>
-        public int? ContentId { get; set; }
-
         /// <summary>
         ///     The score of the report, between 0 and 1
         /// </summary>

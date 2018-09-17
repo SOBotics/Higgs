@@ -14,9 +14,9 @@ namespace Higgs.Server.Models.Responses.Reviewer
         public string FavIcon { get; set; }
         public string BotHomePage { get; set; }
         public string ContentUrl { get; set; }
+        public long ContentId { get; set; }
         public string ContentSite { get; set; }
         public string ContentType { get; set; }
-        public int? ContentId { get; set; }
         public double? DetectionScore { get; set; }
         public List<ReviewerReportContentFragmentResponse> ContentFragments { get; set; }
         public string AuthorName { get; set; }

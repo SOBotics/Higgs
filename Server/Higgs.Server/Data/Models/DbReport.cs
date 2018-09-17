@@ -18,10 +18,13 @@ namespace Higgs.Server.Data.Models
 
         public string Title { get; set; }
         public string ContentUrl { get; set; }
+        [Required]
+        public long ContentId { get; set; }
+        [Required]
         public string ContentSite { get; set; }
+        [Required]
         public string ContentType { get; set; }
-        public int? ContentId { get; set; }
-
+        
         public double? DetectionScore { get; set; }
         public string AuthorName { get; set; }
         public int? AuthorReputation { get; set; }

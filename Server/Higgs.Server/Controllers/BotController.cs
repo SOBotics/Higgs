@@ -144,6 +144,12 @@ namespace Higgs.Server.Controllers
                 throw new HttpStatusException(HttpStatusCode.BadRequest, "Title is required");
             if (string.IsNullOrWhiteSpace(request.ContentUrl))
                 throw new HttpStatusException(HttpStatusCode.BadRequest, "ContentUrl is required");
+            if (!request.ContentId.HasValue)
+                throw new HttpStatusException(HttpStatusCode.BadRequest, "ContentId is required");
+            if (string.IsNullOrWhiteSpace(request.ContentSite))
+                throw new HttpStatusException(HttpStatusCode.BadRequest, "ContentSite is required");
+            if (string.IsNullOrWhiteSpace(request.ContentType))
+                throw new HttpStatusException(HttpStatusCode.BadRequest, "ContentType is required");
 
             var report = new DbReport
             {
@@ -153,7 +159,7 @@ namespace Higgs.Server.Controllers
                 Title = request.Title,
 
                 ContentUrl = request.ContentUrl,
-                ContentId = request.ContentId,
+                ContentId = request.ContentId.Value,
                 ContentSite = request.ContentSite,
                 ContentType = request.ContentType,
                 
