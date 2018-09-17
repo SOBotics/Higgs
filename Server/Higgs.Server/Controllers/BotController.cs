@@ -151,10 +151,13 @@ namespace Higgs.Server.Controllers
                 AuthorReputation = request.AuthorReputation,
                 DashboardId = botId.Value,
                 Title = request.Title,
+
+                ContentUrl = request.ContentUrl,
+                ContentId = request.ContentId,
+                ContentSite = request.ContentSite,
                 ContentType = request.ContentType,
                 
                 ContentCreationDate = request.ContentCreationDate?.ToUniversalTime(),
-                ContentUrl = request.ContentUrl,
                 DetectedDate = request.DetectedDate?.ToUniversalTime(),
                 DetectionScore = request.DetectionScore,
 
