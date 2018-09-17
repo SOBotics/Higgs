@@ -248,6 +248,20 @@ namespace Higgs.Server.Controllers
             return results;
         }
 
+        [HttpGet("v2/Check")]
+        [SwaggerResponse((int)HttpStatusCode.OK, typeof(List<ReviewerCheckResponse>))]
+        public List<ReviewerCheckResponse> CheckV2(int contentId, string contentSite, string contentType)
+        {
+            var results = _dbContext.Reports.Where(r => r.ContentId == contentId && r.ContentSite == contentSite && r.ContentType == contentType)
+                .Select(r => new ReviewerCheckResponse
+                {
+                    Dashboard = r.Dashboard.DashboardName,
+                    BotName = r.Dashboard.BotName,
+                    ReportId = r.Id
+                }).ToList();
+            return results;
+        }
+
         [HttpGet("NextReview")]
         [Authorize(Scopes.SCOPE_REVIEWER)]
         public ReviewerReportResponse NextReview(int? lastId)
