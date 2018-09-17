@@ -75,6 +75,9 @@ namespace Higgs.Server.Test
             {
                 Title = "My Title",
                 ContentUrl = "My Url",
+                ContentId = 1,
+                ContentSite = "stackoverflow.com",
+                ContentType = "comment",
                 AllowedFeedback = new List<string> { "tp" }
             };
 
@@ -105,6 +108,9 @@ namespace Higgs.Server.Test
             {
                 Title = "My Title",
                 ContentUrl = "My Url",
+                ContentId = 1,
+                ContentSite = "stackoverflow.com",
+                ContentType = "comment",
                 AllowedFeedback = new List<string> { "tp" }
             };
             var result = await Client.PostAsync("/Bot/RegisterPost", registerPostRequest);
@@ -152,6 +158,9 @@ namespace Higgs.Server.Test
             {
                 Title = "My Title",
                 ContentUrl = "My Url",
+                ContentId = 1,
+                ContentSite = "stackoverflow.com",
+                ContentType = "comment",
                 AllowedFeedback = new List<string> { "tp" }
             };
             var result = await Client.PostAsync("/Bot/RegisterPost", registerPostRequest);
@@ -196,6 +205,9 @@ namespace Higgs.Server.Test
             {
                 Title = "My Title",
                 ContentUrl = "My Url",
+                ContentId = 1,
+                ContentSite = "stackoverflow.com",
+                ContentType = "comment",
                 AllowedFeedback = new List<string> { "tp" }
             };
             var result = await Client.PostAsync("/Bot/RegisterPost", registerPostRequest);
@@ -235,6 +247,9 @@ namespace Higgs.Server.Test
             {
                 Title = "My Title",
                 ContentUrl = "My Url",
+                ContentId = 1,
+                ContentSite = "stackoverflow.com",
+                ContentType = "comment",
                 AllowedFeedback = new List<string> { "tp" }
             };
             var result = await Client.PostAsync("/Bot/RegisterPost", registerPostRequest);
