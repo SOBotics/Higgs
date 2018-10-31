@@ -33,8 +33,8 @@ namespace Higgs.Server.Controllers
         }
         
         [HttpPost("AquireToken")]
-        [SwaggerResponse((int) HttpStatusCode.OK, typeof(AquireTokenResponse), Description = "The authorization token")]
-        [SwaggerResponse((int) HttpStatusCode.BadRequest, typeof(ErrorResponse))]
+        [ProducesResponseType(typeof(AquireTokenResponse), (int)HttpStatusCode.OK)]
+        [ProducesResponseType(typeof(ErrorResponse), (int) HttpStatusCode.BadRequest)]
         public IActionResult AquireToken([FromBody] AquireTokenRequest request)
         {
             var bot = _dbContext.Dashboards.Where(b => b.Id == request.DashboardId)
@@ -133,8 +133,8 @@ namespace Higgs.Server.Controllers
         /// </returns>
         [HttpPost("RegisterPost")]
         [Authorize(Scopes.SCOPE_BOT)]
-        [SwaggerResponse((int) HttpStatusCode.OK, typeof(int))]
-        [SwaggerResponse((int) HttpStatusCode.BadRequest, typeof(ErrorResponse))]
+        [ProducesResponseType(typeof(int), (int)HttpStatusCode.OK)]
+        [ProducesResponseType(typeof(ErrorResponse), (int)HttpStatusCode.BadRequest)]
         public IActionResult RegisterPost([FromBody] RegisterPostRequest request)
         {
             var botId = GetBotId();

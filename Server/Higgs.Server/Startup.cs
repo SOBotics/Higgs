@@ -5,6 +5,7 @@ using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Diagnostics;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
@@ -80,7 +81,12 @@ namespace Higgs.Server
             var connectionString = Configuration.GetConnectionString("HiggsDB");
             services
                 .AddEntityFrameworkNpgsql()
-                .AddDbContext<HiggsDbContext>(options => options.UseNpgsql(connectionString));
+                .AddDbContext<HiggsDbContext>(options =>
+                {
+                    options.UseNpgsql(connectionString)
+                        //.ConfigureWarnings(warnings => warnings.Throw(RelationalEventId.QueryClientEvaluationWarning))
+                        ;
+                });
 
             services.AddMiniProfiler(options =>
             {

@@ -5,6 +5,7 @@ using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage;
+using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 using Microsoft.EntityFrameworkCore.Storage.Internal;
 using System;
 

@@ -236,7 +236,7 @@ namespace Higgs.Server.Controllers
         }
 
         [HttpGet("Check")]
-        [SwaggerResponse((int)HttpStatusCode.OK, typeof(List<ReviewerCheckResponse>))]
+        [ProducesResponseType(typeof(List<ReviewerCheckResponse>), (int)HttpStatusCode.OK)]
         public List<ReviewerCheckResponse> Check(string contentUrl)
         {
             var results = _dbContext.Reports.Where(r => r.ContentUrl == contentUrl)
@@ -250,7 +250,7 @@ namespace Higgs.Server.Controllers
         }
 
         [HttpGet("v2/Check")]
-        [SwaggerResponse((int)HttpStatusCode.OK, typeof(List<ReviewerCheckResponse>))]
+        [ProducesResponseType(typeof(List<ReviewerCheckResponse>), (int)HttpStatusCode.OK)]
         public List<ReviewerCheckResponse> CheckV2([Required] int contentId, [Required] string contentSite, [Required] string contentType)
         {
             var results = _dbContext.Reports.Where(r => r.ContentId == contentId && r.ContentSite == contentSite && r.ContentType == contentType)

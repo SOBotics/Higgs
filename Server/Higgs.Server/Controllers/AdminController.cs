@@ -29,10 +29,11 @@ namespace Higgs.Server.Controllers
         ///     Register a dashboard
         /// </summary>
         /// <returns>The ID of the created dashboard</returns>
+        /// <response code="200">Successfully registered dashboard</response>
         [HttpPost("RegisterDashboard")]
         [Authorize(Scopes.SCOPE_BOT_OWNER)]
-        [SwaggerResponse((int) HttpStatusCode.OK, typeof(int), "Successfully registered dashboard")]
-        [SwaggerResponse((int) HttpStatusCode.BadRequest, typeof(ErrorResponse))]
+        [ProducesResponseType(typeof(int), (int) HttpStatusCode.OK)]
+        [ProducesResponseType(typeof(ErrorResponse), (int)HttpStatusCode.BadRequest)]
         public IActionResult RegisterDashboard([FromBody] CreateDashboardRequest request)
         {
             if (string.IsNullOrWhiteSpace(request.BotName))
@@ -127,20 +128,22 @@ namespace Higgs.Server.Controllers
         }
 
         [HttpGet("Scopes")]
-        [SwaggerResponse((int)HttpStatusCode.OK, typeof(List<string>))]
+        [ProducesResponseType(typeof(List<string>), (int)HttpStatusCode.OK)]
         [Authorize(Scopes.SCOPE_ADMIN)]
         public List<string> AllScopes()
         {
             return Scopes.AllScopes.Select(s => s.Key).ToList();
         }
-       
+
         /// <summary>
         ///     Update a dashboard's details
         /// </summary>
+        /// <response code="200">Successfully edited bot</response>
+        /// <response code="400">Bot not found</response>
         [HttpPost("EditDashboard")]
         [Authorize(Scopes.SCOPE_BOT_OWNER)]
-        [SwaggerResponse((int) HttpStatusCode.OK, Description = "Successfully edited bot")]
-        [SwaggerResponse((int) HttpStatusCode.BadRequest, typeof(ErrorResponse), Description = "Bot not found")]
+        [ProducesResponseType((int) HttpStatusCode.OK)]
+        [ProducesResponseType(typeof(ErrorResponse), (int) HttpStatusCode.BadRequest)]
         public IActionResult EditDashboard([FromBody] EditDashboardRequest request)
         {
             var existingDashboard = _dbContext.Dashboards
@@ -306,13 +309,13 @@ namespace Higgs.Server.Controllers
                 }
             );
         }
-        
+
         /// <summary>
         ///     Lists all users
         /// </summary>
         [HttpGet("Users")]
         [Authorize(Scopes.SCOPE_ADMIN)]
-        [SwaggerResponse((int) HttpStatusCode.OK, typeof(List<UsersResponse>), Description = "View all users")]
+        [ProducesResponseType(typeof(List<UsersResponse>), (int)HttpStatusCode.OK)]
         public IActionResult Users()
         {
             return Json(_dbContext.Users.Select(u => new UsersResponse
@@ -324,11 +327,11 @@ namespace Higgs.Server.Controllers
         }
 
         /// <summary>
-        ///     Lists all users
+        ///     Lists user details
         /// </summary>
         [HttpGet("User")]
         [Authorize(Scopes.SCOPE_ADMIN)]
-        [SwaggerResponse((int)HttpStatusCode.OK, typeof(UsersResponse), Description = "View user details")]
+        [ProducesResponseType(typeof(UsersResponse), (int)HttpStatusCode.OK)]
         public IActionResult GetUser(int userId)
         {
             return Json(_dbContext.Users
@@ -344,10 +347,12 @@ namespace Higgs.Server.Controllers
         /// <summary>
         ///     Lists all users
         /// </summary>
+        /// <response code="200">"Updated user details"</response>
+        /// <response code="400">"User doesn't exist"</response>
         [HttpPost("User")]
         [Authorize(Scopes.SCOPE_ADMIN)]
-        [SwaggerResponse((int)HttpStatusCode.OK, Description = "Update user details")]
-        [SwaggerResponse((int)HttpStatusCode.BadRequest, Description = "User doesn't exist")]
+        [ProducesResponseType((int)HttpStatusCode.OK)]
+        [ProducesResponseType((int)HttpStatusCode.BadRequest)]
         public IActionResult UpdateUserDetails([FromBody] UpdateUserRequest request)
         {
             if (request.Scopes.GroupBy(s => s, StringComparer.OrdinalIgnoreCase).Any(g => g.Count() > 1))
