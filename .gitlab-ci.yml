@@ -17,7 +17,7 @@ build server:
     - dotnet publish -c Release
   artifacts:
     paths:
-      - Server/Higgs.Server/bin/Release/netcoreapp2.0/publish/*.*
+      - Server/Higgs.Server/bin/Release/netcoreapp2.1/publish/*.*
 
 build web:
   stage: build
@@ -52,7 +52,7 @@ deploy production:
     - ls -la
     - '[[ -f /.dockerenv ]] && echo -e "Host *\n\tStrictHostKeyChecking no\n\n" > ~/.ssh/config'
     - "ssh deploy@$PRODUCTION_IP 'mkdir -p /var/www/Higgs/Server'"
-    - rsync -az --force --delete --progress -e "ssh -p22" Server/Higgs.Server/bin/Release/netcoreapp2.0/publish/* deploy@$PRODUCTION_IP:/var/www/Higgs/Server
+    - rsync -az --force --delete --progress -e "ssh -p22" Server/Higgs.Server/bin/Release/netcoreapp2.1/publish/* deploy@$PRODUCTION_IP:/var/www/Higgs/Server
     - "ssh deploy@$PRODUCTION_IP 'cp /var/www/Higgs/Configuration/appsettings.Production.json /var/www/Higgs/Server/.'"
     - "ssh deploy@$PRODUCTION_IP 'sudo systemctl restart higgs.server.service'"
     - rsync -az --force --delete --progress -e "ssh -p22" Web/dist/* deploy@$PRODUCTION_IP:/var/www/Higgs/Web/dist
