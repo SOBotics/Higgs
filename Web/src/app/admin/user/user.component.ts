@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { UsersResponse, AdminService } from '../../../swagger-gen';
 import { ActivatedRoute } from '@angular/router';
-import 'rxjs/add/operator/combineLatest';
+import { combineLatest } from 'rxjs';
 
 @Component({
   selector: 'app-user',
@@ -25,7 +25,7 @@ export class UserComponent implements OnInit {
     this.route.params.subscribe(params => {
       this.userId = +params['id'];
       if (this.userId) {
-        allScopes.combineLatest(this.adminService.adminUserGet(this.userId), (scopes, user) => ({
+        combineLatest(allScopes, this.adminService.adminUserGet(this.userId), (scopes, user) => ({
           Scopes: scopes,
           User: user
         }))

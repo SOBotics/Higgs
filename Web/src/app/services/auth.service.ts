@@ -1,7 +1,6 @@
 import { Injectable, ModuleWithComponentFactories } from '@angular/core';
 import { Configuration } from '../../swagger-gen';
-import { BehaviorSubject } from 'rxjs/BehaviorSubject';
-import { Observable } from 'rxjs/Observable';
+import { Observable, BehaviorSubject } from 'rxjs';
 import { AuthenticationService } from '../../swagger-gen/api/authentication.service';
 
 export const AccessTokenStorageKey = 'access_token';
