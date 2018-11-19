@@ -124,7 +124,9 @@ namespace Higgs.Server.Controllers
             var reports = pagedReportData.Data;
 
             var reportIds = reports.Select(r => r.Id).ToList();
-            var feedbacks = _dbContext.ReportFeedbacks.Where(rf => reportIds.Contains(rf.ReportId))
+            var feedbacks = _dbContext.ReportFeedbacks
+                .Where(f => f.InvalidatedDate == null)
+                .Where(rf => reportIds.Contains(rf.ReportId))
                 .Select(feedback => new
                 {
                     feedback.ReportId,
