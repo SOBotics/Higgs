@@ -66,7 +66,7 @@ export class MiniProfilerUiComponent implements OnInit {
         for (let i = 0; i < ids.length; i++) {
             const id = ids[i];
             if (this.fetchedIds.indexOf(id) >= 0) {
-                return;
+                continue;
             }
             this.fetchedIds.push(id);
 
@@ -79,6 +79,12 @@ export class MiniProfilerUiComponent implements OnInit {
             }
             this.httpClient.post(miniProfilerUrl + MiniProfilerEndPoint, body, { headers: headers }).subscribe((result: ProfileResult) => {
                 this.processJson(result);
+
+                // Request already exists
+                if (this.results.some(r => r.Id === result.Id)) {
+                    return;
+                }
+
                 while (this.MaxEntries > 0 && this.results.length >= this.MaxEntries) {
                     this.results.shift();
                 }
