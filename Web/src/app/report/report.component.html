@@ -4,6 +4,7 @@
       <img *ngIf="postDetails.dashboardLogo" class="dashboard-logo" src="{{postDetails.dashboardLogo}}" title="{{postDetails.dashboardName}}" />
     </a>
     <a href="{{postDetails.contentUrl}}" target="_blank">{{postDetails.title}}</a>
+    <span class="horizontal-divider"></span>
     <span *ngFor="let feedback of postDetails.feedback" class="feedback" [style.color]="feedback.colour" [title]="feedback.feedbackName + ' - ' + feedback.userName">
       <p class="feedbackIcon">{{feedback.icon}}</p>
       <a *ngIf="isRoomOwner || feedback.userId == myUserId" class="feedbackRemove" href="javascript:void(0)" (click)="clearFeedback(feedback.id)">Clear</a>
@@ -33,7 +34,7 @@
   <div class="row mt-3">
     <div class="col-md-6">
       <span *ngIf="postDetails.contentCreationDate" title="{{postDetails.contentCreationDate}}">Posted {{postDetails.contentCreationDate | timeAgo}}</span>
-      <span *ngIf="postDetails.contentCreationDate">|</span>
+      <span class="horizontal-divider" *ngIf="postDetails.contentCreationDate">|</span>
       <span *ngIf="postDetails.detectedDate" title="{{postDetails.detectedDate}}">Reported {{postDetails.detectedDate | timeAgo}}</span>
     </div>
     <div class="col-md-6 text-sm-right" *ngIf="postDetails.authorName">
