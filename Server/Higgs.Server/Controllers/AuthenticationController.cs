@@ -148,7 +148,7 @@ namespace Higgs.Server.Controllers
 
             var token = CreateJwtToken(claims, signingKey);
 
-            var uriBuilder = new UriBuilder(loginState.RedirectUri);
+            var uriBuilder = new UriBuilder(loginState.RedirectURI);
             var query = HttpUtility.ParseQueryString(uriBuilder.Query);
             query["access_token"] = token;
             uriBuilder.Query = query.ToString();
