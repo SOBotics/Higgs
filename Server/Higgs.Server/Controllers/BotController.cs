@@ -215,46 +215,56 @@ namespace Higgs.Server.Controllers
             }
             _dbContext.Reports.Add(report);
 
-            var feedbackTypes = _dbContext.Feedbacks.Where(f => f.DashboardId == botId && request.AllowedFeedback.Contains(f.Name)).ToDictionary(f => f.Name, f => f.Id);
-            foreach (var allowedFeedback in request.AllowedFeedback)
+            if (request.AllowedFeedback?.Any() ?? false)
             {
-                if (feedbackTypes.ContainsKey(allowedFeedback))
+                var feedbackTypes = _dbContext.Feedbacks.Where(f => f.DashboardId == botId && request.AllowedFeedback.Contains(f.Name)).ToDictionary(f => f.Name, f => f.Id);
+                foreach (var allowedFeedback in request.AllowedFeedback)
                 {
-                    _dbContext.ReportAllowedFeedbacks.Add(new DbReportAllowedFeedback
+                    if (feedbackTypes.ContainsKey(allowedFeedback))
                     {
-                        FeedbackId = feedbackTypes[allowedFeedback],
-                        Report = report
-                    });
-                } else {
-                    throw new HttpStatusException(HttpStatusCode.BadRequest, $"Feedback '{allowedFeedback}' not registered for bot");
+                        _dbContext.ReportAllowedFeedbacks.Add(new DbReportAllowedFeedback
+                        {
+                            FeedbackId = feedbackTypes[allowedFeedback],
+                            Report = report
+                        });
+                    }
+                    else
+                    {
+                        throw new HttpStatusException(HttpStatusCode.BadRequest, $"Feedback '{allowedFeedback}' not registered for bot");
+                    }
                 }
             }
-            var reasons = _dbContext.Reasons.Where(f => f.DashboardId == botId).ToDictionary(f => f.Name, f => f);
-            foreach (var reason in request.Reasons ?? Enumerable.Empty<RegisterPostReason>())
+
+            if (request.Reasons?.Any() ?? false)
             {
-                DbReason dbReason;
+                var reasons = _dbContext.Reasons.Where(f => f.DashboardId == botId).ToDictionary(f => f.Name, f => f);
+                foreach (var reason in request.Reasons ?? Enumerable.Empty<RegisterPostReason>())
+                {
+                    DbReason dbReason;
 
-                if (reasons.ContainsKey(reason.ReasonName))
-                {
-                    dbReason = reasons[reason.ReasonName];
-                }
-                else
-                {
-                    dbReason = new DbReason
+                    if (reasons.ContainsKey(reason.ReasonName))
                     {
-                        Name = reason.ReasonName,
-                        DashboardId = botId.Value
-                    };
-                    _dbContext.Reasons.Add(dbReason);
+                        dbReason = reasons[reason.ReasonName];
+                    }
+                    else
+                    {
+                        dbReason = new DbReason
+                        {
+                            Name = reason.ReasonName,
+                            DashboardId = botId.Value
+                        };
+                        _dbContext.Reasons.Add(dbReason);
+                    }
+
+                    _dbContext.ReportReasons.Add(new DbReportReason
+                    {
+                        Confidence = reason.Confidence,
+                        Tripped = reason.Tripped ?? false,
+                        Reason = dbReason,
+                        Report = report
+                    });
                 }
 
-                _dbContext.ReportReasons.Add(new DbReportReason
-                {
-                    Confidence = reason.Confidence,
-                    Tripped = reason.Tripped ?? false,
-                    Reason = dbReason,
-                    Report = report
-                });
             }
 
             foreach (var attribute in request.Attributes ?? Enumerable.Empty<RegisterPostAttribute>())
