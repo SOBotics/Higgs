@@ -128,21 +128,24 @@ export class DashboardComponent implements OnInit {
   private updateFeedbackByUserChart() {
     this.analyticsService.analyticsFeedbackByUserGet(this.dashboard.dashboardName).subscribe(totalData => {
       const mappedData = totalData.map(points => ({ name: points.name, y: points.count }));
-      this.feedbackByUserChart = new Chart({
-        chart: {
-          type: 'pie'
-        },
-        title: {
-          text: 'Top users by feedback'
-        },
-        series: [{
-          name: 'Count',
-          data: mappedData
-        }],
-        credits: {
-          enabled: false
-        },
-      });
+      this.feedbackByUserChart =
+        mappedData.length ?
+          new Chart({
+            chart: {
+              type: 'pie'
+            },
+            title: {
+              text: 'Top users by feedback'
+            },
+            series: [{
+              name: 'Count',
+              data: mappedData
+            }],
+            credits: {
+              enabled: false
+            },
+          })
+          : null;
     });
   }
 
@@ -166,79 +169,90 @@ export class DashboardComponent implements OnInit {
           });
         }
       }
-      this.reportsOverTimeChart = new Chart({
-        chart: {
-          type: 'line',
-        },
-        title: {
-          text: 'Reports over time'
-        },
-        xAxis: {
-          type: 'datetime',
-          labels: {
-            format: '{value:%Y-%m-%d}'
-          }
-        },
-        tooltip: {
-          formatter: function () {
-            return `${this.y} reports (${Highcharts.dateFormat('%Y-%m-%d', this.x)})`;
-          }
-        },
-        yAxis: {
-          title: {
-            text: 'Number seen'
-          }
-        },
-        legend: {
-          enabled: false
-        },
-        credits: {
-          enabled: false
-        },
-        series: series
-      });
+      this.reportsOverTimeChart =
+        series.length ?
+          new Chart({
+            chart: {
+              type: 'line',
+            },
+            title: {
+              text: 'Reports over time'
+            },
+            xAxis: {
+              type: 'datetime',
+              labels: {
+                format: '{value:%Y-%m-%d}'
+              }
+            },
+            tooltip: {
+              formatter: function () {
+                return `${this.y} reports (${Highcharts.dateFormat('%Y-%m-%d', this.x)})`;
+              }
+            },
+            yAxis: {
+              title: {
+                text: 'Number seen'
+              }
+            },
+            legend: {
+              enabled: false
+            },
+            credits: {
+              enabled: false
+            },
+            series: series
+          })
+          : null;
     });
   }
 
   private updateReasonsChart() {
     this.analyticsService.analyticsReportsByReasonGet(this.dashboard.dashboardName).subscribe(totalData => {
       const mappedData = totalData.map(points => ({ name: points.name, y: points.count }));
-      this.reportsReasonsChart = new Chart({
-        chart: {
-          type: 'pie'
-        },
-        title: {
-          text: 'Top 15 report reasons (tripped)'
-        },
-        series: [{
-          name: 'Count',
-          data: mappedData
-        }],
-        credits: {
-          enabled: false
-        },
-      });
+      this.reportsReasonsChart =
+        mappedData.length
+          ?
+          new Chart({
+            chart: {
+              type: 'pie'
+            },
+            title: {
+              text: 'Top 15 report reasons (tripped)'
+            },
+            series: [{
+              name: 'Count',
+              data: mappedData
+            }],
+            credits: {
+              enabled: false
+            },
+          })
+          : null;
     });
   }
 
   private updateFeedbackChart() {
     this.analyticsService.analyticsReportsByFeedbackGet(this.dashboard.dashboardName).subscribe(totalData => {
       const mappedData = totalData.map(points => ({ name: points.name, y: points.count }));
-      this.reportsFeedbackChart = new Chart({
-        chart: {
-          type: 'pie'
-        },
-        title: {
-          text: 'Top 15 report feedback'
-        },
-        series: [{
-          name: 'Count',
-          data: mappedData
-        }],
-        credits: {
-          enabled: false
-        },
-      });
+      this.reportsFeedbackChart =
+        mappedData.length
+          ?
+          new Chart({
+            chart: {
+              type: 'pie'
+            },
+            title: {
+              text: 'Top 15 report feedback'
+            },
+            series: [{
+              name: 'Count',
+              data: mappedData
+            }],
+            credits: {
+              enabled: false
+            },
+          }) 
+          : null;
     });
   }
 

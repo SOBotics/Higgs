@@ -1,59 +1,52 @@
-<form style="padding: 10px" #filterForm="ngForm">
-  <div class="form-row align-items-center mb-2">
-    <div class="col-md-5">
-      <label class="sr-only" for="contentInput">Content</label>
-      <input type="text" class="form-control" id="contentInput" placeholder="Content" name="content" [(ngModel)]="filter.content"
-        #content="ngModel">
-    </div>
-    <div class="col">
-      <div class="input-group">
-        <div class="input-group-prepend">
-          <label class="input-group-text" for="dashboardSelector">Dashboard</label>
-        </div>
-        <select class="custom-select" id="dashboardSelector" [(ngModel)]="filter.dashboard" [ngModelOptions]="{standalone: true}">
-          <option value="-1">Any</option>
-          <option *ngFor="let dashboard of dashboards" value="{{dashboard.id}}">
-            {{dashboard.name}}
-          </option>
-        </select>
-      </div>
-    </div>
-    <div class="col">
-      <div class="input-group">
-        <div class="input-group-prepend">
-          <label class="input-group-text" for="conflictedCheckbox">Has Feedback</label>
-        </div>
-        <select class="custom-select" id="hasFeedbackCheckbox" [(ngModel)]="filter.hasFeedback" [ngModelOptions]="{standalone: true}">
-          <option value="any">Any</option>
-          <option value="yes">Yes</option>
-          <option value="no">No</option>
-        </select>
-      </div>
-    </div>
-    <div class="col">
-      <div class="input-group">
-        <div class="input-group-prepend">
-          <label class="input-group-text" for="conflictedCheckbox">Conflicted</label>
-        </div>
-        <select class="custom-select" id="conflictedCheckbox" [(ngModel)]="filter.conflicted" [ngModelOptions]="{standalone: true}">
-          <option value="any">Any</option>
-          <option value="yes">Yes</option>
-          <option value="no">No</option>
-        </select>
-      </div>
-    </div>
+<form class="p-3 form-inline" #filterForm="ngForm">
+  <div class="input-group mt-2 mt-sm-2 mr-sm-2 mb-sm-0">
+    <label class="sr-only" for="contentInput">Content</label>
+    <input type="text" class="form-control" id="contentInput" placeholder="Content" name="content"
+      [(ngModel)]="filter.content" #content="ngModel">
   </div>
-  <div class="form-row align-items-center">
-    <div class="col">
-      <ss-multiselect-dropdown [options]="feedbacks" [(ngModel)]="filter.feedbacks" [settings]="dropdownSettings" [texts]="feedbackSelector"
-        [ngModelOptions]="{standalone: true}"></ss-multiselect-dropdown>
+  <div class="input-group mt-2 mt-sm-2 mr-sm-2 mb-sm-0">
+    <div class="input-group-prepend">
+      <label class="input-group-text" for="dashboardSelector">Dashboard</label>
     </div>
-    <div class="col">
-      <ss-multiselect-dropdown [options]="reasons" [(ngModel)]="filter.reasons" [settings]="dropdownSettings" [texts]="reasonSelector"
-        [ngModelOptions]="{standalone: true}"></ss-multiselect-dropdown>
-    </div>
-    <button type="submit" class="btn btn-primary" (click)="applyFilter()">Filter</button>
+    <select class="custom-select" id="dashboardSelector" [(ngModel)]="filter.dashboard"
+      [ngModelOptions]="{standalone: true}">
+      <option value="-1">Any</option>
+      <option *ngFor="let dashboard of dashboards" value="{{dashboard.id}}">
+        {{dashboard.name}}
+      </option>
+    </select>
   </div>
+  <div class="input-group mt-2 mt-sm-2 mr-sm-2 mb-sm-0">
+    <div class="input-group-prepend">
+      <label class="input-group-text" for="conflictedCheckbox">Has Feedback</label>
+    </div>
+    <select class="custom-select" id="hasFeedbackCheckbox" [(ngModel)]="filter.hasFeedback"
+      [ngModelOptions]="{standalone: true}">
+      <option value="any">Any</option>
+      <option value="yes">Yes</option>
+      <option value="no">No</option>
+    </select>
+  </div>
+  <div class="input-group mt-2 mt-sm-2 mr-sm-2 mb-sm-0">
+    <div class="input-group-prepend">
+      <label class="input-group-text" for="conflictedCheckbox">Conflicted</label>
+    </div>
+    <select class="custom-select" id="conflictedCheckbox" [(ngModel)]="filter.conflicted"
+      [ngModelOptions]="{standalone: true}">
+      <option value="any">Any</option>
+      <option value="yes">Yes</option>
+      <option value="no">No</option>
+    </select>
+  </div>
+  <div class="input-group mt-2 mt-sm-2 mr-sm-2 mb-sm-0">
+    <ss-multiselect-dropdown [options]="feedbacks" [(ngModel)]="filter.feedbacks" [settings]="dropdownSettings"
+      [texts]="feedbackSelector" [ngModelOptions]="{standalone: true}"></ss-multiselect-dropdown>
+  </div>
+  <div class="input-group mt-2 mt-sm-2 mr-sm-2 mb-sm-0">
+    <ss-multiselect-dropdown [options]="reasons" [(ngModel)]="filter.reasons" [settings]="dropdownSettings"
+      [texts]="reasonSelector" [ngModelOptions]="{standalone: true}"></ss-multiselect-dropdown>
+  </div>
+  <button type="submit" class="btn btn-primary mt-2 mt-sm-2 mr-sm-2 mb-sm-0" (click)="applyFilter()">Filter</button>
 </form>
 
 <table class="table" *ngIf="reportsResponse">
@@ -85,7 +78,8 @@
         {{report.detectionScore}}
       </td>
       <td>
-        <span *ngFor="let feedback of report.feedback" class="feedback" [style.color]="feedback.colour" [title]="feedback.feedbackName + ' - ' + feedback.userName">
+        <span *ngFor="let feedback of report.feedback" class="feedback" [style.color]="feedback.colour"
+          [title]="feedback.feedbackName + ' - ' + feedback.userName">
           {{feedback.icon}}
         </span>
       </td>
