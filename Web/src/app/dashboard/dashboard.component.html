@@ -12,10 +12,14 @@
         </ng-container>{{dashboard.dashboardDescription}}
       </p>
       <hr />
-      <div class="mt-2 mt-sm-2 mr-sm-2 mb-sm-0" [chart]="feedbackByUserChart"></div>
-      <div class="mt-2 mt-sm-2 mr-sm-2 mb-sm-0" [chart]="reportsOverTimeChart"></div>
-      <div class="mt-2 mt-sm-2 mr-sm-2 mb-sm-0" [chart]="reportsReasonsChart"></div>
-      <div class="mt-2 mt-sm-2 mr-sm-2 mb-sm-0" [chart]="reportsFeedbackChart"></div>
+
+      <div class="row">
+        <div class="col" [chart]="feedbackByUserChart"></div>
+        <div class="col" [chart]="reportsOverTimeChart"></div>
+        <div class="w-100"></div>
+        <div class="col" [chart]="reportsReasonsChart"></div>
+        <div class="col" [chart]="reportsFeedbackChart"></div>
+      </div>
     </div>
 
     <form class="p-3 form-inline" #filterForm="ngForm">
