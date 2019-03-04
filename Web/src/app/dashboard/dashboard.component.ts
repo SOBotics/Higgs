@@ -181,7 +181,8 @@ export class DashboardComponent implements OnInit {
             xAxis: {
               type: 'datetime',
               labels: {
-                format: '{value:%Y-%m-%d}'
+                format: '{value:%Y-%m-%d}',
+                rotation: -45,
               }
             },
             tooltip: {
