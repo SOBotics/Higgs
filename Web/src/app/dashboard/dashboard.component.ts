@@ -28,6 +28,8 @@ export class DashboardComponent implements OnInit {
   public reportsReasonsChart: Chart = null;
   public reportsFeedbackChart: Chart = null;
 
+  public charts: Chart[];
+
   public feedbacks: { id: number; name: string }[];
   public reasons: { id: number; name: string }[];
 
@@ -119,10 +121,20 @@ export class DashboardComponent implements OnInit {
   }
 
   private updateCharts() {
+    this.charts = [];
     this.updateFeedbackByUserChart();
     this.updateOverTimeChart();
     this.updateReasonsChart();
     this.updateFeedbackChart();
+  }
+
+  private updateChartArray() {
+    this.charts = [
+      this.feedbackByUserChart,
+      this.reportsOverTimeChart,
+      this.reportsReasonsChart,
+      this.feedbackByUserChart
+    ].filter(c => c !== null);
   }
 
   private updateFeedbackByUserChart() {
@@ -146,6 +158,8 @@ export class DashboardComponent implements OnInit {
             },
           })
           : null;
+
+      this.updateChartArray();
     });
   }
 
@@ -204,6 +218,7 @@ export class DashboardComponent implements OnInit {
             series: series
           })
           : null;
+      this.updateChartArray();
     });
   }
 
@@ -229,6 +244,7 @@ export class DashboardComponent implements OnInit {
             },
           })
           : null;
+      this.updateChartArray();
     });
   }
 
@@ -252,8 +268,9 @@ export class DashboardComponent implements OnInit {
             credits: {
               enabled: false
             },
-          }) 
+          })
           : null;
+      this.updateChartArray();
     });
   }
 

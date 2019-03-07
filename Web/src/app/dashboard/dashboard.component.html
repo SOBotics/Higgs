@@ -14,11 +14,16 @@
       <hr />
 
       <div class="row">
-        <div class="col-md-6" *ngIf="feedbackByUserChart" [chart]="feedbackByUserChart"></div>
-        <div class="col-md-6" *ngIf="reportsOverTimeChart" [chart]="reportsOverTimeChart"></div>
-        <div class="w-100"></div>
-        <div class="col-md-6" *ngIf="reportsReasonsChart" [chart]="reportsReasonsChart"></div>
-        <div class="col-md-6" *ngIf="reportsFeedbackChart" [chart]="reportsFeedbackChart"></div>
+        <ng-container *ngFor="let chart of charts; let i = index">
+          <div *ngIf="charts.length % 2 === 0 || i < charts.length - 1"
+            class="col-md-6"
+            [chart]="chart">
+          </div>
+          <div *ngIf="!(charts.length % 2 === 0 || i < charts.length - 1)"
+            class="col"
+            [chart]="chart">
+          </div>
+        </ng-container>
       </div>
     </div>
 
